@@ -69,8 +69,9 @@ Due to GFM, task-list can be used to track progress in different topics during d
 - [x] Code organization, comments and considerations (change to ts? NO).
 - [x] Variable names checks and others (JSPrettier).
 - [x] Add placeholder files, update package.json and add gitignore
-- [ ] Test on GitHub pages.
-- [ ] Handle footer pages. (redirect to a document on root folder when using footbar links)
+- [x] Test on GitHub pages.
+- [x] Handle footer pages. (redirect to a document on root folder when using footbar links)
+- [x] Better styling for headers/text. (Based on GitHubs markdown styling.)
 - [ ] Search system on nav bar (checks heading from tech files and present Gamename-bold + headername-italics. Redirects to game and header somehow)
 - [ ] Make so that NEWS section up to 3 files from the news folder and sorts them by date on the flex box.
 - [ ] Translate ToV documents.

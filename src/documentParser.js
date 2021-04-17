@@ -22,7 +22,9 @@ document.addEventListener(
     enableSmoothTOC();
     // Add page change events to nav-bar
     document
-      .querySelectorAll("div#nav-bar__title, img.nav-bar__tab-bar--links")
+      .querySelectorAll(
+        "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links"
+      )
       .forEach((item) => {
         addPageChangeEvent(item);
       });
@@ -215,6 +217,9 @@ function addPageChangeEvent(item) {
       if (event.currentTarget.dataset.document.includes("news")) {
         //If the event uses the news folder (document includes news string), set the section as news and update the content
         sectionText.innerHTML = "NEWS";
+        contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
+      } else if (event.currentTarget.dataset.document.includes("../")) {
+        sectionText.innerHTML = event.currentTarget.dataset.section;
         contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
       } else {
         //Event is a tech document, set the section as the game name and update the content
