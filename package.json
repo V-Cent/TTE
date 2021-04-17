@@ -6,7 +6,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "esbuild src/documentParser.js src/visualEffects.js --bundle --minify --outdir=page/scripts"
+    "build": "esbuild src/documentParser.js src/visualEffects.js --bundle --minify --outdir=docs/scripts"
   },
   "dependencies": {
     "esbuild": "^0.11.10",

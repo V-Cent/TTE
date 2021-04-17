@@ -220,7 +220,7 @@ function addPageChangeEvent(item) {
         //Event is a tech document, set the section as the game name and update the content
         sectionText.innerHTML = event.currentTarget.dataset.section;
         contentText.innerHTML = parseGFM(
-          "./docs/" + event.currentTarget.dataset.document
+          "./tech/" + event.currentTarget.dataset.document
         );
       }
     }
