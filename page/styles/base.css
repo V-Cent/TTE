@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
+
+/* CSS for base elements, headings and paragraphs. */
+
+* {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-font-smoothing: antialiased !important;
+  font-kerning: auto;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #161617;
+}
+
+hr {
+  border: none;
+  border-top: 1px double #ffffff;
+  color: #ffffff;
+  overflow: visible;
+  text-align: center;
+}
+
+h1 {
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  color: #ffffff;
+  font-weight: 300;
+  font-size: 60px;
+  letter-spacing: 0.1em;
+  text-shadow: 1px 1px 1px #ffffff;
+  opacity: 95%;
+  scroll-margin-top: 100px;
+  scroll-snap-margin-top: 100px;
+}
+
+h2 {
+  font-family: "Nunito", sans-serif;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 35px;
+  letter-spacing: 0.1em;
+  opacity: 85%;
+  scroll-margin-top: 100px;
+  scroll-snap-margin-top: 100px;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 25px;
+  opacity: 85%;
+  scroll-margin-top: 100px;
+  scroll-snap-margin-top: 100px;
+}
+
+h3 {
+  text-indent: 6ch;
+}
+
+h3::before {
+  display: inline-block;
+  content: "";
+  border: 0.375rem;
+  height: 0.75rem;
+  width: 0.75rem;
+  margin-right: 0.5rem;
+  background-color: #ffffff;
+  opacity: 85%;
+  margin-bottom: 0.2rem;
+  -moz-border-radius: 0.375rem;
+  -ms-border-radius: 0.375rem;
+  -o-border-radius: 0.375rem;
+}
+
+h4,
+h5,
+h6 {
+  text-decoration: underline;
+}
+
+p {
+  font-family: "Montserrat", sans-serif;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 18px;
+  max-width: 90ch;
+  text-indent: 2ch;
+  letter-spacing: 0.03em;
+  opacity: 75%;
+}
+
+a:link {
+  color: #ffffff;
+}
+
+a:visited {
+  color: #ffffff;
+}
+
+a:hover {
+  background: #373737;
+  filter: brightness(1.25);
+  -webkit-filter: brightness(1.25);
+}
+
+a:active {
+  color: #ffffff;
+}
