@@ -20,14 +20,31 @@ document.addEventListener(
     loadNewsSection();
     // Enable smooth scroll on hash links
     enableSmoothTOC();
+    // Fill search elements
+    fillSearch();
     // Add page change events to nav-bar
     document
       .querySelectorAll(
-        "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links"
+        "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links, a.nav-bar__search--results"
       )
       .forEach((item) => {
         addPageChangeEvent(item);
       });
+
+    // Add auto-complete and dropdown for the nav-bar search element
+    let searchElement = document.querySelector("#nav-bar__search--input");
+    searchElement.addEventListener("keyup", filterFunction);
+    // Clean the dropdown with a focusout event
+    let searchContainerElement = document.querySelector("#nav-bar__search");
+    searchContainerElement.addEventListener("focusout", (event) => {
+      if (event.relatedTarget != null) {
+        if (!(event.relatedTarget.className == "nav-bar__search--results")) {
+          clearFunction();
+        }
+      } else {
+        clearFunction();
+      }
+    });
   },
   false
 );
@@ -200,7 +217,10 @@ function addPageChangeEvent(item) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab;
-    if (event.currentTarget.dataset.document != "NEWS") {
+    if (
+      event.currentTarget.dataset.document != "NEWS" &&
+      event.currentTarget.dataset.redirect == null
+    ) {
       event.currentTarget.className += " active";
     }
 
@@ -227,9 +247,18 @@ function addPageChangeEvent(item) {
         contentText.innerHTML = parseGFM(
           "./tech/" + event.currentTarget.dataset.document
         );
+        if (event.currentTarget.dataset.redirect != null) {
+          //Event has a redirect location
+          document
+            .querySelector(event.currentTarget.dataset.redirect)
+            .scrollIntoView({
+              behavior: "smooth",
+            });
+        }
       }
     }
     //Enable smooth TOC if it exists in the loaded content
+    clearFunction();
     enableSmoothTOC();
   });
 }
@@ -246,4 +275,79 @@ function enableSmoothTOC() {
       });
     });
   });
+}
+
+// -- Function for search on the nav-bar
+function filterFunction() {
+  var input, filter, a, i;
+  // Gets the value from the user input
+  input = document.querySelector("#nav-bar__search--input");
+  filter = input.value.toUpperCase();
+  // Gets the element of the container and all current computed links
+  div = document.querySelector("#nav-bar__search");
+  a = div.getElementsByTagName("a");
+  let searchCounter = 0;
+  for (i = 0; i < a.length; i++) {
+    // For each link, test if the user input makes part of its text value (ignoring empty inputs)
+    // Hide any link that does not have any relation to the current input
+    txtValue = a[i].textContent || a[i].innerText;
+    if (
+      txtValue.toUpperCase().indexOf(filter.trim()) > -1 &&
+      !(filter.length === 0 || !filter.trim())
+    ) {
+      // Hard limit of 6 options on screen
+      if (searchCounter < 6) {
+        a[i].style.display = "block";
+      } else {
+        a[i].style.display = "none";
+      }
+      searchCounter = searchCounter + 1;
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
+
+function clearFunction() {
+  var a, i;
+  // Function to hide all computed links
+  div = document.querySelector("#nav-bar__search");
+  a = div.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    a[i].style.display = "none";
+  }
+}
+
+function fillSearch() {
+  // Get all items on the tab bar
+  var tabLinks = document.getElementsByClassName("nav-bar__tab-bar--links");
+  var i = 0;
+  let searchContents = "";
+  for (i = 0; i < tabLinks.length; i++) {
+    // Open the document related to each item
+    let currentDocument = parseGFM("./tech/" + tabLinks[i].dataset.document);
+    const parser = new DOMParser();
+
+    // Parse the result from unified (parseGFM) into usable HTML
+    const doc = parser.parseFromString(currentDocument, "text/html");
+    doc.querySelectorAll("h4").forEach((currentHeading) => {
+      searchContents = searchContents.concat('<a data-document="');
+      // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
+      searchContents = searchContents.concat(tabLinks[i].dataset.document);
+      searchContents = searchContents.concat(
+        '" class = "nav-bar__search--results" tabindex="0" data-section="'
+      );
+      searchContents = searchContents.concat(tabLinks[i].dataset.section);
+      searchContents = searchContents.concat('" data-redirect="#');
+      searchContents = searchContents.concat(currentHeading.id);
+      searchContents = searchContents.concat('"><b>');
+      searchContents = searchContents.concat(tabLinks[i].dataset.document);
+      searchContents = searchContents.concat("</b> - <i>");
+      searchContents = searchContents.concat(currentHeading.textContent);
+      searchContents = searchContents.concat("</i></a>");
+    });
+  }
+  // Insert the HTML on the search bar
+  let searchResults = document.querySelector("#nav-bar__search");
+  searchResults.insertAdjacentHTML("beforeend", searchContents);
 }

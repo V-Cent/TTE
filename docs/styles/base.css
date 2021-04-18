@@ -41,7 +41,7 @@ h1 {
   opacity: 95%;
   scroll-margin-top: 100px;
   scroll-snap-margin-top: 100px;
-  padding-bottom: .1em;
+  padding-bottom: 0.1em;
   border-bottom: 1px solid #373737;
 }
 
@@ -54,7 +54,7 @@ h2 {
   opacity: 85%;
   scroll-margin-top: 100px;
   scroll-snap-margin-top: 100px;
-  padding-bottom: .1em;
+  padding-bottom: 0.1em;
   border-bottom: 1px solid #373737;
 }
 
