@@ -280,9 +280,10 @@ function enableSmoothTOC() {
 // -- Function for search on the nav-bar
 function filterFunction() {
   var input, filter, a, i;
-  // Gets the value from the user input
+  // Gets the value from the user input, set each word into an array
   input = document.querySelector("#nav-bar__search--input");
-  filter = input.value.toUpperCase();
+  filter = input.value.toUpperCase().trim();
+  filterArray = filter.split(" ");
   // Gets the element of the container and all current computed links
   div = document.querySelector("#nav-bar__search");
   a = div.getElementsByTagName("a");
@@ -291,10 +292,19 @@ function filterFunction() {
     // For each link, test if the user input makes part of its text value (ignoring empty inputs)
     // Hide any link that does not have any relation to the current input
     txtValue = a[i].textContent || a[i].innerText;
-    if (
-      txtValue.toUpperCase().indexOf(filter.trim()) > -1 &&
-      !(filter.length === 0 || !filter.trim())
-    ) {
+    let compareTxtValue = txtValue.toUpperCase();
+    let containFlag = true;
+    for (const stringFilter of filterArray.values()) {
+      if (
+        !(
+          compareTxtValue.includes(stringFilter) &&
+          !(filter.length === 0)
+        )
+      ) {
+        containFlag = false;
+      }
+    }
+    if (containFlag) {
       // Hard limit of 6 options on screen
       if (searchCounter < 6) {
         a[i].style.display = "block";

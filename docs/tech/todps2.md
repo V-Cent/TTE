@@ -17,7 +17,7 @@ Special thanks to https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-d
 
 ### Stats
 
-Each character 8 stats seperated into two different categories:
+Each character 8 stats separated into two different categories:
 
 Main Stats:
 
@@ -92,7 +92,7 @@ Ex: Grave (100%) -> Grave(100%) -> Grave(100%) -> Stone Wall (40%)
 
 ### Extra Information
 
-**Air Recovery**: If the enemy knocks you up into the air, press square just as you touch the ground. Requires your fall duration to be a certain time (needs to be atleast the last fall stagger animation of Leon). Thus, only works for attacks high up in the air. Attacks with hard knockdown also are unable to be recovered (your character will lay down again before getting up).
+**Air Recovery**: If the enemy knocks you up into the air, press square just as you touch the ground. Requires your fall duration to be a certain time (needs to be at least the last fall stagger animation of Leon). Thus, only works for attacks high up in the air. Attacks with hard knockdown also are unable to be recovered (your character will lay down again before getting up).
 
 **Charge**: Press Square + Down to Charge. When Charging, the character will decrease enemy Spell Damage by 75% (also not stagger to spells), increases Accuracy and the next attack will break the enemy's guard. Consumes 2 CC Points per use.
 
@@ -125,9 +125,9 @@ E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan
 
 **Text Skip**: Hold X and Square to skip all current text. Works better than mashing.
 
-**Collector's Book Bonus**: Maxxed Collectors book gives you 15 of every item after beating the final boss. (test on Leon's side?) [TODO]
+**Collector's Book Bonus**: Maxed Collectors book gives you 15 of every item after beating the final boss. (test on Leon's side?) [TODO]
 
-**Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells/ground dash) you can only dash again after a back step or after touching the ground without doing any moves. That is why "wavedashing" (jumping then dashing to the ground) is better for neutral game.
+**Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells/ground dash) you can only dash again after a back step or after touching the ground without doing any moves. That is why "wavedashing" (jumping then dashing to the ground) can be a good options for the neutral game.
 
 **Dash Direction**: To dash to an enemy, always do the input to the direction your character is facing. Including when you mix-up an enemy during a jump or chain.
 
@@ -144,10 +144,6 @@ In this section, we have a group of glitches and a small description on how to r
 #### Skip Cave Queen
 
 By walking on the side of a ledge on the screen that the Cave Queen boss battle starts, you can skip it and get to Moreau town faster. You can buy some items there and talk to NPCs, but you still need to beat Cave Queen to continue the story. (reference: https://www.youtube.com/watch?v=kzvcOjRu81o)
-
-#### Back to Oberon
-
-You can take a boat back to Oberon Factory after it is destroyed. Some camera angles glitch out (you can go to the screen that the Leon fight happens).
 
 ### Exploits
 
@@ -169,7 +165,8 @@ If you do the input of a back-dash or aiming-dash but cast an arte at the same t
 
 When using a non air-enabled arte in the air, a normal attack comes out. Currently has no extra effects. The only strange thing is that you can attack cancel (Section 3) this attack, causing you to spend 2 CC for 1 normal attack.
 
-#### Definite Strike Lock [TODO]
+#### Definite Strike Lock
+[TODO]
 
 If you're during a definite strike chain and stun/sleep/stone an enemy that floats/flies without making it drop to the ground, the enemy will not be able to recover from the hit and will stay floating in the air.
 
@@ -189,9 +186,11 @@ If you quickly cancel a long spell 4 times, all spells will lock (they will not 
 
 1. The max number of big spells in the field is 4.
 2. The casting time when you cancel a spell still ticks down in memory.
-   It is not possible to abuse 2. currently. However, since you can stack 4 spells without them coming out a flag is activated that stop any more spells. Since no spells are ending (and thus clearing the flag), no more spells come out for the rest of the fight!
 
-#### Stop Flow Glitch (Vanilla only)
+It is not possible to abuse 2. currently. However, since you can stack 4 spells without them coming out a flag is activated that stop any more spells. Since no spells are ending (and thus clearing the flag), no more spells come out for the rest of the fight!
+
+#### Stop Flow Glitch
+[Vanilla only]
 
 Cast Stop Flow 128 times to use spells with no casting time. Each Stop Flow increments the total casting time for spells by a little bit, until an overflow happens (@128). You can also only cast Stop Flow then cancel it to have the same effect (no need to fully cast the spell).
 
@@ -213,11 +212,12 @@ Based on Arena Edges, the ceiling has an interesting effect. When in the air, re
 
 #### Slow Falling
 
-After an arte/jump that puts you in the air, hold up/do an attack just as the momentum is changing from upwards(momentum higher than 0) to downards(momentum lower than zero) (you want momentum=0), you will then fall in slow motion, works bests after some artes.
+After an arte/jump that puts you in the air, hold up/do an attack just as the momentum is changing from upwards (momentum higher than 0) to downwards (momentum lower than zero) (you want momentum=0), you will then fall in slow motion, works bests after some artes.
 
-#### Spell Cancel Landing/Recovery [TODO]
+#### Spell Cancel Landing/Recovery
+[TODO]
 
-Fastest landing cancel is 25 frames, and cc recovery is 1 every 4 frames. Normal (Straight fall) landing is 42 frames. With horizontal momentum it barely saves time. You can also use it to recover faster from a spell recovery-frames (so, after realeasing a spell, cast another and imediatelly cancel) (Needs checking).
+Fastest landing cancel is 25 frames, and cc recovery is 1 every 4 frames. Normal (Straight fall) landing is 42 frames. With horizontal momentum it barely saves time. You can also use it to recover faster from a spell recovery-frames (so, after releasing a spell, cast another and immediately cancel) (Needs checking).
 
 #### Bait Reset
 
@@ -235,31 +235,40 @@ So, when an enemy attack requires melee distance to perform, you can aiming dash
 
 By rapidly casting and cancelling base spells (like fireball), you can quickly increase your minimum CC all the way to your maximum CC.
 
-#### CC Recovery Glitch (Vanilla only)
+#### CC Recovery Glitch
+(Vanilla only)
 
 After doing any action, mash block. This must be done just as the Chain ends or the recovery time of your action ends. This will cause your CC to rise much more than it was supposed to, possibly even to max. Only works on Manual Mode. (reference: https://www.youtube.com/watch?v=IlQw_DRxGj0)
 
-#### Air Recovery Glitch [LEONONLY] [TODO]
+#### Air Recovery Glitch
+[LEONONLY] [TODO]
 
-Somehow, air recovery glitched diagonal up arte; upon air recovery, continue it with backdash, aiming dash or jiaanshii and then do the arte, not sure if you have to do the reversed aiming dash position for it to work(on videos, the one with the mummies).
+Somehow, air recovery glitched diagonal up arte; upon air recovery, continue it with backdash, aiming dash or Phantom Edge and then do the arte, not sure if you have to do the reversed aiming dash position for it to work(on videos, the one with the mummies).
 
-#### Swallow Tallon Glitch [LEONONLY]
+#### Swallow Tallon Glitch
+[LEONONLY]
 
-Diagonal up arte has another interesting effect, mid-way cancelling it with an jump usually makes you go up and a little bit forward but if you manage to do a jump, isntead of going a little bit back you will go a lot and fast; really hard trick. If you do an attack instead, you get a small momentum upward.
+Diagonal up arte has another interesting effect, mid-way cancelling it with an jump usually makes you go up and a little bit forward but if you manage to do a jump, instead of going a little bit back you will go a lot and fast; really hard trick. If you do an attack instead, you get a small momentum upward.
 
 ### Gliding
 
+#### Gliding Basics
+
 First normal attack of a chain has so much hidden proprieties: first off, it carries momentum. So it enables Gliding and other combos. However, if you used it already, it gets floaty.
 
-So, how does one use this bahavior to do Glides? You can simply do an aiming dash in the air (after a jump, double jump, arte or jumps into arte) into a normal attack (all artes not tested) to maintain the momentum of the aiming dash. Theres one exception: If an enemy is higher than you you can always Glide, but you can only Glide from above one time (and as said before, you lose this above Glide if you use an normal attack). The velocity and angle depend on the distance (and angle) you have with your enemy. To do this straight from the ground, the fastest way you can get an air aiming dash is to use your left stick and do an Up-Away to Forward motion, passing through the neutral of the stick.
+So, how does one use this behavior to do Glides? You can simply do an aiming dash in the air (after a jump, double jump, arte or jumps into arte) into a normal attack (all artes not tested) to maintain the momentum of the aiming dash. Theres one exception: If an enemy is higher than you you can always Glide, but you can only Glide from above one time (and as said before, you lose this above Glide if you use an normal attack). The velocity and angle depend on the distance (and angle) you have with your enemy. To do this straight from the ground, the fastest way you can get an air aiming dash is to use your left stick and do an Up-Away to Forward motion, passing through the neutral of the stick.
 
-### Attack/Neutral Cancel [TODO]
+### Attack/Neutral Cancel
+[TODO]
+
+### Attack Cancel Basics
 
 Attack Cancel (A.C.): By pressing artes + attack button on the same frame you can get interesting effects. Blast penalty doesn't happen since the games thinks you're also doing a normal attack. Doing it twice can start an Neutral Cancel, which can glitch some artes. You can also start a Neutral Cancel by doing a normal attack followed by an Attack Cancel. You will lose the Neutral Cancel effect after doing an arte, attack, A.C. arte or ending the chain. (List [TODO]; theres also a .txt with just this info.) (sometimes doesn't work?)
 
-#### Follow-up Negation (new name needed)
+#### Follow-up Negation
+(new name needed)
 
-A.C can be used to ignore follow-up artes or other mechanics that require 2 moves to be used in sucession. For example, Leon can use Demon Fang twice in a row if the second one is A.C.'ed.
+A.C can be used to ignore follow-up artes or other mechanics that require 2 moves to be used in succession. For example, Leon can use Demon Fang twice in a row if the second one is A.C.'ed.
 
 #### Magic Landing Dash
 
@@ -269,7 +278,8 @@ When landing, if you do a Attack Cancelled Spell, you will get a small momentum 
 
 When casting an Attack Cancelled Spell, there will be no restriction on casting time when doing the same spell. This cost +1 CC. Thus you can do A.C Grave (100%) -> A.C Grave(80%) -> A.C Grave(60%)
 
-#### Phantom Edge Glich [LEONONLY]
+#### Phantom Edge Glich
+[LEONONLY]
 
 Neutral Cancel an Phantom Edge for it to be short instead of long (distance); only happens for the ground version.
 
@@ -281,7 +291,7 @@ By doing an arte and dropping the combo you get an additional 20 frames of stagg
 
 #### Combo Assist
 
-Like other games, doing an attack while the enemy is still staggered (in Destiny DC you need atleast to do atleast 1 frame after the previous attack hits, so sometimes you may need to delay your attacks) increses the stagger by a little bit to help chain things better. The values are:
+Like other games, doing an attack while the enemy is still staggered (in Destiny DC you need at least to do at least 1 frame after the previous attack hits, so sometimes you may need to delay your attacks) increses the stagger by a little bit to help chain things better. The values are:
 
 - Normal Attacks : +12 frames of stagger.
 - Most Artes: +14 frames of stagger.
@@ -291,18 +301,21 @@ Like other games, doing an attack while the enemy is still staggered (in Destiny
 
 The window that you can increase the stagger of the previous attack is about 25 frames.
 
-#### Arte Stagger Change [TODO]
+#### Arte Stagger Change
+[TODO]
 
-Doing an attack before the projectile of a previous arte still has not reached the enemy can decreses a bit of stagger, or even changes it.
+Doing an attack before the projectile of a previous arte still has not reached the enemy can decrease a bit of stagger, or even changes it.
 
-### Semi-auto Techniques [TODO]
+### Semi-auto Techniques
+[TODO]
 
 (does it effect casting time?) (AUTO does not seem to work... seems to be a different mechanic -- the so called reserve arte/item. Test that out mid-combo?)
 
 (These require semi-auto to be active)
 
-Semi-auto on Destiny shows most effect in grounded combat, since air actions do not initiate any unique mechanics. When grounded, doing an arte/normal (suficiantly away from the enemy, depending on the arte/normal) will start a forced neutral animation followed by a semi-auto run animation. This forced neutral animation lasts the longer when running away from the enemy (~15 frames) and can be extended by using an aiming dash or charge. The arte used to cause the neutral animation is called the _SB buffered action_ (see below for more information). If you use an a non-shortcut arte during the animation, that arte will become the buffered action instead.
-The SB buffered action persists between ground dashes but dissapears whenever the forced neutral animation is cancelled or if another attack/arte is pressed (no need for the attack to come out, just the buttom press causes it) before its execution. Jumping causes the SB buffered action to be performed, if it is air-enabled.
+Semi-auto on Destiny shows most effect in grounded combat, since air actions do not initiate any unique mechanics. When grounded, doing an arte/normal (sufficiently away from the enemy, depending on the arte/normal) will start a forced neutral animation followed by a semi-auto run animation. This forced neutral animation lasts the longer when running away from the enemy (~15 frames) and can be extended by using an aiming dash or charge. The arte used to cause the neutral animation is called the _SB buffered action_ (see below for more information). If you use an a non-shortcut arte during the animation, that arte will become the buffered action instead.
+
+The SB buffered action persists between ground dashes but disappears whenever the forced neutral animation is cancelled or if another attack/arte is pressed (no need for the attack to come out, just the button press causes it) before its execution. Jumping causes the SB buffered action to be performed, if it is air-enabled.
 Most of the following techniques require the player character to be in the forced neutral animation to function. You cannot be in any chain for the semi-auto run to start.
 
 #### Spell auto re-cast
@@ -316,7 +329,7 @@ By initiating a forced neutral animation with a neutral attack, you can backstep
 #### Spatial-buffer cancelling (SB Cancelling)
 
 Doing any arte or spell during the forced neutral animation will make so that it come out on the spot, without the semi-auto run. If, during the arte, the distance between player/enemy decreases so that the SB buffered action would be executed normally (i.e. after the semi-auto run), the current arte execution will be stopped and the buffered action will start (thus cancelling the previous arte animation).
-If during the arte you used to cancel the animation your characters goes airborne, and the SB buffered actio is air-enabled, said action will occur the moment the user leaves the ground. Some artes may not enable the player to follow the action with artes (usually those that still need to created hitboxes or entities), but if the SB buffered action is a normal attack, it will always be cancelled (thus you can use the normal as a link to other action). After leaving the ground the SB buffered action is consumed wheather the arte is cancelled or not, thus no more spatial effects will occur (if you get close to the enemy after touching the ground).
+If during the arte you used to cancel the animation your characters goes airborne, and the SB buffered action is air-enabled, said action will occur the moment the user leaves the ground. Some artes may not enable the player to follow the action with artes (usually those that still need to created hitboxes or entities), but if the SB buffered action is a normal attack, it will always be cancelled (thus you can use the normal as a link to other action). After leaving the ground the SB buffered action is consumed whether the arte is cancelled or not, thus no more spatial effects will occur (if you get close to the enemy after touching the ground).
 Some artes may not seem to leave the ground, but even the smallest jump in height results in a normal (ex: Kong's Dragon Swarm.)
 
 #### Attack Cancel + SB
@@ -329,4 +342,4 @@ SB cancelling spells (i. e. using shortcut spells with an SB action buffered) ca
 
 #### SB buffer storage
 
-By changing to Manual after causing the forced neutral animation, the SB buffered action will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the SB buffered action will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specefic position and then change to semi-auto, automatically cancelling your action due to the spatial properties of the cancel. The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells! Even the recovery of some BC's can be cancelled. This cannot be used to bypass the air limitations of the battle arena.
+By changing to Manual after causing the forced neutral animation, the SB buffered action will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the SB buffered action will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specific position and then change to semi-auto, automatically cancelling your action due to the spatial properties of the cancel. The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells! Even the recovery of some BC's can be cancelled. This cannot be used to bypass the air limitations of the battle arena.
