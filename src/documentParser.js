@@ -195,7 +195,6 @@ function compileTags() {
         //If no, display an icon that can create the video once clicked.
         let mediaTag = document.createElement("span");
         mediaTag.dataset.media = tagData.media;
-        console.log("Hello");
         mediaTag.className = "material-icons md-light md-36";
         mediaTag.style.marginRight = "15px";
         mediaTag.style.cursor = "pointer";

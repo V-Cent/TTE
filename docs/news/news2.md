@@ -1,4 +1,4 @@
-:::newsheader{data-tags="{'media' : 'https://s1.zerochan.net/Tales.of.Destiny.600.850159.jpg', 'dateDay' : 15, 'dateMonth' : 'APR', 'description' : 'The section for Tales of Destiny PS2 is currently under construction!'}"}
+:::newsheader{data-tags="{'media' : 'news/todnews.webp', 'dateDay' : 15, 'dateMonth' : 'APR', 'description' : 'The section for Tales of Destiny PS2 is currently under construction!'}"}
 # Tales of Destiny Updates
 :::
 
