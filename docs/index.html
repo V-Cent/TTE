@@ -11,13 +11,6 @@
     <link href="./styles/navbar.css" rel="stylesheet" type="text/css" />
     <link href="./styles/scroll.css" rel="stylesheet" type="text/css" />
 
-    
-
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
-
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
@@ -34,6 +27,7 @@
   </head>
   <body>
     <div id="nav-bar">
+      <!-- Homepage Icon -->
       <div id="nav-bar__title" data-document="NEWS">
         <img
           src="media/TTE2.png"
@@ -49,6 +43,7 @@
         <span class="nav-bar__helper"></span>
       </div>
 
+      <!-- Search bar -->
       <div id="nav-bar__search">
         <span class="material-icons md-light md-36" id="nav-bar__search--icon">
           search
@@ -60,6 +55,7 @@
         />
       </div>
 
+      <!-- Tab bar -->
       <div id="nav-bar__tab-bar--transparency">
         <div id="nav-bar__tab-bar">
           <img
@@ -91,6 +87,7 @@
       <span class="nav-bar__helper"></span>
     </div>
 
+    <!-- Section name, sticky -->
     <div id="section-container">
       <hr />
       <ul>
@@ -98,8 +95,10 @@
       </ul>
     </div>
 
+    <!-- Content will be injected here -->
     <div id="content"></div>
 
+    <!-- Footer with helpful links -->
     <div id="footer-container">
       <hr />
       <img
@@ -110,21 +109,21 @@
       <div id="footer-container__help">
         <p
           class="footer-container__help--links"
-          data-document="../README"
+          data-document="./README"
           data-section="README"
         >
           README
         </p>
         <p
           class="footer-container__help--links"
-          data-document="../STYLING"
+          data-document="./STYLING"
           data-section="Document Styling"
         >
           Document Styling
         </p>
         <p
           class="footer-container__help--links"
-          data-document="../CONTRIBUTING"
+          data-document="./CONTRIBUTING"
           data-section="How to contribute"
         >
           How to contribute
@@ -133,7 +132,7 @@
       <span class="nav-bar__helper"></span>
     </div>
 
-    <!-- Button on fixed on bottom right corner of the page -->
+    <!-- Scroll up button fix on bottom right corner of the page -->
     <button id="scroll__button--to-top">
       <span class="material-icons md-light md-36"> arrow_circle_up </span>
     </button>

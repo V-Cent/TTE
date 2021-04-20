@@ -346,7 +346,7 @@ function addPageChangeEvent(item) {
         //If the event uses the news folder (document includes news string), set the section as news and update the content
         sectionText.innerHTML = "NEWS";
         contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
-      } else if (event.currentTarget.dataset.document.includes("../")) {
+      } else if (event.currentTarget.dataset.document.includes("./")) {
         sectionText.innerHTML = event.currentTarget.dataset.section;
         contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
       } else {

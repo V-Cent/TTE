@@ -81,7 +81,7 @@ Due to GFM, task-lists can be used to track progress in different topics during 
 - [x] Make media on some techs.
 - [x] Research proper media format for videos. Convert recorded videos to format. (MP4, 1000kbps, no audio, 30 fps, 480p, videos no more than 30s)
 - [x] Add icons to tagged elements to represent each information. Forced video means inside the div, non-forced on hover like the other icons. All icons are images that present something on hover.
-- [ ] Format and comment HTML and css files.
+- [x] Format and comment HTML and css files.
 - [ ] https://developers.google.com/speed/pagespeed/insights/ Test and try to fix. Maybe offloading fonts? Images seem like a big problem.
 - [ ] Keep an object with parsed md pages to improve runtime.
 - [ ] Properly tag and test every header. (includes recording new media)
