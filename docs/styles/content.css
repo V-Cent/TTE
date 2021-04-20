@@ -87,3 +87,17 @@
   font-size: 16px;
   opacity: 100% !important;
 }
+
+.tagging {
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.tagging::before, .container::after {
+  content: '';
+  width: 100%;
+  order: 1;
+}

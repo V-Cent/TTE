@@ -71,7 +71,7 @@ function rotateLogo(event) {
 }
 
 // --- Functions related to tooltips
-function loadTooltip(evt, tooltip) {
+export function loadTooltip(evt, tooltip) {
   //Create tooltip element
   let base = document.createElement("tooltip");
   base.id = "nav-bar__tooltip";
@@ -85,15 +85,17 @@ function loadTooltip(evt, tooltip) {
       document.getElementsByTagName("tooltip")[0].remove();
     }
     //Set tooltip location and add it to the page
-    base.style.top = event.pageY + 20 + "px";
-    base.style.left = event.pageX + 20 + "px";
+    base.style.top = event.clientY + 20 + "px";
+    base.style.left = event.clientX + 20 + "px";
     document.body.appendChild(base);
   }
 }
 
-function unloadTooltip(evt) {
+export function unloadTooltip(evt) {
   //Remove existing tooltip
-  document.getElementsByTagName("tooltip")[0].remove();
+  if (document.getElementsByTagName("tooltip")[0]) {
+    document.getElementsByTagName("tooltip")[0].remove();
+  }
 }
 
 // --- Functions related to the scroll

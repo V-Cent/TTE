@@ -11,6 +11,7 @@ import emoji from "remark-emoji";
 import directive from "remark-directive";
 import visit from "unist-util-visit";
 import h from "hastscript";
+import { loadTooltip, unloadTooltip } from "./visualEffects.js";
 
 //Actions taken on DOM Load
 document.addEventListener(
@@ -45,6 +46,8 @@ document.addEventListener(
         clearFunction();
       }
     });
+
+    compileTags();
   },
   false
 );
@@ -119,6 +122,110 @@ function htmlDirectives() {
     hast.properties = Object.assign({ class: hast.tagName }, hast.properties);
     data.hProperties = hast.properties;
   }
+}
+
+// --- Function related to tagging behaviour
+function compileTags() {
+  const parser = new DOMParser();
+  //Iterator over every element that needs tagging
+  document.querySelectorAll(".tagging").forEach((taggedElement) => {
+    //Get tags from the first child (first heading), which are saved as JSON
+    let tagTextData = taggedElement.dataset.tags;
+    let tagData = JSON.parse(tagTextData.replace(/'/g, '"'));
+
+    if (tagData.todo) {
+      //If it has a todo tag, add an icon with a tooltip.
+      let todoTag = document.createElement("span");
+      todoTag.className = "material-icons md-light md-36";
+      todoTag.style.color = "goldenrod";
+      todoTag.style.marginRight = "15px";
+      todoTag.style.cursor = "help";
+      todoTag.textContent = "error_outline";
+      taggedElement.appendChild(todoTag);
+      todoTag.addEventListener("mouseover", () => {
+        loadTooltip(
+          todoTag,
+          "This section needs work, is not confirmed or needs testing."
+        );
+      });
+      todoTag.addEventListener("mouseleave", () => {
+        unloadTooltip(todoTag);
+      });
+    }
+
+    if (tagData.versions) {
+      //If it has a version tag, add an icon with a tooltip which contains the value of the tag.
+      let versionText = "Versions: ";
+      versionText = versionText.concat(tagData.versions);
+      versionText = versionText.concat(".");
+      let versionTag = document.createElement("span");
+      versionTag.className = "material-icons md-light md-36";
+      versionTag.style.marginRight = "15px";
+      versionTag.style.cursor = "help";
+      versionTag.textContent = "devices";
+      taggedElement.appendChild(versionTag);
+      versionTag.addEventListener("mouseover", () => {
+        loadTooltip(versionTag, versionText);
+      });
+      versionTag.addEventListener("mouseleave", () => {
+        unloadTooltip(versionTag);
+      });
+    }
+
+    if (tagData.media) {
+      //If it has a media tag, check if it is forced on the page or not.
+      if (tagData.forcedvideo) {
+        //If yes, add it just below the paragraph/heading.
+        let mediaTag = document.createElement("video");
+        mediaTag.width = "640";
+        mediaTag.height = "480";
+        mediaTag.preload = "metadata";
+        mediaTag.style.order = 2;
+        mediaTag.style.width = "100%";
+        mediaTag.style.outline = "none";
+        mediaTag.controls = true;
+        mediaTag.muted = true;
+        mediaTag.loop = true;
+        let sourceVideo = document.createElement("source");
+        sourceVideo.src = tagData.media;
+        sourceVideo.type = "video/mp4";
+        mediaTag.appendChild(sourceVideo);
+        taggedElement.appendChild(mediaTag);
+      } else {
+        //If no, display an icon that can create the video once clicked.
+        let mediaTag = document.createElement("span");
+        mediaTag.dataset.media = tagData.media;
+        console.log("Hello");
+        mediaTag.className = "material-icons md-light md-36";
+        mediaTag.style.marginRight = "15px";
+        mediaTag.style.cursor = "pointer";
+        mediaTag.textContent = "play_circle_outline";
+        taggedElement.appendChild(mediaTag);
+        mediaTag.addEventListener("click", (mediaIcon) => {
+          let videoSibling = mediaIcon.target.nextSibling;
+          if (videoSibling == null) {
+            let hiddenMedia = document.createElement("video");
+            hiddenMedia.width = "640";
+            hiddenMedia.height = "480";
+            hiddenMedia.preload = "metadata";
+            hiddenMedia.style.order = 2;
+            hiddenMedia.style.width = "100%";
+            hiddenMedia.style.outline = "none";
+            hiddenMedia.controls = true;
+            hiddenMedia.muted = true;
+            hiddenMedia.loop = true;
+            let sourceVideo = document.createElement("source");
+            sourceVideo.src = mediaIcon.target.dataset.media;
+            sourceVideo.type = "video/mp4";
+            hiddenMedia.appendChild(sourceVideo);
+            mediaIcon.target.parentNode.appendChild(hiddenMedia);
+          } else {
+            videoSibling.remove();
+          }
+        });
+      }
+    }
+  });
 }
 
 // --- Functions related to the NEWS section
@@ -196,6 +303,7 @@ function loadNewsSection() {
     addPageChangeEvent(item);
   });
   enableSmoothTOC();
+  compileTags();
 }
 
 // --- Function for click events on the nav-bar
@@ -260,6 +368,7 @@ function addPageChangeEvent(item) {
     //Enable smooth TOC if it exists in the loaded content
     clearFunction();
     enableSmoothTOC();
+    compileTags();
   });
 }
 
@@ -295,12 +404,7 @@ function filterFunction() {
     let compareTxtValue = txtValue.toUpperCase();
     let containFlag = true;
     for (const stringFilter of filterArray.values()) {
-      if (
-        !(
-          compareTxtValue.includes(stringFilter) &&
-          !(filter.length === 0)
-        )
-      ) {
+      if (!(compareTxtValue.includes(stringFilter) && !(filter.length === 0))) {
         containFlag = false;
       }
     }

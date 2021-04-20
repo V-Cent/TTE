@@ -6,8 +6,8 @@
 
 TTE is fueled by the Unified toolchain to parse tech documents and news into the website. It supports GFM (Github Flavored Markdown) and multiple others functionalities such as emojis (:joy:), math and custom directives (from commonmark) for media and tag handling.
 
-:::tagging{data-tags="{'media' : 'URL HERE', 'forced' : true, 'versions' : ['All versions of TTE!'], 'timestamp' : 'time', 'todo' : true}"}
-In the future, special icons will appear just below this paragraph! To use this special tagging, just follow examples for now.
+:::tagging{data-tags="{'versions' : ['All versions of TTE!'], 'todo' : true}"}
+In the future, special icons will appear on this paragraph! To use this special tagging, just follow examples for now.
 :::
 
 Project started 12th of April.
@@ -77,23 +77,24 @@ Due to GFM, task-lists can be used to track progress in different topics during 
 - [x] Research on news file handling. Will have to stay the same due to CORS errors.
 - [x] Translate ToV documents.
 - [x] Include basic battle explanations and better format ToV document.
-- [ ] Make so that search filters things based on words. So for example, one can search TOV Cancel and all matches that have both words will come out (no need for strict word search)
-- [ ] Make media on some techs.
-- [ ] Research proper media format for videos. Convert recorded videos to format.
-- [ ] Add icons to tagged elements to represent each information. Forced video means inside the div, non-forced on hover like the other icons. All icons are images that present something on hover (only forced video is special. Look at material design for icons?)
-- [ ] Format and comment HTML and css files. **End here 19**
+- [x] Make so that search filters things based on words. So for example, one can search TOV Cancel and all matches that have both words will come out (no need for strict word search)
+- [x] Make media on some techs.
+- [x] Research proper media format for videos. Convert recorded videos to format. (MP4, 1000kbps, no audio, 30 fps, 480p, videos no more than 30s)
+- [x] Add icons to tagged elements to represent each information. Forced video means inside the div, non-forced on hover like the other icons. All icons are images that present something on hover.
+- [ ] Format and comment HTML and css files.
 - [ ] https://developers.google.com/speed/pagespeed/insights/ Test and try to fix. Maybe offloading fonts? Images seem like a big problem.
 - [ ] Keep an object with parsed md pages to improve runtime.
 - [ ] Properly tag and test every header. (includes recording new media)
 - [ ] Javascript handling of checkboxes.
-- [ ] Proper code formating with Highligh.js (how to use it every time the page updates? require error when I use it in the documentParser)
+- [ ] Proper code formatting with Highligh.js (how to use it every time the page updates? require error when I use it in the documentParser)
 - [ ] Change nav-bar depending on viewport size (so things don't clip into each other). Make so that a drop down list comes on the side? Or just the search? (<-- probably better)
 - [ ] In case of just using the search for nav-bar, make sure there is a base page reference there (so ToV, TODPS2, TOL...)
 - [ ] (!) XML request async.
 - [ ] (!) Cards resize only on one axis (instead of keeping aspect-ratio) when resizing window (x or y).
 - [ ] Remake news1 page. (Whats is TTE about? --> Documentation of useful techniques for both battle and exploration, while also giving a explanation of the battle system of each game) (glitches/techs that are not useful -- such as softlocks and freezes -- can be kept in github issues in case they can be exploited for good effects in the future) (glitches/mechanics that appear during combat, even if negatively, should also be documented in the pages)
 - [ ] Remake ToV and ToDPS2 pages. Fix typographical errors.
-- [ ] Test other OSs and browsers. **End here 20**
+- [ ] Code review (code flow, function sizes, comments, important segments...)
+- [ ] Test other OSs and browsers.
 - [ ] ... (period to gather feedback)
 - [ ] README.
 - [ ] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)

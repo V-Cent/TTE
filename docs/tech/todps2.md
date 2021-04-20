@@ -189,8 +189,9 @@ If you quickly cancel a long spell 4 times, all spells will lock (they will not 
 
 It is not possible to abuse 2. currently. However, since you can stack 4 spells without them coming out a flag is activated that stop any more spells. Since no spells are ending (and thus clearing the flag), no more spells come out for the rest of the fight!
 
+:::tagging{data-tags="{'versions' : 'Vanilla', 'todo' : true}"}
 #### Stop Flow Glitch
-[Vanilla only]
+:::
 
 Cast Stop Flow 128 times to use spells with no casting time. Each Stop Flow increments the total casting time for spells by a little bit, until an overflow happens (@128). You can also only cast Stop Flow then cancel it to have the same effect (no need to fully cast the spell).
 
@@ -322,7 +323,9 @@ Most of the following techniques require the player character to be in the force
 
 If you use a spell without the neutral animation and try to cancel it, it will automatically be re-casted. This only works for non-shortcut set spells (this is because the same spell is both the buffered and the expected action -- constantly.) They will not start a forced neutral animation. This can be abused to instantly lock large-scale artes.
 
+:::tagging{data-tags="{'media' : 'media/sbShortHop.mp4'}"}
 #### Short-hop neutrals
+:::
 
 By initiating a forced neutral animation with a neutral attack, you can backstep during the animation to automatically do the buffered neutral when on the air (due to the backstep animation). This can also be done after short-cut artes, since they do not overwrite the SB buffered action.
 
@@ -340,6 +343,8 @@ If the arte you use during the forced neutral animation is A. C.'d or if the SB 
 
 SB cancelling spells (i. e. using shortcut spells with an SB action buffered) can be a good option select since it can make an arte come out before the spell has finished casting, making so that you don't get punished in situations you normally would be. It can also be used to completely negate the spell release frames, regaining control faster. Finally, if the spell ends in the air and if the SB buffered action is air-enabled, the moment your character leaves the ground the animation will be cancelled and the air action will come out. For example, Leon can use Dragon Swarm just after the jump from Demon Lance, making the lance follow Leon while Dragon Swarm is in effect.
 
+:::tagging{data-tags="{'media' : 'media/sbBuffer.mp4', 'forcedvideo' : true}"}
 #### SB buffer storage
+:::
 
 By changing to Manual after causing the forced neutral animation, the SB buffered action will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the SB buffered action will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specific position and then change to semi-auto, automatically cancelling your action due to the spatial properties of the cancel. The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells! Even the recovery of some BC's can be cancelled. This cannot be used to bypass the air limitations of the battle arena.
