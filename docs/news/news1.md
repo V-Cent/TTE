@@ -83,22 +83,28 @@ Due to GFM, task-lists can be used to track progress in different topics during 
 - [x] Add icons to tagged elements to represent each information. Forced video means inside the div, non-forced on hover like the other icons. All icons are images that present something on hover.
 - [x] Format and comment HTML and css files.
 - [x] https://developers.google.com/speed/pagespeed/insights/ Test and try to fix. Maybe offloading fonts? Images seem like a big problem.
-- [ ] Keep an object with parsed md pages to improve runtime. (Maybe it is already cached?)
-- [ ] Properly tag and test every header. (includes recording new media)
-- [ ] Javascript handling of checkboxes.
-- [ ] Proper code formatting with Highligh.js (how to use it every time the page updates? require error when I use it in the documentParser)
+- [x] Properly tag and test every header. ToDPS2. Review Page.
+- [x] Javascript handling of checkboxes.
+- [x] Proper code formatting with Highlight.js
+- [x] Separate game media on folders (ex: media/tod/gliding.mp4)
+- [x] Function for global updates every time a new markdown page is loaded.
+- [ ] Properly tag and test every header. ToV. Review Page.
 - [ ] Change nav-bar depending on viewport size (so things don't clip into each other). Make so that a drop down list comes on the side? Or just the search? (<-- probably better)
 - [ ] In case of just using the search for nav-bar, make sure there is a base page reference there (so ToV, TODPS2, TOL...)
 - [ ] (!) XML request async.
 - [ ] (!) Cards resize only on one axis (instead of keeping aspect-ratio) when resizing window (x or y).
+- [ ] Update Copyright notice. (Floating left beneath the horizontal logo. Styling like the section heading?)
+- [ ] Styling guide document
 - [ ] Remake news1 page. (Whats is TTE about? --> Documentation of useful techniques for both battle and exploration, while also giving a explanation of the battle system of each game) (glitches/techs that are not useful -- such as softlocks and freezes -- can be kept in github issues in case they can be exploited for good effects in the future) (glitches/mechanics that appear during combat, even if negatively, should also be documented in the pages)
-- [ ] Remake ToV and ToDPS2 pages. Fix typographical errors.
 - [ ] Code review (code flow, function sizes, comments, important segments...)
 - [ ] Test other OSs and browsers.
 - [ ] ... (period to gather feedback)
 - [ ] README.
 - [ ] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)
 - [ ] Styling guide.
+- [ ] Where to store media?
+- [ ] https://developers.google.com/speed/pagespeed/insights/ Part2
+- [ ] Keep an object with parsed md pages to improve runtime.
 - [ ] ... (period of release)
 - [ ] Mobile port
 - [ ] White theme
@@ -136,3 +142,12 @@ Tables are part of the GFM syntax and can be created as the example below:
 | boop | 338845 |    tuv |
 | foo  | 10106  | qrstuv |
 | bar  |   45   |   lmno |
+
+> Quoteblock test
+>> Quoteblock test
+> Quoteblock test  
+> Quoteblock test
+
+    var thisIs = "Code";
+    console.log(thisIs);
+    //Code styling by highlight.js

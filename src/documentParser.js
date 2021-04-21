@@ -11,16 +11,15 @@ import emoji from "remark-emoji";
 import directive from "remark-directive";
 import visit from "unist-util-visit";
 import h from "hastscript";
+import hljs from "highlight.js";
 import { loadTooltip, unloadTooltip } from "./visualEffects.js";
 
-//Actions taken on DOM Load
+// --- Actions taken on DOM Load
 document.addEventListener(
   "DOMContentLoaded",
   function () {
     // Load news
     loadNewsSection();
-    // Enable smooth scroll on hash links
-    enableSmoothTOC();
     // Fill search elements
     fillSearch();
     // Add page change events to nav-bar
@@ -46,11 +45,23 @@ document.addEventListener(
         clearFunction();
       }
     });
-
-    compileTags();
+    // Update page
+    updatePage();
   },
   false
 );
+
+// --- Generic actions everytime the page is updated
+function updatePage() {
+  // Enable smooth scroll on hash links
+  enableSmoothTOC();
+  // Treat checkboxes
+  styleCheckboxes();
+  // Style code blocks
+  hljs.highlightAll();
+  // Treat custom directives
+  compileTags();
+}
 
 // --- Functions related to file parsing
 function loadFile(filePath) {
@@ -227,6 +238,17 @@ function compileTags() {
   });
 }
 
+// --- Functions related to checkbox customization
+
+function styleCheckboxes() {
+  //Add a line-through to each checked input
+  document.querySelectorAll("input").forEach((taggedElement) => {
+    if (taggedElement.checked){
+      taggedElement.parentElement.style.textDecorationLine = "line-through";
+    }
+  });
+}
+
 // --- Functions related to the NEWS section
 function parseNewsContent(page, number) {
   //Define DOMParser object and a placeholder for the content of each card on the NEWS section
@@ -301,8 +323,7 @@ function loadNewsSection() {
   document.querySelectorAll(".card-container__figure").forEach((item) => {
     addPageChangeEvent(item);
   });
-  enableSmoothTOC();
-  compileTags();
+  updatePage();
 }
 
 // --- Function for click events on the nav-bar
@@ -366,8 +387,7 @@ function addPageChangeEvent(item) {
     }
     //Enable smooth TOC if it exists in the loaded content
     clearFunction();
-    enableSmoothTOC();
-    compileTags();
+    updatePage();
   });
 }
 
