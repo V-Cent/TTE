@@ -243,7 +243,7 @@ function compileTags() {
 function styleCheckboxes() {
   //Add a line-through to each checked input
   document.querySelectorAll("input").forEach((taggedElement) => {
-    if (taggedElement.checked){
+    if (taggedElement.checked) {
       taggedElement.parentElement.style.textDecorationLine = "line-through";
     }
   });
@@ -366,15 +366,27 @@ function addPageChangeEvent(item) {
         //If the event uses the news folder (document includes news string), set the section as news and update the content
         sectionText.innerHTML = "NEWS";
         contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
+        //Clear search results
+        clearFunction();
+        //Update page
+        updatePage();
       } else if (event.currentTarget.dataset.document.includes("./")) {
         sectionText.innerHTML = event.currentTarget.dataset.section;
         contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
+        //Clear search results
+        clearFunction();
+        //Update page
+        updatePage();
       } else {
         //Event is a tech document, set the section as the game name and update the content
         sectionText.innerHTML = event.currentTarget.dataset.section;
         contentText.innerHTML = parseGFM(
           "./tech/" + event.currentTarget.dataset.document
         );
+        //Clear search results
+        clearFunction();
+        //Update page
+        updatePage();
         if (event.currentTarget.dataset.redirect != null) {
           //Event has a redirect location
           document
@@ -385,9 +397,6 @@ function addPageChangeEvent(item) {
         }
       }
     }
-    //Enable smooth TOC if it exists in the loaded content
-    clearFunction();
-    updatePage();
   });
 }
 

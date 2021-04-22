@@ -88,12 +88,14 @@ Due to GFM, task-lists can be used to track progress in different topics during 
 - [x] Proper code formatting with Highlight.js
 - [x] Separate game media on folders (ex: media/tod/gliding.mp4)
 - [x] Function for global updates every time a new markdown page is loaded.
-- [ ] Properly tag and test every header. ToV. Review Page.
+- [x] (!) Search redirect missing target (ex: ToDPS2 SB Cancel)
+- [x] Properly tag and test every header. ToV. Review Page.
 - [ ] Change nav-bar depending on viewport size (so things don't clip into each other). Make so that a drop down list comes on the side? Or just the search? (<-- probably better)
 - [ ] In case of just using the search for nav-bar, make sure there is a base page reference there (so ToV, TODPS2, TOL...)
 - [ ] (!) XML request async.
 - [ ] (!) Cards resize only on one axis (instead of keeping aspect-ratio) when resizing window (x or y).
 - [ ] Update Copyright notice. (Floating left beneath the horizontal logo. Styling like the section heading?)
+- [ ] Record media for Spell Cancel and static FRC. (TOV)
 - [ ] Styling guide document
 - [ ] Remake news1 page. (Whats is TTE about? --> Documentation of useful techniques for both battle and exploration, while also giving a explanation of the battle system of each game) (glitches/techs that are not useful -- such as softlocks and freezes -- can be kept in github issues in case they can be exploited for good effects in the future) (glitches/mechanics that appear during combat, even if negatively, should also be documented in the pages)
 - [ ] Code review (code flow, function sizes, comments, important segments...)

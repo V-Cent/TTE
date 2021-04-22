@@ -1,4 +1,4 @@
-:::newsheader{data-tags="{'media' : 'news/todnews.webp', 'dateDay' : 15, 'dateMonth' : 'APR', 'description' : 'The section for Tales of Destiny PS2 is updated!'}"}
+:::newsheader{data-tags="{'media' : 'news/todnews.webp', 'dateDay' : 20, 'dateMonth' : 'APR', 'description' : 'The section for Tales of Destiny PS2 is updated!'}"}
 # Tales of Destiny Updates
 :::
 

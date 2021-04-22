@@ -11,7 +11,7 @@ Versions:
 
 ## Base Mechanics
 
-Here will be display a simple description of base mechanics of the game. These are already explained during gameplay, but may have some effects that were only found out during experimentation.
+Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
 
 ### Stats
 
@@ -28,7 +28,7 @@ All defenses increase the chance to trigger solid stance.
 
 Definitions:
 
-**Solid Stance**: Attack does no stagger (but still does damage). A small blue bubble appear on the receptor of the attack. Enemy may drop all solid stance after or before certain attacks, and the player drops all during attacks. To break solid stance, use artes that have the guard break property or do enough damage (not based on stat values) to break through the defense.
+**Solid Stance**: Attack does no stagger (but still does damage). A small blue bubble appear on the receptor of the attack. Enemy may drop all solid stance after or before certain attacks. To break solid stance, use artes that have the guard break property or do enough damage (not based on stat values) to break through the defense.
 
 ### Basic Arte Progression
 
@@ -38,7 +38,7 @@ Normal Attack (x3) --> Free-run Attack --> Base Arte --> Altered Arte --> Arcane
 
 Other skills in the game can change the number of normal attacks and artes you can use before your normal progression ends. There are also skills that can change the limitations on altered and arcane artes, making them be followed by any other arte.
 
-One important thing to note is that, if you are able to do two artes in succession, you cannot use the same one without a different arte in between.
+One important thing to note is that, if you are able to do two artes of the same tier in succession, you cannot use the same one without a different arte in between(e.g. Azure Edge into Azure Edge).
 
 Fatal Strikes (**FS**), when unlocked, can also be used by pressing the FS button (default as right trigger) when the FS symbol appears on screen.
 
@@ -57,10 +57,6 @@ Overlimit also has special effects depending on the level of overlimit used (hig
 
 ### Other information
 
-**FS Limitations**
-
-Green FS and Blue FS can be activated in the air, Red FS requires you to be on the ground.
-
 **Ground Hit Limit**
 
 There is a limit to 9 hits to downed enemies before they ignore any further hits when downed.
@@ -75,7 +71,7 @@ Ground down
 - The enemy will start an animation to get up after a certain period. During the initial frames of this animation (even before the enemy starts to get up) the enemy can be hit by most attacks.
 - OTG attacks can hit through most of the ground down state, and will instantly put the staggered enemy back on its feet.
 - If you hit the enemy with an attack that launches upward, it will transition to the "Aerial Down" state.
-- Any other attack If you hit an attack that does not launch, the enemy will stagger and drop to the "Ground down" state again.
+- Any other attack which does not launch will stagger and the enemy will drop to the "Ground down" state again.
 
 Aerial down
 
@@ -104,7 +100,9 @@ Skills:
 
 Chains:
 
+:::tagging{data-tags="{'todo' : true}"}
 - 8% per arte in the chain (persists through manual cancelling).
+:::
 
 All these reduction only affect artes will only work up to certain amount, just like other game in the series.
 
@@ -114,12 +112,15 @@ With Rita, being in the air automatically cancels the special animation of advan
 
 ### Out of Bounds and Sequence Breaks
 
+:::tagging{data-tags="{'todo' : true}"}
 #### Tutorials Skip
+:::
 
 If you enter a tutorial battle with a character other than Yuri with the skill "Stand alone", the tutorial will not occur and it will be a normal battle.
 
+:::tagging{data-tags="{'todo' : true, 'versions' : 'Vanilla'}"}
 #### Raven & Estelle Recruit
-[Vanilla only] [TODO]
+:::
 
 PS. This glitch requires you to progress the Dark Enforcer side quest up until you learn Shining Eagle.
 
@@ -133,19 +134,23 @@ Raven and Estelle and now in your party.
 
 ### Minor Battle Glitches
 
+:::tagging{data-tags="{'todo' : true, 'versions' : 'Vanilla'}"}
 #### Hourglass Fatal Strikes
-[Vanilla only] [TODO]
+:::
 
 If you hourglass an enemy with the FS symbol active, you can do them any number of times until the Hourglass effect ends.
 
+:::tagging{data-tags="{'versions' : 'Vanilla'}"}
 #### Infinite Invincibility
-[Vanilla Only]
+:::
 
 Have the Eternal Support skill equipped on Estelle, and then have her cast Force Field over and over. If Eternal Support activates, whoever received the Force Field will become invincible for the rest of the battle.
 
 ## Combat Techniques
 
+:::tagging{data-tags="{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true}"}
 ### Manual/Free-run Cancel (FRC)
+:::
 
 Manual/Free-run cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.
 
@@ -153,7 +158,7 @@ For the Repede skill, it enables the user to use Manual/Free-run cancel in any d
 
 #### Manual/Free-run Cancel Basics
 
-After a arte you can free run to the direction of the arte to start a free-run as soon as you can cancel the arte. This is useful to avoid punish for attacks that are negative on hit, such as Azure Edge.
+After an arte you can free run to the direction of the arte to start a free-run as soon as you can cancel the arte. This is useful to avoid punish for attacks that are negative on hit, such as Azure Edge.
 
 You can then cancel the free-run into a guard/magic guard to quickly go back to neutral and be able to do another arte or normal as fast as possible.
 
@@ -165,7 +170,9 @@ Quickly press Free-run the completely stop, your character will reach the neutra
 
 Quickly press Free-run and wait about 8 frames with no buttons pressed. After that (once your horizontal movement is 0) tap square and wait for the neutral state.
 
+:::tagging{data-tags="{'media' : 'media/tov/mgfrc.mp4'}"}
 #### Magic Guard FRC
+:::
 
 Quickly press Free-run and do a reverse fireball motion (forward --> forward-down --> down) for the magic guard to come out. You can also go straight from forward to down if possible (strict input). After that release guard and wait for the neutral state
 
@@ -179,11 +186,13 @@ Skills needed: Guard artes, Ability Plus.
 
 Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte (this requires). The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
 
+:::tagging{data-tags="{'todo' : true}"}
 #### Frame data
+:::
 
 Heres some frame data about the manual/free-run cancel and its variations (keep in mind that a magic guard is about 10 frames faster than a normal guard):
 
-From slowest to fastest (FR = Free run animation):
+From slowest to fastest (FR = Free run animation), considering perfect inputs:
 
 - Empty FRC: 25+ frames until next action. (25+)
 - FRC: 1(FR) + 24 frames until next action. (25)
@@ -196,7 +205,9 @@ From slowest to fastest (FR = Free run animation):
 
 Bosses do not function like normal enemies. Without manipulating them, they can apparently drop out of your combo and punish you, even while they the stagger values would not allow them too. To combat that, here are some techniques that can help you combo bosses:
 
+:::tagging{data-tags="{'todo' : true}"}
 #### Recovery Attack baiting
+:::
 
 Letting the enemy do their chain before you start your combo (punishing the enemy at the end of their combo) or punishing their recovery attacks in a safely manner (e.g. using knockdowns mid-combo and expecting them to use an arte) can make so that you can perform your combos "mostly" uninterrupted.
 
@@ -220,72 +231,100 @@ Therefore, to properly combo a boss without ever being punished you need: good o
 
 ### General Techniques
 
-#### Spell Chant Reduction
-[TODO] [Rita only]
+#### Spell Cancel
 
+Instead of using free-run to cancel the recovery of attacks, you can use a spell then instantly cancel it for the same effect. This is usually faster than FRC but harder to perform. A perfect spell cancel will give control back to the user after 15 frames.
+
+:::tagging{data-tags="{'todo' : true}"}
+#### Spell Chant Reduction
+:::
+
+Character specific: Rita.
 Skill Needed: Spell Charge (1,2,3)
 
 When using spells with Rita, you can hold the spell button (or hold the artes button before using R-stick shortcuts) to hold the spell, and press it again as soon as it is ready. This will remove the extra animation that the advanced spells have, making them come out a little faster. This is only needed when grounded.
 
+:::tagging{data-tags="{'todo' : true, 'versions' : 'Vanilla'}"}
 #### Spells with any character
-[TODO] [Vanilla only]
+:::
 
 On the artes screen, select and arte with the cursor and switch characters at the same time as pressing A. The switched character will be able to perform the spell (the screen will return to the original character when pressing A).
 
+:::tagging{data-tags="{'todo' : true, 'versions' : 'PS3'}"}
 #### Infinite Overlimit
-[TODO] [PS3 only]
+:::
 
 Skills required: Burst hold.
 
 While an enemy boss is in overlimit, if you manage to use a burst arte at the end of your own overlimit and the boss performs an M.A., you will have infinite overlimit after the M.A. ends.
 
+:::tagging{data-tags="{'todo' : true, 'media' : 'media/tov/atgc.mp4'}"}
 #### Air to Ground Cancel (AtGC)
-[TODO]
+:::
 
 Do an aerial-enabled arte close to the ground for possible effects. These include: lingering hit-boxes, visual effects or cancelled animations.
 For example, most aerial-enabled altered artes can produce the shine animation without the actual attack coming out.
 The window for activation is around 6 frames before landing, different frames possibly producing different effects.
 
-[TODO] It is also possible to cancel the landing animation and do an arte as soon as touching the ground. (may require diagnoal jumps? air attaks? frame perfect?)
+:::tagging{data-tags="{'todo' : true}"}
+It is also possible to cancel the landing animation and do an arte as soon as touching the ground. (may require diagonal jumps? air attacks? frame perfect?)
+:::
 
+:::tagging{data-tags="{'todo' : true, 'media' : 'media/tov/tauntCancel.mp4'}"}
 #### Taunt Cancel
-[TODO]
+:::
+
+(How to set Raven as first in party while having him on auto?)
 
 Skills needed: Bark.
 
-Repede has skills that make their taunt have a chance (~30%) to cancel everything on the screen. Use this to cancel burst artes, fatal strikes and everything else.
+Repede has a skill that makes his taunt have a chance (~33%) to cancel everything on the screen. Use this to cancel burst artes, fatal strikes and everything else.
 
 There are a few ways to use this consistently.
 
-The first is to have a second controller, and do the taunt with Repede yourself. Pausing and unpausing can also improve consistency when using two controllers alone (and does not make the camera move aorund).
+The first is to have a second controller, and do the taunt with Repede yourself. Pausing and un-pausing can also improve consistency when using two controllers alone (and does not make the camera move around).
 
-The second is to have Raven in the party. During the action you want to cancel, pause and change to Raven. While in the menu, use your personal strategy (character specific down strategy), pause and unpause, change back to your character and change to the strategy back to the one you want to use. This is more consistent than using Repede to taunt yourself, since you have wait a couple of frames to make sure the taunt will come out.
+The second is to have Raven in the party. During the action you want to cancel, pause and change to Raven. While in the menu, use your personal strategy (character specific down strategy), pause and un-pause, change back to your character and change to the strategy back to the one you want to use. This is more consistent than using Repede to taunt yourself, since you would have wait a couple of frames to make sure the taunt will come out.
 
-#### Fake Fatal Strike
-[PS3 only]
+:::tagging{data-tags="{'todo' : true, 'versions' : 'PS3'}"}
+#### Fake Fatal Strikes
+:::
 
-On normal enemies, it is possible to make Fatal Strikes not instantly kill by pressing the Fatal Strike button twice just before the Fatal Strike late fail state (i.e. the time where, if you press the fatal strike button, the symbol grows and disappears, without an attack coming out). Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS).
+(is an arte required so that you can activate the FS during the fail state?)
 
+On normal enemies, it is possible to make Fatal Strikes not instantly kill by mashing the Fatal Strike button, starting to mash just before the Fatal Strike late fail state (i.e. the time where, if you press the fatal strike button, the symbol grows and disappears, without an attack coming out). Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS).
+
+Requires Turbo controller for consistency.
+
+More information [here](https://muragiri.hatenadiary.org/entry/20100322/p1).
+
+
+:::tagging{data-tags="{'media' : 'media/tov/fakeGuardArte.mp4'}"}
 #### Fake Guard Artes
+:::
 
 Skills needed: Guard artes.
 
 In semi-auto mode, guarding then doing a base arte from a distance makes you run to the enemy, however the invincibility effect happens as soon as you begin to run. Cancelling the running animation in a guard makes you use the invincibility without using an arte.
 
+:::tagging{data-tags="{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true}"}
 ### Semi-auto/Stick Cancel (SAC)
+:::
 
 Semi-auto cancel is a technique that abuses the free-run animation that happens when you use semi-auto, and the buffered actions of auto mode.
 
-Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes [TEST]).
+Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).
 
 SAC can be set-up mid combo, and it does not require neutral stance/guard to be in effect.
 
+:::tagging{data-tags="{'todo' : true}"}
 https://www.youtube.com/watch?v=JppXEzTMQyc (? Variation of Spell SAC?)
 (Also, apparently there are two variations of SAC that can be done on XBOX. Easier to do too.)
+:::
 
 #### Semi-auto/Stick Cancel Basics
 
-While in any action (free-run, guard, jump or arte) go to the menu and buffer an arte by selecting it while in auto mode (in the character that you're controlling), then, while in battle, change back to semi-auto mode (manual can be used in limited scenarios). The arte you selected in auto mode is now buffered and will make you run to the enemy to use it every time it is possible.
+While in any action (free-run, guard, jump or arte) go to the menu and buffer an arte by selecting it while in auto mode (in the character that you're controlling), then, while in battle, change back to semi-auto mode (manual can be used in limited scenarios). The arte you selected in auto mode is now buffered and the game will make you run to the enemy to use it every time it is possible.
 
 While this arte is buffered, you can, while in a combo, perform another arte that requires you to run to the target (due to the semi-auto mechanics) to instantly cancel you to neutral and start the buffered arte (thus starting another semi-auto run). If you perform another action before the buffered action is completed, you successfully used a Semi-auto cancel to reset your arte progression and use an action when your not supposed to.
 
@@ -323,13 +362,17 @@ An even easier way to perform SAC's is to set the buffered arte as the arte you 
 
 If you want, you can then pause and set up a new buffered arte to use another SAC consume, mid-combo.
 
+:::tagging{data-tags="{'media' : 'media/tov/pushGuardChain.mp4'}"}
 #### Push Guard Chain
+:::
 
 Skills needed: Guard artes.
 
 If your cancel arte is a base arte, you can use it to cancel push guards, making it possible to chain them until your close enough to perform your buffered arte. This can be a very fast way to move forward, especially with characters like Raven.
 
+:::tagging{data-tags="{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}"}
 #### Fake Guard Arte Chaining
+:::
 
 Skills needed: Guard artes.
 
