@@ -470,6 +470,19 @@ function fillSearch() {
     let currentDocument = parseGFM("./tech/" + tabLinks[i].dataset.document);
     const parser = new DOMParser();
 
+    // Add default page search
+    searchContents = searchContents.concat('<a data-document="');
+    searchContents = searchContents.concat(tabLinks[i].dataset.document);
+    searchContents = searchContents.concat(
+      '" class = "nav-bar__search--results" tabindex="0" data-section="'
+    );
+    searchContents = searchContents.concat(tabLinks[i].dataset.section);
+    searchContents = searchContents.concat('"><b>');
+    searchContents = searchContents.concat(tabLinks[i].dataset.section);
+    searchContents = searchContents.concat("</b> <i>(");
+    searchContents = searchContents.concat(tabLinks[i].dataset.document);
+    searchContents = searchContents.concat(")</i></a>");
+
     // Parse the result from unified (parseGFM) into usable HTML
     const doc = parser.parseFromString(currentDocument, "text/html");
     doc.querySelectorAll("h4").forEach((currentHeading) => {

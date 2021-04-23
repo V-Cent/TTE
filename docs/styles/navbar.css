@@ -28,7 +28,8 @@
   width: 15%;
   cursor: pointer;
   padding-top: 20px;
-  margin-left: 10px;
+  margin-left: 40px;
+  display: flex;
 }
 
 #nav-bar__title__logo {
@@ -47,7 +48,7 @@
   max-height: 45px;
   vertical-align: middle;
   opacity: 0.7;
-  padding-left: 5px;
+  padding-left: 20px;
 }
 
 .nav-bar__helper {
@@ -68,7 +69,7 @@
 }
 
 #nav-bar__tab-bar--transparency {
-  width: 60%;
+  width: 40%;
   position: relative;
   display: inline-block;
 }
@@ -226,4 +227,10 @@
   left: 4px;
   top: 4px;
   z-index: 1;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 1000px) {
+  #nav-bar__tab-bar--transparency { display: none;}
+  #nav-bar__search { width: 50%;}
 }

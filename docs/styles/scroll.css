@@ -29,7 +29,7 @@
   border: none !important;
   border-width: 0px;
   border-color: #161617;
-  background-color: inherit;
+  background-color: transparent;
   cursor: pointer;
   position: fixed;
   bottom: 30px;

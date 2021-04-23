@@ -90,15 +90,15 @@ Due to GFM, task-lists can be used to track progress in different topics during 
 - [x] Function for global updates every time a new markdown page is loaded.
 - [x] (!) Search redirect missing target (ex: ToDPS2 SB Cancel)
 - [x] Properly tag and test every header. ToV. Review Page.
-- [ ] Change nav-bar depending on viewport size (so things don't clip into each other). Make so that a drop down list comes on the side? Or just the search? (<-- probably better)
-- [ ] In case of just using the search for nav-bar, make sure there is a base page reference there (so ToV, TODPS2, TOL...)
-- [ ] (!) XML request async.
-- [ ] (!) Cards resize only on one axis (instead of keeping aspect-ratio) when resizing window (x or y).
-- [ ] Update Copyright notice. (Floating left beneath the horizontal logo. Styling like the section heading?)
+- [x] Change nav-bar depending on viewport size.
+- [x] In case of just using the search for nav-bar, make sure there is a base page reference there (so ToV, TODPS2, TOL...)
+- [x] (!) Cards resize only on one axis (instead of keeping aspect-ratio) when resizing window (x or y). (Content box resize on viewport change alleviates the problem. Only happens in extreme zoom now.)
+- [x] Update Copyright notice. (Floating left beneath the horizontal logo. Styling like the section heading?)
 - [ ] Record media for Spell Cancel and static FRC. (TOV)
 - [ ] Styling guide document
 - [ ] Remake news1 page. (Whats is TTE about? --> Documentation of useful techniques for both battle and exploration, while also giving a explanation of the battle system of each game) (glitches/techs that are not useful -- such as softlocks and freezes -- can be kept in github issues in case they can be exploited for good effects in the future) (glitches/mechanics that appear during combat, even if negatively, should also be documented in the pages)
 - [ ] Code review (code flow, function sizes, comments, important segments...)
+- [ ] (!) Media cannot play warning.
 - [ ] Test other OSs and browsers.
 - [ ] ... (period to gather feedback)
 - [ ] README.
@@ -106,7 +106,7 @@ Due to GFM, task-lists can be used to track progress in different topics during 
 - [ ] Styling guide.
 - [ ] Where to store media?
 - [ ] https://developers.google.com/speed/pagespeed/insights/ Part2
-- [ ] Keep an object with parsed md pages to improve runtime.
+- [ ] Keep an object/map with parsed md pages to improve runtime. Async on page start, so most functions can be asynchronous and just wait for the map entry to be ready.
 - [ ] ... (period of release)
 - [ ] Mobile port
 - [ ] White theme
