@@ -13,7 +13,7 @@ Versions:
 
 Here will be displayed a simple description of the base mechanics in the game. Most of there are already explained during gameplay, but may have some effects that were only found out during experimentation.
 
-Special thanks to https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763 and https://w.atwiki.jp/tod_remake/
+Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o) and [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0).
 
 ### Stats
 

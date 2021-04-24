@@ -13,6 +13,8 @@ Versions:
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
 
+Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Passaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP) and [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV).
+
 ### Stats
 
 Each character 8 stats separated into two different categories:
@@ -110,6 +112,16 @@ With Rita, being in the air automatically cancels the special animation of advan
 
 ## Glitches
 
+In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for Combat, this is found on the next segment.
+
+### Equipment/Items/Accessories Glitches
+
+:::tagging{data-tags="{'todo' : true, 'versions' : 'Definitive'}"}
+#### Winged Boots Glitch
+:::
+
+On the new Definitive Edition, the Winged Boots slightly decrease your run speed when synthesized. Therefore, it is faster to not get the Winged Boots during the game.
+
 ### Out of Bounds and Sequence Breaks
 
 :::tagging{data-tags="{'todo' : true}"}
@@ -148,90 +160,11 @@ Have the Eternal Support skill equipped on Estelle, and then have her cast Force
 
 ## Combat Techniques
 
-:::tagging{data-tags="{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true}"}
-### Manual/Free-run Cancel (FRC)
-:::
-
-Manual/Free-run cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.
-
-For the Repede skill, it enables the user to use Manual/Free-run cancel in any direction (360 degrees) and also use it in semi-auto mode.
-
-#### Manual/Free-run Cancel Basics
-
-After an arte you can free run to the direction of the arte to start a free-run as soon as you can cancel the arte. This is useful to avoid punish for attacks that are negative on hit, such as Azure Edge.
-
-You can then cancel the free-run into a guard/magic guard to quickly go back to neutral and be able to do another arte or normal as fast as possible.
-
-#### Empty FRC
-
-Quickly press Free-run the completely stop, your character will reach the neutral state on its own. This is slower than a normal Manual Cancel but does not require you to press guard.
-
-#### Static FRC
-
-Quickly press Free-run and wait about 8 frames with no buttons pressed. After that (once your horizontal movement is 0) tap square and wait for the neutral state.
-
-:::tagging{data-tags="{'media' : 'media/tov/mgfrc.mp4'}"}
-#### Magic Guard FRC
-:::
-
-Quickly press Free-run and do a reverse fireball motion (forward --> forward-down --> down) for the magic guard to come out. You can also go straight from forward to down if possible (strict input). After that release guard and wait for the neutral state
-
-#### Corner FRC
-
-Quickly press Free-run slightly towards the arena perimeter or towards a big enemy. Your character should not have any horizontal movement if successful. After that wait for the neutral state.
-
-#### Guard Cancel FRC
-
-Skills needed: Guard artes, Ability Plus.
-
-Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte (this requires). The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
-
-:::tagging{data-tags="{'todo' : true}"}
-#### Frame data
-:::
-
-Heres some frame data about the manual/free-run cancel and its variations (keep in mind that a magic guard is about 10 frames faster than a normal guard):
-
-From slowest to fastest (FR = Free run animation), considering perfect inputs:
-
-- Empty FRC: 25+ frames until next action. (25+)
-- FRC: 1(FR) + 24 frames until next action. (25)
-- Static FRC: 8(FR) + 14 frames until next action. (22)
-- Magic Guard FRC = 2(FR) + 14 frames until next action. (16)
-- Corner FRC = 1(FR) + 14 frames until next action. (15)
-- Guard Cancel = 1(FR) + 6 frames until base arte starts. (7)
-
-### Boss Behavior Manipulation
-
-Bosses do not function like normal enemies. Without manipulating them, they can apparently drop out of your combo and punish you, even while they the stagger values would not allow them too. To combat that, here are some techniques that can help you combo bosses:
-
-:::tagging{data-tags="{'todo' : true}"}
-#### Recovery Attack baiting
-:::
-
-Letting the enemy do their chain before you start your combo (punishing the enemy at the end of their combo) or punishing their recovery attacks in a safely manner (e.g. using knockdowns mid-combo and expecting them to use an arte) can make so that you can perform your combos "mostly" uninterrupted.
-
-The number of attacks a boss can use is unique to each boss (though they are usually the same as the player).
-
-For example, punishing a normal -> base -> arcane chain will more than likely work for most bosses. Punishing 2-3 of their recovery attacks will also work the same way.
-
-#### Stun lock
-
-Stunning an enemy after a punish (recovery attack or arte chain) makes so that there is no way for the enemy to do a recovery attack during your combo, so watch out for stuns mid combo. If you did not bait recovery attacks, you may need to do it once mid-combo for the stun lock to have effect.
-
-#### Boss Documented Behavior
-
-There are certain behavior that are unique to bosses also:
-
-- Recover Breakout: Knocking a boss down may make the boss do a flip (recover) and stay on the standing state, instead of being knocked down.
-- Stat Breakout: Due to defenses, a boss may be able to solid stance through your attacks (even after you break their guard). This effect is not that common, and only certain bosses may have enough defenses to solid stance through your initial attacks.
-- Recovery Attack Breakout: If able, the boss can do a recovery attack mid-combo. This also resets the staggered status (but does not drop your current combo chain), so a stat breakout may occur if you hit them in frames that they are not vulnerable.
-
-Therefore, to properly combo a boss without ever being punished you need: good offensive stats to not trigger solid stance during the combo, baiting recovery attacks or an arte chain and, finally, a stun lock.
-
 ### General Techniques
 
+:::tagging{data-tags="{'media' : 'media/tov/spellCancel.mp4'}"}
 #### Spell Cancel
+:::
 
 Instead of using free-run to cancel the recovery of attacks, you can use a spell then instantly cancel it for the same effect. This is usually faster than FRC but harder to perform. A perfect spell cancel will give control back to the user after 15 frames.
 
@@ -306,6 +239,88 @@ More information [here](https://muragiri.hatenadiary.org/entry/20100322/p1).
 Skills needed: Guard artes.
 
 In semi-auto mode, guarding then doing a base arte from a distance makes you run to the enemy, however the invincibility effect happens as soon as you begin to run. Cancelling the running animation in a guard makes you use the invincibility without using an arte.
+
+:::tagging{data-tags="{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true}"}
+### Manual/Free-run Cancel (FRC)
+:::
+
+Manual/Free-run cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.
+
+For the Repede skill, it enables the user to use Manual/Free-run cancel in any direction (360 degrees) and also use it in semi-auto mode.
+
+#### Manual/Free-run Cancel Basics
+
+After an arte you can free run to the direction of the arte to start a free-run as soon as you can cancel the arte. This is useful to avoid punish for attacks that are negative on hit, such as Azure Edge.
+
+You can then cancel the free-run into a guard/magic guard to quickly go back to neutral and be able to do another arte or normal as fast as possible.
+
+Below are variations of the FRC that can be useful in different scenarios. Keep in mind that if you guard while moving it takes 24 frames for your character to go back to neutral. Magic guard only takes 14 frames to recover when moving. Both take 14 frames to recover when standing still (or below a certain x velocity).
+
+#### Empty FRC
+
+Quickly tap Free-run then completely stop, your character will reach the neutral state on its own. This is slower than a normal Manual Cancel but does not require you to press guard.
+
+:::tagging{data-tags="{'media' : 'media/tov/mgfrc.mp4'}"}
+#### Magic Guard FRC
+:::
+
+Quickly press Free-run and do a reverse fireball motion (forward --> forward-down --> down) for the magic guard to come out. You can also go straight from forward to down if possible (strict input). After that release guard and wait for the neutral state
+
+#### Corner FRC
+
+Quickly press Free-run slightly towards the arena perimeter or towards a big enemy. Your character should not have any horizontal movement if successful. After that guard and wait for the neutral state.
+
+Sometimes, there is a frame advantage on delaying the guard slightly in order to make your guard recover faster. The slowest setup is quickly tapping free-run as soon as you can cancel the current arte. This will result in a cancel of ~22 frames, slightly faster than the normal FRC.
+
+#### Guard Cancel FRC
+
+Skills needed: Guard artes, Ability Plus.
+
+Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte (this requires). The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
+
+:::tagging{data-tags="{'todo' : true}"}
+#### Frame data
+:::
+
+Heres some frame data about the manual/free-run cancel and its variations (keep in mind that a magic guard is about 10 frames faster than a normal guard):
+
+From slowest to fastest (FR = Free run animation), considering perfect inputs:
+
+- Empty FRC: 25+ frames until next action. (25+)
+- FRC: 1(FR) + 24 frames until next action. (25)
+- Magic Guard FRC = 2(FR) + 14 frames until next action. (16)
+- Corner FRC = 1(FR) + 14 frames until next action. (15)
+- Guard Cancel = 1(FR) + 6 frames until base arte starts. (7)
+
+### Boss Behavior Manipulation
+
+Bosses do not function like normal enemies. Without manipulating them, they can apparently drop out of your combo and punish you, even while they the stagger values would not allow them too. To combat that, here are some techniques that can help you combo bosses:
+
+:::tagging{data-tags="{'todo' : true}"}
+#### Recovery Attack baiting
+:::
+
+Letting the enemy do their chain before you start your combo (punishing the enemy at the end of their combo) or punishing their recovery attacks in a safely manner (e.g. using knockdowns mid-combo and expecting them to use an arte) can make so that you can perform your combos "mostly" uninterrupted.
+
+The number of attacks a boss can use is unique to each boss (though they are usually the same as the player).
+
+For example, punishing a normal -> base -> arcane chain will more than likely work for most bosses. Punishing 2-3 of their recovery attacks will also work the same way.
+
+#### Stun lock
+
+Stunning an enemy after a punish (recovery attack or arte chain) makes so that there is no way for the enemy to do a recovery attack during your combo, so watch out for stuns mid combo. If you did not bait recovery attacks, you may need to do it once mid-combo for the stun lock to have effect.
+
+#### Boss Documented Behavior
+
+There are certain behavior that are unique to bosses also:
+
+- Recover Breakout: Knocking a boss down may make the boss do a flip (recover) and stay on the standing state, instead of being knocked down.
+- Stat Breakout: Due to defenses, a boss may be able to solid stance through your attacks (even after you break their guard). This effect is not that common, and only certain bosses may have enough defenses to solid stance through your initial attacks.
+- Recovery Attack Breakout: If able, the boss can do a recovery attack mid-combo. This also resets the staggered status (but does not drop your current combo chain), so a stat breakout may occur if you hit them in frames that they are not vulnerable.
+
+Therefore, to properly combo a boss without ever being punished you need: good offensive stats to not trigger solid stance during the combo, baiting recovery attacks or an arte chain and, finally, a stun lock.
+
+More information can be found [here](https://www.youtube.com/watch?v=mKdSnZqTX5w).
 
 :::tagging{data-tags="{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true}"}
 ### Semi-auto/Stick Cancel (SAC)
