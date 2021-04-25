@@ -79,7 +79,7 @@ function loadFile(filePath) {
 
 function parseGFM(file) {
   //Read GFM file
-  let fileData = loadFile(file.toLowerCase() + ".md");
+  let fileData = loadFile(file + ".md");
   if (fileData.length <= 1 || fileData == null) {
     return "";
   }
@@ -365,7 +365,7 @@ function addPageChangeEvent(item) {
       if (event.currentTarget.dataset.document.includes("news")) {
         //If the event uses the news folder (document includes news string), set the section as news and update the content
         sectionText.innerHTML = "NEWS";
-        contentText.innerHTML = parseGFM(event.currentTarget.dataset.document);
+        contentText.innerHTML = parseGFM((event.currentTarget.dataset.document).toLowerCase());
         //Clear search results
         clearFunction();
         //Update page
@@ -380,9 +380,9 @@ function addPageChangeEvent(item) {
       } else {
         //Event is a tech document, set the section as the game name and update the content
         sectionText.innerHTML = event.currentTarget.dataset.section;
-        contentText.innerHTML = parseGFM(
+        contentText.innerHTML = parseGFM((
           "./tech/" + event.currentTarget.dataset.document
-        );
+        ).toLowerCase());
         //Clear search results
         clearFunction();
         //Update page
@@ -467,7 +467,7 @@ function fillSearch() {
   let searchContents = "";
   for (i = 0; i < tabLinks.length; i++) {
     // Open the document related to each item
-    let currentDocument = parseGFM("./tech/" + tabLinks[i].dataset.document);
+    let currentDocument = parseGFM("./tech/" + (tabLinks[i].dataset.document).toLowerCase());
     const parser = new DOMParser();
 
     // Add default page search
