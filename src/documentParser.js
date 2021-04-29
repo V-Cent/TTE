@@ -22,7 +22,7 @@ document.addEventListener(
     loadNewsSection();
     // Fill search elements
     fillSearch();
-    // Add page change events to nav-bar
+    // Add page change events to nav-bar (requires search bar to be filled)
     document
       .querySelectorAll(
         "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links, a.nav-bar__search--results"
@@ -45,13 +45,13 @@ document.addEventListener(
         clearFunction();
       }
     });
-    // Update page
+    // Update page (done after content changes)
     updatePage();
   },
   false
 );
 
-// --- Generic actions everytime the page is updated
+// --- Generic actions every time the page is updated
 function updatePage() {
   // Enable smooth scroll on hash links
   enableSmoothTOC();

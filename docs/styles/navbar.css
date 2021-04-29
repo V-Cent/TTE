@@ -60,13 +60,19 @@
 /* Style the tab */
 #nav-bar__tab-bar {
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: visible;
   padding-top: 100px;
   margin-top: -100px;
   padding-bottom: 10px;
   white-space: nowrap;
+  /* Scroll bar styling */
+  scrollbar-color: #373737 #161617 ;
 }
+
+/* Scroll bar styling */
+*::-webkit-scrollbar {background: #161617;}
+*::-webkit-scrollbar-thumb { background-color: #373737;}
 
 #nav-bar__tab-bar--transparency {
   width: 40%;

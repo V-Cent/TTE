@@ -71,18 +71,21 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] Record media for Spell Cancel. (TOV)
 - [x] Styling guide document.
 - [x] Remake this page and make a simple README.
-- [ ] Code review (code flow, function sizes, comments, important segments...)
-- [ ] (!) Media cannot play warning.
-- [ ] (!) Google fonts and other styles blocking page load when offline.
-- [ ] Test other OSs and browsers.
+- [x] Code review (code flow, function sizes, comments, important segments...) (documentParser has some synchronous-only actions and functions that could be reduced in size/split into two)
+- [x] (!) Media cannot play warning.
+- [x] (!) Google fonts and other styles blocking page load when offline.
+- [x] Test other OSs and browsers.
 - [ ] ... (period to gather feedback)
 - [ ] README.
+- [ ] MacOS testing (Safari)
 - [ ] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)
 - [ ] Code of conduct.
 - [ ] Organization/Custom Domain.
-- [ ] Where to store media?
+- [ ] Where to store media? vp8 for Chromium and other android browsers?
 - [ ] https://developers.google.com/speed/pagespeed/insights/ Part2
+- [ ] Self host icons and fonts.
 - [ ] Keep an object/map with parsed md pages to improve runtime. Async on page start, so most functions can be asynchronous and just wait for the map entry to be ready. (Could increase load times, but should result in a better user experience)
+- [ ] Apache 2.0 License for Markdown files?
 - [ ] ... (period of release)
 - [ ] Mobile port
 - [ ] White theme

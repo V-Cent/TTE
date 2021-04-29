@@ -20,6 +20,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: #161617;
+  scrollbar-color: #373737 #161617 ;
 }
 
 hr {
