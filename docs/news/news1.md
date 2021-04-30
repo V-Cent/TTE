@@ -75,6 +75,7 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] (!) Media cannot play warning.
 - [x] (!) Google fonts and other styles blocking page load when offline.
 - [x] Test other OSs and browsers.
+- [x] (!) Change footer on viewport re-size.
 - [ ] ... (period to gather feedback)
 - [ ] README.
 - [ ] MacOS testing (Safari)
