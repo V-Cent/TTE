@@ -12,4 +12,4 @@ The following segments require some assistance to crack down: "Neutral Cancel" a
 
 "Neutral Cancel" is a very specific technique that is hard to test due to being not that consistent and not having much effects other than changing the distance of some artes.
 
-"Advance Gate Points" is the segment that talks about ToDPS2 New Game+. The calculations done by the game to award players points are not defined and ways to manipulate the system (if possible) are not yet documented.
+"Advance Gate Points" is the segment that talks about ToDPS2 New Game+. The calculations done by the game to award players points are not well defined and ways to manipulate the system (if possible) are not yet documented.

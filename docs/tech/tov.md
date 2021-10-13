@@ -13,18 +13,18 @@ Versions:
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
 
-Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Passaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP) and [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV).
+Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Pássaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts) and [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc).
 
 ### Stats
 
-Each character 8 stats separated into two different categories:
+Each character has 6 stats:
 
-- Physical Attack(_Phy.Atk_) --> Physical Damage increase.
-- Physical Defense(_Phy.Def_) --> Physical Damage inflicted decrease.
-- Magic Attack(_Mag.Atk_) --> Magic Damage dealt increase.
-- Magic Defense(_Mag.Def_) --> Magic Damage inflicted decrease.
-- Agility(_Agi_) - Increase Critical Rate and Movement Speed.
-- Luck(_Luck_) - Increases chance to produce beneficial random effects and drop chance.
+- Physical Attack(_Phy.Atk_) → Physical Damage increase.
+- Physical Defense(_Phy.Def_) → Physical Damage inflicted decrease.
+- Magic Attack(_Mag.Atk_) → Magic Damage dealt increase.
+- Magic Defense(_Mag.Def_) → Magic Damage inflicted decrease.
+- Agility(_Agi_) → Increase Critical Rate and Movement Speed.
+- Luck(_Luck_) → Increases chance to produce beneficial random effects and drop chance.
 
 All defenses increase the chance to trigger solid stance.
 
@@ -36,32 +36,46 @@ Definitions:
 
 This battle system works like most TP-based battle systems of the series. The player can link normal attacks into artes to prolong the combo chain. A normal arte can be followed by either an altered arte or an arcane arte. An altered arte can be followed by an arcane arte. Arcanes cannot be followed by other artes. Also, normal attacks can be followed by a free-run attack (Free-run + normal attack). This results into a chain progression like this:
 
-Normal Attack (x3) --> Free-run Attack --> Base Arte --> Altered Arte --> Arcane Arte
+Normal Attack (x3) → Free-run Attack → Base Arte → Altered Arte → Arcane Arte
 
 Other skills in the game can change the number of normal attacks and artes you can use before your normal progression ends. There are also skills that can change the limitations on altered and arcane artes, making them be followed by any other arte.
 
 One important thing to note is that, if you are able to do two artes of the same tier in succession, you cannot use the same one without a different arte in between(e.g. Azure Edge into Azure Edge).
 
-Fatal Strikes (**FS**), when unlocked, can also be used by pressing the FS button (default as right trigger) when the FS symbol appears on screen.
+Fatal Strikes (**FS**), when unlocked, can also be used by pressing the FS button (default as right trigger) when the FS symbol appears on screen after an arte. Pressing the button too early or too late will cause the current FS symbol disappear, making you to do another arte to try again.
 
 FS, Burst Artes and Overlimit can be performed in any part of the chain when applicable.
 
 ### Overlimit and Burst Artes
 
-Overlimit is a mechanic where you can consume the overlimit bar for special effects. The most import one is that you do not have any limitations on your progression, being able to chain normals and artes in a free-form way. During overlimit you can also use Burst Artes by holding the artes button after an altered or arcane arte. The Burst Arte you use depends on certain skills your character has enabled.
+Overlimit is a mechanic where you can consume the overlimit bar for special effects. The most import effect is that you do not have any limitations on your arte progression, being able to chain normals and any artes in a free-form way. During overlimit you can also use Burst Artes by holding the artes button after an altered or arcane arte. The Burst Arte you use depends on certain skills your character has enabled.
 
-Overlimit also has special effects depending on the level of overlimit used (higher levels also have the effects of lower ones):
+Overlimit has special effects depending on the level of overlimit used (higher levels also have the effects of lower ones):
 
 - Lv.1: No special effects.
 - Lv.2: All attacks OTG and deal increased damage to downed enemies.
 - Lv.3: No TP is consumed for using artes. Mystic artes are enabled for use by holding the normal attack button after an arcane arte or burst arte.
 - Lv.4: Characters will be invincible from enemies attack. Be careful since you (and enemies) can still be stunned!
 
+The overlimit activation hit also has different effects depending on the character you are using. These usually influence the vertical launch power or the pushback of the overlimit hit. The effects are the following:
+
+- **Yuri**: Very small launch and small pushback. Enemy is put in a downed state.
+- **Estelle**: Medium launch and small pushback. Enemy is put in a spinning state for 70 frames.
+- **Repede**: No launch and no pushback. Enemy is put in a spinning state for 90 frames.
+- **Karol**: No launch and very small pushback. Enemy is put in a downed state.
+- **Rita**: Medium launch and small pushback. Enemy is put in a downed state.
+- **Raven**: No launch and medium pushback. Does not knockdown the enemy (staggers for about 60 frames).
+- **Judith**: Very high launch and medium pushback. Enemy is put in a downed state.
+- **Patty**: Depends on Patty's current form.
+> - Normal Form: High launch and medium pushback. Enemy is put in a downed state.
+> - Advance Form: Small launch and small pushback. Enemy is put in a downed state.
+> - Brainiac Form: No launch and very high pushback. Enemy is put in a downed state.
+> - Critical Form: Medium launch and small pushback. Enemy is put in a spinning state for 90 frames.
+- **Flynn**: Medium launch and medium pushback. Enemy is put in a downed state.
+
+Multiple activations (either by yourself or with CPUs/other players) will cause effects to stack or interact with one another. This may result in a very high vertical launch or knockdown. Make sure to be ready to attack downed enemies when specific characters use overlimit. When using Yuri, remember you can chain the OVL activation hit with a free-run attack, picking the enemy up and making follow up attacks easier.
+
 ### Other information
-
-**Ground Hit Limit**
-
-There is a limit to 9 hits to downed enemies before they ignore any further hits when downed.
 
 **Down Hit Mechanics**
 
@@ -71,7 +85,7 @@ Ground down
 
 - Normal downed state.
 - The enemy will start an animation to get up after a certain period. During the initial frames of this animation (even before the enemy starts to get up) the enemy can be hit by most attacks.
-- OTG attacks can hit through most of the ground down state, and will instantly put the staggered enemy back on its feet.
+- OTG attacks (and specific attacks that affect downed enemies) can hit through most of the ground down state, and will instantly put the staggered enemy back on its feet.
 - If you hit the enemy with an attack that launches upward, it will transition to the "Aerial Down" state.
 - Any other attack which does not launch will stagger and the enemy will drop to the "Ground down" state again.
 
@@ -79,6 +93,13 @@ Aerial down
 
 - Most attacks will hit without needing specific timing like ground down. They will also juggle a slight bit.
 - Once down to the ground, the enemy will do a slight bounce and transition to the "Ground down" state.
+
+**Ground Hit Limit**
+
+While attacking downed enemies, there is a hard limit on 9 hits that you can do before they ignore any further attacks that would cause a ground down. You can still hit them with moves that cause an aerial down.
+
+This counter is only reduced when hitting an enemy that is in the ground down state. Both Aerial down hits and Ground down hits will count to this limit.
+
 
 Definitions:
 
@@ -106,13 +127,13 @@ Chains:
 - 8% per arte in the chain (persists through manual cancelling).
 :::
 
-All these reduction only affect artes will only work up to certain amount, just like other game in the series.
+All these reduction only affect artes will only work up to certain amount, just like other games in the series.
 
 With Rita, being in the air automatically cancels the special animation of advanced spells. Spell casting is also faster overall by about 18 frames (not counting the time saved by the animation of advanced spells).
 
 ## Glitches
 
-In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for Combat, this is found on the next segment.
+In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for combat, this is found on the next segment.
 
 ### Equipment/Items/Accessories Glitches
 
@@ -142,7 +163,7 @@ During the part where Raven and Estelle leave the party you can:
 - Go to the oasis and talk to the man sitting down by the two children for a scene.
 - Rest at Mantaic's inn. Go toward the oasis again for a scene.
 
-Raven and Estelle and now in your party.
+Raven and Estelle are now in your party.
 
 ### Minor Battle Glitches
 
@@ -167,6 +188,14 @@ Have the Eternal Support skill equipped on Estelle, and then have her cast Force
 :::
 
 Instead of using free-run to cancel the recovery of attacks, you can use a spell then instantly cancel it for the same effect. This is usually faster than FRC but harder to perform. A perfect spell cancel will give control back to the user after 15 frames.
+
+#### Pseudo Quick Turn
+
+Without the quick turn skill, there is a small animation when a character changes directions abruptly. This animation can get your character punished, especially when you try to turn and attack just after.
+
+To avoid this, you can start a free-run (while walking away), do a quick 180° (by rotating the left-stick) and let go of free-run. Your character will perform a (slower) quick turn and be ready way earlier than having to wait for the animation.
+
+You can also use the battle arena perimeter to quick turn. While touching it, you can turn around on the same speed as the quick turn skill.
 
 :::tagging{data-tags="{'todo' : true}"}
 #### Spell Chant Reduction
@@ -199,19 +228,15 @@ Do an aerial-enabled arte close to the ground for possible effects. These includ
 For example, most aerial-enabled altered artes can produce the shine animation without the actual attack coming out.
 The window for activation is around 6 frames before landing, different frames possibly producing different effects.
 
-:::tagging{data-tags="{'todo' : true}"}
-It is also possible to cancel the landing animation and do an arte as soon as touching the ground. (may require diagonal jumps? air attacks? frame perfect?)
-:::
-
-:::tagging{data-tags="{'todo' : true, 'media' : 'media/tov/tauntCancel.mp4'}"}
+:::tagging{data-tags="{'media' : 'media/tov/tauntCancel.mp4'}"}
 #### Taunt Cancel
 :::
-
-(How to set Raven as first in party while having him on auto?)
 
 Skills needed: Bark.
 
 Repede has a skill that makes his taunt have a chance (~33%) to cancel everything on the screen. Use this to cancel burst artes, fatal strikes and everything else.
+
+If using it after an arcane or altered arte in overlimit, the user can also do a burst arte just after the cancel. You can find more information [here](https://www.youtube.com/watch?v=uAFJ4Ho-Qts).
 
 There are a few ways to use this consistently.
 
@@ -219,11 +244,11 @@ The first is to have a second controller, and do the taunt with Repede yourself.
 
 The second is to have Raven in the party. During the action you want to cancel, pause and change to Raven. While in the menu, use your personal strategy (character specific down strategy), pause and un-pause, change back to your character and change to the strategy back to the one you want to use. This is more consistent than using Repede to taunt yourself, since you would have wait a couple of frames to make sure the taunt will come out.
 
+If you want to avoid the camera change caused by Raven's personal strategy, you can use a similar method with two controllers: set your player 1 as Raven and have hit sit on auto-mode. Use player 2 to attack until you want the cancel to happen, where you would pause, set your character's personal strategy, and un-pause. In the menu, the strategy would show as player's 2 character (the one that paused the game), but Raven's is the one that will be activated. For better control, unequip Taunt from Repede and only equip a taunt weapon once you enter the menu. You can then unequip the weapon once you don't need the cancel properties of the taunt.
+
 :::tagging{data-tags="{'todo' : true, 'versions' : 'PS3'}"}
 #### Fake Fatal Strikes
 :::
-
-(is an arte required so that you can activate the FS during the fail state?)
 
 On normal enemies, it is possible to make Fatal Strikes not instantly kill by mashing the Fatal Strike button, starting to mash just before the Fatal Strike late fail state (i.e. the time where, if you press the fatal strike button, the symbol grows and disappears, without an attack coming out). Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS).
 
@@ -231,6 +256,17 @@ Requires Turbo controller for consistency.
 
 More information [here](https://muragiri.hatenadiary.org/entry/20100322/p1).
 
+:::tagging{data-tags="{'media' : 'media/tov/fscancel.mp4', 'forcedvideo' : true}"}
+#### Fatal Strike Cancel
+:::
+
+While the enemy has a Fatal Strike glyph up, you can press an arte and the FS button together to cancel your current action (if possible) and instantly start the arte you pressed. This can only be performed when you are able to perform a FS in the first place, so keep in mind that some actions disable your FS use momentarily. In most cases, FS use is enabled after the last hit of most artes (but earlier than it can be canceled normally).
+
+There a few important notes about this cancel:
+- Your arte chain rules persist when using FS Cancelling, thus, you cannot use an arte that wouldn't be able to be chained without the cancel in place. This means that, for most characters, you cannot FS cancel an Arcane arte when not in OVL.
+- The cancel can be performed even when the glyph is starting or ending, which would cause your Fatal Strike to fail. This can be safer if your objective is to not kill the enemy.
+- If your character is in the air, you are only able to use air-enabled artes when doing the cancel.
+- Just like the Taunt Cancel, your momentum will persist depending on your previous action, as you can see [here](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc).
 
 :::tagging{data-tags="{'media' : 'media/tov/fakeGuardArte.mp4'}"}
 #### Fake Guard Artes
@@ -264,19 +300,19 @@ Quickly tap Free-run then completely stop, your character will reach the neutral
 #### Magic Guard FRC
 :::
 
-Quickly press Free-run and do a reverse fireball motion (forward --> forward-down --> down) for the magic guard to come out. You can also go straight from forward to down if possible (strict input). After that release guard and wait for the neutral state
+Quickly press Free-run and do a reverse fireball motion (forward → forward-down → down) for the magic guard to come out. You can also go straight from forward to down if possible (strict input). After that release guard and wait for the neutral state
 
 #### Corner FRC
 
 Quickly press Free-run slightly towards the arena perimeter or towards a big enemy. Your character should not have any horizontal movement if successful. After that guard and wait for the neutral state.
 
-Sometimes, there is a frame advantage on delaying the guard slightly in order to make your guard recover faster. The slowest setup is quickly tapping free-run as soon as you can cancel the current arte. This will result in a cancel of ~22 frames, slightly faster than the normal FRC.
+Sometimes, there is a frame advantage on delaying the guard slightly in order to come closer to the enemy, consequently making you horizontal momentum 0 and making your guard recover faster. The slowest setup is quickly tapping free-run as soon as you can cancel the current arte. This will result in a cancel of ~22 frames, slightly faster than the normal FRC.
 
 #### Guard Cancel FRC
 
 Skills needed: Guard artes, Ability Plus.
 
-Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte (this requires). The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
+Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte. The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
 
 :::tagging{data-tags="{'todo' : true}"}
 #### Frame data
@@ -304,11 +340,11 @@ Letting the enemy do their chain before you start your combo (punishing the enem
 
 The number of attacks a boss can use is unique to each boss (though they are usually the same as the player).
 
-For example, punishing a normal -> base -> arcane chain will more than likely work for most bosses. Punishing 2-3 of their recovery attacks will also work the same way.
+For example, punishing a normal -> base -> arcane chain as you start your combo will more than likely work for most bosses. Punishing 2-3 of their recovery attacks during the combo will also work the same way.
 
 #### Stun lock
 
-Stunning an enemy after a punish (recovery attack or arte chain) makes so that there is no way for the enemy to do a recovery attack during your combo, so watch out for stuns mid combo. If you did not bait recovery attacks, you may need to do it once mid-combo for the stun lock to have effect.
+Stunning an enemy during a combo will make so that they will not be able to do a recovery attack during it. If you did not bait recovery attacks previously (in the same combo), keep in mind that the enemy may still do them if knocked down.
 
 #### Boss Documented Behavior
 
@@ -332,11 +368,6 @@ Using SAC's cancels any sort of casting bonuses and resets actions that can only
 
 SAC can be set-up mid combo, and it does not require neutral stance/guard to be in effect.
 
-:::tagging{data-tags="{'todo' : true}"}
-https://www.youtube.com/watch?v=JppXEzTMQyc (? Variation of Spell SAC?)
-(Also, apparently there are two variations of SAC that can be done on XBOX. Easier to do too.)
-:::
-
 #### Semi-auto/Stick Cancel Basics
 
 While in any action (free-run, guard, jump or arte) go to the menu and buffer an arte by selecting it while in auto mode (in the character that you're controlling), then, while in battle, change back to semi-auto mode (manual can be used in limited scenarios). The arte you selected in auto mode is now buffered and the game will make you run to the enemy to use it every time it is possible.
@@ -351,7 +382,7 @@ Free-run to the enemy and do Azure Storm. Cancel Azure Storm into Severing Fang.
 
 For all further examples, artes set on auto (in this example Draconian Slash) are called **buffered artes**. Artes used for the cancel are called (in this example Severing Fang) are called **cancel artes**.
 
-For better effect, both buffered artes and cancel artes need to be artes that require your character to be very close to the enemy to perform. The enemy dimensions can also be important, since there are occasions where the character will be stuck in the free-run animation without the arte coming out.
+For better effect, both buffered artes and cancel artes need to be artes that require your character to be very close to the enemy to perform. The enemy dimensions can also be important, since there are occasions where the character will be stuck in the free-run animation without the arte coming out (usually on the enemy's tails or limbs).
 
 Keep in mind that you can also cancel to normals instead of artes.
 

@@ -10,9 +10,9 @@ Project started 12th of April of 2021.
 
 TTE is fueled by the Unified collective to parse tech documents and news into the website. It supports GFM (Github Flavored Markdown) and multiple others functionalities such as emojis (:joy:), math and custom directives (from commonmark) for media and tag handling.
 
-The following tools/libraries are utilized: Unified, esbuild, prettier, npm.
+The following tools/libraries are utilized: Unified, esbuild, Prettier, highlight.js, npm.
 
-Pages use only pure javascript and html/css.
+Pages use only pure javascript and HTML/CSS.
 
 ## Building
 

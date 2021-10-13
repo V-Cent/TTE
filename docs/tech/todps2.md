@@ -13,25 +13,25 @@ Versions:
 
 Here will be displayed a simple description of the base mechanics in the game. Most of there are already explained during gameplay, but may have some effects that were only found out during experimentation.
 
-Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o) and [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0).
+Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0) and [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I).
 
 ### Stats
 
-Each character 8 stats separated into two different categories:
+Each character has 8 stats separated into two different categories:
 
 Main Stats:
 
-- Physical Attack(_Phy.Atk_) --> Physical Damage increase, does not increase solid stance break chance, or crit chance, or anything else.
-- Physical Defense(_Phy.Def_) --> Physical Damage inflicted decrease.
-- Magic Attack(_Mag.Atk_) --> Magic Damage dealt increase.
-- Magic Defense(_Mag.Def_) --> Magic Damage inflicted decrease.
+- Physical Attack(_Phy.Atk_) → Physical Damage increase, does not increase solid stance break chance, or crit chance, or anything else.
+- Physical Defense(_Phy.Def_) → Physical Damage inflicted decrease.
+- Magic Attack(_Mag.Atk_) → Magic Damage dealt increase.
+- Magic Defense(_Mag.Def_) → Magic Damage inflicted decrease.
 
 Sub Stats:
 
-- Strength(_Str_) - Determines Character HP. [HP = Strength Stat X 6]
-- Evade(_Eva_) - Decreases Enemy's Critical Rate and increases chances of activating Evasion.
-- Concentration(_Con_) - Increase Critical Rate. Keep in mind that criticals have a cooldown before they can be done again.
-- Accuracy(_Acc_) - Decreases enemy blast gain rate and breaks through enemies Evasion.
+- Strength(_Str_) → Determines Character HP. [HP = Strength Stat X 6]
+- Evade(_Eva_) → Decreases Enemy's Critical Rate and increases chances of activating Evasion.
+- Concentration(_Con_) → Increase Critical Rate. Keep in mind that criticals have a cooldown before they can be done again.
+- Accuracy(_Acc_) → Decreases enemy blast gain rate and breaks through enemies Evasion.
 
 Definitions:
 
@@ -78,7 +78,7 @@ Artes and spells cost more CC than a normal attack, but they normally do more da
 You can use skills and equipment to reduce casting time. DeEarth also reduces cast time of Dark Spells, same for Philia's earth necklace. You can also reduce it by doing artes or other spells.
 
 :::tagging{data-tags="{'todo' : true}"}
-As you constantly use artes in combos, the Casting Time for all spells will reduce as far as 80%, enabling spells to cast faster. This has a limit to 31 frames (check). Below is the list of methods on how this feature works.
+As you constantly use artes in combos, the Casting Time for all spells will reduce as far as 80%, enabling spells to cast faster. This has a limit to 31 frames. Below is the list of methods on how this feature works.
 :::
 
 - Normals will not reduce Incantation Time.
@@ -121,21 +121,18 @@ When equipping narikiri dolls, some attacks change properties to reflect the wea
 E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan, Rekuuzan, Souryuu Rengazan and Senkuuretsuha to sonic attacks. Mary equipping Nariki Stahn would change all those attacks into slash and blunt property attacks and so on.
 
 :::tagging{data-tags="{'todo' : true}"}
-**Advance Gate Points**: You can use these on the New Game + shop to buy special effects. Float Gravity, for example, increases the launch powers of all attacks by a multiplier. You can also manipulate your end game save file to gain more points. Decreasing and then increasing the difficulty in the same playthrough (so fight the final boss, save, load, fight again), has no effect on the points. Difficulty has an effect, but looks like only has an effect based on the last playthrough difficulty. So the question is:
+**Advance Gate Points**: You can use these on the New Game + shop to buy special effects. Float Gravity, for example, increases the launch power of all attacks by a multiplier. You can also manipulate your end game save file to gain more points. Decreasing and then increasing the difficulty in the same playthrough (so fight the final boss, save, load, fight again), has no effect on the points. Difficulty only has an effect based on the last playthrough difficulty.
 :::
-
-1. Can one clear on hard (2 points), load and clear on simple, keep the 2 points (probably not)? If yes, does the simple difficulty affect the next playthrough or the hard (so clear on hard (2 points),save,load,clear on simple, save, newgame+, clear on hard(4 points))?
-2. Can one manipulate difficulties to max points? Something like Hard (0p+2p) -> Simple (2p+1p) -> Hard(3p+2p) -> Chaos(5p+2p?) Possible? [TODO]
 
 **Critical Attacks**: Criticals can stun enemies or apply status effects depending on the character. Crits all go to 80 stagger, the next hit after the crit adds more stagger. When the enemy is stunned (usually because of a crit), all attacks OTG.
 
 **Text Skip**: Hold X and Square to skip all current text. Works better than mashing. Possible to use after options too.
 
 :::tagging{data-tags="{'todo' : true}"}
-**Collector's Book Bonus**: Maxed Collectors book gives you 15 of every item after beating the final boss. (test on Leon's side?) [TODO]
+**Collector's Book Bonus**: Maxed Collectors book gives you 15 of every item after beating the final boss.
 :::
 
-**Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells/ground dash) you can only dash again after a back step or after touching the ground without doing any moves. That is why "wavedashing" (jumping then dashing to the ground) can be a good option for the neutral game.
+**Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells/ground dash) you can only dash again after a back step or after touching the ground without doing any moves. "wavedashing" (jumping then dashing to the ground) can be a good option for enemies too far away for a single dash (as long as they're ground enemies with normal height).
 
 **Dash Direction**: To dash to an enemy, always do the input to the direction your character is facing. Including when you mix-up an enemy during a jump or chain. This is also important if you want to backstep after jumping over an enemy, since you would have to first dash towards the enemy (cancelling the landing animation) and then away from it (finally backstepping).
 
@@ -145,7 +142,7 @@ E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan
 
 ## Glitches
 
-In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for Combat, this is found on the next segment.
+In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for combat, this is found on the next segment.
 
 ### Out of Bounds and Sequence Breaks
 
@@ -167,7 +164,7 @@ Go into a shop and buy something (x1). After that, add one of one item (dpad-rig
 #### Infinite Swordian Points
 :::
 
-"Cave Queen" (Stan), "Cave Head" (Lion), "Caves Well" (Philia) monsters in the Definite Strike arena award Swordian Points when defeated on Hard or higher (TODO test). Can easily be exploited for max Swordian Points.
+"Cave Queen" (Stan), "Cave Head" (Lion), "Caves Well" (Philia) monsters in the Definite Strike arena award Swordian Points when defeated on Hard or higher. Can easily be exploited for max Swordian Points.
 
 ### Minor Combat Glitches
 
@@ -186,7 +183,7 @@ When using a non air-enabled arte in the air, a normal attack comes out. Current
 #### Definite Strike Lock
 :::
 
-If you're during a definite strike chain and stun/sleep/stone an enemy that floats/flies without making it drop to the ground, the enemy will not be able to recover from the hit and will stay floating in the air.
+If you're currently doing a definite strike chain and stun/sleep/stone an enemy that floats/flies without making it drop to the ground, the enemy will not be able to recover from the hit and will stay floating in the air.
 
 #### Stagger Overload
 
@@ -227,13 +224,13 @@ Casting an spell just as an enemy hits you negates the damage (gives you i-frame
 
 #### Arena Edges
 
-The edges of the arena cancel any horizontal momentum when touched. This enables you to instantly change direction after touching the wall, without needing to do another jump.
+The edges of the battle arena cancel any horizontal momentum when touched. This enables you to instantly change direction after touching the wall, without needing to do another jump.
 
 :::tagging{data-tags="{'media' : 'media/todps2/airWalking.mp4'}"}
 #### Air Walking
 :::
 
-Based on Arena Edges, the ceiling has an interesting effect. When in the air, reach the ceiling (possible with just normals and jumps) to have infinite jumps. Release guard button(if you have it pressed) then you can change direction midair, pretty fast. Fall speed is increased when you bonk your head in the ceiling, since your vertical momentum is reset each time.
+The ceiling of the battle arena also has an interesting effect. When in the air, reach the ceiling (possible with just normals and jumps) to have infinite jumps. By releasing guard button (if you have it pressed), you can change direction midair. Fall speed is increased when you bonk your head in the ceiling, since your vertical momentum is reset each time.
 
 :::tagging{data-tags="{'media' : 'media/todps2/slowFall.mp4'}"}
 #### Slow Falling
@@ -241,29 +238,35 @@ Based on Arena Edges, the ceiling has an interesting effect. When in the air, re
 
 During a chain where you used at least one normal attack (to activate its floaty properties), do a normal attack just as the momentum is changing from upwards (momentum higher than 0) to downwards (momentum lower than zero), you will then stall in the air or, most of the time, fall slowly. Works bests after some artes.
 
-:::tagging{data-tags="{'todo' : true}"}
-#### Spell Cancel Landing/Recovery
-:::
+#### Faster Recovery Techniques
 
-Fastest landing cancel is 25 frames, and cc recovery is 1 every 4 frames. Normal (Straight fall) landing is 42 frames. With horizontal momentum it barely saves time. You can also use it to recover faster from a spell recovery-frames (so, after releasing a spell, cast another and immediately cancel) (Needs checking). Also useful to reset the normal attack properties.
+When doing a straight fall (no horizontal momentum), your character takes 42 frames to start to recover CC, which increases in a rate of 1 every 4 frames.
 
-:::tagging{data-tags="{'todo' : true}"}
+There are two ways to make this recovery faster:
+- The first is using a normal attack before landing. This needs to be high enough from the ground so that touching it will cause the animation of the attack to cancel. This costs 1 CC and makes the recovery drop from 42 frames to 25, resulting in you recovering faster and having more CC available for use (+3 CC by the time the other recovery animation would be ending). More information can be found [here](https://www.youtube.com/watch?v=58AZmkFtH-I).
+- The second is using a spell and instantly cancel it with a guard. The spell needs to be done just before touching the ground, while you're still in the air. Your character will proceed to lock to the ground to perform the spell, where you can then cancel it. This method also reduces the recovery to 25 frames, however, it costs at least 2 CC (causing you to have only +2 CC than not using it) and it is harder to perform. Can be useful for cases where you do not want your normal attack to hit.
+
+For falls with horizontal momentum, the recovery time will be 25 frames and using one of the techniques above will not reduce it.
+
+Having a faster landing recovery can also be useful to reset the properties of your normal attack (see Gliding segment below).
+
+Another recovery that can be beneficial to cancel is the release of spells. These usually take 72 frames to start recovering CC, but can be cancelled way earlier. By chaining the spell with another and then instantly cancelling it, you can reduce the recovery to 42 frames (+5 CC). You can also use an aiming dash or backstep if you have only 1 CC left, since those still recover faster than waiting for the spell release animation.
+
 #### Bait Reset
-:::
 
-When an opponent is walking or running, just before he does an attack, stagger him (need to check frame data) [TODO]. When you drop the combo (on purpose) he will do his (stored) attack immediately and you can punish him while he is attacking, continuing the combo.
+When an opponent is walking or running, just before they start an attack, stagger them. When you drop the combo (on purpose) they will perform their (stored) attack immediately and you can punish them while they're stuck in an animation, thus continuing the combo.
 
 #### Bounce
 
-Some artes makes the enemy bounce on the ground and others do not. For example, most artes that have the hard knockdown effect cause the enemy to not bounce in the ground. Ending those combos with a normal instead will make so that the enemy will bounce once it touches the ground. Normals always bounce, unless you're using a special belt from Kongman (if you're using a Nakiriri doll with Kongman, the effect works on other characters too). Keep in mind that this effect is only for normals done in the ground (air normals do not carry the knockdown effect).
+Some artes makes the enemy bounce on the ground and others do not. For example, most artes that have the hard knockdown effect cause the enemy to not bounce in the ground. Ending those combos with a normal instead will make so that the enemy will bounce once it touches the ground. Normals always bounce, unless you're using a special belt from Kongman (even with a Nakiriri Doll equiped). Keep in mind that this effect is only for normals done in the ground (air normals do not carry the knockdown effect).
 
 :::tagging{data-tags="{'media' : 'media/todps2/push.mp4'}"}
 #### Push
 :::
 
-When an enemy attack requires melee distance to perform, you can aiming dash just as the attack is about to come out (just when the enemy finishes walking, but before the attack comes out) to push the enemy away. You can walk forward to make the enemy end their walk animation while you're closer to them, which makes the push have a bit more knockback.
+When an enemy attack requires melee distance to perform, you can aiming dash just as the attack is about to come out (just when the enemy finishes walking, but before the attack comes out) to push the enemy away. You can walk forward to make the enemy end their walk animation while you're closer to them, which makes the push have a bit more pushback.
 
-#### Fast CC Recovery
+#### Faster Max-CC
 
 By rapidly casting and cancelling base spells (like fireball), you can quickly increase your minimum CC all the way to your maximum CC.
 
@@ -307,7 +310,7 @@ The only character unable to do glides is Chelsea due to her normals being float
 
 ### Attack Cancel
 
-By pressing artes (or shortcut artes) + attack button on the same frame you can get interesting effects. Blast penalty doesn't happen since the games thinks you're also doing a normal attack. 
+By pressing artes (or shortcut artes) + attack button on the same frame you can get interesting effects. Blast penalty doesn't happen since the games thinks you're also doing a normal attack.
 
 :::tagging{data-tags="{'todo' : true}"}
 Doing it twice can start an Neutral Cancel, which can glitch some artes. You can also start a Neutral Cancel by doing a normal attack followed by an Attack Cancel. You will lose the Neutral Cancel effect after doing normal attack, A.C. arte or an arte that consumes it.
@@ -335,7 +338,7 @@ When casting an Attack Cancelled Spell, there will be no restriction on casting 
 #### Neutral Cancel
 :::
 
-(List [TODO];)
+Some actions may start a flag that modifies some properties of specific artes.
 
 
 ### Stagger Techniques
@@ -344,9 +347,9 @@ When casting an Attack Cancelled Spell, there will be no restriction on casting 
 #### Stagger Storage
 :::
 
-By doing an arte and dropping the combo you get an additional 20 frames of stagger stored on your aiming dash. Then, if you do a normal attack or arte into an aiming dash, said attack/arte will get an additional 20 frames of stagger. Doing an aiming dash/backstep/charge/landing(from a jump) before using the stored stagger negates the effect. Stagger Storage only works during a chain after it is set up, so no Demon Fang -> Wait -> Aiming Dash.
+By doing an arte and dropping the combo you get an additional 20 frames of stagger stored on your aiming dash. Then, if you do a normal attack or arte into an aiming dash, said attack/arte will get an additional 20 frames of stagger. Doing an aiming dash/backstep/charge/landing(from a jump) before using the stored stagger negates the effect. Stagger Storage only works during a chain where the enemy is staggered.
 
-Use jumps and other artes to use it without knocking the enemy down (taking out some stagger equip also helps).
+You can use jumps and other artes to delay the stored stagger so it wont knock the enemy down due to stagger overload (taking out some stagger equip also helps).
 
 #### Combo Assist
 
@@ -364,57 +367,63 @@ The window that you can increase the stagger of the previous attack is about 25 
 #### Arte Stagger Change
 :::
 
-Doing an attack before the projectile of a previous arte still has not reached the enemy can decrease a bit of stagger, or even changes it.
+Doing an attack before the projectile of a previous arte still has not reached the enemy can decrease/increase the stagger from that projectile.
 
-:::tagging{data-tags="{'todo' : true}"}
 ### Semi-auto Techniques
-:::
-
-(does it effect casting time?) (AUTO does not seem to work... seems to be a different mechanic -- the so called reserve arte/item. Test that out mid-combo?)
 
 (These require semi-auto to be active)
 
-Semi-auto on Destiny shows most effect in grounded combat, since air actions do not initiate any unique mechanics. When grounded, doing an arte/normal (sufficiently away from the enemy, depending on the arte/normal) will start a forced neutral animation followed by a semi-auto run animation. This forced neutral animation lasts the longer when running away from the enemy (~15 frames) and can be extended by using an aiming dash or charge.
+Semi-auto on Destiny works mostly in grounded combat since air actions do not have any proximity correction mechanics. Any action that you do while not being in a chain or after other uniques actions such as landing from a jump, backstepping, aiming dashes and charging, will start a running animation (the semi-auto run that is present in most entries on the franchise). This is because, while in semi-auto mode, actions that would whiff if done where you are will be buffered and make your character run instead. This semi-auto run will end depending on the distance (between you and the enemy) that is necessary for the buffered action to "connect".
 
-The arte/action used to cause the neutral animation is called the _SB buffered action_ (see below for more information). If you use an a non-shortcut arte after the animation, that arte will become the buffered action instead.
+Once your character gets close enough, the buffered action will be used and the buffer is cleared. You can cancel the semi-auto run animation by either jumping, doing an aiming dash, or stopping (by doing the input for a backstep). Both jumping and stopping will also clear your buffered action.
 
-The SB buffered action persists between ground dashes but disappears whenever the forced neutral animation is cancelled or if another attack/arte is pressed (no need for the attack to come out, just the button press causes it) before its execution. Jumping causes the SB buffered action to be performed, if it is air-enabled.
+#### Spatial-buffer Canceling (SB Canceling)
 
-Most of the following techniques require the player character to be in the forced neutral animation to function. You cannot be in any chain for the semi-auto run to start.
+There are two properties of semi-auto that can be exploited to do advanced techniques. They are the spatial properties: the current distance between you and the enemy and the distance necessary for your action to be performed (after the semi-auto run); and the action buffer.
+
+Under normal circumstances, you cannot have an action buffered if you're not in the semi-auto run state. However, if you run away from the enemy and perform a normal attack or arte (excluding spells and some very specific artes), your character will first do an animation to stop and turn around (this lasts ~15 frames). This action, which will be called the _forced neutral animation_, is one of the only periods where you can perform another action while you still have a buffered action.
+
+In short, any action you do while running away from the enemy will initiate a _forced neutral animation_ and be buffered. This animation can then be canceled in any other action which will come out on the spot. After the action is finished, your character will once again return to neutral and start the semi-auto run to perform his buffered action.
+
+The three key points to that behavior are the **buffered action**, the **forced neutral animation** and the **forced action** (the action that is used to cancel the _forced neutral animation_). This, however, is still nothing that couldn't have been done on manual. That is where the spatial properties come into play. During the _forced action_, if your character comes close enough to the enemy to the point where you wouldn't need the semi-auto run, your _forced action_ will instantly be canceled and the _buffered action_ will come out.
+
+:::tagging{data-tags="{'media' : 'media/todps2/sbCancel.mp4', 'forcedvideo' : true}"}
+This is called a Spatial-buffer cancel (SB Cancel). The cancel can even mess up your momentum and your character's state (such as color).
+:::
+
+There are other important points to SB Canceling:
+
+- If you go airborne during your _forced action_, keep in mind that air-enabled actions have different spatial properties for air and ground (this depends both on the _forced action_ and the _buffered action_). If your _buffered action_ does not come out, it will be cleared due to the semi-auto rules mentioned above. If your chain does not work because of spatial properties, you can consider using a normal attack as the _buffered action_, since the air version of it does not need spatial considerations to come off (works on any distance). You can then chain your preferred action to the normal attack, while still canceling the _forced action_. You should also take into consideration that various artes may not look like they leave the ground, such as Leon's Dragon Swarm, but they will consume any air-enabled _buffered action_ or clear the buffer during its execution.
+- If the _forced action_ you used was using an artes button (o/x), the _buffered action_ will be overwritten to be the same as the _forced action_ you just used. If the _forced action_ you used was using a shortcut (L2/R2), your _buffered action_ will stay the same.
+- Airborne enemies change the spatial properties required for your _buffered action_ to come out. Your character can either cancel as normal, do an aiming dash after your forced action is done (thus not canceling it), or be temporally stuck in a loop where you automatically walk left and right beneath the enemy (until he's within range for the _buffered action_ to come out).
+
+:::tagging{data-tags="{'media' : 'media/todps2/sbShortHop.mp4'}"}
+#### Short-hop actions
+:::
+
+If you backstep while you have a _buffered action_, you can activate it while being extremely close to the ground. This can easily be done by making your _forced action_ a backstep. The only confirmed example for this is doing short-hop normals (like in the example video), since they do not require spatial properties.
+
+You may also use the backstep after your _forced action_, if your _buffered action_ was not consumed.
 
 #### Spell auto re-cast
 
-If you use a spell as the buffered action and then try to cancel it, it will automatically be re-casted. This only works for non-shortcut set spells (this is because the same spell is both the buffered and the expected action -- constantly.) They will not start a forced neutral animation. This can be abused to instantly lock large-scale artes.
+If you use a spell as the _buffered action_ and then try to cancel it, it will automatically be re-casted. This only works for non-shortcut set spells (this is because the same spell is both the buffered and the expected action -- constantly.)
 
-:::tagging{data-tags="{'media' : 'media/todps2/sbShortHop.mp4'}"}
-#### Short-hop neutrals
-:::
+Spells (and other very specific artes) will not start a _forced neutral animation_.
 
-By initiating a forced neutral animation with a normal attack, you can backstep during the animation to automatically do the buffered action when on the air (due to the backstep animation). This can also be done after short-cut artes, since they do not overwrite the SB buffered action.
-
-:::tagging{data-tags="{'media' : 'media/todps2/sbCancel.mp4', 'forcedvideo' : true}"}
-#### Spatial-buffer cancelling (SB Cancelling)
-:::
-
-Doing any arte or spell during the forced neutral animation will make so that it come out on the spot, without the semi-auto run. If, during the arte, the distance between player/enemy decreases so that the SB buffered action would be executed normally (i.e. after the semi-auto run), the current arte execution will be stopped and the buffered action will start (thus cancelling the previous arte animation).
-
-If during the arte you used to cancel the animation your characters goes airborne, and the SB buffered action is air-enabled, said action will occur the moment the user leaves the ground. Some artes may not enable the player to follow the action with artes (usually those that still need to created hitboxes or entities), but if the SB buffered action is a normal attack, it will always be cancelled (thus you can use the normal as a link to other action). 
-
-After leaving the ground the SB buffered action is consumed whether the arte is cancelled or not, thus no more spatial effects will occur (if you get close to the enemy after touching the ground).
-
-Some artes may not seem to leave the ground, but even the smallest jump in height results in a normal (ex: Kong's Dragon Swarm-like attack.)
+This can be abused to instantly lock large-scale artes.
 
 #### Attack Cancel + SB
 
-If the arte you use during the forced neutral animation is A. C.'d or if the SB buffered action is an A. C. arte, the buffered action will be the same as a normal attack.
+If your _forced action_ is A. C.'d or if the _buffered action_ is an A. C. arte, the _buffered action_ will be the same as a normal attack.
 
 :::tagging{data-tags="{'media' : 'media/todps2/spellSb.mp4'}"}
-#### Spell SB Cancelling
+#### Spell SB canceling
 :::
 
-SB cancelling spells (i. e. using shortcut spells with an SB action buffered) can be a good option select since it can make an arte come out before the spell has finished casting, making so that you don't get punished in situations you normally would be. It can also be used to completely negate the spell release frames, regaining control faster. 
+SB canceling spells (i. e. using shortcut spells with another action buffered) can be a good option select since it can make an arte come out before the spell has finished casting, making so that you don't get punished in situations you normally would be. It can also be used to completely negate the spell release frames, regaining control faster.
 
-Finally, if the spell ends in the air and if the SB buffered action is air-enabled, the moment your character leaves the ground the animation will be cancelled and the air action will come out. 
+Finally, if the spell ends in the air and if the _buffered action_ is air-enabled, the moment your character leaves the ground the animation will be canceled and the air action will come out.
 
 :::tagging{data-tags="{'media' : 'media/todps2/demonLanceCancel.mp4'}"}
 For example, Leon can use Dragon Swarm just after the jump from Demon Lance, making the lance follow Leon while Dragon Swarm is in effect.
@@ -424,8 +433,8 @@ For example, Leon can use Dragon Swarm just after the jump from Demon Lance, mak
 #### SB storage
 :::
 
-By changing to Manual after causing the forced neutral animation, the SB buffered action will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the SB buffered action will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specific position and then change to semi-auto, automatically cancelling your action due to the spatial properties of the cancel.
+By changing to Manual during the _forced neutral animation_ (or during casting for spells and 1 frame after pressing the artes button for screen-wide artes), the _buffered action_ will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the _buffered action_ will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specific position and then change to semi-auto, automatically canceling your action due to the spatial properties of the technique.
 
-The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells! Even the recovery of some BC's can be cancelled.
+The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells.
 
 This cannot be used to bypass the air limitations of the battle arena.

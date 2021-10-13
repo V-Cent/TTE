@@ -123,3 +123,9 @@
   #section-container { padding-left: 18px; padding-right: 18px;}
   #footer-container { padding-left: 18px; padding-right: 18px;}
 }
+
+@media screen and (orientation:portrait) {
+  #content { padding-left: 30px; padding-right: 30px;}
+  #section-container { padding-left: 18px; padding-right: 18px;}
+  #footer-container { padding-left: 18px; padding-right: 18px;}
+}

@@ -61,6 +61,8 @@ function updatePage() {
   hljs.highlightAll();
   // Treat custom directives
   compileTags();
+  // Sort tables
+  sortTables();
 }
 
 // --- Functions related to file parsing
@@ -314,6 +316,11 @@ function loadNewsSection() {
     cardContents = cardContents.concat(parseNewsContent(newsPage3, 3));
   }
 
+  let newsPage4 = parseGFM("news/news4");
+  if (!!newsPage4) {
+    cardContents = cardContents.concat(parseNewsContent(newsPage4, 4));
+  }
+
   //Close the container and update the content block on the page
   cardContainer = cardContainer.concat(cardContents + "</div>");
   let contentText = document.getElementById("content");
@@ -345,11 +352,15 @@ function addPageChangeEvent(item) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab;
-    if (
-      event.currentTarget.dataset.document != "NEWS" &&
-      event.currentTarget.dataset.redirect == null
-    ) {
-      event.currentTarget.className += " active";
+    if (!(
+      event.currentTarget.dataset.document == "NEWS" ||
+      event.currentTarget.dataset.document.includes("./")
+    )) {
+      for (i = 0; i < tabLinks.length; i++) {
+        if (tabLinks[i].dataset.document == event.currentTarget.dataset.document) {
+          tabLinks[i].className += " active";
+        }
+      }
     }
 
     // Get the section and content elements to change the document presented on the page
@@ -395,6 +406,13 @@ function addPageChangeEvent(item) {
               behavior: "smooth",
             });
         }
+      }
+      //Scroll to top if no redirect is defined
+      if (event.currentTarget.dataset.redirect == null) {
+        document.documentElement.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       }
     }
   });
@@ -505,4 +523,21 @@ function fillSearch() {
   // Insert the HTML on the search bar
   let searchResults = document.querySelector("#nav-bar__search");
   searchResults.insertAdjacentHTML("beforeend", searchContents);
+}
+
+function sortTables() {
+  var getCellValue = function(tr, idx){ return tr.children[idx].innerText || tr.children[idx].textContent; };
+
+  var comparer = function(idx, asc) { return function(a, b) { return function(v1, v2) {
+          return v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2);
+      }(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+  }};
+
+  document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    const tbody = table.querySelector('tbody');
+    Array.from(tbody.querySelectorAll('tr'))
+      .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+      .forEach(tr => tbody.appendChild(tr) );
+  })));
 }

@@ -76,7 +76,10 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] (!) Google fonts and other styles blocking page load when offline.
 - [x] Test other OSs and browsers.
 - [x] (!) Change footer on viewport re-size.
-- [ ] ... (period to gather feedback)
+- [ ] News system rework.
+- [ ] Platform symbols.
+- [ ] Finish Header/Footer.
+- [ ] Colored text on Markdown (that works with bold, italics...).
 - [ ] README.
 - [ ] MacOS testing (Safari)
 - [ ] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)
