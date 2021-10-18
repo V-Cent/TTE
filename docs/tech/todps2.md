@@ -310,11 +310,7 @@ The only character unable to do glides is Chelsea due to her normals being float
 
 ### Attack Cancel
 
-By pressing artes (or shortcut artes) + attack button on the same frame you can get interesting effects. Blast penalty doesn't happen since the games thinks you're also doing a normal attack.
-
-:::tagging{data-tags="{'todo' : true}"}
-Doing it twice can start an Neutral Cancel, which can glitch some artes. You can also start a Neutral Cancel by doing a normal attack followed by an Attack Cancel. You will lose the Neutral Cancel effect after doing normal attack, A.C. arte or an arte that consumes it.
-:::
+By pressing artes (or shortcut artes) and the normal attack button on the same frame you can get some interesting effects. Since the game thinks you're doing an actual normal attack, every A.C arte you do will not have the blast penalty that is applied for repeated artes. A.C can also be used for the following effects:
 
 :::tagging{data-tags="{'media' : 'media/todps2/followUp.mp4'}"}
 #### Follow-up Negation
@@ -333,13 +329,6 @@ Works mid-chain.
 #### Attack Cancel Spell
 
 When casting an Attack Cancelled Spell, there will be no restriction on casting time when doing the same spell. This cost +1 CC. Thus you can do A.C Grave (100%) -> A.C Grave(80%) -> A.C Grave(60%)
-
-:::tagging{data-tags="{'todo' : true, 'media' : 'media/todps2/neutralCancel.mp4'}"}
-#### Neutral Cancel
-:::
-
-Some actions may start a flag that modifies some properties of specific artes.
-
 
 ### Stagger Techniques
 

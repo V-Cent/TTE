@@ -187,7 +187,7 @@ Auto-mode gives players control of the character simultaneous with the AI. While
 
 This also means that if the AI is set to do nothing, auto-mode acts the same way as semi-auto mode. However, it is important to note that even if all the artes for a character are disabled, manually starting a chain while in auto may make the AI do its own pre-programmed chains on its own.
 
-Another important feature of auto-mode is that it will automatically dodge most attacks (if possible) and remove the hit-stop from your attacks. This may result in slightly faster animations (especially for specific artes), but has minimal effect on gameplay. You can see a showcase of these effects [here](https://twitter.com/UnheardPhantasm/status/1447392198698442754).
+Another important feature of auto-mode is that it will automatically dodge most attacks (if possible), removes the hit-stop from your attacks and increases the speed of (some) animations by up to 25%.  You can see a showcase of these effects [here](https://twitter.com/UnheardPhantasm/status/1447392198698442754). Beware that, even if a good portion of animations is faster, the stagger time of most attacks is reduced by up to 15%.
 
 You can set an action as pending in memory by letting the AI control the character in auto mode then doing an action. You can also change the battle control from auto to semi-auto/manual once the AI does any action to prevent it from doing any further actions, thus saving the pending action in memory. You will notice that an action is pending when the character does not finish it animation by a slight walk away after the last action (or a quick neutral animation if sufficiently away from the enemy).
 
@@ -225,3 +225,4 @@ There are a few key points to remember:
 - You can only cancel buffered actions by using air artes.
 - You must be close enough to the enemy so that your character wouldn't start a semi-auto run.
 - You can cancel the arte you choose on the menu by taking control just after your character starts the jump.
+- You must be in either semi-auto or manual mode.
