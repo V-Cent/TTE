@@ -1,7 +1,7 @@
 ---
 name: Tech Addition
 about: Discuss a technique for a specific game
-title: ''
+title: "[TECH]"
 labels: tech
 assignees: ''
 
