@@ -139,7 +139,6 @@ function htmlDirectives() {
 
 // --- Function related to tagging behaviour
 function compileTags() {
-  const parser = new DOMParser();
   //Iterator over every element that needs tagging
   document.querySelectorAll(".tagging").forEach((taggedElement) => {
     //Get tags from the first child (first heading), which are saved as JSON
@@ -391,15 +390,15 @@ function addPageChangeEvent(item) {
       } else {
         //Event is a tech document, set the section as the game name and update the content
         sectionText.innerHTML = event.currentTarget.dataset.section;
-        contentText.innerHTML = parseGFM((
-          "./tech/" + event.currentTarget.dataset.document
-        ).toLowerCase());
+        contentText.innerHTML = parseGFM(("./tech/" + event.currentTarget.dataset.document).toLowerCase());
+        collapseHeaders(contentText);
         //Clear search results
         clearFunction();
         //Update page
         updatePage();
         if (event.currentTarget.dataset.redirect != null) {
-          //Event has a redirect location
+          //Event has a redirect location, collapse the headers if needed
+          revealID(event.currentTarget.dataset.redirect.substring(1));
           document
             .querySelector(event.currentTarget.dataset.redirect)
             .scrollIntoView({
@@ -418,6 +417,124 @@ function addPageChangeEvent(item) {
   });
 }
 
+// --- Function for collapsing headers on tech documents
+function collapseHeaders(page) {
+  let currentH4 = null;
+  let currentH3 = null;
+  let currentH2 = null;
+  let newInner = ""
+  let currentHTML = page.innerHTML.split("\n");
+  for(let i = 0; i < currentHTML.length; i++){
+    // Iterates over all the lines from the created HTML and uses it to create a new document with collapsing headers
+    if (currentHTML[i].includes("h4")){
+      // Close the div if a h4 is in progress
+      if (currentH4){
+        newInner = newInner + "</div></div>" + "\n"
+      }
+
+      // Finding reference ID (the id from the original header)
+      currentH4 = currentHTML[i].substring((currentHTML[i].indexOf('h4 id="') + 7));
+      currentH4 = currentH4.substring(0,currentH4.indexOf('"'));
+
+      // Starts a div for the current header, divided into title and content
+      newInner = newInner + '<div class="content__h4">' + "\n"
+      newInner = newInner + '<button class="content__collapse" data-open="' + currentH4 + " " + currentH3 + " " + currentH2 + '"><span class="material-icons md-light md-36">remove</span></button>'
+      newInner = newInner + currentHTML[i] + "\n"
+      newInner = newInner + '<div class="' + currentH4 + '">' + "\n"
+    } else if (currentHTML[i].includes("h3")){
+      // Close the div if a h4 or h3 is in progress
+      if (currentH4){
+        newInner = newInner + "</div></div>" + "\n"
+        currentH4 = null
+      }
+      if (currentH3){
+        newInner = newInner + "</div></div>" + "\n"
+      }
+
+      // Finding reference ID (the id from the original header)
+      currentH3 = currentHTML[i].substring((currentHTML[i].indexOf('h3 id="') + 7));
+      currentH3 = currentH3.substring(0,currentH3.indexOf('"'));
+
+      // Starts a div for the current header, divided into title and content
+      newInner = newInner + '<div class="content__h3">' + "\n"
+      newInner = newInner + '<button class="content__collapse" data-open="' + currentH3 + " " + currentH2 + '"><span class="material-icons md-light md-36">expand_more</span></button>'
+      newInner = newInner + currentHTML[i] + "\n"
+      newInner = newInner + '<div class="' + currentH3 + '" hidden>' + "\n"
+    } else if (currentHTML[i].includes("h2") && !currentHTML[i].includes("table-of-contents")){
+      // Close the div if a h4, h3 or h2 is in progress
+      if (currentH4){
+        newInner = newInner + "</div></div>" + "\n"
+        currentH4 = null
+      }
+      if (currentH3){
+        newInner = newInner + "</div></div>" + "\n"
+        currentH3 = null
+      }
+      if (currentH2){
+        newInner = newInner + "</div></div>" + "\n"
+      }
+
+      // Finding reference ID (the id from the original header)
+      currentH2 = currentHTML[i].substring((currentHTML[i].indexOf('h2 id="') + 7));
+      currentH2 = currentH2.substring(0,currentH2.indexOf('"'));
+
+      // Starts a div for the current header, divided into title and content
+      newInner = newInner + '<div class="content__h2">' + "\n"
+      newInner = newInner + '<button class="content__collapse" data-open="' + currentH2 + '"><span class="material-icons md-light md-36">expand_more</span></button>'
+      newInner = newInner + currentHTML[i] + "\n"
+      newInner = newInner + '<div class="' + currentH2 + '" hidden>' + "\n"
+    } else {
+      newInner = newInner + currentHTML[i] + "\n"
+    }
+  }
+  // Closes divs if any is still open
+  if (currentH4){
+    newInner = newInner + "</div></div>" + "\n"
+  }
+  if (currentH3){
+    newInner = newInner + "</div></div>" + "\n"
+  }
+  if (currentH2){
+    newInner = newInner + "</div></div>" + "\n"
+  }
+  page.innerHTML = newInner;
+
+  // Adds click events for the buttons
+  document.querySelectorAll(".content__collapse").forEach((button) => {
+    button.addEventListener("click", collapseHeader);
+  });
+}
+
+// --- Function for click events on collapse icons
+function collapseHeader(event) {
+  // Check the tags related to the current button
+  let openTags = event.currentTarget.dataset.open.split(" ");
+  for (let i =0; i < openTags.length; i++) {
+    targetList = document.getElementsByClassName(openTags[i]);
+    // Get all objects that are possibly hidden
+    for (let target of targetList) {
+      if (target.hidden){
+        target.hidden = false;
+        // Change the button depending on the current art
+        if (event.currentTarget.firstChild.innerHTML == "expand_more"){
+          event.currentTarget.firstChild.innerHTML = "expand_less";
+        } else {
+          event.currentTarget.firstChild.innerHTML = "remove";
+        }
+      } else if (i == 0) {
+        // Only hide if click target is the current heading level and is currently not hidden.
+        target.hidden = true;
+        // Change the button depending on the current art
+        if (event.currentTarget.firstChild.innerHTML == "expand_less"){
+          event.currentTarget.firstChild.innerHTML = "expand_more";
+        } else {
+          event.currentTarget.firstChild.innerHTML = "add";
+        }
+      }
+    }
+  }
+}
+
 // --- Function for click events on the nav-bar
 function enableSmoothTOC() {
   //Gets all hash events
@@ -425,10 +542,51 @@ function enableSmoothTOC() {
     anchor.addEventListener("click", function (e) {
       //Add smooth behaviour to all matches
       e.preventDefault();
+      //Collapses the header if needed
+      revealID(this.getAttribute("href").substring(1));
       document.querySelector(this.getAttribute("href")).scrollIntoView({
         behavior: "smooth",
       });
     });
+  });
+}
+
+// --- Show all headers for a specific ID
+function revealID(id){
+  // Gets the object of the provided ID
+  targetHeader = document.getElementById(id);
+  let hiddenItems = null
+  // Gets the div that holds all the content for a given header
+  if (targetHeader.parentNode.className.includes("content__")) {
+    hiddenItems = targetHeader.parentNode.firstElementChild.dataset.open.split(" ");
+  } else {
+    // Div is one level higher if a tagging div was used
+    hiddenItems = targetHeader.parentNode.parentNode.firstElementChild.dataset.open.split(" ");
+  }
+  // Iterates over all related classes needed to reveal a specific header
+  hiddenItems.forEach(item => {
+    let targetList = document.getElementsByClassName(item);
+    // Get all objects that are possibly hidden
+    for (let target of targetList) {
+      if (target.hidden){
+        target.hidden = false;
+        // Change the button depending on the current art
+        if (target.parentNode.className.includes("content__")) {
+          if (target.parentNode.firstElementChild.firstChild.innerHTML == "expand_more"){
+            target.parentNode.firstElementChild.firstChild.innerHTML = "expand_less";
+          } else {
+            target.parentNode.firstElementChild.firstChild.innerHTML = "remove";
+          }
+        } else {
+          // Target is one level higher if a tagging div was used
+          if (target.parentNode.parentNode.firstElementChild.firstChild.innerHTML == "expand_more"){
+            target.parentNode.parentNode.firstElementChild.firstChild.innerHTML = "expand_less";
+          } else {
+            target.parentNode.parentNode.firstElementChild.firstChild.innerHTML = "remove";
+          }
+        }
+      }
+    }
   });
 }
 

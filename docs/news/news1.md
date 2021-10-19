@@ -76,7 +76,7 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] (!) Google fonts and other styles blocking page load when offline.
 - [x] Test other OSs and browsers.
 - [x] (!) Change footer on viewport re-size.
-- [ ] Collapsing headers.
+- [x] Collapsing headers.
 - [ ] News system rework.
 - [ ] Platform symbols.
 - [ ] Finish Header/Footer.

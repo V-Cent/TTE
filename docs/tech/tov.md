@@ -256,11 +256,12 @@ Requires Turbo controller for consistency.
 
 More information [here](https://muragiri.hatenadiary.org/entry/20100322/p1).
 
-:::tagging{data-tags="{'media' : 'media/tov/fscancel.mp4', 'forcedvideo' : true}"}
-#### Fatal Strike Cancel
-:::
 
+#### Fatal Strike Cancel
+
+:::tagging{data-tags="{'media' : 'media/tov/fscancel.mp4', 'forcedvideo' : true}"}
 While the enemy has a Fatal Strike glyph up, you can press an arte and the FS button together to cancel your current action (if possible) and instantly start the arte you pressed. This can only be performed when you are able to perform a FS in the first place, so keep in mind that some actions disable your FS use momentarily. In most cases, FS use is enabled after the last hit of most artes (but earlier than it can be canceled normally).
+:::
 
 There a few important notes about this cancel:
 - Your arte chain rules persist when using FS Cancelling, thus, you cannot use an arte that wouldn't be able to be chained without the cancel in place. This means that, for most characters, you cannot FS cancel an Arcane arte when not in OVL.
@@ -276,11 +277,12 @@ Skills needed: Guard artes.
 
 In semi-auto mode, guarding then doing a base arte from a distance makes you run to the enemy, however the invincibility effect happens as soon as you begin to run. Cancelling the running animation in a guard makes you use the invincibility without using an arte.
 
-:::tagging{data-tags="{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true}"}
-### Manual/Free-run Cancel (FRC)
-:::
 
+### Manual/Free-run Cancel (FRC)
+
+:::tagging{data-tags="{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true}"}
 Manual/Free-run cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.
+:::
 
 For the Repede skill, it enables the user to use Manual/Free-run cancel in any direction (360 degrees) and also use it in semi-auto mode.
 
@@ -358,13 +360,15 @@ Therefore, to properly combo a boss without ever being punished you need: good o
 
 More information can be found [here](https://www.youtube.com/watch?v=mKdSnZqTX5w).
 
-:::tagging{data-tags="{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true}"}
+
 ### Semi-auto/Stick Cancel (SAC)
-:::
+
 
 Semi-auto cancel is a technique that abuses the free-run animation that happens when you use semi-auto, and the buffered actions of auto mode.
 
+:::tagging{data-tags="{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true}"}
 Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).
+:::
 
 SAC can be set-up mid combo, and it does not require neutral stance/guard to be in effect.
 
@@ -416,10 +420,11 @@ Skills needed: Guard artes.
 
 If your cancel arte is a base arte, you can use it to cancel push guards, making it possible to chain them until your close enough to perform your buffered arte. This can be a very fast way to move forward, especially with characters like Raven.
 
-:::tagging{data-tags="{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}"}
+
 #### Fake Guard Arte Chaining
-:::
 
 Skills needed: Guard artes.
 
+:::tagging{data-tags="{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}"}
 With semi-auto cancel, as it removes guard delay, you can chain fake guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of fake guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
+:::
