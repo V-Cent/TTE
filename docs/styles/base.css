@@ -23,6 +23,11 @@ body {
   scrollbar-color: #373737 #161617 ;
 }
 
+video {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
 hr {
   border: none;
   border-top: 1px double #ffffff;
@@ -58,6 +63,9 @@ h2 {
   padding-bottom: 0.1em;
   border-bottom: 1px solid #373737;
   margin-right: 15px;
+  width: fit-content;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 
 h3,
@@ -72,6 +80,9 @@ h6 {
   margin-right: 15px;
   scroll-margin-top: 100px;
   scroll-snap-margin-top: 100px;
+  width: fit-content;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 
 h3 {

@@ -154,11 +154,12 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 
 ### Exploits
 
-:::tagging{data-tags="{'media' : 'media/todps2/gald.mp4', 'forcedvideo' : true}"}
-#### Infinite Gald and EX points
-:::
 
+#### Infinite Gald and EX points
+
+:::tagging{data-tags="{'media' : 'media/todps2/gald.mp4', 'forcedvideo' : true}"}
 Go into a shop and buy something (x1). After that, add one of one item (dpad-right) then click buy on another item (circle). Cancel (X) then you will see an underflow, after this, you can do R-STICK left to "buy" the minimum possible, thus, gaining infinite gald and ex points. Using this when selling will cause you to lose all your money (and the items) instead. More information [here](https://www.youtube.com/watch?v=sAJMLSBYs1A).
+:::
 
 :::tagging{data-tags="{'todo' : true}"}
 #### Infinite Swordian Points
@@ -216,11 +217,12 @@ Cast Stop Flow 128 times to use spells with no casting time. Each Stop Flow incr
 
 Dashing a few frames after an attack can move its hit box. It depends heavily on the attack to work (for example, Phantom Edge works). Needs to be done 1-6 frames after the attack.
 
-:::tagging{data-tags="{'media' : 'media/todps2/spellBlock.mp4', 'forcedvideo' : true}"}
-#### Spell Block
-:::
 
+#### Spell Block
+
+:::tagging{data-tags="{'media' : 'media/todps2/spellBlock.mp4', 'forcedvideo' : true}"}
 Casting an spell just as an enemy hits you negates the damage (gives you i-frames), you can also enter the attacks hitbpx with the magic cancel animation! Only works for attacks that lose their hitbox once it hits something (multi hits attacks are out of the question). It can trigger a blast gain, and that generates more i-frames. The spell release (just before the spell comes out) animation has even more i-frames, and can be used easily by holding the spell down.
+:::
 
 #### Arena Edges
 
@@ -418,11 +420,12 @@ Finally, if the spell ends in the air and if the _buffered action_ is air-enable
 For example, Leon can use Dragon Swarm just after the jump from Demon Lance, making the lance follow Leon while Dragon Swarm is in effect.
 :::
 
-:::tagging{data-tags="{'media' : 'media/todps2/sbBuffer.mp4', 'forcedvideo' : true}"}
-#### SB storage
-:::
 
+#### SB storage
+
+:::tagging{data-tags="{'media' : 'media/todps2/sbBuffer.mp4', 'forcedvideo' : true}"}
 By changing to Manual during the _forced neutral animation_ (or during casting for spells and 1 frame after pressing the artes button for screen-wide artes), the _buffered action_ will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the _buffered action_ will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specific position and then change to semi-auto, automatically canceling your action due to the spatial properties of the technique.
+:::
 
 The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells.
 
