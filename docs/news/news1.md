@@ -83,7 +83,7 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] Easier image support for tech pages.
 - [x] README.
 - [x] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)
-- [ ] News system rework.
+- [x] News system rework.
 - [ ] MacOS testing (Safari)
 - [ ] Organization/Custom Domain.
 - [ ] Where to store media? vp8 for Chromium and other android browsers?

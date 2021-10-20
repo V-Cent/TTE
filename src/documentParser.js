@@ -15,6 +15,10 @@ import h from "hastscript";
 import hljs from "highlight.js";
 import { loadTooltip, unloadTooltip } from "./visualEffects.js";
 
+// --- Number of news pages
+const newsNumber = 4;
+var loadedNewsPages = 0;
+
 // --- Actions taken on DOM Load
 document.addEventListener(
   "DOMContentLoaded",
@@ -307,33 +311,52 @@ function loadNewsSection() {
   let cardContainer = '<div class="card-container">';
   let cardContents = "";
 
-  //For each possible file, parse their content and add the card to the container
-  let newsPage1 = parseGFM("news/news1");
-  if (!!newsPage1) {
-    cardContents = cardContents.concat(parseNewsContent(newsPage1, 1));
+  //For each possible file (up to 3), parse their content and add the card to the container
+  for (let index = newsNumber; ((index > (newsNumber - 3)) && (index > 0)); index--) {
+    let newsPage = parseGFM(("news/news" + index.toString()));
+    if (!!newsPage) {
+      cardContents = cardContents.concat(parseNewsContent(newsPage, index));
+    }
   }
 
-  let newsPage2 = parseGFM("news/news2");
-  if (!!newsPage2) {
-    cardContents = cardContents.concat(parseNewsContent(newsPage2, 2));
-  }
-
-  let newsPage3 = parseGFM("news/news3");
-  if (!!newsPage3) {
-    cardContents = cardContents.concat(parseNewsContent(newsPage3, 3));
-  }
-
-  let newsPage4 = parseGFM("news/news4");
-  if (!!newsPage4) {
-    cardContents = cardContents.concat(parseNewsContent(newsPage4, 4));
-  }
+  loadedNewsPages = 3;
 
   //Close the container and update the content block on the page
   cardContainer = cardContainer.concat(cardContents + "</div>");
+  //Add the Load More button
+  cardContainer = cardContainer.concat('<div id="card-container__load-more"> Load More </div>');
   let contentText = document.getElementById("content");
   contentText.innerHTML = cardContainer;
 
-  //Add change page events for each cart (to their respective pages)
+  //Add change page events for each card (to their respective pages)
+  document.querySelectorAll(".card-container__figure").forEach((item) => {
+    addPageChangeEvent(item);
+  });
+  //Add Load More event and update the page
+  document.getElementById("card-container__load-more").addEventListener("click", loadMoreNews);
+  updatePage();
+}
+
+// --- Function for the Load More button
+function loadMoreNews() {
+  //Gets the current card container
+  let cardContainer = document.querySelector(".card-container");
+  let cardContents = cardContainer.innerHTML;
+
+  //Add up to three more cards to the container
+  let leftoverPages = (newsNumber - loadedNewsPages);
+  for (let index = leftoverPages;
+       ((index > (leftoverPages - 3)) && (index > 0));
+       index--) {
+    let newsPage = parseGFM(("news/news" + index.toString()));
+    if (!!newsPage) {
+      cardContents = cardContents.concat(parseNewsContent(newsPage, index));
+    }
+    loadedNewsPages = loadedNewsPages + 1;
+  }
+
+  cardContainer.innerHTML = cardContents;
+  //Add change page events for each card (to their respective pages) and updates the page
   document.querySelectorAll(".card-container__figure").forEach((item) => {
     addPageChangeEvent(item);
   });
@@ -509,12 +532,12 @@ function collapseHeaders(page) {
 
   // Adds click events for the buttons
   document.querySelectorAll(".content__collapse").forEach((button) => {
-    button.addEventListener("click", collapseHeader);
+    button.addEventListener("click", collapseHeaderStyle);
   });
 }
 
 // --- Function for click events on collapse icons
-function collapseHeader(event) {
+function collapseHeaderStyle(event) {
   // Check the tags related to the current button
   let openTags = event.currentTarget.dataset.open.split(" ");
   for (let i =0; i < openTags.length; i++) {
