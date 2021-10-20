@@ -77,22 +77,22 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] Test other OSs and browsers.
 - [x] (!) Change footer on viewport re-size.
 - [x] Collapsing headers.
+- [x] Finish Header/Footer.
+- [x] Colored text on Markdown (that works with bold, italics...).
+- [x] Treating spoiler tags.
+- [x] Easier image support for tech pages.
+- [x] README.
+- [x] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)
 - [ ] News system rework.
-- [ ] Platform symbols.
-- [ ] Finish Header/Footer.
-- [ ] Colored text on Markdown (that works with bold, italics...).
-- [ ] README.
 - [ ] MacOS testing (Safari)
-- [ ] How to Contribute (+ How to use Github for the project --> Issues can be both bug reports and tech descriptions. Need tags for both.)
-- [ ] Code of conduct.
 - [ ] Organization/Custom Domain.
 - [ ] Where to store media? vp8 for Chromium and other android browsers?
 - [ ] https://developers.google.com/speed/pagespeed/insights/ Part2
 - [ ] Self host icons and fonts.
 - [ ] Keep an object/map with parsed md pages to improve runtime. Async on page start, so most functions can be asynchronous and just wait for the map entry to be ready. (Could increase load times, but should result in a better user experience)
 - [ ] Apache 2.0 License for Markdown files?
-- [ ] ... (period of release)
-- [ ] Mobile port
-- [ ] White theme
-- [ ] Full Custom Tab bar (JS)
+- [ ] ... (1.0.0 Release)
+- [ ] Mobile port (may be small modifications)
+- [ ] White theme (2.0.0)
+- [ ] Full Custom Tab bar (JS) (3.0.0)
 - [ ] Project Template format and tutorial on how to fork and use for other game series. (Set as template on github and make a naked template branch -- demo images and documents)

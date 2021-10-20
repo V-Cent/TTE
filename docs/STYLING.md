@@ -69,7 +69,7 @@ Tables are part of the GFM syntax and can be created as the example below:
 | foo  | 10106  | qrstuv |
 | bar  |   45   |   lmno |
 
-They use pipes/vertical bars to define the columns. New lines in the document defined new lines in the table. Hyphens can be used to separate the table heading from the table data. Trailing colons are optional and define the alignment of further elements in the table (left right or center). Heres an example of a delimiter row: 
+They use pipes/vertical bars to define the columns. New lines in the document defined new lines in the table. Hyphens can be used to separate the table heading from the table data. Trailing colons are optional and define the alignment of further elements in the table (left right or center). Heres an example of a delimiter row:
 
 | :- | :-: | --: | :- | -: |
 
@@ -117,6 +117,16 @@ Currently TTE will only accept custom directives that have tagging as its type a
 - 'description' : 'text here for a quick description' (ONLY USED FOR NEWS SEGMENTS) (a quick description of the news)
 
 Each parameter should be encapsulated in braces like the example above. The name of each parameter is set between single quotes ('); the same should be done for text values.
+
+### Spoiler
+
+Custom Directives can also be used for spoiler tags. They can be either be used in the block format above or inline by using one colon, the name of the effect and the inline text in brackets ([]). The inline format would looks like this : spoiler[], but without the empty space after the colon.
+
+The spoiler tag can be used for game spoilers or anything you want to hide until the user clicks the text. :spoiler[Like this!]
+
+### Colors
+
+You can also use block or inline custom directives for colored text. Currently, TTE supports :red[red], :blue[blue], :green[green], :yellow[yellow], :orange[orange], :purple[purple], :illuminating[illuminating], :classblue[classic blue] (classblue) and :livcoral[living coral] (livcoral).
 
 ## Task-lists
 

@@ -8,6 +8,7 @@ import toc from "remark-toc";
 import math from "remark-math";
 import katex from "rehype-katex";
 import emoji from "remark-emoji";
+import remarkImages from 'remark-images';
 import directive from "remark-directive";
 import visit from "unist-util-visit";
 import h from "hastscript";
@@ -63,6 +64,8 @@ function updatePage() {
   compileTags();
   // Sort tables
   sortTables();
+  // Treat spoiler tags
+  treatSpoilers();
 }
 
 // --- Functions related to file parsing
@@ -96,6 +99,7 @@ function parseGFM(file) {
     .use(gfm)
     .use(slug)
     .use(math)
+    .use(remarkImages)
     .use(remark2rehype)
     .use(katex)
     .use(emoji)
@@ -129,8 +133,12 @@ function htmlDirectives() {
     let data = node.data || (node.data = {});
     let hast = h(node.name, node.attributes);
 
-    //From that data, a new div will be created
-    data.hName = "div";
+    //From that data, a new div will be created (or paragraph if no properties were given)
+    if (hast.properties.length > 0) {
+      data.hName = "div";
+    } else {
+      data.hName = "span";
+    }
     //Assign tags and properties from node to the div, which will be used by other functions
     hast.properties = Object.assign({ class: hast.tagName }, hast.properties);
     data.hProperties = hast.properties;
@@ -698,4 +706,12 @@ function sortTables() {
       .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
       .forEach(tr => tbody.appendChild(tr) );
   })));
+}
+
+function treatSpoilers() {
+  document.querySelectorAll(".spoiler").forEach((spoilerElement) => {
+    spoilerElement.addEventListener("click", (event) => {
+      event.target.style.background = "transparent";
+    });
+  });
 }
