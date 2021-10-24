@@ -57,20 +57,22 @@ Overlimit has special effects depending on the level of overlimit used (higher l
 - Lv.3: No TP is consumed for using artes. Mystic artes are enabled for use by holding the normal attack button after an arcane arte or burst arte.
 - Lv.4: Characters will be invincible from enemies attack. Be careful since you (and enemies) can still be stunned!
 
+**OVL activation hit effects**
+
 The overlimit activation hit also has different effects depending on the character you are using. These usually influence the vertical launch power or the pushback of the overlimit hit. The effects are the following:
 
 - **Yuri**: Very small launch and small pushback. Enemy is put in a downed state.
-- **Estelle**: Medium launch and small pushback. Enemy is put in a spinning state for 70 frames.
-- **Repede**: No launch and no pushback. Enemy is put in a spinning state for 90 frames.
+- **Estelle**: Medium launch and small pushback. Enemy is put in a spinning state for 70 frames. OTGs (doesn't cause the spinning state if enemy is down, stagger time does not change).
+- **Repede**: No launch and no pushback. Enemy is put in a spinning state for 90 frames. OTGs (doesn't cause the spinning state if enemy is down, stagger time does not change).
 - **Karol**: No launch and very small pushback. Enemy is put in a downed state.
 - **Rita**: Medium launch and small pushback. Enemy is put in a downed state.
-- **Raven**: No launch and medium pushback. Does not knockdown the enemy (staggers for about 60 frames).
+- **Raven**: No launch and medium pushback. Does not knockdown the enemy (staggers for about 60 frames). OTGs.
 - **Judith**: Very high launch and medium pushback. Enemy is put in a downed state.
 - **Patty**: Depends on Patty's current form.
 > - Normal Form: High launch and medium pushback. Enemy is put in a downed state.
 > - Advance Form: Small launch and small pushback. Enemy is put in a downed state.
 > - Brainiac Form: No launch and very high pushback. Enemy is put in a downed state.
-> - Critical Form: Medium launch and small pushback. Enemy is put in a spinning state for 90 frames.
+> - Critical Form: Medium launch and small pushback. Enemy is put in a spinning state for 90 frames. OTGs (doesn't cause the spinning state if enemy is down, stagger time does not change).
 - **Flynn**: Medium launch and medium pushback. Enemy is put in a downed state.
 
 Multiple activations (either by yourself or with CPUs/other players) will cause effects to stack or interact with one another. This may result in a very high vertical launch or knockdown. Make sure to be ready to attack downed enemies when specific characters use overlimit. When using Yuri, remember you can chain the OVL activation hit with a free-run attack, picking the enemy up and making follow up attacks easier.
@@ -260,12 +262,13 @@ More information [here](https://muragiri.hatenadiary.org/entry/20100322/p1).
 #### Fatal Strike Cancel
 
 :::tagging{data-tags="{'media' : 'media/tov/fscancel.mp4', 'forcedvideo' : true}"}
-While the enemy has a Fatal Strike glyph up, you can press an arte and the FS button together to cancel your current action (if possible) and instantly start the arte you pressed. This can only be performed when you are able to perform a FS in the first place, so keep in mind that some actions disable your FS use momentarily. In most cases, FS use is enabled after the last hit of most artes (but earlier than it can be canceled normally).
+While the enemy has a Fatal Strike glyph up, you can press an action and the FS button together to cancel your _current action_ (if possible) and instantly start the action you pressed (the _cancel action_). This can only be performed when you are able to perform a successful FS in the first place, so keep in mind that some actions disable your FS use momentarily. In most cases, FS use is enabled after the last hit of most artes (but earlier than it can be canceled normally).
 :::
+
+_Cancel actions_ can be artes or normal attacks.
 
 There a few important notes about this cancel:
 - Your arte chain rules persist when using FS Cancelling, thus, you cannot use an arte that wouldn't be able to be chained without the cancel in place. This means that, for most characters, you cannot FS cancel an Arcane arte when not in OVL.
-- The cancel can be performed even when the glyph is starting or ending, which would cause your Fatal Strike to fail. This can be safer if your objective is to not kill the enemy.
 - If your character is in the air, you are only able to use air-enabled artes when doing the cancel.
 - Just like the Taunt Cancel, your momentum will persist depending on your previous action, as you can see [here](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc).
 
@@ -317,7 +320,7 @@ Skills needed: Guard artes, Ability Plus.
 Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte. The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
 
 :::tagging{data-tags="{'todo' : true}"}
-#### Frame data
+#### FRC Frame data
 :::
 
 Heres some frame data about the manual/free-run cancel and its variations (keep in mind that a magic guard is about 10 frames faster than a normal guard):
@@ -416,14 +419,14 @@ If you want, you can then pause and set up a new buffered arte to use another SA
 #### Push Guard Chain
 :::
 
-Skills needed: Guard artes.
+Skills needed: Guard artes, Critical Guard.
 
-If your cancel arte is a base arte, you can use it to cancel push guards, making it possible to chain them until your close enough to perform your buffered arte. This can be a very fast way to move forward, especially with characters like Raven.
+If your cancel arte is a base arte, you can use it to cancel push guards (Critical Guard skill), making it possible to chain them until your close enough to perform your buffered arte. This can be a very fast way to move forward, especially with characters like Raven.
 
 
 #### Fake Guard Arte Chaining
 
-Skills needed: Guard artes.
+Skills needed: Guard artes, Magic Guard (optional).
 
 :::tagging{data-tags="{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}"}
 With semi-auto cancel, as it removes guard delay, you can chain fake guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of fake guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.

@@ -13,7 +13,7 @@ Versions:
 
 Here will be displayed a simple description of the base mechanics in the game. Most of there are already explained during gameplay, but may have some effects that were only found out during experimentation.
 
-Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0) and [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I).
+Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0), [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I) and [えく+Excd](https://www.youtube.com/watch?v=sAJMLSBYs1A).
 
 ### Stats
 
@@ -66,14 +66,14 @@ When attacking, blocking or taking damage you will gain blast points. This blast
 Definitions:
 
 :::tagging{data-tags="{'todo' : true}"}
-**Damage Break**: If your character is being continuously staggered by the enemy (more than one hit) and you have 1 complete Blast gauge, press L1 (just before or during a hit) to activate Damage Break. Damage Break takes 50 Blast Points and activates the blast break effect (same as enemies) for 1 second. There seem to be a cooldown between player's damage breaks. Most enemies can only do a damage break when on the ground, while the player and some specific enemies can also do it in the air.
+**Damage Break**: If your character is being continuously staggered by the enemy (more than one hit) and you have 1 complete Blast gauge, press L1 (just before or during a hit) to activate Damage Break. Damage Break takes 50 Blast Points and activates the blast break effect (same as enemies) for 1 second. After you perform a damage break, there is a small cooldown period before another can be activated. Most enemies can only do a damage break when on the ground, while the player and some specific enemies can also do it in the air.
 :::
 
-**I-Frames**: Invincibility Frames, you take no damage and do not stagger. You can also gain blast during this, if the source of the I-Frames wasn't a bar gain.
+**I-Frames**: Invincibility Frames; frames where you take no damage and do not stagger. You can also gain blast during this, if the source of the I-Frames wasn't a bar gain.
 
 ### Spells and Artes
 
-Artes and spells cost more CC than a normal attack, but they normally do more damage and have special effects. Some artes and spells can OTG and Freeze enemies. They also can cause various status effects to the user and enemies. Spells usually have a higher stagger and damage, but they need casting time before coming out. There is also a limit to 4 "big" spells on screen.
+Artes and spells cost more CC than a normal attack, but they normally do more damage and have special effects. Some artes and spells can OTG and Freeze enemies. They also can cause various status effects to the user and enemies. Spells usually have a higher stagger and damage, but they need to be casted before coming out. There is also a limit to 4 "big" spells on screen.
 
 You can use skills and equipment to reduce casting time. DeEarth also reduces cast time of Dark Spells, same for Philia's earth necklace. You can also reduce it by doing artes or other spells.
 
@@ -90,19 +90,19 @@ Example: Grave (100%) -> Grave(100%) -> Grave(100%) -> Stone Wall (40%)
 
 Definitions:
 
-**OTG**: When used against an enemy in any knockdown state (light to hard knockdown), they will get back up to normal stagger.
+**OTG**: When used against an enemy in any knockdown state (light to hard knockdown), they will get back up to a normal standing state.
 
-**Freeze**: Also called position lock; some attacks freeze depending on stagger time. It is easier to see after a stun, since the stagger value goes to 80+ frames. This freeze makes the enemy not move (and stagger in-place) for the duration of the stagger. Easier to see from a Phantom Edge (Leon's arte) in the air after a crit. It also happens, though in a smaller scale, during various artes.
+**Freeze**: The freeze effect causes a position lock; enemies will not be able to be pushed around (both in ground and air) and will stay still during the stagger time of the attack that caused it. It is easier to see after a stun, since the stagger value of a move that can freeze would be increased to more than 80 frames. Leon's Phantom Edge is a good example of a move that causes the freeze effect. It also happens, though in a smaller scale, during various artes.
 
 ### Extra Information
 
-**Air Recovery**: If the enemy knocks you up into the air, press square just as you touch the ground. Only works for attacks that launch you high up in the air. Attacks with hard knockdown also are unable to be recovered (your character will lay down again before getting up).
+**Air Recovery**: If the enemy knocks you up into the air, press square just as you touch the ground to perform a backstep and not be knocked down. Only works for attacks that launch you high up in the air. Attacks with hard knockdown also are unable to be recovered (your character will lay down again before getting up).
 
-**Charge**: Press Square + Down to Charge. When Charging, the character will decrease enemy Spell Damage by 75% (also not stagger to spells), increases Accuracy and the next attack will break the enemy's guard. Consumes 2 CC Points per use.
+**Charge**: Press Square + Down to Charge. When Charging, the character will decrease enemy Spell Damage by 75% (also not stagger to spells), get an Accuracy buff and the next attack will break the enemy's guard. Consumes 2 CC Points per use.
 
-**Penetrate**: All hits are defended by a solid stance until the penetrate is broken by doing an x number of attacks. Even during attacks and recovery frames. Bosses have this and Leon (with Demon Lance Zero) too.
+**Penetrate**: All hits are blocked with a solid stance until the penetrate status is broken by having the user be hit by a fixed number of attacks. Works even during attacks and recovery frames. Some bosses have this status (either at the start of the fight or after a specific arte) and Leon (with Demon Lance Zero) can make use of it too.
 
-**Back-row Protection**: If an enemy is running and tries to pass through you, if you block before he passes you can bounce him back, negating all Solid Stance in the process. Some enemies try to do this to hit you. (Such as golems.)
+**Back-row Protection**: If an enemy is running and tries to pass through you, you can block before they pass you to bounce them back, negating all Solid Stance in the process. Some enemies may try to do this to hit you (such as golems).
 
 **Nakiriri Dolls**: Nakiriri Dolls change the character it is equipped on to another character. This lets you use characters that are not available yet in the story or are not in your current party. You can also use it to apply the effect of equipments and attacks of certain characters to another.
 When equipping narikiri dolls, some attacks change properties to reflect the wearer's attack properties despite what is shown in the attack description. The following is a full list of such attacks:
@@ -124,7 +124,7 @@ E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan
 **Advance Gate Points**: You can use these on the New Game + shop to buy special effects. Float Gravity, for example, increases the launch power of all attacks by a multiplier. You can also manipulate your end game save file to gain more points. Decreasing and then increasing the difficulty in the same playthrough (so fight the final boss, save, load, fight again), has no effect on the points. Difficulty only has an effect based on the last playthrough difficulty.
 :::
 
-**Critical Attacks**: Criticals can stun enemies or apply status effects depending on the character. Crits all go to 80 stagger, the next hit after the crit adds more stagger. When the enemy is stunned (usually because of a crit), all attacks OTG.
+**Critical Attacks**: Criticals can stun enemies or apply status effects depending on the character used. Critical attacks makes the current stagger value rise to 80+, the next hit (while the enemy is stunned) also receives bonus stagger time. When the enemy is stunned, all attacks OTG.
 
 **Text Skip**: Hold X and Square to skip all current text. Works better than mashing. Possible to use after options too.
 
@@ -132,7 +132,7 @@ E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan
 **Collector's Book Bonus**: Maxed Collectors book gives you 15 of every item after beating the final boss.
 :::
 
-**Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells/ground dash) you can only dash again after a back step or after touching the ground without doing any moves. "wavedashing" (jumping then dashing to the ground) can be a good option for enemies too far away for a single dash (as long as they're ground enemies with normal height).
+**Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells and a ground dash) you can only dash again after a back step or after touching the ground without doing any moves. "wavedashing" (jumping then dashing to the ground) can be a good option for enemies too far away for a single dash (as long as they're ground enemies with normal height), since it does not have the same penalties of the ground dash.
 
 **Dash Direction**: To dash to an enemy, always do the input to the direction your character is facing. Including when you mix-up an enemy during a jump or chain. This is also important if you want to backstep after jumping over an enemy, since you would have to first dash towards the enemy (cancelling the landing animation) and then away from it (finally backstepping).
 
@@ -158,7 +158,7 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 #### Infinite Gald and EX points
 
 :::tagging{data-tags="{'media' : 'media/todps2/gald.mp4', 'forcedvideo' : true}"}
-Go into a shop and buy something (x1). After that, add one of one item (dpad-right) then click buy on another item (circle). Cancel (X) then you will see an underflow, after this, you can do R-STICK left to "buy" the minimum possible, thus, gaining infinite gald and ex points. Using this when selling will cause you to lose all your money (and the items) instead. More information [here](https://www.youtube.com/watch?v=sAJMLSBYs1A).
+Go into a shop and buy something (x1). After that, add one of one item (dpad-right) then click buy on another item (circle). Cancel (X) then you will see an underflow, after this, you can do R-STICK left to "buy" the minimum possible, thus, gaining infinite gald or ex points. Using this when selling will cause you to lose all your money (and the items) instead. More information [here](https://www.youtube.com/watch?v=sAJMLSBYs1A).
 :::
 
 :::tagging{data-tags="{'todo' : true}"}
@@ -173,12 +173,13 @@ Go into a shop and buy something (x1). After that, add one of one item (dpad-rig
 #### Micro-Dash
 :::
 
-If you start moving left or right but use an arte at the same time, you will get a small momentum forward. Moving back has the most distance, but it is still very small. Currently has no use. Also works with spells. The same happens when landing from the air (depending on your momentum).
+If you start moving left or right but use an arte at the same time, you will get a small momentum forward. Moving back produces the most distance, but it is still very small. Also works with spells. The same happens when landing from the air (depending on your momentum).
+
 Since it requires a movement animation, it can only be done on start of chains.
 
 #### Fake Normal Attack
 
-When using a non air-enabled arte in the air, a normal attack comes out. Currently has no extra effects. The only strange thing is that you can attack cancel this attack, causing you to spend 2 CC for 1 normal attack.
+When using a non air-enabled arte in the air, a normal attack comes out. Has no extra effects. You can also attack cancel this attack, causing you to spend 2 CC for 1 normal attack.
 
 :::tagging{data-tags="{'todo' : true}"}
 #### Definite Strike Lock
@@ -203,7 +204,7 @@ If you quickly cancel a long spell 4 times, all spells will lock (they will not 
 1. The max number of big spells in the field is 4.
 2. The casting time when you cancel a spell still ticks down in memory.
 
-It is not possible to abuse 2. However, since you can stack 4 spells without them coming out a flag is activated that stop any more spells. Since no spells are ending (and thus clearing the flag), no more spells come out for the rest of the fight (including from enemies)!
+It is not possible to abuse 2 to cast faster. However, since you can stack 4 spells without them coming out a flag is activated that stop any more spells. Since no spells are ending (and thus clearing the flag), no more spells come out for the rest of the fight (including from enemies)!
 
 :::tagging{data-tags="{'versions' : 'Vanilla', 'todo' : true}"}
 #### Stop Flow Glitch
@@ -215,13 +216,13 @@ Cast Stop Flow 128 times to use spells with no casting time. Each Stop Flow incr
 #### Moving Hit-Boxes
 :::
 
-Dashing a few frames after an attack can move its hit box. It depends heavily on the attack to work (for example, Phantom Edge works). Needs to be done 1-6 frames after the attack.
+Dashing a few frames after an attack can move its hitbox. It depends heavily on the attack for this to work. Needs to be done 1-6 frames after the attack.
 
 
 #### Spell Block
 
 :::tagging{data-tags="{'media' : 'media/todps2/spellBlock.mp4', 'forcedvideo' : true}"}
-Casting an spell just as an enemy hits you negates the damage (gives you i-frames), you can also enter the attacks hitbpx with the magic cancel animation! Only works for attacks that lose their hitbox once it hits something (multi hits attacks are out of the question). It can trigger a blast gain, and that generates more i-frames. The spell release (just before the spell comes out) animation has even more i-frames, and can be used easily by holding the spell down.
+Casting an spell just as an enemy hits you negates the damage you would take (gives you i-frames). You can also enter the incoming attack's hitbox with the magic cancel (by guarding as your in the casting animation) animation ! Only works for attacks that lose their hitbox once it hits something, as multi hits attacks will still hit you on their second hit. It can trigger a blast gain, and that generates more i-frames. The spell release (just before the spell comes out) animation has even more i-frames, and can be used easily by holding the spell down.
 :::
 
 #### Arena Edges
@@ -232,13 +233,13 @@ The edges of the battle arena cancel any horizontal momentum when touched. This 
 #### Air Walking
 :::
 
-The ceiling of the battle arena also has an interesting effect. When in the air, reach the ceiling (possible with just normals and jumps) to have infinite jumps. By releasing guard button (if you have it pressed), you can change direction midair. Fall speed is increased when you bonk your head in the ceiling, since your vertical momentum is reset each time.
+The ceiling of the battle arena also has an interesting effect. When in the air, reach the ceiling (possible with just normals and jumps) and keep jumping against it to have infinite jumps. By releasing the guard button (if you have it pressed), you can change direction midair. Fall speed is increased when you bonk your head in the ceiling, since your vertical momentum is reset each time.
 
 :::tagging{data-tags="{'media' : 'media/todps2/slowFall.mp4'}"}
 #### Slow Falling
 :::
 
-During a chain where you used at least one normal attack (to activate its floaty properties), do a normal attack just as the momentum is changing from upwards (momentum higher than 0) to downwards (momentum lower than zero), you will then stall in the air or, most of the time, fall slowly. Works bests after some artes.
+During a chain where you used at least one normal attack (to activate its floaty properties), do a normal attack just as the momentum is changing from upwards (momentum higher than 0) to downwards (momentum lower than zero), you will then stall in the air or, most of the time, fall slowly. Can also work after some artes.
 
 #### Faster Recovery Techniques
 
@@ -278,19 +279,13 @@ By rapidly casting and cancelling base spells (like fireball), you can quickly i
 
 After doing any action, mash block. This must be done just as the Chain ends or the recovery time of your action ends. This will cause your CC to rise much more than it was supposed to, possibly even to max. Only works on Manual Mode. More information can be found [here](https://www.youtube.com/watch?v=IlQw_DRxGj0).
 
-:::tagging{data-tags="{'todo' : true}"}
-#### Air Recovery Glitch
-:::
-
-Air recovery can mess up the direction in some artes.
-
 :::tagging{data-tags="{'media' : 'media/todps2/leonJump.mp4'}"}
-#### Swallow Tallon Glitch
+#### Swallow Talon Glitch
 :::
 
 Character Specific: Leon.
 
-Swallon Tallon has an interesting effect when mid-way cancelling with a jump. Normally, the user will jump forward slightly. However, if you jump just before the second part of the attack, you will get a huge jump backwards. If you do a normal attack instead, you will get some vertical height during your attack.
+Swallow Talon has an interesting effect when mid-way cancelling with a jump. Normally, the user will jump forward slightly. However, if you jump just before the second part of the attack, you will get a huge jump backwards. If you do a normal attack instead, you will get some vertical height during your attack.
 
 ### Gliding
 
@@ -298,21 +293,21 @@ Swallon Tallon has an interesting effect when mid-way cancelling with a jump. No
 
 It is important to note that the first normal attack of a chain has some hidden proprieties: first off, it carries momentum. So it enables Gliding and other combos. However, if you used it already, it gets floaty.
 
-So, how does one use this behavior to do Glides? You can simply do an aiming dash in the air (after a jump, double jump, arte or jumps into arte) into a normal attack to maintain the momentum of the aiming dash.
+:::tagging{data-tags="{'media' : 'media/todps2/gliding.mp4', 'forcedvideo' : true}"}
+So, how does one use this behavior to do Glides? You can simply do an aiming dash in the air (after a jump, double jump, arte or jumps into an arte) into a normal attack to maintain the momentum of the aiming dash. Doing this with a floaty normal attack will only cause you to stop after the end of the normal.
+:::
 
-Theres one exception: If an enemy is higher than you you can always Glide, but you can only Glide from above one time (and as said before, you lose this above Glide if you use a normal attack). The velocity and angle depend on the distance (and angle) you have with your enemy.
+Theres one exception: If an enemy is above you you can always Glide, but you can only Glide from above them one time (and as said before, you lose this above Glide if you use a normal attack). The velocity and angle depend on the distance and angle you have with your enemy.
 
 To do this straight from the ground, the fastest way you can get an air aiming dash is to use your left stick and do an Up-Away to Forward motion, passing through the neutral of the stick.
 
 The floaty normal attacks can extend your glide if you use them in conjunction with jumps. Using a floaty attack holding the opposite direction of glide will stop it instead.
 
-:::tagging{data-tags="{'media' : 'media/todps2/gliding.mp4', 'forcedvideo' : true}"}
 The only character unable to do glides is Chelsea due to her normals being floaty arrow shots.
-:::
 
 ### Attack Cancel
 
-By pressing artes (or shortcut artes) and the normal attack button on the same frame you can get some interesting effects. Since the game thinks you're doing an actual normal attack, every A.C arte you do will not have the blast penalty that is applied for repeated artes. A.C can also be used for the following effects:
+By pressing artes (or shortcut artes) and the normal attack button on the same frame you can get some interesting effects. Since the game thinks you're doing an actual normal attack (which registers before your arte), every A.C arte you do will not have the blast penalty that is applied for repeated artes. A.C can also be used for the following effects:
 
 :::tagging{data-tags="{'media' : 'media/todps2/followUp.mp4'}"}
 #### Follow-up Negation
