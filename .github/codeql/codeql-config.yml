@@ -1,0 +1,4 @@
+name: "TTE CodeQL config"
+
+paths-ignore: 
+  - docs/scripts
