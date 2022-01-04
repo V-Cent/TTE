@@ -39,7 +39,6 @@
 
 #card-container__load-more:hover {
   filter: brightness(1.25);
-  -webkit-filter: brightness(1.25);
 }
 
 .card-container__figure {

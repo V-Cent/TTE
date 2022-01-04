@@ -85,8 +85,9 @@ export function loadTooltip(evt, tooltip) {
       document.getElementsByTagName("tooltip")[0].remove();
     }
     //Set tooltip location and add it to the page
-    base.style.top = event.clientY + 20 + "px";
-    base.style.left = event.clientX + 20 + "px";
+    let boundingBox = event.currentTarget.getBoundingClientRect();
+    base.style.top = ((boundingBox.bottom) - 10) + "px";
+    base.style.left = (boundingBox.right) + "px";
     document.body.appendChild(base);
   }
 }

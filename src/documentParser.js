@@ -355,6 +355,13 @@ function loadMoreNews() {
     loadedNewsPages = loadedNewsPages + 1;
   }
 
+  if (loadedNewsPages == newsNumber) {
+    let loadButton = document.getElementById("card-container__load-more");
+    loadButton.removeEventListener("click", loadMoreNews , false);
+    loadButton.style.filter = "brightness(1.25)";
+    loadButton.style.opacity = "0.3"
+  }
+
   cardContainer.innerHTML = cardContents;
   //Add change page events for each card (to their respective pages) and updates the page
   document.querySelectorAll(".card-container__figure").forEach((item) => {
@@ -587,38 +594,47 @@ function revealID(id){
   // Gets the object of the provided ID
   targetHeader = document.getElementById(id);
   let hiddenItems = null
+  let success = false;
   // Gets the div that holds all the content for a given header
   if (targetHeader.parentNode.className.includes("content__")) {
-    hiddenItems = targetHeader.parentNode.firstElementChild.dataset.open.split(" ");
+    if (targetHeader.parentNode.firstElementChild.dataset.open != null) {
+      hiddenItems = targetHeader.parentNode.firstElementChild.dataset.open.split(" ");
+      success = true;
+    }
   } else {
     // Div is one level higher if a tagging div was used
-    hiddenItems = targetHeader.parentNode.parentNode.firstElementChild.dataset.open.split(" ");
+    if (targetHeader.parentNode.parentNode.firstElementChild.dataset.open != null) {
+      hiddenItems = targetHeader.parentNode.parentNode.firstElementChild.dataset.open.split(" ");
+      success = true;
+    }
   }
-  // Iterates over all related classes needed to reveal a specific header
-  hiddenItems.forEach(item => {
-    let targetList = document.getElementsByClassName(item);
-    // Get all objects that are possibly hidden
-    for (let target of targetList) {
-      if (target.hidden){
-        target.hidden = false;
-        // Change the button depending on the current art
-        if (target.parentNode.className.includes("content__")) {
-          if (target.parentNode.firstElementChild.firstChild.innerHTML == "expand_more"){
-            target.parentNode.firstElementChild.firstChild.innerHTML = "expand_less";
+  if (success) {
+    // Iterates over all related classes needed to reveal a specific header
+    hiddenItems.forEach(item => {
+      let targetList = document.getElementsByClassName(item);
+      // Get all objects that are possibly hidden
+      for (let target of targetList) {
+        if (target.hidden){
+          target.hidden = false;
+          // Change the button depending on the current art
+          if (target.parentNode.className.includes("content__")) {
+            if (target.parentNode.firstElementChild.firstChild.innerHTML == "expand_more"){
+              target.parentNode.firstElementChild.firstChild.innerHTML = "expand_less";
+            } else {
+              target.parentNode.firstElementChild.firstChild.innerHTML = "remove";
+            }
           } else {
-            target.parentNode.firstElementChild.firstChild.innerHTML = "remove";
-          }
-        } else {
-          // Target is one level higher if a tagging div was used
-          if (target.parentNode.parentNode.firstElementChild.firstChild.innerHTML == "expand_more"){
-            target.parentNode.parentNode.firstElementChild.firstChild.innerHTML = "expand_less";
-          } else {
-            target.parentNode.parentNode.firstElementChild.firstChild.innerHTML = "remove";
+            // Target is one level higher if a tagging div was used
+            if (target.parentNode.parentNode.firstElementChild.firstChild.innerHTML == "expand_more"){
+              target.parentNode.parentNode.firstElementChild.firstChild.innerHTML = "expand_less";
+            } else {
+              target.parentNode.parentNode.firstElementChild.firstChild.innerHTML = "remove";
+            }
           }
         }
       }
-    }
-  });
+    });
+  }
 }
 
 // -- Function for search on the nav-bar
