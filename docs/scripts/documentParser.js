@@ -295,8 +295,8 @@ https://github.com/highlightjs/highlight.js/issues/2277`),vt=ee,Ye=me);let Tt={c
 `,t=null),r&&(a=a+`</div></div>
 `,r=null),n&&(a=a+`</div></div>
 `),n=o[c].substring(o[c].indexOf('h2 id="')+7),n=n.substring(0,n.indexOf('"')),a=a+`<div class="content__h2">
-`,a=a+'<button class="content__collapse" data-open="'+n+'"><span class="material-icons md-light md-36">expand_more</span></button>',a=a+o[c]+`
-`,a=a+'<div class="'+n+`" hidden>
+`,a=a+'<button class="content__collapse" data-open="'+n+'"><span class="material-icons md-light md-36">expand_less</span></button>',a=a+o[c]+`
+`,a=a+'<div class="'+n+`">
 `):a=a+o[c]+`
 `;t&&(a=a+`</div></div>
 `),r&&(a=a+`</div></div>

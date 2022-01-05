@@ -518,9 +518,9 @@ function collapseHeaders(page) {
 
       // Starts a div for the current header, divided into title and content
       newInner = newInner + '<div class="content__h2">' + "\n"
-      newInner = newInner + '<button class="content__collapse" data-open="' + currentH2 + '"><span class="material-icons md-light md-36">expand_more</span></button>'
+      newInner = newInner + '<button class="content__collapse" data-open="' + currentH2 + '"><span class="material-icons md-light md-36">expand_less</span></button>'
       newInner = newInner + currentHTML[i] + "\n"
-      newInner = newInner + '<div class="' + currentH2 + '" hidden>' + "\n"
+      newInner = newInner + '<div class="' + currentH2 + '">' + "\n"
     } else {
       newInner = newInner + currentHTML[i] + "\n"
     }
