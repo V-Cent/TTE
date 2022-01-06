@@ -81,7 +81,7 @@ Other relevant information on casting mechanics:
 - Hits/Whiffs do not matter. Steps do not matter. The AG cost of the move (and if it is an Arcane arte or not) does not matter.
 - This reduction ends when the casting time hits 1s. (This includes both high level and low level attack spells and healing spells.)
 - The Mystic Crest Accessories and casting time reduction bonuses do reduce casting time by a percentage. However, they do not affect the minimum time of 1s (meaning that, for long combos, it may be more beneficial to use other accessories instead).
-- Casting the same spell twice will not show improvements. However, they will affect the next different spell that you use.
+- You can also cancel the casting animation with a step and still get a reduction on casting times. This reduction, however, is lower than casting a spell normally.
 
 **Control Modes**
 
@@ -187,7 +187,7 @@ Auto-mode gives players control of the character simultaneous with the AI. While
 
 This also means that if the AI is set to do nothing, auto-mode acts the same way as semi-auto mode. However, it is important to note that even if all the artes for a character are disabled, manually starting a chain while in auto may make the AI do its own pre-programmed chains on its own.
 
-Another important feature of auto-mode is that it will automatically dodge most attacks (if possible), removes the hit-stop from your attacks and increases the speed of (some) animations by up to 25%.  You can see a showcase of these effects [here](https://twitter.com/UnheardPhantasm/status/1447392198698442754). Beware that, even if a good portion of animations is faster, the stagger time of most attacks is reduced by up to 15%.
+Another important feature of auto-mode is that it will automatically dodge most attacks (if possible), removes the hit-stop from your attacks and increases the speed of (some) animations by up to 25%.  You can see a showcase of these effects [here](https://twitter.com/UnheardPhantasm/status/1447392198698442754). Beware that, even if a good portion of animations is faster, the stagger time of most attacks is reduced by up to 15%. Also, if your character is air-borne the AI will not dodge under any circumstance, even if you have an air dodge available.
 
 You can set an action as pending in memory by letting the AI control the character in auto mode then doing an action. You can also change the battle control from auto to semi-auto/manual once the AI does any action to prevent it from doing any further actions, thus saving the pending action in memory. You will notice that an action is pending when the character does not finish it animation by a slight walk away after the last action (or a quick neutral animation if sufficiently away from the enemy).
 

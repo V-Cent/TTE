@@ -137,14 +137,6 @@ With Rita, being in the air automatically cancels the special animation of advan
 
 In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for combat, this is found on the next segment.
 
-### Equipment/Items/Accessories Glitches
-
-:::tagging{data-tags="{'todo' : true, 'versions' : 'Definitive'}"}
-#### Winged Boots Glitch
-:::
-
-On the new Definitive Edition, the Winged Boots slightly decrease your run speed when synthesized. Therefore, it is faster to not get the Winged Boots during the game.
-
 ### Out of Bounds and Sequence Breaks
 
 :::tagging{data-tags="{'todo' : true}"}
