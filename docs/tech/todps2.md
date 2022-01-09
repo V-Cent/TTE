@@ -7,7 +7,7 @@ Versions:
 - Original (_Vanilla_), released November 30, 2006 in Japan.
 - DC (_Director's Cut_), released January 31, 2008 in Japan.
 
-Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0), [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I), [えく+Excd](https://www.youtube.com/watch?v=sAJMLSBYs1A), and [tony](https://www.nicovideo.jp/watch/sm19929958).
+Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0), [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I), [えく+Excd](https://www.youtube.com/watch?v=sAJMLSBYs1A), [tony](https://www.nicovideo.jp/watch/sm19929958), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured) and [Muctales](https://www.youtube.com/user/muctales).
 
 ## Table of Contents
 
@@ -291,6 +291,16 @@ Another recovery that can be beneficial to cancel is the release of spells. Thes
 #### Bait Reset
 
 When an opponent is walking or running, just before they start an attack, stagger them. When you drop the combo (on purpose) they will perform their (stored) attack immediately and you can punish them while they're stuck in an animation, thus continuing the combo.
+
+#### Boss AI Manipulation
+
+Multiple bosses in Tales of Destiny can be manipulated to make fights easier, such as ignoring mechanics or skipping phases. Bait resets can be used to easily punish bosses, and spell locking can make some fights a joke.
+
+Certain fights, however, have unique ways in that they can be manipulated.
+
+:spoiler[Ilene] has a unique glitch where, if she blocks a BC, she will stay in that state until you pause the game, try to change targets or hit her. This effect changes on the different versions of the game. You can use this time to heal up, casts spells or even safely set up the spell lock technique.
+
+The :spoiler[Rembrandt] fight has multiple ways in which you can manipulate it. The fight has certain HP thresholds where he changes from a ground form to an air form. All of these can be cancelled by using a BC. You can also use a BC just after the change form animation is playing: if you do it while he is going to the air, he will be stuck in the air on the ground form; if you do it while he is going to the ground, he will be stuck in the ground on the air form.
 
 #### Bounce
 
