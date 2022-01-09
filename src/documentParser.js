@@ -464,7 +464,7 @@ function collapseHeaders(page) {
   let currentHTML = page.innerHTML.split("\n");
   for(let i = 0; i < currentHTML.length; i++){
     // Iterates over all the lines from the created HTML and uses it to create a new document with collapsing headers
-    if (currentHTML[i].includes("h4")){
+    if (currentHTML[i].includes('h4 id="')){
       // Close the div if a h4 is in progress
       if (currentH4){
         newInner = newInner + "</div></div>" + "\n"
@@ -479,7 +479,7 @@ function collapseHeaders(page) {
       newInner = newInner + '<button class="content__collapse" data-open="' + currentH4 + " " + currentH3 + " " + currentH2 + '"><span class="material-icons md-light md-36">remove</span></button>'
       newInner = newInner + currentHTML[i] + "\n"
       newInner = newInner + '<div class="' + currentH4 + '">' + "\n"
-    } else if (currentHTML[i].includes("h3")){
+    } else if (currentHTML[i].includes('h3 id="')){
       // Close the div if a h4 or h3 is in progress
       if (currentH4){
         newInner = newInner + "</div></div>" + "\n"
@@ -498,7 +498,7 @@ function collapseHeaders(page) {
       newInner = newInner + '<button class="content__collapse" data-open="' + currentH3 + " " + currentH2 + '"><span class="material-icons md-light md-36">expand_more</span></button>'
       newInner = newInner + currentHTML[i] + "\n"
       newInner = newInner + '<div class="' + currentH3 + '" hidden>' + "\n"
-    } else if (currentHTML[i].includes("h2") && !currentHTML[i].includes("table-of-contents")){
+    } else if (currentHTML[i].includes('h2 id="') && !currentHTML[i].includes("table-of-contents")){
       // Close the div if a h4, h3 or h2 is in progress
       if (currentH4){
         newInner = newInner + "</div></div>" + "\n"

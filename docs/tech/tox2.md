@@ -1,12 +1,38 @@
 # Tales of Xillia 2
 
+[Tales of Xillia 2](https://aselia.fandom.com/wiki/Tales_of_Xillia_2) (テイルズ オブ エクシリア ２ Teiruzu obu Ekushiria Tsu) was released in Japan on November 1, 2012 for the PS3 (later releasing on North America and Europe).
+
+Special thanks to user [Jakkun](https://www.youtube.com/user/UnlimitedMrX/featured).
+
+## Table of Contents
+
+## Base Mechanics
+
+Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
+
+### Stats
+
 [TODO]
 
-## Linked Artes
+### Other information
 
-### Linked Arte Cancels (LAC)
+[TODO]
 
-Similar to Fatal Strikes from Vesperia, you can cancel the animation of any arte with a Linked Arte as long as the glyph is active. For example, you can use Demon Fist as Jude, then use Dragon Shot, and cancel Dragon Shot by using the Linked Arte from Demon Fist. If the character is airborne, this will cause them to fall to the ground similarly to the Quick Drop skill. 
+## Glitches
+
+In this section, we have a group of glitches and a small description on how to replicate/explain them. In this section, you will not find glitches that are currently useful for combat, this is found on the next segment.
+
+[TODO]
+
+## Combat Techniques
+
+Here we will discuss various different techniques/glitches that can be used during combat.
+
+### General Techniques
+
+#### Linked Arte Cancels (LAC)
+
+Similar to Fatal Strikes from Vesperia, you can cancel the animation of any arte with a Linked Arte as long as the glyph is active. For example, you can use Demon Fist as Jude, then use Dragon Shot, and cancel Dragon Shot by using the Linked Arte from Demon Fist. If the character is airborne, this will cause them to fall to the ground similarly to the Quick Drop skill.
 
 For Linked artes that are spells (such as Rock Hexad), you can spell cancel them by guarding, just as you would a normal spell. Using this in tandem with LAC can allow you to cancel an arte at virtually any point and continue as normal. If your character has the Casting Window skill, you can also have the Linked Arte glyph come out before the intiial spell comes out.
 
@@ -14,7 +40,9 @@ In both cases of LAC, artes with lingering hitboxes benefit greatly from this te
 
 ## Character Specific Tech/Arte Info
 
-### Falling Snow (Ludger)
+### Ludger
+
+#### Falling Snow
 
 One of the most flexible Artes on a character famous for his versatility, Falling Snow (abbreviated as FS) is a staple of Ludger's kit and can find immediate value in just about any aspect of his gameplay. To start with a short summary of FS's positives, it has:
 
@@ -38,6 +66,6 @@ Ground RFS has Ludger doing a second FS in the opposite direction of the first, 
 
 Air RFS has Ludger doing his second FS in a 45 degree angle upwards, reminiscent of Air Divide from Vesperia. Air RFS comes out faster than ground RFS and also lifts the enemy slightly in place. This variant is specialized for air juggles and the lifting effect pairs up nicely with artes like Migrating Sparrows, as well as Quick Drop to keep the enemy airborne for as long as possible.
 
-**Chromatus Falling Snow (CFS)** is effectively a different arte than the rest, as it lacks a lot of the general utility that FS normally has, due to how CS mechanics work. But it shares enough properties and is one of CS's strongest artes, so its still worth discussing. 
+**Chromatus Falling Snow (CFS)** is effectively a different arte than the rest, as it lacks a lot of the general utility that FS normally has, due to how CS mechanics work. But it shares enough properties and is one of CS's strongest artes, so its still worth discussing.
 
 CFS is ground only, and will autocorrect you to face the enemy *before* the arte comes out, so it is more limited in a positioning sense. However it makes up for that by not only retaining its usual OTG property, but also comes with the rare *Iron Stance Break* property. This allows CS to break the OTG limit by bypassing the Iron Stance bosses obtain upon hitting the limit.

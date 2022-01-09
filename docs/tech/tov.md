@@ -7,13 +7,13 @@ Versions:
 - Original Xbox (_Vanilla_), released August 7, 2008 in Japan; August 26, 2008 in NA; June 26, 2009 in Europe.
 - Port (_PS3_), released September 17, 2009 in Japan. Remastered January 11, 2019 as the Definitive Edition.
 
+Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Pássaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts), [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc), [zxcxzaq](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s), [Fanatic](https://www.youtube.com/watch?v=PWfSeT08yUs), [AHerosLegacy](https://www.youtube.com/user/AHerosLegacy/featured), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured), [Kevassa](https://www.youtube.com/user/Kevassa02/featured), [Omegaevolution](https://youtu.be/uTMcL1KJD74?t=131) and [aigod1024](https://youtu.be/A10Zua38cv0?t=232).
+
 ## Table of Contents
 
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
-
-Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Pássaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts) and [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc).
 
 ### Stats
 
@@ -56,6 +56,8 @@ Overlimit has special effects depending on the level of overlimit used (higher l
 - Lv.2: All attacks OTG and deal increased damage to downed enemies.
 - Lv.3: No TP is consumed for using artes. Mystic artes are enabled for use by holding the normal attack button after an arcane arte or burst arte.
 - Lv.4: Characters will be invincible from enemies attack. Be careful since you (and enemies) can still be stunned!
+
+Keep in mind that some of your opponents can also have Overlimit! They gain it throughout the fight based on the same rules of the player, and, depending on the enemy, you can even hear the sound effect for each individual OVL bar the enemy gains.
 
 **OVL activation hit effects**
 
@@ -175,6 +177,8 @@ Have the Eternal Support skill equipped on Estelle, and then have her cast Force
 
 ## Combat Techniques
 
+Here we will discuss various different techniques/glitches that can be used during combat.
+
 ### General Techniques
 
 :::tagging{data-tags="{'media' : 'media/tov/spellCancel.mp4'}"}
@@ -214,6 +218,24 @@ Skills required: Burst hold.
 
 While an enemy boss is in overlimit, if you manage to use a burst arte at the end of your own overlimit and the boss performs an M.A., you will have infinite overlimit after the M.A. ends.
 
+#### Rita's Absorption Mechanics
+
+Skills required: Absorption.
+
+Absorption is a skill that allows Rita to nullify attacks when casting spells. For this to work, you need to cast a spell with the same attribute that the enemy is using against you. You can even hold the spell to make sure your spell release is not interrupted.
+
+One important thing that might be missed is that when using fire elemental spells, such as Eruption, you will be immune to physical attacks. Meteor Storm, while being categorized as a non-elemental spell, still works for physical attacks.
+
+#### Yuri's Combination Skill Stacking
+
+Skills required: Combination 1, 2 and/or 3.
+
+Yuri's combination skill is an offensive skill that increases the damage you deal by following a specific combo. Any level of this skill will provide a damage boost to the last action you actually hit after finishing the pre-defined combo. This can be exploited by purposively missing attacks and stacking the damage boost. All three combinations skills can be stacked for huge amounts of damage.
+
+You can also apply the damage boosts to other attacks, even mid combo. For example, as long as the last hit of the pre-defined combo doesn't connect, you can apply the combination damage boost to other actions such as Fatal Strikes and Burst Artes.
+
+You can see examples of combination stacking [here](https://youtu.be/uTMcL1KJD74?t=131) and [here](https://youtu.be/A10Zua38cv0?t=232).
+
 :::tagging{data-tags="{'todo' : true, 'media' : 'media/tov/atgc.mp4'}"}
 #### Air to Ground Cancel (AtGC)
 :::
@@ -240,16 +262,47 @@ The second is to have Raven in the party. During the action you want to cancel, 
 
 If you want to avoid the camera change caused by Raven's personal strategy, you can use a similar method with two controllers: set your player 1 as Raven and have hit sit on auto-mode. Use player 2 to attack until you want the cancel to happen, where you would pause, set your character's personal strategy, and un-pause. In the menu, the strategy would show as player's 2 character (the one that paused the game), but Raven's is the one that will be activated. For better control, unequip Taunt from Repede and only equip a taunt weapon once you enter the menu. You can then unequip the weapon once you don't need the cancel properties of the taunt.
 
-:::tagging{data-tags="{'todo' : true, 'versions' : 'PS3'}"}
-#### Fake Fatal Strikes
+:::tagging{data-tags="{'media' : 'media/tov/fakeGuardArte.mp4'}"}
+#### Fake Guard Artes
 :::
 
-On normal enemies, it is possible to make Fatal Strikes not instantly kill by mashing the Fatal Strike button, starting to mash just before the Fatal Strike late fail state (i.e. the time where, if you press the fatal strike button, the symbol grows and disappears, without an attack coming out). Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS).
+Skills needed: Guard artes.
 
-Requires Turbo controller for consistency.
+In semi-auto mode, guarding then doing a base arte from a distance makes you run to the enemy, however the invincibility effect happens as soon as you begin to run. Cancelling the running animation in a guard makes you use the invincibility without using an arte.
+
+#### Delayed Healing Fight Skip
+
+By using delayed healing abilities, such as healing moves that need to hit (Raven, Karol) and delaying spells (Estelle's Resurrection and Regenerate), you can win fights as long as the healing move affects one of your characters after your party is wiped out.
+
+You can see examples of this in action [here](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s) and [here](https://www.youtube.com/watch?v=PWfSeT08yUs).
+
+### Fatal Strike Techniques
+
+Fatal Strike is a mechanic in Tales of Vesperia that is learned during a tutorial fight on :spoiler[Caer Bocram]. It usually is used to defeat normal enemies in a single hit, which is done by reducing a special gauge that is present in every enemy (up, which is blue; down, which is red; and right, which is green). For bosses, fatal strikes deal a large amount of damage. To decrease the gauge, you can use artes or normal attacks that correspond to specific color or direction.
+
+FS also gives bonus during and at the end of battle. At the end of battle you can be awarded with extra EXP, LP or Drop Rate. This bonus will be higher depending on your FS chain, which is the amount of FS glyphs that appeared before you performed the FS. This is limited to the same combo. For example, a chain of 10 is enough for any drop to have 100% chance of happening. The specific award that you get depends on the type of enemy that you performed the FS chain against.
+
+The FS bonuses during battle depend on the chain before you activated them. A Green FS will recover TP. A Red FS will buff defensive stats. A Blue FS will buff offensive stats. This bonus will increase by 1% for each FS chain you do (thus, the bonus will be the same as the current chain number you have on screen). This is limited to 25% on the Definitive or PS3 version. On the Vanilla Xbox version this number is unlimited. One important thing to note, however, is that this buff is depend on the last glyph your target had, which may not be the glyph you started the FS activation on.
+
+On the Definitive version, FS glyphs stay on screen for less time than both the Vanilla version and the PS3 version. This effect happens on all platforms and with different frame rates.
+
+#### Fake Fatal Strikes
+
+It is possible to make Fatal Strikes not instantly kill enemies by pressing the Fatal Strike button one frame before the Fatal Strike late fail state and one frame after it. This will cause both the FS success and fail animation to play at the same time. Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS); the same effects also happen on normal enemies.
+
+To make it easier to perform, it is possible to use pause buffering to get the correct frames more consistently. Once you get the frame, simply un-pause and then quickly press FS + menu again. Repeat the same steps to hit the second frame needed for the technique. While this setup is still inconsistent, it makes it way easier to perform. Using specific artes to trigger the FS glyph can also improve consistency.
+
+This is possible in all versions in the game and with various frame rates (60, 75, uncapped...).
 
 More information [here](https://muragiri.hatenadiary.org/entry/20100322/p1).
 
+#### Target Change Fatal Strike
+
+There is another way to not instantly kill enemies when using a Fatal Strike. To perform this trick, simply activate a Fatal Strike and pressing the menu button at the same time; when on the menu, change your character to auto-mode and use an arte on another monster on the field that wasn't the one you performed the FS on. Your character will change targets but still perform the FS (which will not kill the enemy). If the FS hits the enemy that had the FS glyph, it will still not kill it (as long as your character was not aiming for them).
+
+You can use other party members to setup a FS on a monster you are not attacking, making it possible for you to use the FS on a monster that still has their FS guage full or using Fatal Strikes mid combo.
+
+Keep in mind that an arte will be buffered if you do this. You also need to change the character you were controlling back to semi-auto or manual.
 
 #### Fatal Strike Cancel
 
@@ -263,14 +316,6 @@ There a few important notes about this cancel:
 - Your arte chain rules persist when using FS Cancelling, thus, you cannot use an arte that wouldn't be able to be chained without the cancel in place. This means that, for most characters, you cannot FS cancel an Arcane arte when not in OVL.
 - If your character is in the air, you are only able to use air-enabled artes when doing the cancel.
 - Just like the Taunt Cancel, your momentum will persist depending on your previous action, as you can see [here](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc).
-
-:::tagging{data-tags="{'media' : 'media/tov/fakeGuardArte.mp4'}"}
-#### Fake Guard Artes
-:::
-
-Skills needed: Guard artes.
-
-In semi-auto mode, guarding then doing a base arte from a distance makes you run to the enemy, however the invincibility effect happens as soon as you begin to run. Cancelling the running animation in a guard makes you use the invincibility without using an arte.
 
 
 ### Manual/Free-run Cancel (FRC)

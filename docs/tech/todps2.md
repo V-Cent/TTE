@@ -7,13 +7,13 @@ Versions:
 - Original (_Vanilla_), released November 30, 2006 in Japan.
 - DC (_Director's Cut_), released January 31, 2008 in Japan.
 
+Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0), [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I), [えく+Excd](https://www.youtube.com/watch?v=sAJMLSBYs1A), and [tony](https://www.nicovideo.jp/watch/sm19929958).
+
 ## Table of Contents
 
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics in the game. Most of there are already explained during gameplay, but may have some effects that were only found out during experimentation.
-
-Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0), [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I) and [えく+Excd](https://www.youtube.com/watch?v=sAJMLSBYs1A).
 
 ### Stats
 
@@ -41,7 +41,7 @@ Definitions:
 
 **Auto-guard**: The character/enemy will automatically enter guard animation when hit by an attack. This decreases damage more than a solid stance.
 
-The difference between these two categories is that the main stats will increase as the character Levels up while the Sub Stats does not. The Sub Stats values are determined by the Main Stats itself.
+The difference between these two categories is that the main stats will increase as the character Levels up while the Sub Stats does not. The Sub Stats values are determined by the Main Stats itself. They take 1/6 of the highest value stat and then add to 1/3 of the lowest value stat.
 
 Strength - Phy.Attack and Phy.Defense
 
@@ -52,6 +52,33 @@ Concentration - Mag.Attack and Mag.Defense
 Accuracy - Mag.Defense and Phy.Attack
 
 All stats can be increased by other means such as Accessories or Herbs.
+
+The formula used for stat growth on level up is: Primary stat value x Growth rate / (Attack + Defense + Magic Attack + Magic Defense)
+
+The Growth rate for each character is:
+
+| Character |  Growth Rate |
+| :-------- | :----------: |
+| Kongman   | 15.00        |
+| Chelsea   | 13.50        |
+| Johnny    | 13.50        |
+| Stahn     | 12.66        |
+| Rutee     | 12.36        |
+| Phillia   | 12.36        |
+| Woodrow   | 12.36        |
+| Mary      | 11.76        |
+| Lilith    | 11.76        |
+| Leon      | 11.46        |
+
+Finally, each character gets following bonus to their secondary stats:
+
+- Stahn: Strength +4.
+- Rutee: Evade +5, Accuracy -10.
+- Leon: Evade +25, Accuracy +20.
+- Mary: Accuracy -10, Concentration +10.
+- Chelsea: Evade +40.
+- Johnny: Strength +40.
+- Kongman: Strength +100, Concentration +30.
 
 Survival mode increases your intrinsic defence value by a ton. This means guarding would make some attacks hit 0s.
 
@@ -100,6 +127,10 @@ Definitions:
 
 **Charge**: Press Square + Down to Charge. When Charging, the character will decrease enemy Spell Damage by 75% (also not stagger to spells), get an Accuracy buff and the next attack will break the enemy's guard. Consumes 2 CC Points per use.
 
+**Guarding**: The amount of hits you can guard depend on your CC. When you're about to get guard crushed your character will start to flash orange. To avoid this, simply use a charge to regain the full amount of hits you can block.
+
+**Healing**: Any healing action will drop the healing effectiveness by 5% per use. Rutee's Resurrection is the only exception since it will drop by a total of 20%. This will continue to decrease until healing actions are at 50% of their original value. To recover effectiveness, simply land a hit to recover 5% per hit. You can also use Rutee's Search Gald and Trickster, which restores 20% of effectiveness and can boost healing to up to 150%.
+
 **Penetrate**: All hits are blocked with a solid stance until the penetrate status is broken by having the user be hit by a fixed number of attacks. Works even during attacks and recovery frames. Some bosses have this status (either at the start of the fight or after a specific arte) and Leon (with Demon Lance Zero) can make use of it too.
 
 **Back-row Protection**: If an enemy is running and tries to pass through you, you can block before they pass you to bounce them back, negating all Solid Stance in the process. Some enemies may try to do this to hit you (such as golems).
@@ -139,6 +170,8 @@ E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan
 **Random Launch Power**: After 100 hits, launch power becomes slightly random (+/- a variable) to make infinite combos harder.
 
 **Air limitations**: After a certain height, no action other than jumps and aiming dashes are allowed. This is due to the player character being too close to the physical ceiling of the map.
+
+**Elemental Physical Attacks**: Due to a glitch, elemental physical attacks will check against the enemy's defense and your character's magic defense. Therefore, you will do more damage with these attacks against an enemy whose magic defense is higher than your own.
 
 ## Glitches
 
@@ -199,7 +232,7 @@ Here we will discuss various different techniques/glitches that can be used duri
 
 #### Spell Locking
 
-If you quickly cancel a long spell 4 times, all spells will lock (they will not stop casting). This is because of two factors:
+If you quickly cancel a long spell 4 times (by casting and guarding), all spells will lock (they will not stop casting). This is because of two factors:
 
 1. The max number of big spells in the field is 4.
 2. The casting time when you cancel a spell still ticks down in memory.
@@ -261,7 +294,7 @@ When an opponent is walking or running, just before they start an attack, stagge
 
 #### Bounce
 
-Some artes makes the enemy bounce on the ground and others do not. For example, most artes that have the hard knockdown effect cause the enemy to not bounce in the ground. Ending those combos with a normal instead will make so that the enemy will bounce once it touches the ground. Normals always bounce, unless you're using a special belt from Kongman (even with a Nakiriri Doll equiped). Keep in mind that this effect is only for normals done in the ground (air normals do not carry the knockdown effect).
+Some artes make the enemy bounce on the ground and others do not. For example, most artes that have the hard knockdown effect causes the enemy to **not bounce** in the ground. Ending those combos with a normal instead will make so that the enemy will bounce once it touches the ground. Normal attacks will always bounce, unless you're using a special belt from Kongman (even with a Nakiriri Doll equiped). Keep in mind that that belt effects are only for normals done while in the ground.
 
 :::tagging{data-tags="{'media' : 'media/todps2/push.mp4'}"}
 #### Push
@@ -286,6 +319,24 @@ After doing any action, mash block. This must be done just as the Chain ends or 
 Character Specific: Leon.
 
 Swallow Talon has an interesting effect when mid-way cancelling with a jump. Normally, the user will jump forward slightly. However, if you jump just before the second part of the attack, you will get a huge jump backwards. If you do a normal attack instead, you will get some vertical height during your attack.
+
+#### Fearful Flare Glitch
+
+To perform this glitch, you need to do the following steps:
+
+1. Cast a 3CC spell or higher spell but cancel the chant. (Some spells may not work. However, most 4CC+ spells **will** work.)
+2. Cast Fearful Flare.
+3. Cast any other spell just before the fifth hit of Fearful Flare hits. You do not need to release this spell, and you can even cancel it. (Some spells may result in no effects.)
+
+If done correctly, you will see that part of the animation of the spell cast in step 3 will come out (and it also deals damage)! Some spells may be done a bit earlier or late for it to work.
+
+This glitched spell will also do the fire damage of Fearful Flare and use another damage multiplier (which may cause some spells to do big amounts of damage).
+
+While only Stahn and Phillia have access to Fearful Flare, other characters can still perform step 3. Also, you can also perform this glitch when the enemy uses Fearful Flare on your team.
+
+Be careful not to cast Fearful Flare again just as a glitchy animation is playing, since that may crash the game.
+
+You can see this glitch in action [here](https://www.nicovideo.jp/watch/sm19929958).
 
 ### Gliding
 
@@ -397,7 +448,7 @@ If you use a spell as the _buffered action_ and then try to cancel it, it will a
 
 Spells (and other very specific artes) will not start a _forced neutral animation_.
 
-This can be abused to instantly lock large-scale artes.
+This **cannot** be abused to instantly lock large-scale artes. 
 
 #### Attack Cancel + SB
 

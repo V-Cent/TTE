@@ -91,6 +91,7 @@ Here is the checklist that was (and still is) being used to define the progress 
 - [x] Load sign greys out if no more news left.
 - [x] Add Zestiria and Abyss.
 - [x] Make h2 be open by default
+- [x] (!) Headers being created where they are not supposed to be. Now requires: 'hx id="'
 - [ ] https://developers.google.com/speed/pagespeed/insights/ Part2
 - [ ] Self host icons and fonts.
 - [ ] Keep an object/map with parsed md pages to improve runtime. Async on page start, so most functions can be asynchronous and just wait for the map entry to be ready. (Could increase load times, but should result in a better user experience)

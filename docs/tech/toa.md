@@ -1,14 +1,14 @@
 # Tales of Arise
 
-[Tales of Arise](https://aselia.fandom.com/wiki/Tales_of_Arise) (テイルズ オブ アライズ Teiruzu obu Araizu) was released in internationally on September 9, 2021 for the PS4, PS5, XBox One, Xbox Series X/S and PC.
+[Tales of Arise](https://aselia.fandom.com/wiki/Tales_of_Arise) (テイルズ オブ アライズ Teiruzu obu Araizu) was released internationally on September 9, 2021 for the PS4, PS5, XBox One, Xbox Series X/S and PC.
+
+Special thanks to users [Pássaro](https://www.youtube.com/watch?v=qr8JllMGmvY), [Swillo](https://gamefaqs.gamespot.com/boards/265989-tales-of-arise/79639361), [ThatSkeletonMan](https://www.youtube.com/watch?v=qNKUv9p1X7I), [lilliedesu](https://www.youtube.com/watch?v=SLCvRBacgI8), [動画置き場](https://www.youtube.com/watch?v=WHePG4uTlEI) and [Jakkun](https://twitter.com/UnheardPhantasm/status/1447392198698442754).
 
 ## Table of Contents
 
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
-
-Special thanks to users [Pássaro](https://www.youtube.com/watch?v=qr8JllMGmvY), [Swillo](https://gamefaqs.gamespot.com/boards/265989-tales-of-arise/79639361), [ThatSkeletonMan](https://www.youtube.com/watch?v=qNKUv9p1X7I), [lilliedesu](https://www.youtube.com/watch?v=SLCvRBacgI8), [動画置き場](https://www.youtube.com/watch?v=WHePG4uTlEI) and [Jakkun](https://twitter.com/UnheardPhantasm/status/1447392198698442754).
 
 ### Stats
 
@@ -144,6 +144,8 @@ Rare variant enemy location is defined by an internal seed that changes every ti
 You can use this casually by simply fast travelling back after fighting the rare variant you want, or manipulate it by loading/resting close to the enemy formation that you want to become rare.
 
 ## Combat Techniques
+
+Here we will discuss various different techniques/glitches that can be used during combat.
 
 ### General Techniques
 
