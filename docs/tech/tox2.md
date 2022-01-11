@@ -12,7 +12,21 @@ Here will be displayed a simple description of the base mechanics of the game. M
 
 ### Stats
 
-[TODO]
+**Strength (STR)** influences your P. Attack greatly, and P. Defense slightly. It also affects how much Guard and Iron Stance damage is dealt to enemies.
+
+**Intelligence (INT)** influences your A. Attack greatly, and A. Defense slightly. It also increases your ailment success rate.
+
+**Vitality (VIT)** influences your P. Defense greatly, and P. Attack slightly. It also lessens the amount of Guard damage you take.
+
+**Psyche (PSY)** influences your A. Defense greatly, and A. Attack slightly. It also lowers the ailment success rate of attacks that hit you.
+
+**Agility (AGI)** influences your P. Attack and A. Attack slightly. It also affects your movement speed.
+
+**Dexterity (DEX)** influences your P. Defense and A. Defense slightly. It also increases your critical hit rate.
+
+### Knockdown Limit
+
+Bosses can only be knocked down three times before they will gain Iron Stance and cannot be OTG'd afterwards outside of very specific means. If a boss is knocked down in the air, and then OTG'd before they touch the ground, it will not count towards the KD limit.
 
 ### Other information
 
@@ -46,11 +60,15 @@ Here we will discuss various different techniques/glitches that can be used duri
 
 #### Weakness Reset
 
-Generally, the only way to consistently keep a boss in a combo is through a Power Combo. However, it is possible to do multiple power combos within a single combo, by timing the end of the power hits gauge to line up with a well placed weakness hit. There are two ways to go about weakness resets, both with their own strengths and weaknesses.
+Generally, the only way to consistently keep a boss in a combo is through a Power Combo. However, it is possible to do multiple power combos within a single combo, by timing the end of the power hits gauge to line up with a well placed weakness hit. There are multiple ways to go about these weakness resets, which will be explained below.
 
-Grounded method (OTG): Knock down the boss right as the Power Hits gauge is about to expire, and then OTG them with their weakness. You can also hit them with their weakness while they're downed and then OTG them with a different arte. Be mindful of the KD limit, as you can only knock down a boss 3 times before they gain Iron Stance which effectively kills the combo. If the KD limit has been reached, an arte with the rare Iron Stance Break property, Stun, or Petrify can be used to bypass this, though the latter is RNG.
+**OTG:** Knock down the boss right as the Power Hits gauge is about to expire, and then OTG them with their weakness. You can also hit them with their weakness while they're downed and then OTG them with a different arte, as bosses can't trigger counters while knocked down. You can also knockdown bosses in the air. Aerial knockdowns do not contribute towards to the KD limit, as long as they are OTG'd before touching the ground. In addition, human bosses will attempt to air recover at the earliest possible opportunity, requiring a near instant OTG to retain the combo.
 
-Aerial method (Counter Cancel): Once the Power Hits gauge is expired, lift the boss slightly off the ground with their weakness, then delay your next attack to hit them as they land. Between these two hits, the boss will attempt to go for a counter, if their counter is an air only arte, the landing will prevent their counter from coming out, which also disables the Iron Stance from their counter state. Compared to the OTG version, this method is more RNG/boss specific, but makes up for it by having no knockdown limits to abide by. Still, bosses that have counters that work on both the ground and air, such as Julius and Victor, make this a lot less consistent.
+**Unclean Hits:** If the KD limit has been reached, the boss will gain Iron Stance to prevent you from continuing your combo. You can bypass this by petrifying them, hitting their weakness and then breaking their Iron Stance while they are frozen, in that order. Alternatively, you can also stun them with an arte that OTGs, such as Stun Blitz or backwards Hammer Flail, or use an arte with the Iron Stance Break property after hitting a weakness while they're downed.
+
+**Counter Cancel (Launch):** Wait for gauge to run out and hit the enemy with an attack that both launches upwards and hits a weakness. This will trigger a counter and depending on the boss will be RNG dependant. The counter will be rolled from their ground-counter pool and for this to work they have to use an attack that can only be used on the ground. After the superarmor wears off hit with another element to resume comboing normally.
+
+**Counter Cancel (Landing):** Essentially the opposite of the launch method. Have the enemy airborne as the gauge is about to run out, then hit with anything that doesn't juggle or give the enemy more air time AND hit a weakness. This relies on the air-counter pool to roll with an attack that can only be used in the air and get cancelled as they land before they can use it. After the superarmor wears off hit with another element to resume comboing normally.
 
 Outside of the obvious utility of combo extention and DPS, weakness resets can also be used to limit your own damage or element usage, without sacrificing combo length. As a practical example, some Elite Monsters will "break" after hitting them with too many elements in a Power Combo. By using weakness resets to let Power Hits end at a low multiplier, and then continue a fresh Power Hits chain from scratch, you can keep your combos going freely.
 
@@ -65,6 +83,14 @@ Similar to Fatal Strikes from Vesperia, you can cancel the animation of any arte
 For Linked artes that are spells (such as Rock Hexad), you can spell cancel them by guarding, just as you would a normal spell. Using this in tandem with LAC can allow you to cancel an arte at virtually any point and continue as normal. If your character has the Casting Window skill, you can also have the Linked Arte glyph come out before the intiial spell comes out.
 
 In both cases of LAC, artes with lingering hitboxes benefit greatly from this tech. Such artes include traps (such as Mine Collapse or Sun Spark), artes that have a delayed reaction (such as Light of Ruin and Squall Shot), and spells such as Flame Ring.
+
+### Miscellaneous Techniques
+
+#### Elemental Shift
+
+When you use a non-elemental multi-hit arte, or a projectlile such as Demon Fang or Pulse Shot, you can change the element of the arte while it's already out by opening the menu and changing your weapons to an different element. The color of the arte won't change, but it will take on the attributes of the newly equipped weapon. This is handy for hitting a specific weakness in a pinch or to land a status ailment without being completely tied to its respective element.
+
+For Ludger specifically, his weapon swap mechanic serves the same purpose and can be used to alter the elements of (Double) Demon Fang and Pow Hammer without the use of a menu.
 
 ## Character Specific Tech/Arte Info
 
