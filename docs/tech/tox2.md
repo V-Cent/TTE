@@ -127,3 +127,17 @@ Air RFS has Ludger doing his second FS in a 45 degree angle upwards, reminiscent
 **Chromatus Falling Snow (CFS)** is effectively a different arte than the rest, as it lacks a lot of the general utility that FS normally has, due to how CS mechanics work. But it shares enough properties and is one of CS's strongest artes, so its still worth discussing.
 
 CFS is ground only, and will autocorrect you to face the enemy *before* the arte comes out, so it is more limited in a positioning sense. However it makes up for that by not only retaining its usual OTG property, but also comes with the rare *Iron Stance Break* property. This allows CS to break the OTG limit by bypassing the Iron Stance bosses obtain upon hitting the limit.
+
+#### Traps (Mine Collapse/Bubble Blast/Meteoric Waltz)
+
+[TODO]
+
+### Milla
+
+#### Aerial Spell Glitch
+
+Normally, equipping the Aerial Spell skill disables Milla's ability to Spirit Shift her artes in the air. However, it is possible to use Aerial Spell without having the skill equipped, enabling Milla to use both versions of her artes in the air and greatly increasing her flexibility.
+
+Use an arte while in the air and then input the spell you want to use while the current arte is being performed. Right as the spell is about to come out, either set Milla to Auto Mode or switch to another character. The timing is tight, but if done correctly Milla should transition into the spell instead of its shifted version.
+
+Despite Elize and Muzét having access to Aerial Spell in Xillia 2, this tech is exclusive to Milla as it is a glitch involving the Spirit Shift mechanic.
