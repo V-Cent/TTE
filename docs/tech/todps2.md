@@ -185,6 +185,18 @@ In this section, we have a group of glitches and a small description on how to r
 
 By walking on the side of a ledge on the screen that the Cave Queen boss battle starts, you can skip it and get to Moreau town faster. You can buy some items there and talk to NPCs, but you still need to beat Cave Queen to continue the story. More information [here](https://www.youtube.com/watch?v=kzvcOjRu81o).
 
+#### Mid-game battles while in Early-game
+
+You can trigger encounters from the Phandaria region, enemies around lv34 which you normally encounter at the end of Arc 1, by going to the place in following picture:
+
+https://cdn.discordapp.com/attachments/928724712270491718/929816492558667776/Snow.png
+
+You can use this spot to farm levels or lenses, especially while on NG+.
+
+Ideally you'd fight a group that contains a bear and, thanks to Narikiri Johnny and his Maware Rondo, you can do 2 or maybe 3 sets of Universal BCs against it for a ton of experience, enough to get you to lv 50+.
+
+Available since the beginning in Leon's Side and once Leon joins the party for Stahn's Side.
+
 ### Exploits
 
 
@@ -198,7 +210,14 @@ Go into a shop and buy something (x1). After that, add one of one item (dpad-rig
 #### Infinite Swordian Points
 :::
 
-"Cave Queen" (Stan), "Cave Head" (Lion), "Caves Well" (Philia) monsters in the Definite Strike arena award Swordian Points when defeated on Hard or higher. Can easily be exploited for max Swordian Points.
+"Cave Queen" (Stahn), "Cave Head" (Leon), "Caves Swell" (Philia) monsters in the Definite Strike arena award Swordian Points when defeated on Hard or higher (3 points in Hard, 4 in Evil and 9 in Chaos). This mode becomes available in Noischtat once the final boss is defeated. Can easily be exploited for max Swordian Points.
+
+These are the Definite Strikes you have to perform against each part:
+- Leon vs Cave Head: Garyuusen → Garyuumeppa → Kuushuuken
+- Philia vs Cave Swell: Wind Arrow → Lightning
+- Stahn vs Cave Queen: Bakuenken → Souryuu Rengazan
+
+You can see an example of this exploit in action [here](https://youtu.be/aBKJ1egh_-g).
 
 ### Minor Combat Glitches
 

@@ -7,7 +7,7 @@ Versions:
 - Original Xbox (_Vanilla_), released August 7, 2008 in Japan; August 26, 2008 in NA; June 26, 2009 in Europe.
 - Port (_PS3_), released September 17, 2009 in Japan. Remastered January 11, 2019 as the Definitive Edition.
 
-Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Pássaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts), [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc), [zxcxzaq](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s), [Fanatic](https://www.youtube.com/watch?v=PWfSeT08yUs), [AHerosLegacy](https://www.youtube.com/user/AHerosLegacy/featured), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured), [Kevassa](https://www.youtube.com/user/Kevassa02/featured), [Omegaevolution](https://youtu.be/uTMcL1KJD74?t=131) and [aigod1024](https://youtu.be/A10Zua38cv0?t=232).
+Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Pássaro](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts), [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc), [zxcxzaq](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s), [Fanatic](https://www.youtube.com/watch?v=PWfSeT08yUs), [AHerosLegacy](https://www.youtube.com/user/AHerosLegacy/featured), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured), [Kevassa](https://www.youtube.com/user/Kevassa02/featured), [Omegaevolution](https://youtu.be/uTMcL1KJD74?t=131), [aigod1024](https://youtu.be/A10Zua38cv0?t=232) and [Muggshotter](https://www.youtube.com/channel/UC0-MXTAUAcWbPiaX0LO5dNg/featured).
 
 ## Table of Contents
 
@@ -175,6 +175,14 @@ If you hourglass an enemy with the FS symbol active, you can do them any number 
 
 Have the Eternal Support skill equipped on Estelle, and then have her cast Force Field over and over. If Eternal Support activates, whoever received the Force Field will become invincible for the rest of the battle.
 
+:::tagging{data-tags="{'versions' : 'Definitive 1.0 Switch'}"}
+#### Switch Shortcut Glitches
+:::
+
+On the switch version, artes come out on stick release, and holding the stick makes your character stuck. You can use this time to change your action to another arte.
+
+You can find more information about it [here](https://t.co/XV4Xg4M0mv).
+
 ## Combat Techniques
 
 Here we will discuss various different techniques/glitches that can be used during combat.
@@ -275,6 +283,18 @@ In semi-auto mode, guarding then doing a base arte from a distance makes you run
 By using delayed healing abilities, such as healing moves that need to hit (Raven, Karol) and delaying spells (Estelle's Resurrection and Regenerate), you can win fights as long as the healing move affects one of your characters after your party is wiped out.
 
 You can see examples of this in action [here](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s) and [here](https://www.youtube.com/watch?v=PWfSeT08yUs).
+
+:::tagging{data-tags="{'todo' : true}"}
+#### Reviving FS
+:::
+
+Skills needed: FS Bonus.
+
+By using a Fatal Strike and getting your HP to 0 while doing it, you can resurrect yourself if you have the FS Bonus skill equipped.
+
+Timing is strict.
+
+You can see an example of this in action [here](https://t.co/GTNywLHEO8).
 
 ### Fatal Strike Techniques
 

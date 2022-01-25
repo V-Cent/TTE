@@ -2,7 +2,7 @@
 
 [Tales of Arise](https://aselia.fandom.com/wiki/Tales_of_Arise) (テイルズ オブ アライズ Teiruzu obu Araizu) was released internationally on September 9, 2021 for the PS4, PS5, XBox One, Xbox Series X/S and PC.
 
-Special thanks to users [Pássaro](https://www.youtube.com/watch?v=qr8JllMGmvY), [Swillo](https://gamefaqs.gamespot.com/boards/265989-tales-of-arise/79639361), [ThatSkeletonMan](https://www.youtube.com/watch?v=qNKUv9p1X7I), [lilliedesu](https://www.youtube.com/watch?v=SLCvRBacgI8), [動画置き場](https://www.youtube.com/watch?v=WHePG4uTlEI) and [Jakkun](https://twitter.com/UnheardPhantasm/status/1447392198698442754).
+Special thanks to users [Pássaro](https://www.youtube.com/watch?v=qr8JllMGmvY), [Swillo](https://gamefaqs.gamespot.com/boards/265989-tales-of-arise/79639361), [ThatSkeletonMan](https://www.youtube.com/watch?v=qNKUv9p1X7I), [lilliedesu](https://www.youtube.com/watch?v=SLCvRBacgI8), [動画置き場](https://www.youtube.com/watch?v=WHePG4uTlEI), [Jakkun](https://twitter.com/UnheardPhantasm/status/1447392198698442754), [Zeke Belforma](https://www.youtube.com/channel/UCvpBWnhTDYvTlZSwTcaSxlQ) and [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured).
 
 ## Table of Contents
 
@@ -62,26 +62,40 @@ As you use your artes, you can gain stars that indicate that they were strengthe
 - 4☆ = 2000
 - 5☆ = 3000
 
-Arte usage only increases the damage done for that arte.
+Arte usage only increases the damage done for that arte (6% per).
 
-:::tagging{data-tags="{'todo' : true}"}
 **Spell Casting Mechanics**
-:::
 
 Skill Needed: Reduced Arte Casting Time During Combos
 
-Spell reductions are slightly harder to define in Arise than in other games. For the most part, any arte or normal follow the same reduction formula, with the exception of spells and unique actions. First, each time you learn the skill your reduction multiplier increases. The calculations below are for 2x "Reduced Arte Casting Time During Combos" skills learned. Having the skill only learned once reduces the percentages below by roughly a half.
+Spell casting reductions in Tales of Arise all follow the same formula. Each "_action_" you perform will reduce your casting time by 4% X Number of "Reduced Arte Casting Time During Combos" skills.
 
-Spells start reducing 10% of casting time with 1 spell use and increase by 5% for each subsequent spell used (for example, 3 spells would be a 45% reduction). Unique actions, such as Shionne's activated bombs, follow the same principle (with each hit reducing different amounts of casting time). Healings spells do not reduce casting time, but they do take advantage of it.
+Here's a list of what is considered an _action_:
+- A Normal attack counts as 1 action.
+- Starting a spell cast counts as 1 action and the actual release is also 1 action.
+- Rinwell's Spell Charge/Hold And Spell Release both count as 1 action.
+- A Physical Arte counts as 1 action.
+- Bombs extensions count as 1 additional action.
+- A Boost attack counts as 1 action.
+- Counter Edges count as 1 action.
 
-Normals and artes reduce by 7% with the exception of the second action of the chain, which reduces it by 10%. Thus, 4 actions would reduce the casting by 31%.
+And what is **not** considered an _action_:
+- Dodges, jumps and partner's boost strikes don't count as any action.
+- Casting or releasing a support spell will not count as actions. They will, however, use the normal spell casting formula (thus their casting time can be reduced).
 
-Other relevant information on casting mechanics:
-
+Other than actions, there is some important things to take note of:
 - Hits/Whiffs do not matter. Steps do not matter. The AG cost of the move (and if it is an Arcane arte or not) does not matter.
-- This reduction ends when the casting time hits 1s. (This includes both high level and low level attack spells and healing spells.)
-- The Mystic Crest Accessories and casting time reduction bonuses do reduce casting time by a percentage. However, they do not affect the minimum time of 1s (meaning that, for long combos, it may be more beneficial to use other accessories instead).
-- You can also cancel the casting animation with a step and still get a reduction on casting times. This reduction, however, is lower than casting a spell normally.
+- Maximum casting reduction is 80% of the original casting time but cannot go below 1s.
+- Mystic Crest Accessories and casting time reduction bonuses reduce the casting time by a percentage. They do not affect the minimal casting time described above.
+- Auto-mode is beneficial to spell casting due to the long hit stop animations in Manual or Semi-auto.
+- Rinwell gets + 10% bonus casting speed per "Faster spell charge" skill if she charged a spell during the combo.
+- Keep in mind that you usually get 2 actions of reduction when using spells, but by only releasing a spell (that was saved in the book) with Rinwell you get the reduction of only 1 action.
+
+Therefore, to maximize your casting time your objective is to hit that 80% as fast as possible. This can be done easily by doing 10 actions while you have 2 "Reduced Arte Casting Time During Combos" skills, which can be done by casting 5 offensive spells. Rinwell can hit this limit even faster by using the "Faster spell charge" skill. Here are some examples of how it would work in the game:
+
+> Normal Attack -> Thunder Lance -> Shooting Star = 1 action reduction to Thunder Lance. 3 actions reduction to Shooting star.  
+> Sharpness (Hold) -> Shooting Star = 1 action reduction to Shooting star.  
+> Air Thrust (Hold) -> Shooting Star = 2 actions reduction to Shooting star.
 
 **Control Modes**
 
@@ -106,6 +120,12 @@ In this section, we have a group of glitches and a small description on how to r
 Depending on your position, certain artes can get stuck on the enemy mesh slightly. This will result in your recovery taking longer and even enemies dropping from the combo. Can be mostly seem by using Air to Ground Moves while on top of an enemy.
 
 Rarely, the enemy can also be slightly stuck on top of a character. However, these occurrences are rare and won't prevent an enemy from attacking.
+
+:::tagging{data-tags="{'todo' : true}"}
+#### AI friendly-fire spells
+:::
+
+If you manually tell the AI to cast a support spell on you and have him dodge an enemy attack, there is a chance that the AI will start casting an offensive spell right away and still keep its target on you.
 
 ### Out of Bounds and Sequence Breaks
 
@@ -159,6 +179,12 @@ More information on this cancel can be found [here](https://www.youtube.com/watc
 
 During a combo, you can change characters and use the boost attack of the character you were controlling to teleport that character to the side of the enemy.
 
+#### Boost Attack Invincibility
+
+Every Boost Attack is also gives you invincibility frames while you're doing it. This invincibility can even be used on the frame that you are hit to negate the damage.
+
+This invincibility can be used to negate most boss mechanics, even :spoiler[Ganavelt's Indigination, which can be seen [here](https://youtu.be/buqfQ0o5yaY); to avoid the down effect, simply have your character (or your party memebers) on auto].
+
 #### Boss Infinite Down Loop
 
 With BG related skills (such as BG gain on enemy down), and with an accessory with 4x 8% BG gain rate, you can either use or set Alphen as a support character to have him use his boost attack to down bosses. After that, due to the faster BG gain, Alphen's boost attack will be ready again once the boss gets up, allowing you to hit bosses constantly without interruption. This loop will end once the boss activates Overlimit.
@@ -182,6 +208,16 @@ More information can be found [here](https://gamefaqs.gamespot.com/boards/265989
 :::
 
 When doing a move from the air and landing, there is a period where you are not able to do any actions. To avoid this, simply do the move closer to the ground and try to do your action (such as a dodge). The action will come out on the ground instead, making your recovery faster.
+
+:::tagging{data-tags="{'todo' : true}"}
+#### Boss Boost Strike 50% Kill
+:::
+
+By delaying the boost strike prompt that happens when a boss hits 50% HP, you can activate it late and instantly kill the enemy. The input has to be done just before the prompt ends. You can buffer artes or normal attacks to have a better visual/audio cue to perform this technique, but the timing is still pretty strict.
+
+Most bosses have different timing for when the boost strike prompt will disappear, so you might need different setups for different bosses.
+
+Multi-hit boost strikes are the only ones that can cause this effect. The list of working combinations are: Law/Alphen, Kisara/Alphen and Law/Kisara.
 
 ### Control Mode Techniques
 

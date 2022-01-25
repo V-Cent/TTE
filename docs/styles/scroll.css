@@ -29,7 +29,8 @@
   border: none !important;
   border-width: 0px;
   border-color: #161617;
-  background-color: transparent;
+  background-color: #161617;
+  border-radius: 50%;
   cursor: pointer;
   position: fixed;
   bottom: 30px;
@@ -43,6 +44,10 @@
   -ms-transform: translateY(100px);
   -o-transform: translateY(100px);
   transition: all 0.5s ease;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 .scroll__button--to-top--show {

@@ -60,16 +60,14 @@ document.addEventListener(
 function updatePage() {
   // Enable smooth scroll on hash links
   enableSmoothTOC();
-  // Treat checkboxes
   styleCheckboxes();
   // Style code blocks
   hljs.highlightAll();
   // Treat custom directives
   compileTags();
-  // Sort tables
   sortTables();
-  // Treat spoiler tags
   treatSpoilers();
+  styleImages();
 }
 
 // --- Functions related to file parsing
@@ -753,4 +751,15 @@ function treatSpoilers() {
       event.target.style.background = "transparent";
     });
   });
+}
+
+function styleImages() {
+  var imageList = document.getElementsByTagName('img');
+  var contentElement = document.getElementById('content');
+  var i;
+  for(var i = 0; i < imageList.length; i++) {
+    if (contentElement.contains(imageList[i])){
+      imageList[i].classList.add("content__figure");
+    }
+  }
 }

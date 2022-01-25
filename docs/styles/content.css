@@ -51,6 +51,12 @@
   right: 1%;
 }
 
+.content__figure {
+  position: relative;
+  max-width: 90%;
+  display: inline-block;
+}
+
 #footer-container {
   display: inline-block;
   box-sizing: border-box;
