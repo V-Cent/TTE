@@ -62,7 +62,8 @@ Here we will discuss various different techniques/glitches that can be used duri
 
 Generally, the only way to consistently keep a boss in a combo is through a Power Combo. However, it is possible to do multiple power combos within a single combo, by timing the end of the power hits gauge to line up with a well placed weakness hit. There are multiple ways to go about these weakness resets, which will be explained below.
 
-:::tagging{data-tags="{'media' : 'media/tox2/kd1.mp4', 'forcedvideo' : true}"}
+:::tagging{data-tags="{'media' : 'media/tov/spellCancel.mp4'}"}
+:::tagging{data-tags="{'media' : 'media/tox2/kd1.mp4'}"}
 
 **OTG:** Knock down the boss right as the Power Hits gauge is about to expire, and then OTG them with their weakness. You can also hit them with their weakness while they're downed and then OTG them with a different arte, as bosses can't trigger counters while knocked down. You can also knockdown bosses in the air. Aerial knockdowns do not contribute towards to the KD limit, as long as they are OTG'd before touching the ground. In addition, human bosses will attempt to air recover at the earliest possible opportunity, requiring a near instant OTG to retain the combo.
 
