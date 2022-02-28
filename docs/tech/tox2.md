@@ -60,6 +60,11 @@ Here we will discuss various different techniques/glitches that can be used duri
 
 #### Weakness Reset
 
+:::tagging{data-tags="{'media' : 'media/todps2/caveQueen.mp4'}"}
+#### Skip Cave Queen
+:::
+
+
 :::tagging{data-tags="{'media' : 'media/tox2/kd1.mp4'}}"}
 Generally, the only way to consistently keep a boss in a combo is through a Power Combo. However, it is possible to do multiple power combos within a single combo, by timing the end of the power hits gauge to line up with a well placed weakness hit. There are multiple ways to go about these weakness resets, which will be explained below.
 :::
