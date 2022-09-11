@@ -62,7 +62,7 @@ As you use your artes, you can gain stars that indicate that they were strengthe
 - 4☆ = 2000
 - 5☆ = 3000
 
-Arte usage only increases the damage done for that arte (6% per).
+Arte usage only increases the damage done for that arte (6% per star).
 
 **Spell Casting Mechanics**
 
