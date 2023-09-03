@@ -20,7 +20,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: #161617;
-  scrollbar-color: #373737 #161617 ;
+  scrollbar-color: #373737 #161617;
 }
 
 video {
@@ -141,7 +141,7 @@ a:active {
 
 .spoiler {
   color: #ffffff;
-  background-color:#ffffff;
+  background-color: #ffffff;
   opacity: 85%;
   cursor: pointer;
   transition-timing-function: ease-out;
@@ -153,45 +153,47 @@ a:active {
 }
 
 .green {
- color: #3ECC40;
+  color: #3ecc40;
 }
 
 .red {
-  color: #FF4136;
+  color: #ff4136;
 }
 
 .orange {
-  color: #FF851B;
+  color: #ff851b;
 }
 
 .yellow {
-  color: #FFDC00;
+  color: #ffdc00;
 }
 
 .purple {
-  color: #B10DC9;
+  color: #b10dc9;
 }
 
 .blue {
-  color: #0074D9;
+  color: #0074d9;
 }
 
 .illuminating {
-  color: #F8D948;
+  color: #f8d948;
 }
 
 .classblue {
-  color: #0F4C81;
+  color: #0f4c81;
 }
 
 .livcoral {
-  color: #FA7268;
+  color: #fa7268;
 }
 
 @font-face {
-  font-family: 'Pacifico';
+  font-family: "Pacifico";
   font-style: normal;
   font-weight: 400;
-  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2) format('woff2');
+  src: local("Pacifico Regular"), local("Pacifico-Regular"),
+    url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2)
+      format("woff2");
   font-display: swap;
 }

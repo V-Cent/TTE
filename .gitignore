@@ -21,10 +21,7 @@ nbdist/
 
 ### Visual Studio Code files ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# If someone has good settings we can make an exclude rule :)
 
 ### Sublime Text files ###
 

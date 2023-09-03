@@ -71,8 +71,12 @@
 }
 
 /* Scroll bar styling */
-*::-webkit-scrollbar {background: #161617;}
-*::-webkit-scrollbar-thumb { background-color: #373737;}
+*::-webkit-scrollbar {
+  background: #161617;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #373737;
+}
 
 #nav-bar__tab-bar--transparency {
   width: 40%;
@@ -236,8 +240,11 @@
   z-index: 1;
 }
 
-
 @media screen and (min-width: 0px) and (max-width: 1000px) {
-  #nav-bar__tab-bar--transparency { display: none;}
-  #nav-bar__search { width: 50%;}
+  #nav-bar__tab-bar--transparency {
+    display: none;
+  }
+  #nav-bar__search {
+    width: 50%;
+  }
 }
