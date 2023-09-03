@@ -1,8 +1,6 @@
 # Tales Tech Encyclopedia
 
-Tales Tech Encyclopedia (TTE), is a project that aims to document useful techniques on the different games of the "Tales of Series". Here will be documented useful techniques for both battle and exploration, while also giving an explanation of the battle system of each game.
-
-TTE will also keep track of different glitches and exploits in each game. Glitches/techs that are not useful (such as softlocks and freezes) should be kept as Issues in GitHub in case they can be exploited for beneficial effects in the future. Glitches/Techs/Mechanics that appear during combat, even if they have negative effects, should be documented in their respective pages.
+Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the "Tales of Series". This includes glitches, exploits or any other behavior that can be reproduced. The project is still in development (everything is subject to change).
 
 Project started 12th of April of 2021.
 
@@ -10,7 +8,7 @@ Project started 12th of April of 2021.
 
 TTE is fueled by the Unified collective to parse tech documents and news into the website. It supports GFM (Github Flavored Markdown) and multiple others functionalities such as emojis (:joy:), math and custom directives (from commonmark) for media and tag handling.
 
-The following tools/libraries are utilized: Unified, esbuild, Prettier, highlight.js, npm.
+The following tools/libraries are utilized: Unified, esbuild, Prettier, npm.
 
 Pages use only pure javascript and HTML/CSS.
 

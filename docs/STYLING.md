@@ -24,14 +24,6 @@ You can also decorate your text with **bold** (text between double asterisks or 
 
 Strikethrough can be used by using ~one~ or ~~two~~ tildes.
 
-LaTeX-like (KaTeX) math can also be used. A $Symbol$ (text between dollar signs) can be used for variables and constants defined in the text. Double dollar signs blocks can be used to create formulas like below:
-
-$$
-L = \frac{1}{2} \rho v^2 S C_L
-$$
-
-The format is fairly straightforward, but you can check LaTeX math/KaTeX tutorials to define more complex formulas.
-
 ## Headings
 
 Headings can be defined by starting the line with a hashtag (#). In TTE we use the first heading (#) for the game title. The second and third (## and ###) as sub-titles. And the fourth (####) as tech and glitch definitions.
@@ -85,14 +77,6 @@ Quote blocks can be created by starting a line with a greater-than sign (>). The
 > finish the current line with two empty spaces.
 
 Headings inside quoteblocks will not enter the TOC and can only be used for styling.
-
-## Code
-
-You can create a code block by indenting your text with four empty spaces. See the example below:
-
-    var thisIs = "Code";
-    console.log(thisIs);
-    //Code styling by highlight.js
 
 ## Custom Directives
 
@@ -149,7 +133,6 @@ For a specific definition of each segment, follow the guidelines below:
 - On the next segment, base mechanics (##) of the game are documented. These will use headings 3 only (###). Definitions of certain mechanics are also explained here. Special thanks can also be placed during the base mechanics heading if needed.
 - After that, glitches (##) are documented depending on where they affect. On this segment will not be glitches that are useful for the battle system. Example for glitches sub-titles (###) are: "Equipment/Items/Accessories Glitches", "Out of Bounds and Sequence Breaks", "Exploits" and "Minor Battle Glitches". Use the fourth heading (####) for each glitch description.
 - Finally, the Combat Techniques (##) segment starts. Here will be described the various techniques and glitches of the battle system of each game. It will always start with a General Techniques (###) sub-title for each techniques that does not require a segment of its own. Important techniques should have their only section using a sub-title (###). Use the fourth heading (####) for each tech description.
-
 
 ## Default Format for a News Page
 
