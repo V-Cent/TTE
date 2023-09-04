@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,
@@ -11,7 +11,6 @@
   "dependencies": {
     "esbuild": "^0.19.2",
     "hastscript": "^8.0.0",
-    "rehype-katex": "^6.0.3",
     "rehype-stringify": "^10.0.0",
     "remark-collapse": "^0.1.2",
     "remark-directive": "^2.0.1",
@@ -20,7 +19,6 @@
     "remark-gfm": "^3.0.1",
     "remark-images": "^3.1.0",
     "remark-macro": "^1.0.7",
-    "remark-math": "^5.1.1",
     "remark-parse": "^10.0.2",
     "remark-rehype": "^10.1.0",
     "remark-slug": "^7.0.1",

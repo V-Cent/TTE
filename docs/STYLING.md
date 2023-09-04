@@ -143,4 +143,3 @@ After that, any proper GFM format can be used.
 ## Other Resources
 
 You probably can edit a page by simply following the syntax of other pages, but in case you want further definitions of GFM and Markdown syntax, you can follow these links: [GFM](https://github.github.com/gfm/), [Markdown](https://www.markdownguide.org/basic-syntax/).
-

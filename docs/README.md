@@ -6,7 +6,7 @@ Project started 12th of April of 2021.
 
 ## Toolchain
 
-TTE is fueled by the Unified collective to parse tech documents and news into the website. It supports GFM (Github Flavored Markdown) and multiple others functionalities such as emojis (:joy:), math and custom directives (from commonmark) for media and tag handling.
+TTE is fueled by the Unified collective to parse tech documents and news into the website. It supports GFM (Github Flavored Markdown) and multiple others functionalities such as emojis (:joy:) and custom directives (from commonmark) for media and tag handling.
 
 The following tools/libraries are utilized: Unified, esbuild, Prettier, npm.
 
