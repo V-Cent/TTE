@@ -1,8 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap");
-
 /* Card-based news. Based on Joshua Ward design */
+/* TODO - News have low quality for now. Find a different way to have it look good and use less resources.*/
 
 .card-container {
   display: flex;
@@ -46,6 +43,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  filter: blur(0.4px);
+  opacity: 90%;
   width: 290px;
   height: 395px;
   padding: 20px 20px;

@@ -6,8 +6,6 @@ import stringify from "rehype-stringify";
 import gfm from "remark-gfm";
 import slug from "remark-slug";
 import toc from "remark-toc";
-import math from "remark-math";
-import katex from "rehype-katex";
 import emoji from "remark-emoji";
 import remarkImages from "remark-images";
 import directive from "remark-directive";
@@ -59,10 +57,8 @@ export async function parseGFM(file) {
     .use(htmlDirectives)
     .use(gfm)
     .use(slug)
-    .use(math)
     .use(remarkImages)
     .use(remark2rehype)
-    .use(katex)
     .use(emoji)
     .use(stringify)
     .process(fileData, function (err, file) {

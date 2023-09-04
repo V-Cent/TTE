@@ -1,33 +1,42 @@
 <!DOCTYPE html>
-<html id="page">
+<html id="page" lang="en">
   <head>
+    <style>html{visibility: hidden;opacity:0;}</style>
     <meta charset="utf-8" />
+    <meta name="description" content="Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=1">
+    <meta name="robots" content="index,follow">
     <title>Tales Tech Encyclopedia</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" as="style" crossorigin>
+    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap" as="style" crossorigin>
+    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" as="style" crossorigin>
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+    />
+
+    <!--
     <link href="./styles/base.css" rel="stylesheet" type="text/css" />
     <link href="./styles/elements.css" rel="stylesheet" type="text/css" />
     <link href="./styles/content.css" rel="stylesheet" type="text/css" />
     <link href="./styles/cards.css" rel="stylesheet" type="text/css" />
     <link href="./styles/navbar.css" rel="stylesheet" type="text/css" />
     <link href="./styles/scroll.css" rel="stylesheet" type="text/css" />
+    -->
+    <link href="./styles/base.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
+    <link href="./styles/navbar.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
+    <link href="./styles/scroll.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
+    <link href="./styles/cards.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
+    <link href="./styles/content.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
+    <link href="./styles/elements.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
 
-    <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/monokai-sublime.min.css">
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-      integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
-      crossorigin="anonymous"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
-    />
 
     <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
     <!-- add an icon later -->
@@ -41,11 +50,13 @@
           alt="TTE Logo."
           id="nav-bar__title__logo"
           draggable="false"
+          alt="TTE Logo."
         />
         <img
           src="media/TTEtext.webp"
           id="nav-bar__title__text"
           draggable="false"
+          alt="Tales Tech Encyclopedia"
         />
         <span class="nav-bar__helper"></span>
       </div>
@@ -72,6 +83,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TODPS2"
             data-section="Tales of Destiny PS2"
+            alt="Tales of Destiny PS2"
           />
           <img
             src="media/tov/TOVICON.webp"
@@ -79,6 +91,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TOV"
             data-section="Tales of Vesperia"
+            alt="Tales of Vesperia"
           />
           <img
             src="media/toa/TOAICON.webp"
@@ -86,6 +99,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TOA"
             data-section="Tales of Arise"
+            alt="Tales of Arise"
           />
           <img
             src="media/tol/TOLICON.webp"
@@ -93,6 +107,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TOL"
             data-section="Tales of Legendia"
+            alt="Tales of Legendia"
           />
           <img
             src="media/toz/TOZICON.webp"
@@ -100,6 +115,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TOZ"
             data-section="Tales of Zestiria"
+            alt="Tales of Zestiria"
           />
           <img
             src="media/tota/TOTAICON.webp"
@@ -107,6 +123,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TOTA"
             data-section="Tales of the Abyss"
+            alt="Tales of the Abyss"
           />
           <img
             src="media/tox2/TOX2ICON.webp"
@@ -114,6 +131,7 @@
             class="nav-bar__tab-bar--links"
             data-document="TOX2"
             data-section="Tales of Xillia 2"
+            alt="Tales of Xillia 2"
           />
           <span style="padding-left: 40px;"></span>
         </div>
@@ -141,6 +159,8 @@
           src="media/TTEtexthor.webp"
           id="footer-container__text"
           draggable="false"
+          alt="Tales Tech Encyclopedia"
+          loading="lazy"
         />
         <p>"Tales of Series" © Bandai Namco Games Inc.</p>
       </div>
@@ -177,11 +197,11 @@
       <span class="material-icons md-light md-36"> arrow_circle_up </span>
     </button>
 
-    <script src="./scripts/page.js"></script>
-    <script src="./scripts/tooltip.js"></script>
-    <script src="./scripts/scroll.js"></script>
-    <script src="./scripts/logo.js"></script>
-    <script src="./scripts/news.js"></script>
-    <script src="./scripts/parser.js"></script>
+    <script defer src="./scripts/parser.js"></script>
+    <script defer src="./scripts/page.js"></script>
+    <script defer src="./scripts/logo.js"></script>
+    <script async src="./scripts/tooltip.js"></script>
+    <script async src="./scripts/scroll.js"></script>
+    <script async src="./scripts/news.js"></script>
   </body>
 </html>
