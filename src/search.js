@@ -59,12 +59,12 @@ export function fillSearch() {
   for (i = 0; i < tabLinks.length; i++) {
     // Creates a local variable related to the index so it doesn't get overwritten
     let currentIndex = i;
-    // TODO - Search is working... Just not going.
     parseGFM("./tech/" + tabLinks[i].dataset.document.toLowerCase()).then(
       (techDocument) => {
         let currentDocument = techDocument;
         const parser = new DOMParser();
         // Add default page search
+        // TODO - should be divs instead of <a> to improve SEO
         searchContents = searchContents.concat('<a data-document="');
         searchContents = searchContents.concat(
           tabLinks[currentIndex].dataset.document
@@ -189,6 +189,7 @@ export function revealID(id) {
 // --- Function for click events on the nav-bar
 export function enableSmoothTOC() {
   //Gets all hash events
+  // TODO - once changed to divs, need to change this too
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       //Add smooth behaviour to all matches
