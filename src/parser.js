@@ -43,6 +43,7 @@ function loadFile(filePath) {
 
 export async function parseGFM(file) {
   //Read GFM file
+  console.log("[PARSER] Parsing File: " + file + ".md");
   let fileData = await loadFile(file + ".md");
   if (fileData.length <= 1 || fileData == null) {
     return "";

@@ -6,7 +6,6 @@
 
 import { loadTooltip, unloadTooltip } from "./tooltip.js";
 import { parseGFM } from "./parser.js";
-import { loadNewsSection } from "./news.js";
 import {
   fillSearch,
   clearFunction,
@@ -26,14 +25,14 @@ import {
 // TODO - Prev. Scores: 50 80 77 60 (Perf, Acc, BP, SEO)
 // TODO - Mobile Scores: 35 80 77 60 (Perf, Acc, BP, SEO)
 
+// TODO - v10.x Scores: 69 100 100 90 (Perf, Acc, BP, SEO)
+// TODO - v10.x Scores: 42 100 100 92 (Perf, Acc, BP, SEO)
+
 // --- Actions taken on DOM Load
 document.addEventListener(
   "DOMContentLoaded",
   function () {
-    // Load news
-    loadNewsSection();
     // Fill search elements
-    fillSearch();
     // Add page change events to nav-bar (requires search bar to be filled)
     document
       .querySelectorAll(
@@ -48,6 +47,12 @@ document.addEventListener(
     searchElement.addEventListener("keyup", filterFunction);
     // Clean the dropdown with a focusout event
     let searchContainerElement = document.querySelector("#nav-bar__search");
+    searchContainerElement.addEventListener("click", (event) => {
+      let searchCount = document.querySelector(".nav-bar__search--results");
+      if (searchCount == null) {
+        fillSearch();
+      }
+    });
     searchContainerElement.addEventListener("focusout", (event) => {
       if (event.relatedTarget != null) {
         if (!(event.relatedTarget.className == "nav-bar__search--results")) {
@@ -198,7 +203,7 @@ export function addPageChangeEvent(item) {
     // Show the current tab, and add an "active" class to the button that opened the tab;
     if (
       !(
-        event.currentTarget.dataset.document == "NEWS" ||
+        event.currentTarget.dataset.document == "HOME" ||
         event.currentTarget.dataset.document.includes("./")
       )
     ) {
@@ -215,25 +220,14 @@ export function addPageChangeEvent(item) {
     let sectionText = document.getElementById("section-container__text");
     let contentText = document.getElementById("content");
 
-    if (event.currentTarget.dataset.document == "NEWS") {
-      //If the event is tagged as "NEWS" (nav-bar logo redirect)
-      //Card based view
-      loadNewsSection();
+    if (event.currentTarget.dataset.document == "HOME") {
+      //If the event is tagged as "HOME" (nav-bar logo redirect)
+      // TODO - loadHome?();
+      contentText.innerHTML = "UNDER CONSTRUCTION";
+      sectionText.innerHTML = "HOME"
     } else {
       //Continuous page view
-      if (event.currentTarget.dataset.document.includes("news")) {
-        //If the event uses the news folder (document includes news string), set the section as news and update the content
-        sectionText.innerHTML = "NEWS";
-        parseGFM(event.currentTarget.dataset.document.toLowerCase()).then(
-          (page) => {
-            contentText.innerHTML = page;
-            //Clear search results
-            clearFunction();
-            //Update page
-            updatePage();
-          }
-        );
-      } else if (event.currentTarget.dataset.document.includes("./")) {
+      if (event.currentTarget.dataset.document.includes("./")) {
         sectionText.innerHTML = event.currentTarget.dataset.section;
         parseGFM(event.currentTarget.dataset.document).then((page) => {
           contentText.innerHTML = page;
