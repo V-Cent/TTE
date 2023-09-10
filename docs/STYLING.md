@@ -4,31 +4,27 @@ This document will go over the styling guide for markdown files in the TTE proje
 
 Markdown is a lightweight markup language that was chosen to keep track of game specific documents and pages like this one. The main objective of markdown in this project is for pages to be easy for any reader to read and contribute while also being possible to use the same data for the browser.
 
-The format of Markdown used is GFM (Github Flavored Markdown) due to it being modern (having multiple useful features) and easy to check on the github repository. Most of the original Markdown syntax also work on GFM and multiple guides are available online for both.
+The format of Markdown used is a subset of GFM (Github Flavored Markdown). Most effects should be able to be shown on Github's parser to check files if the website is offline. Most of the original Markdown syntax also work on GFM and multiple guides are available online for both.
 
 Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format for games down the line.
 
-TTE itself also has unique features such as automatic Table of Contents, emojis (:joy:), math and custom directives (from commonmark, another markdown format).
-
-For example, the next heading will start the Table of Contents (TOC) for this whole document. We will create a heading with the text "Table of Contents" and all further headings (that are of the same level or higher than the TOC heading -- more on this later) will automatically be linked by the TOC. TTE also obtains headings from inside custom directives. The TOC heading is instantly followed by the heading of the next section, and has no text.
-
-## Table of Contents
-
 ## Text
 
-Text in GFM does not need any special formatting. The only specific rule is that line breaks are only considered when at least one line is blank between paragraphs. You can also end the previous line with two empty spaces for the same effect (not recommended).
+Text in GFM does not need any special formatting. The only specific rule is that line breaks are only considered when at least one line is blank between paragraphs. While you can also create a new line by having the previous line in two spaces, this is not recommended. Not only will it break styling in TTE, it will also make certain syntaxes fail.
+
+Feel free to use new lines sparingly to make the text easier to read. They should also be used any time you want to use a special effect such as spoiler tages, colored text or tagging.
 
 ### Text Decorations
 
 You can also decorate your text with **bold** (text between double asterisks or underscores) and _italics_ (text between single asterisk or underscore). You can also mix __*both*__.
 
-Strikethrough can be used by using ~one~ or ~~two~~ tildes.
+Strikethrough can be used by using ~~two~~ tildes.
 
 ## Headings
 
 Headings can be defined by starting the line with a hashtag (#). In TTE we use the first heading (#) for the game title. The second and third (## and ###) as sub-titles. And the fourth (####) as tech and glitch definitions.
 
-TOC will only list headings of the same level or higher than itself. For example, if your TOC is set as heading two (##) it will only fill itself with heading two or above entries (##, ###, ####...).
+Heading should not have any special characters such as colons, quotes or exclamation marks. They should also not be used inside quote blocks.
 
 ## Ordered and Unordered Lists
 
@@ -42,13 +38,11 @@ Unordered list can be created by starting the lines by an hyphen. Heres another 
 - This is the first item... but in an unordered lists that doesn't matter much.
 - And I'm the second item!
 
-## Autolink Literals & other Link References
+## Links and Images
 
 Links in markdown can be attributed to any word by encapsulating the word in brackets and the link in parentheses. The link has to follow the closing bracket of the word. Heres an [example](http://example.com/).
 
-Due to using GFM, TTE also supports autolink literals that do no require special markdown syntax to work. See the examples below:
-
-www.example.com, https://example.com, and contact@example.com.
+Images can be added by using the same syntax as links but with an exclamation mark before the first bracket. The link should be the path to the image file.
 
 ## Tables
 
@@ -73,54 +67,44 @@ Quote blocks can be created by starting a line with a greater-than sign (>). The
 
 > Quote blocks can be created by starting a line with a greater-than sign (>).
 >> They can have multiple levels if needed.
+
 > If you wish to continue the quote in another line,  
 > finish the current line with two empty spaces.
 
-Headings inside quoteblocks will not enter the TOC and can only be used for styling.
+Avoid using headings inside quoteblocks.
 
-## Custom Directives
+## Extended Syntax
 
-One of the most important features of TTE is custom directives. These allow us to tag any paragraph or heading with objects that are not usually able to be inserted by text. The custom directive syntax used in TTE is a block created with triple colons (:). The start of the block also is followed by the type of the directive (currently only supports "tagging") and parameters between braces/curly brackets ({}).
+These allow us to tag any paragraph or heading with objects that are not usually able to be inserted by text. There are two types of extended syntax: inline and block.
 
-Heres a simple example of the first part of a custom directive: :::tagging{data-tags="{'versions' : 'TTE', 'todo' : true}"}
+Inline syntax works by either using a emphasis symbol (*) or header symbol (#) followed by a colon (:) and the name of the effect. Emphasis symbol should be used for text and should be closed by another symbol. Header Symbol should only be used for headers and it's closed by a new line.
 
-By finishing the block with triple :::, the result is this:
+Blocks are created by using three marks (`) followed by the same parameters. The list of available parameters are:
 
-:::tagging{data-tags="{'versions' : 'TTE', 'todo' : true}"}
-Did it work?
-:::
+- :! -- *:! Spoiler Tag.*
+- :r -- *:r Red* Text.
+- :g -- *:g Green* Text.
+- :b -- *:b Blue* Text.
+- :y -- *:y Yellow* Text.
+- :p -- *:p Pink* Text.
+- :t -- *:t Teal* Text.
+- :{ -- Start of a custom directive.
 
-Currently TTE will only accept custom directives that have tagging as its type and the parameter data-tags. The value of data-tags is a simple JSON object. The possible options are:
+Custom directives are tags to modify the behavior of pages. They are json objects that are injected as the parent of the current text.
+Heres a simple example a custom directive: {'versions' : 'TTE', 'todo' : true}
+
+Headings only allow custom directives. The first colon should also have one space before it. An example: ### :{ 'versions' : 'TTE', 'todo' : true} Heading3.
+
+The possible options are:
 
 - 'versions' : 'text here that defines which versions'
 - 'todo' : true (a flag that defines if the section needs work)
 - 'media' : 'url' (url of video)
 - 'forcedmedia' : true (a flag that defines if the video is forced on the page)
-- 'dateDay' : 20 (ONLY USED FOR NEWS SEGMENTS) (defines the day the article was created)
-- 'dateMonth' : '???' (ONLY USED FOR NEWS SEGMENTS) (defines the month the article was created, three capitalized letters should be used)
-- 'description' : 'text here for a quick description' (ONLY USED FOR NEWS SEGMENTS) (a quick description of the news)
+
+*:{'versions' : 'TTE', 'todo' : true} This is a test!*
 
 Each parameter should be encapsulated in braces like the example above. The name of each parameter is set between single quotes ('); the same should be done for text values.
-
-### Spoiler
-
-Custom Directives can also be used for spoiler tags. They can be either be used in the block format above or inline by using one colon, the name of the effect and the inline text in brackets ([]). The inline format would looks like this : spoiler[], but without the empty space after the colon.
-
-The spoiler tag can be used for game spoilers or anything you want to hide until the user clicks the text. :spoiler[Like this!]
-
-### Colors
-
-You can also use block or inline custom directives for colored text. Currently, TTE supports :red[red], :blue[blue], :green[green], :yellow[yellow], :orange[orange], :purple[purple], :illuminating[illuminating], :classblue[classic blue] (classblue) and :livcoral[living coral] (livcoral).
-
-## Task-lists
-
-Due to GFM, task-lists can be used to track progress in different topics during documents. The lines should start by an hyphen and brackets.
-
-The brackets should be filled with an x if completed and an empty space if not (- [x] or - [ ]). Heres an example:
-
-- [x] Done
-- [x] Done
-- [ ] Not Done
 
 ## Default Format for a Tech Page
 
@@ -133,12 +117,6 @@ For a specific definition of each segment, follow the guidelines below:
 - On the next segment, base mechanics (##) of the game are documented. These will use headings 3 only (###). Definitions of certain mechanics are also explained here. Special thanks can also be placed during the base mechanics heading if needed.
 - After that, glitches (##) are documented depending on where they affect. On this segment will not be glitches that are useful for the battle system. Example for glitches sub-titles (###) are: "Equipment/Items/Accessories Glitches", "Out of Bounds and Sequence Breaks", "Exploits" and "Minor Battle Glitches". Use the fourth heading (####) for each glitch description.
 - Finally, the Combat Techniques (##) segment starts. Here will be described the various techniques and glitches of the battle system of each game. It will always start with a General Techniques (###) sub-title for each techniques that does not require a segment of its own. Important techniques should have their only section using a sub-title (###). Use the fourth heading (####) for each tech description.
-
-## Default Format for a News Page
-
-News pages should always start by a heading (#) with the following custom directive properties: dateDay, dateMonth and description.
-
-After that, any proper GFM format can be used.
 
 ## Other Resources
 

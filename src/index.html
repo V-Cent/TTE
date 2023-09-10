@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html id="page" lang="en">
+  <head>
+    <style>html{visibility: hidden;opacity:0;}</style>
+    <meta charset="utf-8" />
+    <meta name="description" content="Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=1">
+    <meta name="robots" content="index,follow">
+    <title>Tales Tech Encyclopedia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" as="style" crossorigin>
+    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap" as="style" crossorigin>
+    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" as="style" crossorigin>
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
+    />
+
+    <link href="./styles/base.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
+    <link href="./styles/navbar.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
+    <link href="./styles/scroll.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
+    <link href="./styles/content.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
+    <link href="./styles/elements.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
+
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+    <!-- add an icon later -->
+  </head>
+  <body>
+    <div id="nav-bar"> <!-- TODO - Nav-bar needs a re-do -->
+      <!-- Homepage Icon -->
+      <div id="nav-bar__title" data-document="HOME">
+        <img
+          src="media/TTE2.webp"
+          alt="TTE Logo."
+          id="nav-bar__title__logo"
+          draggable="false"
+          alt="TTE Logo."
+        />
+        <img
+          src="media/TTEtext.webp"
+          id="nav-bar__title__text"
+          draggable="false"
+          alt="Tales Tech Encyclopedia"
+        />
+        <span class="nav-bar__helper"></span>
+      </div>
+
+      <!-- Search bar -->
+      <div id="nav-bar__search">
+        <span class="material-icons md-light md-36" id="nav-bar__search--icon">
+          search
+        </span>
+        <input
+          type="text"
+          placeholder="Search..."
+          id="nav-bar__search--input"
+        />
+      </div>
+
+      <!-- Tab bar -->
+      <div id="nav-bar__tab-bar--transparency"> <!-- TODO - Game selection needs to look nicer -->
+        <div id="nav-bar__tab-bar">
+          <span style="padding-right: 40px;"></span>
+          <img
+            src="media/todps2/TODPS2ICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TODPS2"
+            data-section="Tales of Destiny PS2"
+            alt="Tales of Destiny PS2"
+          />
+          <img
+            src="media/tov/TOVICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TOV"
+            data-section="Tales of Vesperia"
+            alt="Tales of Vesperia"
+          />
+          <img
+            src="media/toa/TOAICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TOA"
+            data-section="Tales of Arise"
+            alt="Tales of Arise"
+          />
+          <img
+            src="media/tol/TOLICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TOL"
+            data-section="Tales of Legendia"
+            alt="Tales of Legendia"
+          />
+          <img
+            src="media/toz/TOZICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TOZ"
+            data-section="Tales of Zestiria"
+            alt="Tales of Zestiria"
+          />
+          <img
+            src="media/tota/TOTAICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TOTA"
+            data-section="Tales of the Abyss"
+            alt="Tales of the Abyss"
+          />
+          <img
+            src="media/tox2/TOX2ICON.webp"
+            draggable="false"
+            class="nav-bar__tab-bar--links"
+            data-document="TOX2"
+            data-section="Tales of Xillia 2"
+            alt="Tales of Xillia 2"
+          />
+          <span style="padding-left: 40px;"></span>
+        </div>
+      </div>
+
+      <span class="nav-bar__helper"></span>
+    </div>
+
+    <!-- Section name, sticky -->
+    <div id="section-container">
+      <hr />
+      <ul>
+        <li id="section-container__text">HOME</li>
+      </ul>
+    </div>
+
+    <!-- Content will be injected here -->
+    <div id="content">
+      UNDER CONSTRUCTION!
+    </div>
+
+    <!-- Footer with helpful links -->
+    <div id="footer-container">
+      <hr />
+      <div id="footer-container__reference">
+        <img
+          src="media/TTEtexthor.webp"
+          id="footer-container__text"
+          draggable="false"
+          alt="Tales Tech Encyclopedia"
+          loading="lazy"
+        />
+        <p>"Tales of Series" © Bandai Namco Games Inc.</p>
+      </div>
+
+      <div id="footer-container__help">
+        <p
+          class="footer-container__help--links"
+          data-document="./README"
+          data-section="README"
+        >
+          README
+        </p>
+        <p
+          class="footer-container__help--links"
+          data-document="./STYLING"
+          data-section="Document Styling"
+        >
+          Document Styling
+        </p>
+        <p
+          class="footer-container__help--links"
+          data-document="./CONTRIBUTING"
+          data-section="How to contribute"
+        >
+          How to contribute
+        </p>
+
+      </div>
+      <span class="nav-bar__helper"></span>
+    </div>
+
+    <!-- Scroll up button fix on bottom right corner of the page -->
+    <button id="scroll__button--to-top">
+      <span class="material-icons md-light md-36"> arrow_circle_up </span>
+    </button>
+
+    <script defer src="./scripts/page.js"></script>
+    <script defer src="./scripts/logo.js"></script>
+    <script async src="./scripts/tooltip.js"></script>
+    <script async src="./scripts/scroll.js"></script>
+  </body>
+</html>
