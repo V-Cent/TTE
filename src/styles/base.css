@@ -153,37 +153,25 @@ a:active {
 }
 
 .green {
-  color: #3ecc40;
+  color: #58f15b;
 }
 
 .red {
-  color: #ff4136;
-}
-
-.orange {
-  color: #ff851b;
-}
-
-.yellow {
-  color: #ffdc00;
-}
-
-.purple {
-  color: #b10dc9;
+  color: #e74a41;
 }
 
 .blue {
-  color: #0074d9;
+  color: #205aaa;
 }
 
-.illuminating {
-  color: #f8d948;
+.yellow {
+  color: #f8d959;
 }
 
-.classblue {
-  color: #0f4c81;
+.pink {
+  color: #fe796f;
 }
 
-.livcoral {
-  color: #fa7268;
+.teal {
+  color: #45c9c9;
 }

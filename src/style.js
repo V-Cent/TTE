@@ -51,18 +51,8 @@ export function styleImages() {
   }
 }
 
-// --- Functions related to checkbox customization
-
-export function styleCheckboxes() {
-  //Add a line-through to each checked input
-  document.querySelectorAll("input").forEach((taggedElement) => {
-    if (taggedElement.checked) {
-      taggedElement.parentElement.style.textDecorationLine = "line-through";
-    }
-  });
-}
-
 // --- Function for collapsing headers on tech documents
+// TODO - this also needs to change someday. messy.
 export function collapseHeaders(page) {
   let currentH4 = null;
   let currentH3 = null;

@@ -6,8 +6,6 @@ The only strict rule we adhere is making sure the content of markdown page is fa
 
 If you need some guidance on how to work with markdown files, you can check our styling guide which can be found on the bottom of every page.
 
-## Table of Contents
-
 ## Discussions
 
 One of the objectives of TTE is working on techniques that have been already found, but lack a consistent way to perform. For that, we may have segments in tech segments with a TODO tag or we may use GitHub issues to track progress on each technique.
