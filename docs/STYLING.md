@@ -75,11 +75,11 @@ Avoid using headings inside quoteblocks.
 
 ## Extended Syntax
 
-These allow us to tag any paragraph or heading with objects that are not usually able to be inserted by text. There are two types of extended syntax: inline and block.
+These allow us to tag any paragraph or heading with objects that are not usually able to be inserted by text.
 
-Inline syntax works by either using a emphasis symbol (*) or header symbol (#) followed by a colon (:) and the name of the effect. Emphasis symbol should be used for text and should be closed by another symbol. Header Symbol should only be used for headers and it's closed by a new line.
+The  syntax works by either using a emphasis symbol (*) or header symbol (#) followed by a colon (:) and the name of the effect. Emphasis symbol should be used for text and should be closed by another symbol. Header Symbol should only be used for headers and it's closed by a new line.
 
-Blocks are created by using three marks (`) followed by the same parameters. The list of available parameters are:
+The list of available parameters are:
 
 - :! -- *:! Spoiler Tag.*
 - :r -- *:r Red* Text.
@@ -93,6 +93,10 @@ Blocks are created by using three marks (`) followed by the same parameters. The
 Custom directives are tags to modify the behavior of pages. They are json objects that are injected as the parent of the current text.
 Heres a simple example a custom directive: {'versions' : 'TTE', 'todo' : true}
 
+By using the emphasis symbol, you can even use them without text to insert something in a line (for example, a video). For example, the custom direction above, when inserted in an empty line, becomes this:
+
+*:{'versions' : 'TTE', 'todo' : true}*
+
 Headings only allow custom directives. The first colon should also have one space before it. An example: ### :{ 'versions' : 'TTE', 'todo' : true} Heading3.
 
 The possible options are:
@@ -102,9 +106,11 @@ The possible options are:
 - 'media' : 'url' (url of video)
 - 'forcedmedia' : true (a flag that defines if the video is forced on the page)
 
+For emphasis, you can also group a block of text within it, to tag a specific portion of your paragraph:
+
 *:{'versions' : 'TTE', 'todo' : true} This is a test!*
 
-Each parameter should be encapsulated in braces like the example above. The name of each parameter is set between single quotes ('); the same should be done for text values.
+Parameters should always be encapsulated in braces. The name of each parameter is set between single quotes ('); the same should be done for text values.
 
 ## Default Format for a Tech Page
 
