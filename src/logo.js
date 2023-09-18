@@ -6,34 +6,36 @@ var rotateFlag = false;
 var leaveCounter = 0;
 var currentVelocity = 0;
 
-//Actions taken on DOM Load
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    //Add nav-bar events --> logo rotation
-    let titleElement = document.querySelector("#nav-bar__title");
-    titleElement.addEventListener("mouseenter", startRotateLogo);
-    titleElement.addEventListener("mouseleave", stopRotateLogo);
+function logoInit() {
+  //Add nav-bar events --> logo rotation
+  let titleElement = document.querySelector("#nav-bar__title");
+  titleElement.addEventListener("mouseenter", startRotateLogo);
+  titleElement.addEventListener("mouseleave", stopRotateLogo);
 
-    //Add tooltip events to every tab-bar link (game icon)
-    document
-      .querySelectorAll(".nav-bar__tab-bar--links")
-      .forEach((tabBarLink) => {
-        tabBarLink.addEventListener("click", () => {
-          //When clicking on any game, rotate the logo a bit
-          if (!rotateFlag && leaveCounter == 0) {
-            currentVelocity = 3.3;
-            leaveCounter = 200;
-            requestAnimationFrame(rotateLogo);
-          } else {
-            currentVelocity = 3.3;
-            leaveCounter = 200;
-          }
-        });
+  //Add tooltip events to every tab-bar link (game icon)
+  // TODO - There is no tab-bar anymore. This should fire when clicking a game on the game search or (future) home page games.
+  document
+    .querySelectorAll(".nav-bar__tab-bar--links")
+    .forEach((tabBarLink) => {
+      tabBarLink.addEventListener("click", () => {
+        //When clicking on any game, rotate the logo a bit
+        if (!rotateFlag && leaveCounter == 0) {
+          currentVelocity = 3.3;
+          leaveCounter = 200;
+          requestAnimationFrame(rotateLogo);
+        } else {
+          currentVelocity = 3.3;
+          leaveCounter = 200;
+        }
       });
-  },
-  false
-);
+    });
+}
+
+if (document.readyState !== "loading") {
+  logoInit(); // Or setTimeout(logoInit, 0);
+} else {
+  document.addEventListener("DOMContentLoaded", logoInit);
+}
 
 // --- Functions related to rotating logo
 function startRotateLogo() {

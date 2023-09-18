@@ -26,52 +26,36 @@ import {
   styleImages,
 } from "./style.js";
 
-// TODO - DISABLE SOURCEMAPS after page insights are done
-// TODO - Prev. Scores: 50 80 77 60 (Perf, Acc, BP, SEO)
-// TODO - Mobile Scores: 35 80 77 60 (Perf, Acc, BP, SEO)
+// TODO - DISABLE SOURCEMAPS before setting up hosting.
 
-// TODO - v10.x Scores: 69 100 100 90 (Perf, Acc, BP, SEO)
-// TODO - v10.x Scores: 42 100 100 92 (Perf, Acc, BP, SEO)
-
-// --- Actions taken on DOM Load
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    // Fill search elements
-    // Add page change events to nav-bar (requires search bar to be filled)
-    document
-      .querySelectorAll(
-        "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links, a.nav-bar__search--results"
-      )
-      .forEach((item) => {
-        addPageChangeEvent(item);
-      });
-
-    // Add auto-complete and dropdown for the nav-bar search element
-    let searchElement = document.querySelector("#nav-bar__search--input");
-    searchElement.addEventListener("keyup", filterFunction);
-    // Clean the dropdown with a focusout event
-    let searchContainerElement = document.querySelector("#nav-bar__search");
-    searchContainerElement.addEventListener("click", (event) => {
-      let searchCount = document.querySelector(".nav-bar__search--results");
-      if (searchCount == null) {
-        fillSearch();
-      }
+function pageInit() {
+  // Fill search elements
+  // Add page change events to nav-bar (requires search bar to be filled)
+  document
+    .querySelectorAll(
+      "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links, a.nav-bar__search--results"
+    )
+    .forEach((item) => {
+      addPageChangeEvent(item);
     });
-    searchContainerElement.addEventListener("focusout", (event) => {
-      if (event.relatedTarget != null) {
-        if (!(event.relatedTarget.className == "nav-bar__search--results")) {
-          clearFunction();
-        }
-      } else {
-        clearFunction();
-      }
-    });
-    // Update page (done after content changes)
-    updatePage();
-  },
-  false
-);
+
+  let searchLogo = document.querySelector("#nav-bar__search--icon");
+  searchLogo.addEventListener("click", searchBoxListener);
+  searchLogo.targetParam = "search";
+
+  let gamesLogo = document.querySelector("#nav-bar__games--icon");
+  gamesLogo.addEventListener("click", searchBoxListener);
+  gamesLogo.targetParam = "games";
+
+  // Update page (done after content changes)
+  updatePage();
+}
+
+if (document.readyState !== "loading") {
+  pageInit(); // Or setTimeout(pageInit, 0);
+} else {
+  document.addEventListener("DOMContentLoaded", pageInit);
+}
 
 // --- Generic actions every time the page is updated
 export function updatePage() {
@@ -95,7 +79,7 @@ function compileTags() {
     if (tagData.todo) {
       //If it has a todo tag, add an icon with a tooltip.
       let todoTag = document.createElement("span");
-      todoTag.className = "material-icons md-light md-36";
+      todoTag.className = "material-symbols-rounded";
       todoTag.style.color = "goldenrod";
       todoTag.style.marginRight = "15px";
       todoTag.style.cursor = "help";
@@ -118,7 +102,7 @@ function compileTags() {
       versionText = versionText.concat(tagData.versions);
       versionText = versionText.concat(".");
       let versionTag = document.createElement("span");
-      versionTag.className = "material-icons md-light md-36";
+      versionTag.className = "material-symbols-rounded";
       versionTag.style.marginRight = "15px";
       versionTag.style.cursor = "help";
       versionTag.textContent = "devices";
@@ -154,10 +138,10 @@ function compileTags() {
         //If no, display an icon that can create the video once clicked.
         let mediaTag = document.createElement("span");
         mediaTag.dataset.media = tagData.media;
-        mediaTag.className = "material-icons md-light md-36";
+        mediaTag.className = "material-symbols-rounded";
         mediaTag.style.marginRight = "15px";
         mediaTag.style.cursor = "pointer";
-        mediaTag.textContent = "play_circle_outline";
+        mediaTag.textContent = "play_circle";
         taggedElement.appendChild(mediaTag);
         mediaTag.addEventListener("click", (mediaIcon) => {
           let videoSibling = mediaIcon.target.nextSibling;
@@ -235,10 +219,9 @@ export function addPageChangeEvent(item) {
         sectionText.innerHTML = event.currentTarget.dataset.section;
         parseGFM(event.currentTarget.dataset.document).then((page) => {
           contentText.innerHTML = page;
-          //Clear search results
-          clearFunction();
-          //Update page
+          //Update page & Clear search results
           updatePage();
+          clearFunction();
         });
       } else {
         //Event is a tech document, set the section as the game name and update the content
@@ -249,10 +232,9 @@ export function addPageChangeEvent(item) {
         ).then((page) => {
           contentText.innerHTML = page;
           collapseHeaders(contentText);
-          //Clear search results
-          clearFunction();
-          //Update page
+          //Update page & Clear search results
           updatePage();
+          clearFunction();
           if (currentDataset.redirect != null) {
             //Event has a redirect location, collapse the headers if needed
             revealID(currentDataset.redirect.substring(1));
@@ -328,7 +310,7 @@ md.renderer.rules.heading_close = function(tokens, idx, options, env) {
     injectedHeading = false;
     let headerEnd = closeHeadingRenderer(tokens, idx, options, env);
     // Change new line position on styling will mess up
-    return headerEnd.concat("</span>").replace("\n", ' ') + "\n";
+    return headerEnd.concat("</span>").replace(/\n/g, ' ') + "\n";
   } else {
     return closeHeadingRenderer(tokens, idx, options, env);
   }
@@ -421,16 +403,169 @@ export async function parseGFM(file) {
 //import { addPageChangeEvent } from "./page.js";
 
 // -- Function for search on the nav-bar
+
+var navLock = false;
+var currentActiveSearch = null;
+
+// Listener that adds games to both tabs.
+function searchBoxListener() {
+  let type = event.currentTarget.targetParam;
+  currentActiveSearch = type;
+  if (type == "search") {
+    injectSearchBox("#nav-bar__search");
+  } else {
+    injectSearchBox("#nav-bar__games");
+  }
+  let searchCount = document.querySelector(".nav-bar__search--results");
+  if (searchCount == null) {
+    fillSearch();
+  }
+  if (type == "games") {
+    let gamesBox = document.querySelector("#nav-bar__gamesbox");
+    let children = gamesBox.children;
+    for (elem of children) {
+      elem.style.display = "block";
+    }
+  }
+}
+
+function injectSearchBox(id) {
+  if (navLock) {
+    return;
+  }
+  let searchIcon = document.querySelector(id);
+  searchIcon.removeEventListener("click", searchBoxListener);
+
+  var baseName = id + "box";
+  var inputName = id + "--input";
+  var logoName = id + "--icon";
+  var base = document.querySelector(baseName);
+  var inputField = document.querySelector(inputName);
+  // If NULL, create both boxes and create correct reference for base
+  if (base == null) {
+    let searchBase = document.createElement("div");
+    let gamesBase = document.createElement("div");
+    searchBase.id = "nav-bar__searchbox";
+    gamesBase.id = "nav-bar__gamesbox";
+    searchBase.style.width = "0px";
+    gamesBase.style.width = "0px";
+
+    let searchInputField = document.createElement("input");
+    let gamesInputField = document.createElement("input");
+    searchInputField.id = "nav-bar__search--input";
+    gamesInputField.id = "nav-bar__games--input";
+    searchBase.appendChild(searchInputField);
+    gamesBase.appendChild(gamesInputField);
+
+    let searchIconInst = document.querySelector("#nav-bar__search");
+    searchIconInst.appendChild(searchBase);
+    let gamesIconInst = document.querySelector("#nav-bar__games");
+    gamesIconInst.appendChild(gamesBase);
+    searchInputField.addEventListener("keyup", filterFunction);
+    gamesInputField.addEventListener("keyup", filterFunction);
+    searchInputField.addEventListener("focusout", (event) => {
+      let searchField = document.querySelector("#nav-bar__search");
+      event.stopPropagation();
+      if (!(searchField.contains(event.relatedTarget))) {
+        clearFunction();
+      }
+    });
+    gamesInputField.addEventListener("focusout", (event) => {
+      let searchField = document.querySelector("#nav-bar__games");
+      event.stopPropagation();
+      if (!(searchField.contains(event.relatedTarget))) {
+        clearFunction();
+      }
+    });
+  }
+  // TODO - For games box, all games should be shown, also need to be a scrollable box (so set max-height?)
+
+  base = document.querySelector(baseName);
+
+  var searchboxWidth = 200;
+  if (document.body.clientWidth >= 480) {
+    searchboxWidth = 320;
+  }
+  base.style.width = searchboxWidth + "px";
+
+  let searchLogo = document.querySelector(logoName);
+  searchLogo.className = "material-symbols-rounded logo-fadeout";
+  searchLogo.removeEventListener("click", searchBoxListener);
+  searchLogo.addEventListener("click", clearFunction);
+
+  inputField = document.querySelector(inputName);
+  inputField.focus();
+
+  base.className = "fadein";
+}
+
+
+export function clearFunction() {
+  if (currentActiveSearch == null){
+    return;
+  }
+  var a, i;
+  // Function to hide all computed links
+  var searchBox = document.querySelector("#nav-bar__searchbox");
+  var gamesBox = document.querySelector("#nav-bar__gamesbox");
+  if (searchBox == null || gamesBox == null) {
+    return;
+  }
+  var referenceBox = null;
+  currentActiveSearch == "search" ? referenceBox = searchBox : referenceBox = gamesBox;
+  let referenceId = "#nav-bar__" + currentActiveSearch;
+
+  a = referenceBox.getElementsByTagName("a");
+  for (i = 0; i < a.length; i++) {
+    a[i].style.display = "none";
+  }
+  document.querySelector(referenceId + "--hr").style.display = "none";
+  if (currentActiveSearch == "games") {
+    document.querySelector(referenceId + "--hr2D").style.display = "none";
+    document.querySelector(referenceId + "--hr3D").style.display = "none";
+  }
+
+  var searchLogo = document.querySelector(referenceId + "--icon");
+  searchLogo.className = "material-symbols-rounded logo-fadein";
+  searchLogo.removeEventListener("click", clearFunction);
+  searchLogo.addEventListener("click", searchBoxListener);
+
+  navLock = true;
+
+  if (currentActiveSearch == "search") {
+    searchLogo.targetParam = "search";
+    setTimeout(() => {
+      searchBox.className = "fadeout";
+      navLock = false;
+    }, "300");
+  } else {
+    searchLogo.targetParam = "games";
+    setTimeout(() => {
+      gamesBox.className = "fadeout";
+      navLock = false;
+    }, "300");
+  }
+  currentActiveSearch = null;
+}
+
 export function filterFunction() {
   var input, filter, a, i;
+  var idReference = null;
+  if (currentActiveSearch == "search") {
+    idReference = "#nav-bar__search";
+  } else {
+    idReference = "#nav-bar__games";
+  }
   // Gets the value from the user input, set each word into an array
-  input = document.querySelector("#nav-bar__search--input");
+  input = document.querySelector(idReference + "--input");
   filter = input.value.toUpperCase().trim();
   filterArray = filter.split(" ");
   // Gets the element of the container and all current computed links
-  div = document.querySelector("#nav-bar__search");
-  a = div.getElementsByTagName("a");
+  let searchBox = document.querySelector(idReference + "box");
+  a = searchBox.getElementsByTagName("a");
   let searchCounter = 0;
+  var counter2d = 0;
+  var counter3d = 0;
   for (i = 0; i < a.length; i++) {
     // For each link, test if the user input makes part of its text value (ignoring empty inputs)
     // Hide any link that does not have any relation to the current input
@@ -444,34 +579,69 @@ export function filterFunction() {
     }
     if (containFlag) {
       // Hard limit of 6 options on screen
-      if (searchCounter < 6) {
+      if (searchCounter < 6 || currentActiveSearch == "games") {
         a[i].style.display = "block";
       } else {
         a[i].style.display = "none";
       }
       searchCounter = searchCounter + 1;
+      if (currentActiveSearch == "games"){
+        if (a[i].dataset.dim == "2D"){
+          counter2d = counter2d + 1;
+        } else {
+          counter3d = counter3d + 1;
+        }
+      }
     } else {
       a[i].style.display = "none";
     }
   }
-}
-
-export function clearFunction() {
-  var a, i;
-  // Function to hide all computed links
-  div = document.querySelector("#nav-bar__search");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    a[i].style.display = "none";
+  if (searchCounter > 0) {
+    document.querySelector(idReference + "--hr").style.display = "block";
+    if (currentActiveSearch == "games"){
+      if (counter2d > 0){
+        document.querySelector(idReference + "--hr2D").style.display = "block";
+      } else {
+        document.querySelector(idReference + "--hr2D").style.display = "none";
+      }
+      if (counter3d > 0){
+        document.querySelector(idReference + "--hr3D").style.display = "block";
+      } else {
+        document.querySelector(idReference + "--hr3D").style.display = "none";
+      }
+    }
+  } else {
+    document.querySelector(idReference + "--hr").style.display = "none";
+    if (currentActiveSearch == "games"){
+      document.querySelector(idReference + "--hr2D").style.display = "none";
+      document.querySelector(idReference + "--hr3D").style.display = "none";
+    }
   }
 }
 
+// TODO - Filling Search, Games and Pre-Loading MD files should probably be done after page load is done. I think there is a document eventListener for it.
+// TODO -   also, since it's a bunch of stuff, it would probably be cool to add a little loading animation at home so the user knows when it's done.
 export function fillSearch() {
   // Get all items on the tab bar
-  var tabLinks = document.getElementsByClassName("nav-bar__tab-bar--links");
+  var tabLinks = document.getElementsByClassName("game-instances--links");
   var searchContents = "";
+  var game2DContents = "";
+  var game3DContents = "";
   var i = 0;
-  var searchResults = document.querySelector("#nav-bar__search");
+  var searchResults = document.querySelector("#nav-bar__searchbox");
+  var gamesResults = document.querySelector("#nav-bar__gamesbox");
+
+  // Insert a hidden hr on the first slot of the search
+  let hrElem = "<hr id='nav-bar__search--hr'  tabindex='0' style='display: none;'>";
+  searchResults.insertAdjacentHTML("beforeend", hrElem);
+  hrElem = "<hr id='nav-bar__games--hr'  tabindex='0' style='display: none;'>";
+  gamesResults.insertAdjacentHTML("beforeend", hrElem);
+
+  hrElem = "<div class='nav-bar__games--divider' id='nav-bar__games--hr2D'  tabindex='0'><hr/><span>2D</span><hr/></div>";
+  gamesResults.insertAdjacentHTML("beforeend", hrElem);
+  hrElem = "<div  class='nav-bar__games--divider' id='nav-bar__games--hr3D'  tabindex='0'><hr/><span>3D</span><hr/></div>";
+  gamesResults.insertAdjacentHTML("beforeend", hrElem);
+  //searchResults.insertAdjacentHTML("beforeend", searchContents);
 
   for (i = 0; i < tabLinks.length; i++) {
     // Creates a local variable related to the index so it doesn't get overwritten
@@ -481,26 +651,40 @@ export function fillSearch() {
         let currentDocument = techDocument;
         const parser = new DOMParser();
         // Add default page search
-        // TODO - should be divs instead of <a> to improve SEO
-        searchContents = searchContents.concat('<a data-document="');
-        searchContents = searchContents.concat(
+        let gameContents = "";
+        gameContents = gameContents.concat('<a data-document="');
+        gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.document
         );
-        searchContents = searchContents.concat(
-          '" class = "nav-bar__search--results" tabindex="0" data-section="'
+        gameContents = gameContents.concat(
+          '" class = "nav-bar__search--results" data-dim="'
         );
-        searchContents = searchContents.concat(
+        gameContents = gameContents.concat(
+          tabLinks[currentIndex].dataset.dim
+        );
+        gameContents = gameContents.concat(
+          '" tabindex="0" data-section="'
+        );
+        gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.section
         );
-        searchContents = searchContents.concat('"><b>');
-        searchContents = searchContents.concat(
+        gameContents = gameContents.concat('"><b>');
+        gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.section
         );
-        searchContents = searchContents.concat("</b> <i>(");
-        searchContents = searchContents.concat(
-          tabLinks[currentIndex].dataset.document
-        );
-        searchContents = searchContents.concat(")</i></a>");
+        gameContents = gameContents.concat("</b> </a>");
+
+        if(tabLinks[currentIndex].dataset.dim == "2D"){
+          let content2D = document.querySelector("#nav-bar__games--hr2D");
+          // Inject AFTER 2D HR  "afterend" 2D HR
+          content2D.insertAdjacentHTML("afterend", gameContents);
+        } else {
+          let content3D = document.querySelector("#nav-bar__games--hr3D");
+          // Inject AFTER 3D HR
+          content3D.insertAdjacentHTML("afterend", gameContents);
+        }
+
+        gameContents = "";
 
         const doc = parser.parseFromString(currentDocument, "text/html");
         doc.querySelectorAll("h4").forEach((currentHeading) => {
@@ -521,11 +705,13 @@ export function fillSearch() {
           searchContents = searchContents.concat(
             tabLinks[currentIndex].dataset.document
           );
-          searchContents = searchContents.concat("</b> - <i>");
+          searchContents = searchContents.concat("</b> <br>&nbsp;&nbsp;&nbsp;");
           searchContents = searchContents.concat(currentHeading.textContent);
-          searchContents = searchContents.concat("</i></a>");
+          searchContents = searchContents.concat("</a>");
         });
         // Insert the HTML on the search bar
+        // TODO - this probably does for the same link multiple times...
+        // TODO -   not sure what to best way to deal with it is since we're in a promise
         searchResults.insertAdjacentHTML("beforeend", searchContents);
         searchContents = "";
         document
@@ -605,7 +791,6 @@ export function revealID(id) {
 // --- Function for click events on the nav-bar
 export function enableSmoothTOC() {
   //Gets all hash events
-  // TODO - once changed to divs, need to change this too
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       //Add smooth behaviour to all matches

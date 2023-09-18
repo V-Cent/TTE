@@ -20,10 +20,12 @@ For testing, you can clone/download the repository with git/github and run the f
 - npm install
 - npm run build
 
-*npm install* will install all required dependencies and create a node_modules folder on the repository. By running *npm run build* both javascript files in src/ will be packaged and overwrite the ones at docs/scripts/.
+*npm install* will install all required dependencies and create a node_modules folder on the repository. By running *npm run build*, source files from the src/ folder will be packaged and overwrite the ones at docs/scripts/.
 
-After that you can open a web server on your local host to test the page. This is required to avoid CORS errors. If you install the Web Dev packages on Visual Studio you can easily test the page by the "Go Live" button at the bottom bar. Other users can use different methods such as using [Python](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server).
+After that you can open a web server on your local host to test the page. This is required to avoid CORS errors. The html you should serve is the one located on docs/. If you install the Web Dev packages on Visual Studio you can easily test the page by the "Go Live" button at the bottom bar. Other users can use different methods such as using [Python](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server).
 
 Make sure to run *npm run build* after any modification of the files on src/. Javascript/CSS/HTML files on docs/ should not be modified.
+
+**Nodemon** is also used as a project dependency to automatically watch file changes and build the project. To use it, run *npm run watch* on the root folder of the project. With this, any file change on src/ will automatically trigger a build.
 
 *npm install* should also be run after modifications to the package.json file (including version changes).

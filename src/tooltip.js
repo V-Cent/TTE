@@ -1,23 +1,23 @@
 // tooltip.js controls tooltips.
 
-//Actions taken on DOM Load
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    //Add tooltip events to every tab-bar link
-    document
-      .querySelectorAll(".nav-bar__tab-bar--links")
-      .forEach((tabBarLink) => {
-        tabBarLink.addEventListener("mouseover", () => {
-          loadTooltip(tabBarLink, tabBarLink.dataset.section);
-        });
-        tabBarLink.addEventListener("mouseleave", () => {
-          unloadTooltip();
-        });
-      });
-  },
-  false
-);
+function tooltipInit() {
+  document
+  .querySelectorAll(".nav-bar__tab-bar--links")
+  .forEach((tabBarLink) => {
+    tabBarLink.addEventListener("mouseover", () => {
+      loadTooltip(tabBarLink, tabBarLink.dataset.section);
+    });
+    tabBarLink.addEventListener("mouseleave", () => {
+      unloadTooltip();
+    });
+  });
+}
+
+if (document.readyState !== "loading") {
+  tooltipInit(); // Or setTimeout(tooltipInit, 0);
+} else {
+  document.addEventListener("DOMContentLoaded", tooltipInit);
+}
 
 // --- Functions related to tooltips
 export function loadTooltip(tooltip, tooltipText) {

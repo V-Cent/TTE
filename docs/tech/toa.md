@@ -201,9 +201,9 @@ More information can be found [here](https://gamefaqs.gamespot.com/boards/265989
 
 When doing a move from the air and landing, there is a period where you are not able to do any actions. To avoid this, simply do the move closer to the ground and try to do your action (such as a dodge). The action will come out on the ground instead, making your recovery faster.
 
-#### :{'todo' : true} Boss Boost Strike 50% Kill
+#### :{'todo' : true} Boss Boost Strike Early Kill
 
-By delaying the boost strike prompt that happens when a boss hits 50% HP, you can activate it late and instantly kill the enemy. The input has to be done just before the prompt ends. You can buffer artes or normal attacks to have a better visual/audio cue to perform this technique, but the timing is still pretty strict.
+Also called the execution glitch. By delaying the boost strike prompt that happens when a boss hits 50% HP, you can activate it late and instantly kill the enemy. The input has to be done just before the prompt ends. You can buffer artes or normal attacks to have a better visual/audio cue to perform this technique, but the timing is still pretty strict.
 
 Most bosses have different timing for when the boost strike prompt will disappear, so you might need different setups for different bosses.
 
@@ -231,7 +231,7 @@ Keep in mind that some of these chains can never be seen in normal play, since t
 
 You can find more information [here](https://www.youtube.com/watch?v=WHePG4uTlEI).
 
-#### AI Cancel (AIC)
+#### AI Cancel
 
 With an action pending (cancel AI mid-chain): while on manual or semi-auto, you can go into your artes menu, change from arte settings to arte list (R2/L2 or R/T/left click) and select any air arte. You character will then perform that arte the closest to the ground possible, something which cannot be done while on semi-auto or manual.
 

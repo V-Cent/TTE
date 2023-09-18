@@ -405,7 +405,7 @@ Semi-auto on Destiny works mostly in grounded combat since air actions do not ha
 
 Once your character gets close enough, the buffered action will be used and the buffer is cleared. You can cancel the semi-auto run animation by either jumping, doing an aiming dash, or stopping (by doing the input for a backstep). Both jumping and stopping will also clear your buffered action.
 
-#### Spatial-buffer Canceling (SB Canceling)
+#### Spatial-buffer Canceling
 
 There are two properties of semi-auto that can be exploited to do advanced techniques. They are the spatial properties: the current distance between you and the enemy and the distance necessary for your action to be performed (after the semi-auto run); and the action buffer.
 
@@ -439,11 +439,11 @@ Spells (and other very specific artes) will not start a _forced neutral animatio
 
 This **cannot** be abused to instantly lock large-scale artes.
 
-#### Attack Cancel + SB
+#### Attack Cancel SB Cancel
 
 If your _forced action_ is A. C.'d or if the _buffered action_ is an A. C. arte, the _buffered action_ will be the same as a normal attack.
 
-#### :{'media' : 'media/todps2/spellSb.mp4'} Spell SB canceling
+#### :{'media' : 'media/todps2/spellSb.mp4'} Spell SB Cancel
 
 SB canceling spells (i. e. using shortcut spells with another action buffered) can be a good option select since it can make an arte come out before the spell has finished casting, making so that you don't get punished in situations you normally would be. It can also be used to completely negate the spell release frames, regaining control faster.
 
