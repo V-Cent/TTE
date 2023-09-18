@@ -84,9 +84,9 @@ Outside of the obvious utility of combo extension and DPS, weakness resets can a
 
 For bosses that have no air counter, it is possible to juggle them in the air without the use of power combos. This is particularly useful for some bosses that have no weaknesses such as Chronos 1 and Victor (Hammer or Guns only). To do this, you must bait out their Overlimit first by launching them and attacking them while they're airborne. Without an air counter, they will be forced to use their Overlimit instead to escape. After their Overlimit runs out, they will have no means of escape for 60 seconds until it recharges. As long as the boss isn't standing on the ground, you can juggle them freely during this time. Be aware that the boss can still recover from an aerial knockdown, but as long as they don't land, you can still keep the combo going.
 
-#### Linked Arte Cancel (LAC)
+#### Linked Arte Cancel
 
-Similar to Fatal Strikes from Vesperia, you can cancel the animation of any arte with a Linked Arte as long as the glyph is active. For example, you can use Demon Fist as Jude, then use Dragon Shot, and cancel Dragon Shot by using the Linked Arte from Demon Fist. If the character is airborne, this will cause them to fall to the ground similarly to the Quick Drop skill.
+Similar to Fatal Strikes from Vesperia, you can cancel the animation of any arte with a Linked Arte as long as the glyph is active (LAC). For example, you can use Demon Fist as Jude, then use Dragon Shot, and cancel Dragon Shot by using the Linked Arte from Demon Fist. If the character is airborne, this will cause them to fall to the ground similarly to the Quick Drop skill.
 
 For Linked artes that are spells (such as Rock Hexad), you can spell cancel them by guarding, just as you would a normal spell. Using this in tandem with LAC can allow you to cancel an arte at virtually any point and continue as normal. If your character has the Casting Window skill, you can also have the Linked Arte glyph come out before the intiial spell comes out.
 
@@ -136,7 +136,9 @@ Air RFS has Ludger doing his second FS in a 45 degree angle upwards, reminiscent
 
 CFS is ground only, and will autocorrect you to face the enemy *before* the arte comes out, so it is more limited in a positioning sense. However it makes up for that by not only retaining its usual OTG property, but also comes with the rare *Iron Stance Break* property. This allows CS to break the OTG limit by bypassing the Iron Stance bosses obtain upon hitting the limit.
 
-#### Traps (Mine Collapse/Bubble Blast/Meteoric Waltz)
+#### Traps
+
+(Mine Collapse/Bubble Blast/Meteoric Waltz)
 
 [TODO]
 

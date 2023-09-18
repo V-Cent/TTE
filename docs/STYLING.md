@@ -24,7 +24,7 @@ Strikethrough can be used by using ~~two~~ tildes.
 
 Headings can be defined by starting the line with a hashtag (#). In TTE we use the first heading (#) for the game title. The second and third (## and ###) as sub-titles. And the fourth (####) as tech and glitch definitions.
 
-Heading should not have any special characters such as colons, quotes or exclamation marks. They should also not be used inside quote blocks.
+Heading should not have any special characters such as colons, quotes or exclamation marks (only dashes are allowed). They should also not be used inside quote blocks.
 
 ## Ordered and Unordered Lists
 

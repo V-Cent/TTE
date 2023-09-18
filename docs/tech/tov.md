@@ -141,7 +141,7 @@ In this section, we have a group of glitches and a small description on how to r
 
 If you enter a tutorial battle with a character other than Yuri with the skill "Stand alone", the tutorial will not occur and it will be a normal battle.
 
-#### :{'todo' : true, 'versions' : 'Vanilla'} Raven & Estelle Recruit
+#### :{'todo' : true, 'versions' : 'Vanilla'} Raven and Estelle Early
 
 PS. This glitch requires you to progress the Dark Enforcer side quest up until you learn Shining Eagle.
 
@@ -177,7 +177,7 @@ Here we will discuss various different techniques/glitches that can be used duri
 
 #### :{'media' : 'media/tov/spellCancel.mp4'} Spell Cancel
 
-Instead of using free-run to cancel the recovery of attacks, you can use a spell then instantly cancel it for the same effect. This is usually faster than FRC but harder to perform. A perfect spell cancel will give control back to the user after 15 frames.
+Instead of using free-run to cancel the recovery of attacks, you can use a spell then instantly cancel it for the same effect. This is usually faster than a MC but harder to perform. A perfect spell cancel will give control back to the user after 15 frames.
 
 #### Pseudo Quick Turn
 
@@ -222,7 +222,7 @@ You can also apply the damage boosts to other attacks, even mid combo. For examp
 
 You can see examples of combination stacking [here](https://youtu.be/uTMcL1KJD74?t=131) and [here](https://youtu.be/A10Zua38cv0?t=232).
 
-#### :{'todo' : true, 'media' : 'media/tov/atgc.mp4'} Air to Ground Cancel (AtGC)
+#### :{'todo' : true, 'media' : 'media/tov/atgc.mp4'} Air to Ground Cancel
 
 Do an aerial-enabled arte close to the ground for possible effects. These include: lingering hit-boxes, visual effects or cancelled animations.
 For example, most aerial-enabled altered artes can produce the shine animation without the actual attack coming out.
@@ -308,50 +308,50 @@ There a few important notes about this cancel:
 - If your character is in the air, you are only able to use air-enabled artes when doing the cancel.
 - Just like the Taunt Cancel, your momentum will persist depending on your previous action, as you can see [here](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc).
 
-### Manual/Free-run Cancel (FRC)
+### Manual Cancel
 
-*:{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true} Manual/Free-run cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.*
+*:{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true} Also called Free-Run Cancel (FRC), Manual Cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.*
 
-For the Repede skill, it enables the user to use Manual/Free-run cancel in any direction (360 degrees) and also use it in semi-auto mode.
+For the Repede skill, it enables the user to use Manual Cancel in any direction (360 degrees) and also use it in semi-auto mode.
 
-#### Manual/Free-run Cancel Basics
+#### Manual Cancel Basics
 
 After an arte you can free run to the direction of the arte to start a free-run as soon as you can cancel the arte. This is useful to avoid punish for attacks that are negative on hit, such as Azure Edge.
 
 You can then cancel the free-run into a guard/magic guard to quickly go back to neutral and be able to do another arte or normal as fast as possible.
 
-Below are variations of the FRC that can be useful in different scenarios. Keep in mind that if you guard while moving it takes 24 frames for your character to go back to neutral. Magic guard only takes 14 frames to recover when moving. Both take 14 frames to recover when standing still (or below a certain x velocity).
+Below are variations of the MC that can be useful in different scenarios. Keep in mind that if you guard while moving it takes 24 frames for your character to go back to neutral. Magic guard only takes 14 frames to recover when moving. Both take 14 frames to recover when standing still (or below a certain x velocity).
 
-#### Empty FRC
+#### Empty MC
 
 Quickly tap Free-run then completely stop, your character will reach the neutral state on its own. This is slower than a normal Manual Cancel but does not require you to press guard.
 
-#### :{'media' : 'media/tov/mgfrc.mp4'} Magic Guard FRC
+#### :{'media' : 'media/tov/mgfrc.mp4'} Magic Guard MC
 
 Quickly press Free-run and do a reverse fireball motion (forward → forward-down → down) for the magic guard to come out. You can also go straight from forward to down if possible (strict input). After that release guard and wait for the neutral state
 
-#### Corner FRC
+#### Corner MC
 
 Quickly press Free-run slightly towards the arena perimeter or towards a big enemy. Your character should not have any horizontal movement if successful. After that guard and wait for the neutral state.
 
-Sometimes, there is a frame advantage on delaying the guard slightly in order to come closer to the enemy, consequently making you horizontal momentum 0 and making your guard recover faster. The slowest setup is quickly tapping free-run as soon as you can cancel the current arte. This will result in a cancel of ~22 frames, slightly faster than the normal FRC.
+Sometimes, there is a frame advantage on delaying the guard slightly in order to come closer to the enemy, consequently making you horizontal momentum 0 and making your guard recover faster. The slowest setup is quickly tapping free-run as soon as you can cancel the current arte. This will result in a cancel of ~22 frames, slightly faster than the normal MC.
 
-#### Guard Cancel FRC
+#### Guard Cancel MC
 
 Skills needed: Guard artes, Ability Plus.
 
-Do the normal FRC inputs but, as soon as you start the guard animation, input a base arte. The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
+Do the normal MC inputs but, as soon as you start the guard animation, input a base arte. The base arte will cancel the guard. This will not reset your arte progression, it will just cancel out of guard faster, thus its uses are limited.
 
-#### :{'todo' : true} FRC Frame data
+#### :{'todo' : true} MC Frame data
 
-Heres some frame data about the manual/free-run cancel and its variations (keep in mind that a magic guard is about 10 frames faster than a normal guard):
+Heres some frame data about Manual Cancel and its variations (keep in mind that a magic guard is about 10 frames faster than a normal guard):
 
 From slowest to fastest (FR = Free run animation), considering perfect inputs:
 
-- Empty FRC: 25+ frames until next action. (25+)
-- FRC: 1(FR) + 24 frames until next action. (25)
-- Magic Guard FRC = 2(FR) + 14 frames until next action. (16)
-- Corner FRC = 1(FR) + 14 frames until next action. (15)
+- Empty MC: 25+ frames until next action. (25+)
+- MC: 1(FR) + 24 frames until next action. (25)
+- Magic Guard MC = 2(FR) + 14 frames until next action. (16)
+- Corner MC = 1(FR) + 14 frames until next action. (15)
 - Guard Cancel = 1(FR) + 6 frames until base arte starts. (7)
 
 ### Boss Behavior Manipulation
@@ -382,15 +382,15 @@ Therefore, to properly combo a boss without ever being punished you need: good o
 
 More information can be found [here](https://www.youtube.com/watch?v=mKdSnZqTX5w).
 
-### Semi-auto/Stick Cancel (SAC)
+### Semi-auto Cancel
 
-Semi-auto cancel is a technique that abuses the free-run animation that happens when you use semi-auto, and the buffered actions of auto mode.
+Also sometimes called Stick Cancel, the Semi-auto cancel (SAC) is a technique that abuses the free-run animation that happens when you use semi-auto, and the buffered actions of auto mode.
 
-*:{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true}Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).*
+*:{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true} Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).*
 
 SAC can be set-up mid combo, and it does not require neutral stance/guard to be in effect.
 
-#### Semi-auto/Stick Cancel Basics
+#### Semi-auto Cancel Basics
 
 While in any action (free-run, guard, jump or arte) go to the menu and buffer an arte by selecting it while in auto mode (in the character that you're controlling), then, while in battle, change back to semi-auto mode (manual can be used in limited scenarios). The arte you selected in auto mode is now buffered and the game will make you run to the enemy to use it every time it is possible.
 

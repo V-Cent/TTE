@@ -1,6 +1,14 @@
 /* CSS for base elements, headings and paragraphs. */
 
 /* TODO - CSS should have basic grays pre-set, and default text color/style. */
+/*
+Greys are:
+161618
+1c1c1efe  (very slight alpha)
+252529
+
+All neutral on red green, with a slight blue hue.
+*/
 
 * {
   -moz-osx-font-smoothing: grayscale;
@@ -15,12 +23,26 @@ html {
   /* TODO - Pre-set here just to make things easier for now. Should be changed */
 }
 
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #252529;
+  border-radius: 10px;
+  border: transparent;
+}
 html,
 body {
   padding: 0;
   margin: 0;
-  background-color: #161617;
-  scrollbar-color: #373737 #161617;
+  background-color: #161618;
+  scrollbar-color: #252529 #161618;
+  scrollbar-width: thin;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 video {
@@ -46,9 +68,8 @@ h1 {
   text-shadow: 1px 1px 1px #ffffff;
   opacity: 95%;
   scroll-margin-top: 100px;
-  scroll-snap-margin-top: 100px;
   padding-bottom: 0.1em;
-  border-bottom: 1px solid #373737;
+  border-bottom: 1px solid #252529;
 }
 
 h2 {
@@ -59,9 +80,8 @@ h2 {
   letter-spacing: 0.1em;
   opacity: 85%;
   scroll-margin-top: 100px;
-  scroll-snap-margin-top: 100px;
   padding-bottom: 0.1em;
-  border-bottom: 1px solid #373737;
+  border-bottom: 1px solid #252529;
   margin-right: 15px;
   width: fit-content;
   margin-top: 0%;
@@ -79,7 +99,6 @@ h6 {
   opacity: 85%;
   margin-right: 15px;
   scroll-margin-top: 100px;
-  scroll-snap-margin-top: 100px;
   width: fit-content;
   margin-top: 0%;
   margin-bottom: 0%;
@@ -99,9 +118,6 @@ h3::before {
   background-color: #ffffff;
   opacity: 85%;
   margin-bottom: 0.2rem;
-  -moz-border-radius: 0.375rem;
-  -ms-border-radius: 0.375rem;
-  -o-border-radius: 0.375rem;
 }
 
 h4,
@@ -130,7 +146,7 @@ a:visited {
 }
 
 a:hover {
-  background: #373737;
+  background: #252529;
   filter: brightness(1.25);
   -webkit-filter: brightness(1.25);
 }
@@ -150,6 +166,12 @@ a:active {
   -moz-transition: background 0.35s;
   -ms-transition: background 0.35s;
   -o-transition: background 0.35s;
+}
+
+#game-instances {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .green {

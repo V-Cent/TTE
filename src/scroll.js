@@ -5,18 +5,19 @@
 var scrollButton = null;
 var rootElement = null;
 
-//Actions taken on DOM Load
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-    //Add scroll button events (icon that appears when you pass ToC)
-    scrollButton = document.querySelector("#scroll__button--to-top");
-    rootElement = document.documentElement;
-    scrollButton.addEventListener("click", scrollToTop);
-    document.addEventListener("scroll", handleScroll);
-  },
-  false
-);
+function scrollInit() {
+  //Add scroll button events (icon that appears when you pass ToC)
+  scrollButton = document.querySelector("#scroll__button--to-top");
+  rootElement = document.documentElement;
+  scrollButton.addEventListener("click", scrollToTop);
+  window.addEventListener("scroll", handleScroll);
+}
+
+if (document.readyState !== "loading") {
+  scrollInit(); // Or setTimeout(scrollInit, 0);
+} else {
+  document.addEventListener("DOMContentLoaded", scrollInit);
+}
 
 // --- Functions related to scrolling effects
 // TODO - Once a "segment" tab (mechanics, glitches, combat ...) is added to tech pages

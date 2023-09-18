@@ -19,7 +19,7 @@ ul {
 
 blockquote {
   padding-left: 4ch;
-  border-left: 10px solid #373737;
+  border-left: 10px solid #252529;
   padding: 0.5em 10px;
 }
 
@@ -34,7 +34,7 @@ code {
   font-weight: 400;
   margin-left: 6ch;
   font-size: inherit;
-  background: #373737;
+  background: #252529;
   box-decoration-break: clone;
   padding: 0.1rem 0.3rem 0.2rem;
   border-radius: 0.2rem;
@@ -54,11 +54,11 @@ table {
   font-size: 18px;
   font-family: "Montserrat", sans-serif;
 
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.13);
 }
 
 table thead tr {
-  background-color: #373737;
+  background-color: #252529;
   text-align: left;
 }
 
@@ -68,13 +68,5 @@ table td {
 }
 
 table tbody tr:nth-of-type(even) {
-  background-color: #373737;
-}
-
-.katex * {
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: 0.03em;
-  opacity: 97.5%;
+  background-color: #252529;
 }

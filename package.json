@@ -1,16 +1,22 @@
 {
   "name": "tte",
-  "version": "0.11.1",
+  "version": "0.12.4",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,
   "license": "MIT",
+  "nodemonConfig": {
+    "ignore": ["docs/"],
+    "ext": "js,html,css"
+  },
   "scripts": {
+    "watch": "nodemon --watch \"src/\" --exec \"npm run build\"",
     "build": "esbuild src/scroll.js src/logo.js src/tooltip.js src/style.js src/page.js --bundle --minify --sourcemap --outdir=docs/scripts && esbuild src/styles/base.css src/styles/content.css src/styles/elements.css src/styles/navbar.css src/styles/scroll.css --bundle --minify --outdir=docs/styles && minify-html --output docs/index.html --keep-closing-tags --minify-css src/index.html"
   },
   "dependencies": {
     "@minify-html/node": "^0.11.1",
     "esbuild": "^0.19.2",
+    "nodemon": "^3.0.1",
     "remarkable": "^2.0.1"
   }
 }

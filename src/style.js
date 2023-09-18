@@ -83,7 +83,7 @@ export function collapseHeaders(page) {
         currentH3 +
         " " +
         currentH2 +
-        '"><span class="material-icons md-light md-36">remove</span></button>';
+        '"><span class="material-symbols-rounded">remove</span></button>';
       newInner = newInner + currentHTML[i] + "\n";
       newInner = newInner + '<div class="' + currentH4 + '">' + "\n";
     } else if (currentHTML[i].includes('h3 id="')) {
@@ -110,7 +110,7 @@ export function collapseHeaders(page) {
         currentH3 +
         " " +
         currentH2 +
-        '"><span class="material-icons md-light md-36">expand_more</span></button>';
+        '"><span class="material-symbols-rounded">expand_more</span></button>';
       newInner = newInner + currentHTML[i] + "\n";
       newInner = newInner + '<div class="' + currentH3 + '" hidden>' + "\n";
     } else if (
@@ -142,7 +142,7 @@ export function collapseHeaders(page) {
         newInner +
         '<button class="content__collapse" data-open="' +
         currentH2 +
-        '"><span class="material-icons md-light md-36">expand_less</span></button>';
+        '"><span class="material-symbols-rounded">expand_less</span></button>';
       newInner = newInner + currentHTML[i] + "\n";
       newInner = newInner + '<div class="' + currentH2 + '">' + "\n";
     } else {
