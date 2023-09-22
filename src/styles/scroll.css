@@ -1,14 +1,5 @@
 /* CSS for scroll items. */
 
-.material-symbols-rounded {
-  border: none !important;
-  border-width: 0px;
-  border-color: #161618;
-  color: rgba(255, 255, 255, 1);
-  opacity: 80%;
-  z-index: 200;
-}
-
 #scroll__button--to-top {
   display: inline-flex;
   padding: 0px;

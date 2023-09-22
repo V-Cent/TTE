@@ -21,6 +21,3 @@ Check the platforms that were tested for the PR. No need to test for all platfor
 - [ ] Desktop/IE
 - [ ] Desktop/Safari
 - [ ] Mobile
-
-**Additional context**
-Add any other context about the problem here.
