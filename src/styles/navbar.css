@@ -8,7 +8,6 @@
   padding-left: 5%;
   padding-right: 5%;
   margin: 0 auto;
-  white-space: nowrap;
   text-align: center;
   display: flex;
   flex-direction: row;
@@ -120,7 +119,7 @@
   margin-right: 0%;
 }
 
-#nav-bar__searchbox, #nav-bar__gamesbox {
+#nav-bar__searchbox{
   position: absolute;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -138,8 +137,7 @@
   z-index: 22;
   width: 200px;
   top: -3px;
-  /* TODO moved due to search, if removing search from games put 0 here */
-  right: -9px;
+  right: -3px;
   opacity: 0;
   /*transition:opacity 0.35s ease-out;
   -webkit-transition:w 0.35s ease-out;
@@ -151,13 +149,70 @@
 }
 
 #nav-bar__gamesbox {
-  max-height: 250px;
+  /* Min phone width is 320px. This JUST fits on the page. */
+  width: 300px;
+  cursor: default;
+  position: absolute;
   overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+  background-color: #1c1c1efe;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  z-index: 22;
+  top: -3px;
+  right: -3px;
+  opacity: 0;
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
+  -webkit-filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
+}
+/* Use flex-shink: 0 if parent is a flex */
+.nab-bar__games--wrapper {
+  margin: 8px;
+  cursor: pointer;
+  display: inline-block;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+  height: 65px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
 }
 
-/* Required so elements don't shrink */
-#nav-bar__gamesbox > * {
-  flex-shrink: 0;
+.nab-bar__games--wrapper figcaption {
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+  color: #ffffff99;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: middle;
+
+  text-decoration: none;
+}
+
+.nab-bar__games--wrapper:hover {
+  background-color: #252529;
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+#nav-bar__gamesbox img {
+  border: 1px solid #ffffff55;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  opacity: 80%;
+  filter: blur(0.4px) contrast(110%);
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  -webkit-filter: blur(0.4px) contrast(110%);
 }
 
 #nav-bar__searchbox.fadein {
@@ -212,7 +267,7 @@
 }
 
 
-#nav-bar__search--input, #nav-bar__games--input {
+#nav-bar__search--input {
   border: none !important;
   border-width: 0px;
   height: 44px;
@@ -232,7 +287,7 @@
   opacity: 90%;
 }
 
-#nav-bar__search--hr, #nav-bar__games--hr {
+#nav-bar__search--hr, #nav-bar__games--hr2D, #nav-bar__games--hr3D {
   border: none;
   border-top-width: medium;
   border-top-style: none;
@@ -282,50 +337,4 @@
   align-items: center;
   justify-content: center;
   cursor: default;
-}
-
-.nav-bar__games--divider hr {
-  display: inline-block;
-  width: 50px;
-  border: none;
-  border-top: 1px solid #fff;
-  vertical-align: bottom;
-  opacity: 50%;
-}
-
-.nav-bar__games--divider span {
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.03em;
-}
-
-
-#nav-bar__games a {
-  font-family: "Montserrat", sans-serif;
-  position: relative;
-  color: #ffffff;
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.03em;
-  background: #1c1c1efe;
-  padding-left: 20px;
-  text-align: left;
-
-  cursor: pointer;
-  padding: 12px 26px;
-  text-decoration: none;
-  /*display: none;*/
-
-  /* the golden duo for text limitation */
-  text-overflow: ellipsis;
-  overflow: clip;
-}
-
-
-#nav-bar__search--input:focus {
-  border-bottom-right-radius: 0px;
-  border-bottom-left-radius: 0px;
 }

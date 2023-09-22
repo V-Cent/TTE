@@ -2,6 +2,8 @@
 // This is done because, while other spa may do similar things to keep filesize low, our build system is done considering multiple pages
 // TODO - Maybe there is a proper way to do this based on the HTML file. For now, this is pretty light.
 // TODO -   for top performance, the parser would only be loaded once you click the search or a game... how to do that?
+
+// ---------
 // CTRL+F parser.js and search.js for the start of their sections. The following is for page.js
 // It includes two functions that most files also use:
 //   - updatePage() : reloads most things after a page change.
@@ -33,7 +35,7 @@ function pageInit() {
   // Add page change events to nav-bar (requires search bar to be filled)
   document
     .querySelectorAll(
-      "div#nav-bar__title, img.nav-bar__tab-bar--links, p.footer-container__help--links, a.nav-bar__search--results"
+      "div#nav-bar__title, p.footer-container__help--links, a.nav-bar__search--results"
     )
     .forEach((item) => {
       addPageChangeEvent(item);
@@ -255,6 +257,7 @@ export function addPageChangeEvent(item) {
   });
 }
 
+// ---------
 // parser.js is an async markdown-to-html parser.
 
 import { Remarkable } from 'remarkable'; // This is where the bulk of the filesize comes from
@@ -397,6 +400,7 @@ export async function parseGFM(file) {
   return content;
 }
 
+// ---------
 // search.js controls the search box and also redirects to search links (includes ToC).
 
 //import { parseGFM } from "./parser.js";
@@ -409,6 +413,9 @@ var currentActiveSearch = null;
 
 // Listener that adds games to both tabs.
 function searchBoxListener() {
+  if (navLock) {
+    return;
+  }
   let type = event.currentTarget.targetParam;
   currentActiveSearch = type;
   if (type == "search") {
@@ -424,8 +431,11 @@ function searchBoxListener() {
     let gamesBox = document.querySelector("#nav-bar__gamesbox");
     let children = gamesBox.children;
     for (elem of children) {
-      elem.style.display = "block";
+      elem.style.display = "inline-block";
     }
+    // TODO : check fillsearch function. Remove the following two lines when done
+    document.querySelector("#nav-bar__games--hr2D").style.display = "none";
+    document.querySelector("#nav-bar__games--hr3D").style.display = "none";
   }
 }
 
@@ -449,20 +459,17 @@ function injectSearchBox(id) {
     gamesBase.id = "nav-bar__gamesbox";
     searchBase.style.width = "0px";
     gamesBase.style.width = "0px";
+    gamesBase.tabIndex = "0";
 
     let searchInputField = document.createElement("input");
-    let gamesInputField = document.createElement("input");
     searchInputField.id = "nav-bar__search--input";
-    gamesInputField.id = "nav-bar__games--input";
     searchBase.appendChild(searchInputField);
-    gamesBase.appendChild(gamesInputField);
 
     let searchIconInst = document.querySelector("#nav-bar__search");
     searchIconInst.appendChild(searchBase);
     let gamesIconInst = document.querySelector("#nav-bar__games");
     gamesIconInst.appendChild(gamesBase);
     searchInputField.addEventListener("keyup", filterFunction);
-    gamesInputField.addEventListener("keyup", filterFunction);
     searchInputField.addEventListener("focusout", (event) => {
       let searchField = document.querySelector("#nav-bar__search");
       event.stopPropagation();
@@ -470,21 +477,25 @@ function injectSearchBox(id) {
         clearFunction();
       }
     });
-    gamesInputField.addEventListener("focusout", (event) => {
+    gamesBase.addEventListener("focusout", (event) => {
       let searchField = document.querySelector("#nav-bar__games");
       event.stopPropagation();
       if (!(searchField.contains(event.relatedTarget))) {
         clearFunction();
       }
     });
+    inputField = searchInputField;
   }
-  // TODO - For games box, all games should be shown, also need to be a scrollable box (so set max-height?)
 
   base = document.querySelector(baseName);
 
-  var searchboxWidth = 200;
-  if (document.body.clientWidth >= 480) {
-    searchboxWidth = 320;
+  var searchboxWidth = 220;
+  if (currentActiveSearch == "search"){
+    if (document.body.clientWidth >= 480) {
+      searchboxWidth = 360;
+    }
+  } else {
+    searchboxWidth = 300;
   }
   base.style.width = searchboxWidth + "px";
 
@@ -493,8 +504,12 @@ function injectSearchBox(id) {
   searchLogo.removeEventListener("click", searchBoxListener);
   searchLogo.addEventListener("click", clearFunction);
 
-  inputField = document.querySelector(inputName);
-  inputField.focus();
+  if (currentActiveSearch == "search"){
+    inputField = document.querySelector(inputName);
+    inputField.focus();
+  } else {
+    base.focus();
+  }
 
   base.className = "fadein";
 }
@@ -511,16 +526,23 @@ export function clearFunction() {
   if (searchBox == null || gamesBox == null) {
     return;
   }
+
+  navLock = true;
   var referenceBox = null;
   currentActiveSearch == "search" ? referenceBox = searchBox : referenceBox = gamesBox;
   let referenceId = "#nav-bar__" + currentActiveSearch;
 
-  a = referenceBox.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    a[i].style.display = "none";
-  }
-  document.querySelector(referenceId + "--hr").style.display = "none";
-  if (currentActiveSearch == "games") {
+  if (currentActiveSearch == "search"){
+    a = referenceBox.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+      a[i].style.display = "none";
+    }
+    document.querySelector(referenceId + "--hr").style.display = "none";
+  } else {
+    figs = referenceBox.getElementsByTagName("figure");
+    for (i = 0; i < figs.length; i++) {
+      figs[i].style.display = "none";
+    }
     document.querySelector(referenceId + "--hr2D").style.display = "none";
     document.querySelector(referenceId + "--hr3D").style.display = "none";
   }
@@ -530,7 +552,6 @@ export function clearFunction() {
   searchLogo.removeEventListener("click", clearFunction);
   searchLogo.addEventListener("click", searchBoxListener);
 
-  navLock = true;
 
   if (currentActiveSearch == "search") {
     searchLogo.targetParam = "search";
@@ -550,11 +571,9 @@ export function clearFunction() {
 
 export function filterFunction() {
   var input, filter, a, i;
-  var idReference = null;
-  if (currentActiveSearch == "search") {
-    idReference = "#nav-bar__search";
-  } else {
-    idReference = "#nav-bar__games";
+  var idReference = "#nav-bar__search";
+  if (currentActiveSearch == "games") {
+    return;
   }
   // Gets the value from the user input, set each word into an array
   input = document.querySelector(idReference + "--input");
@@ -564,8 +583,6 @@ export function filterFunction() {
   let searchBox = document.querySelector(idReference + "box");
   a = searchBox.getElementsByTagName("a");
   let searchCounter = 0;
-  var counter2d = 0;
-  var counter3d = 0;
   for (i = 0; i < a.length; i++) {
     // For each link, test if the user input makes part of its text value (ignoring empty inputs)
     // Hide any link that does not have any relation to the current input
@@ -585,37 +602,14 @@ export function filterFunction() {
         a[i].style.display = "none";
       }
       searchCounter = searchCounter + 1;
-      if (currentActiveSearch == "games"){
-        if (a[i].dataset.dim == "2D"){
-          counter2d = counter2d + 1;
-        } else {
-          counter3d = counter3d + 1;
-        }
-      }
     } else {
       a[i].style.display = "none";
     }
   }
   if (searchCounter > 0) {
     document.querySelector(idReference + "--hr").style.display = "block";
-    if (currentActiveSearch == "games"){
-      if (counter2d > 0){
-        document.querySelector(idReference + "--hr2D").style.display = "block";
-      } else {
-        document.querySelector(idReference + "--hr2D").style.display = "none";
-      }
-      if (counter3d > 0){
-        document.querySelector(idReference + "--hr3D").style.display = "block";
-      } else {
-        document.querySelector(idReference + "--hr3D").style.display = "none";
-      }
-    }
   } else {
     document.querySelector(idReference + "--hr").style.display = "none";
-    if (currentActiveSearch == "games"){
-      document.querySelector(idReference + "--hr2D").style.display = "none";
-      document.querySelector(idReference + "--hr3D").style.display = "none";
-    }
   }
 }
 
@@ -634,13 +628,21 @@ export function fillSearch() {
   // Insert a hidden hr on the first slot of the search
   let hrElem = "<hr id='nav-bar__search--hr'  tabindex='0' style='display: none;'>";
   searchResults.insertAdjacentHTML("beforeend", hrElem);
-  hrElem = "<hr id='nav-bar__games--hr'  tabindex='0' style='display: none;'>";
-  gamesResults.insertAdjacentHTML("beforeend", hrElem);
 
-  hrElem = "<div class='nav-bar__games--divider' id='nav-bar__games--hr2D'  tabindex='0'><hr/><span>2D</span><hr/></div>";
-  gamesResults.insertAdjacentHTML("beforeend", hrElem);
-  hrElem = "<div  class='nav-bar__games--divider' id='nav-bar__games--hr3D'  tabindex='0'><hr/><span>3D</span><hr/></div>";
-  gamesResults.insertAdjacentHTML("beforeend", hrElem);
+  let spanElem = '<span style="cursor: default;height: 50px; display: block; float: right; padding-left: 30px;"></span>';
+  gamesResults.insertAdjacentHTML("beforeend", spanElem);
+
+  // TODO : While you can unhide this and make the line appear, right now it doesn't look so good
+  // TODO :   so the styling of other elements need to change first
+  let hrElem2D = "<hr id='nav-bar__games--hr2D'  tabindex='0' style='display: none;'>";
+  gamesResults.insertAdjacentHTML("beforeend", hrElem2D);
+  let hrElem3D = "<hr id='nav-bar__games--hr3D'  tabindex='0' style='display: none;'>";
+  gamesResults.insertAdjacentHTML("beforeend", hrElem3D);
+  //hrElem = "<div class='nav-bar__games--divider' id='nav-bar__games--hr2D'  tabindex='0'><hr/><span>2D</span><hr/></div>";
+  //gamesResults.insertAdjacentHTML("beforeend", hrElem);
+  //hrElem = "<div  class='nav-bar__games--divider' id='nav-bar__games--hr3D'  tabindex='0'><hr/><span>3D</span><hr/></div>";
+  //gamesResults.insertAdjacentHTML("beforeend", hrElem);
+
   //searchResults.insertAdjacentHTML("beforeend", searchContents);
 
   for (i = 0; i < tabLinks.length; i++) {
@@ -652,12 +654,12 @@ export function fillSearch() {
         const parser = new DOMParser();
         // Add default page search
         let gameContents = "";
-        gameContents = gameContents.concat('<a data-document="');
+        gameContents = gameContents.concat('<figure class="nab-bar__games--wrapper" data-document="');
         gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.document
         );
         gameContents = gameContents.concat(
-          '" class = "nav-bar__search--results" data-dim="'
+          '" data-dim="'
         );
         gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.dim
@@ -668,23 +670,38 @@ export function fillSearch() {
         gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.section
         );
-        gameContents = gameContents.concat('"><b>');
+        gameContents = gameContents.concat('"><figcaption>');
         gameContents = gameContents.concat(
-          tabLinks[currentIndex].dataset.section
+          tabLinks[currentIndex].dataset.document
         );
-        gameContents = gameContents.concat("</b> </a>");
+        gameContents = gameContents.concat('</figcaption><img  class="nav-bar__search--results" src="media/');
+        gameContents = gameContents.concat(
+          tabLinks[currentIndex].dataset.document.toLowerCase().trim()
+        );
+        gameContents = gameContents.concat('/');
+        gameContents = gameContents.concat(
+          tabLinks[currentIndex].dataset.document.trim()
+        );
+        gameContents = gameContents.concat('ICONs.webp"></img></figure>');
 
         if(tabLinks[currentIndex].dataset.dim == "2D"){
           let content2D = document.querySelector("#nav-bar__games--hr2D");
           // Inject AFTER 2D HR  "afterend" 2D HR
-          content2D.insertAdjacentHTML("afterend", gameContents);
+          content2D.insertAdjacentHTML("beforebegin", gameContents);
         } else {
           let content3D = document.querySelector("#nav-bar__games--hr3D");
           // Inject AFTER 3D HR
-          content3D.insertAdjacentHTML("afterend", gameContents);
+          content3D.insertAdjacentHTML("beforebegin", gameContents);
         }
 
+        //gamesResults.insertAdjacentHTML("beforeend", gameContents);
+
         gameContents = "";
+        document
+          .querySelectorAll("figure.nab-bar__games--wrapper")
+          .forEach((item) => {
+            addPageChangeEvent(item);
+          });
 
         const doc = parser.parseFromString(currentDocument, "text/html");
         doc.querySelectorAll("h4").forEach((currentHeading) => {
