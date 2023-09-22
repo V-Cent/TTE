@@ -10,6 +10,16 @@ Greys are:
 All neutral on red green, with a slight blue hue.
 */
 
+.material-symbols-rounded {
+  border: none !important;
+  border-width: 0px;
+  border-color: #161618;
+  color: rgba(255, 255, 255, 1);
+  opacity: 80%;
+  z-index: 200;
+  font-family: 'Material Symbols Rounded' !important;
+}
+
 * {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased !important;
@@ -63,7 +73,7 @@ h1 {
   font-weight: 800;
   color: #ffffff;
   font-weight: 300;
-  font-size: 60px;
+  font-size: 40px;
   letter-spacing: 0.1em;
   text-shadow: 1px 1px 1px #ffffff;
   opacity: 95%;

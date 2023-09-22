@@ -1,37 +1,112 @@
 <!DOCTYPE html>
 <html id="page" lang="en">
   <head>
-    <style>html{visibility: hidden;opacity:0;}</style>
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+      .material-symbols-rounded {
+        display: none;
+      }
+    </style>
     <meta charset="utf-8" />
-    <meta name="description" content="Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.">
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=1">
-    <meta name="robots" content="index,follow">
+    <meta
+      name="description"
+      content="Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'."
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1 user-scalable=1"
+    />
+    <meta name="robots" content="index,follow" />
     <title>Tales Tech Encyclopedia</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" as="style" crossorigin>
-    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap" as="style" crossorigin>
-    <link rel="stylesheet preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" as="style" crossorigin>
-
+    <!-- &display=block overrides the display:none from the top. This prevents a flash of random text, but it does slow down LCP a bit... -->
+    <!-- With heavy throttling however, it can still happen. Also, this fixes the bug of the scroll icon appearing on page load. -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0"
+      rel="preload stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0&display=block"
       media="print"
       onload="this.media='all'; this.onload=null;"
     />
 
-    <link href="./styles/base.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
-    <link href="./styles/navbar.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
-    <link href="./styles/scroll.css" rel="preload" type="text/css" as="style" onload="this.rel='stylesheet'" />
-    <link href="./styles/content.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
-    <link href="./styles/elements.css" rel="stylesheet" type="text/css" media="print" onload="this.media='all'; this.onload = null" />
+    <link
+      rel="preload stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap"
+      as="style"
+      crossorigin
+    />
+    <link
+      rel="preload stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap"
+      as="style"
+      crossorigin
+    />
+    <link
+      rel="preload stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap"
+      as="style"
+      crossorigin
+    />
+
+    <link
+      href="./styles/base.css"
+      rel="preload"
+      type="text/css"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+    <link
+      href="./styles/navbar.css"
+      rel="preload"
+      type="text/css"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+    <link
+      href="./styles/scroll.css"
+      rel="preload"
+      type="text/css"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+    <link
+      href="./styles/content.css"
+      rel="stylesheet"
+      type="text/css"
+      media="print"
+      onload="this.media='all'; this.onload = null"
+    />
+    <link
+      href="./styles/elements.css"
+      rel="stylesheet"
+      type="text/css"
+      media="print"
+      onload="this.media='all'; this.onload = null"
+    />
 
     <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo=" /> This disables favicon request -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./media/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./media/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./media/favicon-16x16.png">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./media/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./media/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./media/favicon-16x16.png"
+    />
   </head>
   <body>
     <div id="nav-bar">
@@ -39,14 +114,16 @@
       <!-- Logo Fonts used are Lobster Two Bold and Tittilium Web Semi-Bold-->
       <div id="nav-bar__title" data-document="HOME">
         <img
-          src="media/TTE2.svg"
+          src="media/TTE2.webp"
+          srcset="media/TTE2.svg"
           alt="TTE Logo."
           id="nav-bar__title__logo"
           draggable="false"
           alt="TTE Logo."
         />
         <img
-          src="media/TTEtext.svg"
+          src="media/TTEtext.webp"
+          srcset="media/TTEtext.svg"
           id="nav-bar__title__text"
           draggable="false"
           alt="Tales Tech Encyclopedia"
@@ -58,14 +135,22 @@
 
       <!-- Search bar -->
       <div id="nav-bar__search">
-        <span tabindex="0" class="material-symbols-rounded" id="nav-bar__search--icon">
+        <span
+          tabindex="0"
+          class="material-symbols-rounded"
+          id="nav-bar__search--icon"
+        >
           search
         </span>
       </div>
 
       <!-- Game search -->
       <div id="nav-bar__games">
-        <span tabindex="0" class="material-symbols-rounded" id="nav-bar__games--icon">
+        <span
+          tabindex="0"
+          class="material-symbols-rounded"
+          id="nav-bar__games--icon"
+        >
           joystick
         </span>
       </div>
@@ -89,7 +174,8 @@
       <hr />
       <div id="footer-container__reference">
         <img
-          src="media/TTEtexthor.svg"
+          src="media/TTEtexthor.webp"
+          srcset="media/TTEtexthor.svg"
           id="footer-container__text"
           draggable="false"
           alt="Tales Tech Encyclopedia"
@@ -120,42 +206,55 @@
         >
           How to contribute
         </p>
-
       </div>
     </div>
 
     <!-- Game list.
           This is done so js can know which games have markdown files ready.
           Technically an external file would be better. This is easier to track for now though. -->
-    <div id="game-instances" style="display: none;">
-      <span class="game-instances--links"
-            data-document="TODPS2"
-            data-section="Tales of Destiny PS2"
-            data-dim="2D"></span>
-      <span class="game-instances--links"
-            data-document="TOL"
-            data-section="Tales of Legendia"
-            data-dim="2D"></span>
-      <span class="game-instances--links"
-            data-document="TOA"
-            data-section="Tales of Arise"
-            data-dim="3D"></span>
-      <span class="game-instances--links"
-            data-document="TOV"
-            data-section="Tales of Vesperia"
-            data-dim="3D"></span>
-      <span class="game-instances--links"
-            data-document="TOTA"
-            data-section="Tales of the Abyss"
-            data-dim="3D"></span>
-      <span class="game-instances--links"
-            data-document="TOX2"
-            data-section="Tales of Xillia 2"
-            data-dim="3D"></span>
-      <span class="game-instances--links"
-            data-document="TOZ"
-            data-section="Tales of Zestiria"
-            data-dim="3D"></span>
+    <div id="game-instances" style="display: none">
+      <span
+        class="game-instances--links"
+        data-document="TODPS2"
+        data-section="Tales of Destiny PS2"
+        data-dim="2D"
+      ></span>
+      <span
+        class="game-instances--links"
+        data-document="TOL"
+        data-section="Tales of Legendia"
+        data-dim="2D"
+      ></span>
+      <span
+        class="game-instances--links"
+        data-document="TOA"
+        data-section="Tales of Arise"
+        data-dim="3D"
+      ></span>
+      <span
+        class="game-instances--links"
+        data-document="TOV"
+        data-section="Tales of Vesperia"
+        data-dim="3D"
+      ></span>
+      <span
+        class="game-instances--links"
+        data-document="TOTA"
+        data-section="Tales of the Abyss"
+        data-dim="3D"
+      ></span>
+      <span
+        class="game-instances--links"
+        data-document="TOX2"
+        data-section="Tales of Xillia 2"
+        data-dim="3D"
+      ></span>
+      <span
+        class="game-instances--links"
+        data-document="TOZ"
+        data-section="Tales of Zestiria"
+        data-dim="3D"
+      ></span>
       <!--
       <span class="game-instances--links"
             data-document="TOHDS"
