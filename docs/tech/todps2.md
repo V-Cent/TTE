@@ -179,7 +179,7 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 
 You can trigger encounters from the Phandaria region, enemies around lv34 which you normally encounter at the end of Arc 1, by going to the place in following picture:
 
-![Location of Exploit](https://cdn.discordapp.com/attachments/928724712270491718/929816492558667776/Snow.png)
+*:{'todo' : true}*
 
 You can use this spot to farm levels or lenses, especially while on NG+.
 

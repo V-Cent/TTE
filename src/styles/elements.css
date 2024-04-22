@@ -27,19 +27,6 @@ blockquote p {
   display: inline;
 }
 
-code {
-  font-family: "Nunito", sans-serif;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 400;
-  margin-left: 6ch;
-  font-size: inherit;
-  background: #252529;
-  box-decoration-break: clone;
-  padding: 0.1rem 0.3rem 0.2rem;
-  border-radius: 0.2rem;
-}
-
 table {
   border-collapse: collapse;
 

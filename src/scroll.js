@@ -20,17 +20,15 @@ if (document.readyState !== "loading") {
 }
 
 // --- Functions related to scrolling effects
-// TODO - Once a "segment" tab (mechanics, glitches, combat ...) is added to tech pages
-// TODO -   have scroll go to that section instead of ToC.
 // Checks if scroll icon should be shown to user
 function handleScroll() {
   //Get current scroll position
   let scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
   //Get TOC if it exists
-  let toc = document.getElementById("table-of-contents");
+  let toc = document.getElementById("content__selectorbox");
   let tocLocation = 0;
   if (toc != null) {
-    //If TOC exists, calculate the difference between the TOC location and the top of the page
+    //If the content selector exists, calculate the difference between the selector location and the top of the page
     let bodyRect = document.body.getBoundingClientRect(),
       elemRect = toc.getBoundingClientRect(),
       offset = elemRect.top - bodyRect.top;
@@ -51,11 +49,11 @@ function handleScroll() {
 }
 
 function scrollToTop() {
-  //Get TOC if it exists
-  let toc = document.getElementById("table-of-contents");
+  //Get content selector if it exists
+  let toc = document.getElementById("content__selectorbox");
   let tocLocation = 0;
   if (toc != null) {
-    //If TOC exists, calculate the difference between the TOC location and the top of the page
+    //If the selector exists, calculate the difference between the selector location and the top of the page
     let bodyRect = document.body.getBoundingClientRect(),
       elemRect = toc.getBoundingClientRect(),
       offset = elemRect.top - bodyRect.top;
@@ -64,7 +62,7 @@ function scrollToTop() {
       tocLocation = offset - 100;
     }
   }
-  //Scroll either to top of the page or to TOC smoothly
+  //Scroll either to top of the page or to the selector smoothly
   rootElement.scrollTo({
     top: tocLocation,
     behavior: "smooth",

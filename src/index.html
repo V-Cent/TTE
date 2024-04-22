@@ -30,8 +30,8 @@
     <link
       rel="preload stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0&display=block"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
+      as="style"
+      crossorigin
     />
 
     <link
@@ -159,9 +159,18 @@
     <!-- Section name, sticky -->
     <div id="section-container">
       <hr />
-      <ul>
-        <li id="section-container__text">HOME</li>
-      </ul>
+      <div id="section-container__div">
+        <ul>
+          <li id="section-container__text">HOME</li>
+        </ul>
+        <span
+          tabindex="0"
+          class="material-symbols-rounded"
+          id="section-container__toc"
+        >
+          book_2
+        </span>
+      </div>
     </div>
 
     <!-- Content will be injected here -->

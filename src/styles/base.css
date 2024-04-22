@@ -16,7 +16,7 @@ All neutral on red green, with a slight blue hue.
   border-color: #161618;
   color: rgba(255, 255, 255, 1);
   opacity: 80%;
-  z-index: 200;
+  z-index: 8;
   font-family: 'Material Symbols Rounded' !important;
 }
 
@@ -52,7 +52,8 @@ body {
   scrollbar-color: #252529 #161618;
   scrollbar-width: thin;
   max-width: 100%;
-  overflow-x: hidden;
+  /* Overflow-x clip to keep document size normal on mobile while also not messing up section selection*/
+  overflow-x: clip;
 }
 
 video {
@@ -94,6 +95,7 @@ h2 {
   border-bottom: 1px solid #252529;
   margin-right: 15px;
   width: fit-content;
+  width: -moz-fit-content;
   margin-top: 0%;
   margin-bottom: 0%;
 }
@@ -110,6 +112,7 @@ h6 {
   margin-right: 15px;
   scroll-margin-top: 100px;
   width: fit-content;
+  width: -moz-fit-content;
   margin-top: 0%;
   margin-bottom: 0%;
 }

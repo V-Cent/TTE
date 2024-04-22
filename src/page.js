@@ -23,9 +23,11 @@ import {
 */
 import {
   collapseHeaders,
+  collapseHeaderStyle,
   sortTables,
   treatSpoilers,
   styleImages,
+  h2Collection,
 } from "./style.js";
 
 // TODO - DISABLE SOURCEMAPS before setting up hosting.
@@ -68,6 +70,35 @@ export function updatePage() {
   sortTables();
   treatSpoilers();
   styleImages();
+}
+
+function compileH2s() {
+  // Add events to selector tab
+  document.querySelectorAll(".content__selectorbox--item").forEach((selectorBox) => {
+    selectorBox.style.setProperty('--highlight-color', selectorBox.dataset.highlight);
+    selectorBox.addEventListener("click", (event) => {
+      // iterate every selectorbox--item
+      // -- remove selected status from other elements
+      document.querySelectorAll(".content__selectorbox--item").forEach((selectorBox) => {
+        selectorBox.className = "content__selectorbox--item";
+      });
+      // add selected status to the clicked selectorbox--item
+      event.currentTarget.className = "content__selectorbox--item selected";
+      // replace content_currenth2 with data from h2Collectio[x][3]
+      // select the h2Collection based on the current selectorBox.dataset.open
+      let currentCollection = h2Collection.filter((h2) => h2[0] == event.currentTarget.dataset.open);
+      document.getElementById("content__currenth2").innerHTML = currentCollection[0][2];
+
+      // Adds click events for the buttons
+      document.querySelectorAll(".content__collapse").forEach((button) => {
+        button.addEventListener("click", collapseHeaderStyle);
+      });
+      updatePage();
+    });
+  });
+
+  // Opens first H2
+  document.querySelectorAll(".content__selectorbox--item")[0].click();
 }
 
 // --- Function related to tagging behaviour
@@ -172,89 +203,98 @@ function compileTags() {
   });
 }
 
+function changeEvent(event){
+  // Variables to cosmetic modifications on the page
+  let i, tabContent, tabLinks;
+
+  // Get all elements with class="nav-bar__tab-bar--content" and hide them
+  tabContent = document.getElementsByClassName("nav-bar__tab-bar--content");
+  for (i = 0; i < tabContent.length; i++) {
+    tabContent[i].style.display = "none";
+  }
+
+  // Get all elements with class="nav-bar__tab-bar--links" and remove the class "active"
+  tabLinks = document.getElementsByClassName("nav-bar__tab-bar--links");
+  for (i = 0; i < tabLinks.length; i++) {
+    tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab;
+  if (
+    !(
+      event.currentTarget.dataset.document == "HOME" ||
+      event.currentTarget.dataset.document.includes("./")
+    )
+  ) {
+    for (i = 0; i < tabLinks.length; i++) {
+      if (
+        tabLinks[i].dataset.document == event.currentTarget.dataset.document
+      ) {
+        tabLinks[i].className += " active";
+      }
+    }
+  }
+
+  // Get the section and content elements to change the document presented on the page
+  let sectionText = document.getElementById("section-container__text");
+  let contentText = document.getElementById("content");
+
+  if (event.currentTarget.dataset.document == "HOME") {
+    //If the event is tagged as "HOME" (nav-bar logo redirect)
+    // TODO - loadHome?();
+    contentText.innerHTML = "UNDER CONSTRUCTION";
+    sectionText.innerHTML = "HOME"
+  } else {
+    //Continuous page view
+    if (event.currentTarget.dataset.document.includes("./")) {
+      sectionText.innerHTML = event.currentTarget.dataset.section;
+      parseGFM(event.currentTarget.dataset.document).then((page) => {
+        contentText.innerHTML = page;
+        //Update page & Clear search results
+        updatePage();
+        clearFunction();
+      });
+    } else {
+      //Event is a tech document, set the section as the game name and update the content
+      sectionText.innerHTML = event.currentTarget.dataset.section;
+      let currentDataset = event.currentTarget.dataset;
+      parseGFM(
+        ("./tech/" + event.currentTarget.dataset.document).toLowerCase()
+      ).then((page) => {
+        // TODO - Add a loading icon here?
+        // content is hidden until collapseHeaders is finished -- the function itself changes it back
+        //   that function adds a selection menu and TOC to the page
+        contentText.style.visibility = "hidden";
+        contentText.innerHTML = page;
+        collapseHeaders(contentText);
+        compileH2s();
+        //Update page & Clear search results
+        updatePage();
+        clearFunction();
+        if (currentDataset.redirect != null) {
+          //Event has a redirect location, collapse the headers if needed
+          revealID(currentDataset.redirect.substring(1));
+          document.querySelector(currentDataset.redirect).scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      });
+    }
+    //Scroll to top if no redirect is defined
+    if (event.currentTarget.dataset.redirect == null) {
+      document.documentElement.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }
+}
+
 // --- Function for click events on the nav-bar
 export function addPageChangeEvent(item) {
-  item.addEventListener("click", (event) => {
-    // Variables to cosmetic modifications on the page
-    let i, tabContent, tabLinks;
-
-    // Get all elements with class="nav-bar__tab-bar--content" and hide them
-    tabContent = document.getElementsByClassName("nav-bar__tab-bar--content");
-    for (i = 0; i < tabContent.length; i++) {
-      tabContent[i].style.display = "none";
-    }
-
-    // Get all elements with class="nav-bar__tab-bar--links" and remove the class "active"
-    tabLinks = document.getElementsByClassName("nav-bar__tab-bar--links");
-    for (i = 0; i < tabLinks.length; i++) {
-      tabLinks[i].className = tabLinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab;
-    if (
-      !(
-        event.currentTarget.dataset.document == "HOME" ||
-        event.currentTarget.dataset.document.includes("./")
-      )
-    ) {
-      for (i = 0; i < tabLinks.length; i++) {
-        if (
-          tabLinks[i].dataset.document == event.currentTarget.dataset.document
-        ) {
-          tabLinks[i].className += " active";
-        }
-      }
-    }
-
-    // Get the section and content elements to change the document presented on the page
-    let sectionText = document.getElementById("section-container__text");
-    let contentText = document.getElementById("content");
-
-    if (event.currentTarget.dataset.document == "HOME") {
-      //If the event is tagged as "HOME" (nav-bar logo redirect)
-      // TODO - loadHome?();
-      contentText.innerHTML = "UNDER CONSTRUCTION";
-      sectionText.innerHTML = "HOME"
-    } else {
-      //Continuous page view
-      if (event.currentTarget.dataset.document.includes("./")) {
-        sectionText.innerHTML = event.currentTarget.dataset.section;
-        parseGFM(event.currentTarget.dataset.document).then((page) => {
-          contentText.innerHTML = page;
-          //Update page & Clear search results
-          updatePage();
-          clearFunction();
-        });
-      } else {
-        //Event is a tech document, set the section as the game name and update the content
-        sectionText.innerHTML = event.currentTarget.dataset.section;
-        let currentDataset = event.currentTarget.dataset;
-        parseGFM(
-          ("./tech/" + event.currentTarget.dataset.document).toLowerCase()
-        ).then((page) => {
-          contentText.innerHTML = page;
-          collapseHeaders(contentText);
-          //Update page & Clear search results
-          updatePage();
-          clearFunction();
-          if (currentDataset.redirect != null) {
-            //Event has a redirect location, collapse the headers if needed
-            revealID(currentDataset.redirect.substring(1));
-            document.querySelector(currentDataset.redirect).scrollIntoView({
-              behavior: "smooth",
-            });
-          }
-        });
-      }
-      //Scroll to top if no redirect is defined
-      if (event.currentTarget.dataset.redirect == null) {
-        document.documentElement.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
-    }
-  });
+  // Remove the previous event if one exist. This is a bandaid fix fo the fillSearch function.
+  item.removeEventListener("click", changeEvent);
+  item.addEventListener("click", changeEvent);
 }
 
 // ---------
@@ -654,7 +694,7 @@ export function fillSearch() {
         const parser = new DOMParser();
         // Add default page search
         let gameContents = "";
-        gameContents = gameContents.concat('<figure class="nab-bar__games--wrapper" data-document="');
+        gameContents = gameContents.concat('<figure class="nav-bar__games--wrapper" data-document="');
         gameContents = gameContents.concat(
           tabLinks[currentIndex].dataset.document
         );
@@ -698,7 +738,7 @@ export function fillSearch() {
 
         gameContents = "";
         document
-          .querySelectorAll("figure.nab-bar__games--wrapper")
+          .querySelectorAll("figure.nav-bar__games--wrapper")
           .forEach((item) => {
             addPageChangeEvent(item);
           });
@@ -745,10 +785,27 @@ export function fillSearch() {
 export function revealID(id) {
   // Gets the object of the provided ID
   targetHeader = document.getElementById(id);
+  if (targetHeader == null) {
+    // Target hidden within an h2 section -- first we need to open it
+    h2Section = 0;
+    for (let x = 0; x < h2Collection.length; x++) {
+      if (h2Collection[x][2].includes(`id="${id}"`)) {
+        h2Section = x;
+        break;
+      }
+    }
+    document.querySelectorAll(".content__selectorbox--item")[h2Section].click();
+  }
+  targetHeader = document.getElementById(id);
   let hiddenItems = null;
   let success = false;
   // Gets the div that holds all the content for a given header
-  if (targetHeader.parentNode.className.includes("content__")) {
+  if (targetHeader.tagName == "H4") {
+    if (targetHeader.dataset.open != null) {
+      hiddenItems = targetHeader.dataset.open.split(" ");
+      success = true;
+    }
+  } else if (targetHeader.parentNode.className.includes("content__")) {
     if (targetHeader.parentNode.firstElementChild.dataset.open != null) {
       hiddenItems =
         targetHeader.parentNode.firstElementChild.dataset.open.split(" ");

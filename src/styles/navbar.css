@@ -103,6 +103,7 @@
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 #nav-bar__games .material-symbols-rounded {
@@ -170,7 +171,7 @@
   -webkit-filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
 }
 /* Use flex-shink: 0 if parent is a flex */
-.nab-bar__games--wrapper {
+.nav-bar__games--wrapper {
   margin: 8px;
   cursor: pointer;
   display: inline-block;
@@ -184,7 +185,7 @@
   -o-border-radius: 4px;
 }
 
-.nab-bar__games--wrapper figcaption {
+.nav-bar__games--wrapper figcaption {
   font-family: "Montserrat", sans-serif;
   position: relative;
   color: #ffffff99;
@@ -195,7 +196,7 @@
   text-decoration: none;
 }
 
-.nab-bar__games--wrapper:hover {
+.nav-bar__games--wrapper:hover {
   background-color: #252529;
   filter: brightness(1.1);
   -webkit-filter: brightness(1.1);

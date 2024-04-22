@@ -52,13 +52,24 @@ export function styleImages() {
 }
 
 // --- Function for collapsing headers on tech documents
-// TODO - this also needs to change someday. messy.
+
+var mouseDown = false;
+var h2Collection = [];
+var startX, scrollLeft;
+
+export { h2Collection };
+
+// TODO - buttons need to change
 export function collapseHeaders(page) {
+  h2Collection = [];
   let currentH4 = null;
   let currentH3 = null;
   let currentH2 = null;
   let newInner = "";
+  let newHeader = "";
+  let firstH2 = true;
   let currentHTML = page.innerHTML.split("\n");
+  let contentElem = document.getElementById("content");
   for (let i = 0; i < currentHTML.length; i++) {
     // Iterates over all the lines from the created HTML and uses it to create a new document with collapsing headers
     if (currentHTML[i].includes('h4 id="')) {
@@ -75,7 +86,8 @@ export function collapseHeaders(page) {
 
       // Starts a div for the current header, divided into title and content
       newInner = newInner + '<div class="content__h4">' + "\n";
-      newInner =
+      // Removed button
+      /*newInner =
         newInner +
         '<button class="content__collapse" data-open="' +
         currentH4 +
@@ -83,8 +95,12 @@ export function collapseHeaders(page) {
         currentH3 +
         " " +
         currentH2 +
-        '"><span class="material-symbols-rounded">remove</span></button>';
-      newInner = newInner + currentHTML[i] + "\n";
+        '"><span class="material-symbols-rounded">remove</span></button>';*/
+      // Injects the search tags into the h4 --> just after the end of id
+      let injectionIndex = currentHTML[i].indexOf('h4 id="') + 7 + currentH4.length + 1;
+      let injectedSearch = ' data-open="' + currentH4 + " " + currentH3 + " " + currentH2 +'"';
+      let newH4 = currentHTML[i].substr(0, injectionIndex) + injectedSearch + currentHTML[i].substr(injectionIndex);
+      newInner = newInner + newH4 + "\n";
       newInner = newInner + '<div class="' + currentH4 + '">' + "\n";
     } else if (currentHTML[i].includes('h3 id="')) {
       // Close the div if a h4 or h3 is in progress
@@ -94,6 +110,7 @@ export function collapseHeaders(page) {
       }
       if (currentH3) {
         newInner = newInner + "</div></div>" + "\n";
+        // TODO add stylized HR here!
       }
 
       // Finding reference ID (the id from the original header)
@@ -113,11 +130,13 @@ export function collapseHeaders(page) {
         '"><span class="material-symbols-rounded">expand_more</span></button>';
       newInner = newInner + currentHTML[i] + "\n";
       newInner = newInner + '<div class="' + currentH3 + '" hidden>' + "\n";
-    } else if (
-      currentHTML[i].includes('h2 id="') &&
-      !currentHTML[i].includes("table-of-contents")
-    ) {
+    } else if (currentHTML[i].includes('h2 id="')) {
+      // TODO For H2, create a selector div with the id of the h2container to un-hide
+      // TODO   Mechanics is open by default
+      // TODO Most things in this tab will change
+      // TODO - so remove button, link id to div, make all default to display-none and show when clicked on the new bar?
       // Close the div if a h4, h3 or h2 is in progress
+      firstH2 = false;
       if (currentH4) {
         newInner = newInner + "</div></div>" + "\n";
         currentH4 = null;
@@ -128,25 +147,34 @@ export function collapseHeaders(page) {
       }
       if (currentH2) {
         newInner = newInner + "</div></div>" + "\n";
+        h2Collection.push([currentH2, currentH2Text, newInner]);
+        newInner = "";
       }
 
-      // Finding reference ID (the id from the original header)
+      // Finding reference ID (the id from the original heading)
       currentH2 = currentHTML[i].substring(
         currentHTML[i].indexOf('h2 id="') + 7
       );
       currentH2 = currentH2.substring(0, currentH2.indexOf('"'));
 
-      // Starts a div for the current header, divided into title and content
-      newInner = newInner + '<div class="content__h2">' + "\n";
-      newInner =
-        newInner +
-        '<button class="content__collapse" data-open="' +
-        currentH2 +
-        '"><span class="material-symbols-rounded">expand_less</span></button>';
-      newInner = newInner + currentHTML[i] + "\n";
+      // Find text so we can replicate the heading but without the id (moved to div)
+      currentH2Text = currentHTML[i].substring(
+        currentHTML[i].indexOf('">') + 2
+      );
+      currentH2Text = currentH2Text.substring(0, currentH2Text.indexOf('</h2>'));
+
+      // Starts a div for the current heading, divided into title and content
+      newInner = newInner + '<div class="content__h2" id="' + currentH2 + '">' + "\n";
+      //newInner = newInner + '<h2>' + currentH2Text + "</h2>" + "\n";
       newInner = newInner + '<div class="' + currentH2 + '">' + "\n";
     } else {
-      newInner = newInner + currentHTML[i] + "\n";
+      if (firstH2){
+        // Within the first lines of the content. Save in another variable since a tab will be added after it
+        newHeader = newHeader + currentHTML[i] + "\n";
+      } else {
+        // Normal text/tags within headings
+        newInner = newInner + currentHTML[i] + "\n";
+      }
     }
   }
   // Closes divs if any is still open
@@ -158,17 +186,105 @@ export function collapseHeaders(page) {
   }
   if (currentH2) {
     newInner = newInner + "</div></div>" + "\n";
+    h2Collection.push([currentH2, currentH2Text, newInner]);
+    newInner = "";
   }
-  page.innerHTML = newInner;
 
-  // Adds click events for the buttons
-  document.querySelectorAll(".content__collapse").forEach((button) => {
-    button.addEventListener("click", collapseHeaderStyle);
+  let colorCollection = [
+    ["yellow", "#f8d959"],
+    ["pink", "#fe796f"],
+    ["teal", "#45c9c9"],
+    ["green", "#58f15b"],
+    ["red", "#e74a41"],
+    ["blue", "#205aaa"]
+  ];
+
+  var selectionTab = '<div id="content__selector"><div id="content__selectorbox">';
+
+  let i = 0;
+  while (i < h2Collection.length){
+    h2Tag = h2Collection[i][0];
+    h2Text = h2Collection[i][1];
+    h2Color = colorCollection[i % colorCollection.length];
+
+    // --- Create the tab
+    selectionTab = selectionTab + '<div class="content__selectorbox--item" data-open="' + h2Tag + '" data-highlight="' + h2Color[1] + '">';
+    selectionTab = selectionTab + h2Text + '</div>';
+
+    // --- Next loop
+    i++;
+  }
+
+  selectionTab = selectionTab + '</div><hr id="content__selectorhr"></hr></div><div id="content__currenth2"></div>';
+
+  if (h2Collection.length > 0){
+      page.innerHTML = newHeader + selectionTab;
+  } else {
+      page.innerHTML = newHeader;
+  }
+
+  const sliderSelector = document.querySelector('#content__selectorbox');
+
+  let startDragging = function (e) {
+    mouseDown = true;
+    startX = e.pageX - sliderSelector.offsetLeft;
+    if (isNaN(startX)) {
+      startX = e.changedTouches[0].pageX - sliderSelector.offsetLeft;
+    }
+    scrollLeft = sliderSelector.scrollLeft;
+  };
+
+  let stopDragging = function (event) {
+    mouseDown = false;
+  };
+
+  sliderSelector.addEventListener('mousemove', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if(!mouseDown) { return; }
+    const x = e.pageX - sliderSelector.offsetLeft;
+    const scroll = x - startX;
+    if (isNaN(x)) {
+      const x = e.changedTouches[0].pageX - sliderSelector.offsetLeft;
+      const scroll = x - startX;
+      sliderSelector.scrollLeft = scrollLeft - scroll;
+    } else {
+      sliderSelector.scrollLeft = scrollLeft - scroll;
+    }
   });
+
+  // Add the event listeners
+  sliderSelector.addEventListener('mousedown', startDragging, false);
+  sliderSelector.addEventListener('mouseup', stopDragging, false);
+  sliderSelector.addEventListener('mouseleave', stopDragging, false);
+
+  // For mobile
+  sliderSelector.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if(!mouseDown) { return; }
+    const x = e.pageX - sliderSelector.offsetLeft;
+    const scroll = x - startX;
+    if (isNaN(x)) {
+      const x = e.changedTouches[0].pageX - sliderSelector.offsetLeft;
+      const scroll = x - startX;
+      sliderSelector.scrollLeft = scrollLeft - scroll;
+    } else {
+      sliderSelector.scrollLeft = scrollLeft - scroll;
+    }
+  });
+  sliderSelector.addEventListener('touchstart', startDragging, false);
+  sliderSelector.addEventListener('touchend', stopDragging, false);
+
+
+  contentElem.style.visibility = "visible";
+
+  // TODO add click events to the selection div
+  // Open  h2Collection[0][0]
 }
 
 // --- Function for click events on collapse icons
-function collapseHeaderStyle(event) {
+export function collapseHeaderStyle(event) {
   // Check the tags related to the current button
   let openTags = event.currentTarget.dataset.open.split(" ");
   for (let i = 0; i < openTags.length; i++) {
