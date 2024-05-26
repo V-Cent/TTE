@@ -100,6 +100,12 @@
   -o-border-radius: 20px;
 }
 
+.content__h3--divider {
+  opacity: 0.05;
+  margin-top: 40px;
+  width: 60%;
+}
+
 .content__collapse {
   border: none !important;
   border-width: 0px;
@@ -110,13 +116,20 @@
   opacity: 70;
   outline: none;
   position: absolute;
-  right: 1%;
+  left: 2%;
+}
+
+.content__collapse .material-symbols-rounded {
+  font-size: 30px;
+  padding-top: 2px;
 }
 
 .content__figure {
   position: relative;
   max-width: 90%;
-  display: inline-block;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #footer-container {

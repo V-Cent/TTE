@@ -22,8 +22,8 @@ import {
 } from "./search.js";
 */
 import {
-  collapseHeaders,
-  collapseHeaderStyle,
+  collapseHeadings,
+  collapseHeadingStyle,
   sortTables,
   treatSpoilers,
   styleImages,
@@ -91,7 +91,7 @@ function compileH2s() {
 
       // Adds click events for the buttons
       document.querySelectorAll(".content__collapse").forEach((button) => {
-        button.addEventListener("click", collapseHeaderStyle);
+        button.addEventListener("click", collapseHeadingStyle);
       });
       updatePage();
     });
@@ -262,17 +262,17 @@ function changeEvent(event){
         ("./tech/" + event.currentTarget.dataset.document).toLowerCase()
       ).then((page) => {
         // TODO - Add a loading icon here?
-        // content is hidden until collapseHeaders is finished -- the function itself changes it back
+        // content is hidden until collapseHeadings is finished -- the function itself changes it back
         //   that function adds a selection menu and TOC to the page
         contentText.style.visibility = "hidden";
         contentText.innerHTML = page;
-        collapseHeaders(contentText);
-        compileH2s();
+        collapseHeadings(contentText);
         //Update page & Clear search results
-        updatePage();
+        compileH2s();
+        //updatePage(); compileH2s has an updatePage() call already.
         clearFunction();
         if (currentDataset.redirect != null) {
-          //Event has a redirect location, collapse the headers if needed
+          //Event has a redirect location, collapse the headings if needed
           revealID(currentDataset.redirect.substring(1));
           document.querySelector(currentDataset.redirect).scrollIntoView({
             behavior: "smooth",
@@ -351,9 +351,9 @@ md.renderer.rules.em_open = function(tokens, idx, options, env) {
 md.renderer.rules.heading_close = function(tokens, idx, options, env) {
   if (injectedHeading) {
     injectedHeading = false;
-    let headerEnd = closeHeadingRenderer(tokens, idx, options, env);
+    let headingEnd = closeHeadingRenderer(tokens, idx, options, env);
     // Change new line position on styling will mess up
-    return headerEnd.concat("</span>").replace(/\n/g, ' ') + "\n";
+    return headingEnd.concat("</span>").replace(/\n/g, ' ') + "\n";
   } else {
     return closeHeadingRenderer(tokens, idx, options, env);
   }
@@ -627,6 +627,7 @@ export function filterFunction() {
     // For each link, test if the user input makes part of its text value (ignoring empty inputs)
     // Hide any link that does not have any relation to the current input
     txtValue = a[i].textContent || a[i].innerText;
+    txtValue = txtValue + " " + a[i].dataset.section + " " + a[i].dataset.document;
     let compareTxtValue = txtValue.toUpperCase();
     let containFlag = true;
     for (const stringFilter of filterArray.values()) {
@@ -744,6 +745,51 @@ export function fillSearch() {
           });
 
         const doc = parser.parseFromString(currentDocument, "text/html");
+        // H1 First - Game Title
+        doc.querySelectorAll("h1").forEach((currentHeading) => {
+          searchContents = searchContents.concat('<a data-document="');
+          // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
+          searchContents = searchContents.concat(
+            tabLinks[currentIndex].dataset.document
+          );
+          searchContents = searchContents.concat(
+            '" class = "nav-bar__search--results" tabindex="0" data-section="'
+          );
+          searchContents = searchContents.concat(
+            tabLinks[currentIndex].dataset.section
+          );
+          searchContents = searchContents.concat('" data-redirect="#');
+          searchContents = searchContents.concat(currentHeading.id);
+          searchContents = searchContents.concat('"><b>');
+          searchContents = searchContents.concat(
+            tabLinks[currentIndex].dataset.section
+          );
+          searchContents = searchContents.concat("</b> </a>");
+        });
+        // H3 Second - Articles
+        doc.querySelectorAll("h3").forEach((currentHeading) => {
+          searchContents = searchContents.concat('<a data-document="');
+          // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
+          searchContents = searchContents.concat(
+            tabLinks[currentIndex].dataset.document
+          );
+          searchContents = searchContents.concat(
+            '" class = "nav-bar__search--results" tabindex="0" data-section="'
+          );
+          searchContents = searchContents.concat(
+            tabLinks[currentIndex].dataset.section
+          );
+          searchContents = searchContents.concat('" data-redirect="#');
+          searchContents = searchContents.concat(currentHeading.id);
+          searchContents = searchContents.concat('"><b>');
+          searchContents = searchContents.concat(
+            tabLinks[currentIndex].dataset.document
+          );
+          searchContents = searchContents.concat("</b> <br>&nbsp;&nbsp;&nbsp;");
+          searchContents = searchContents.concat(currentHeading.textContent);
+          searchContents = searchContents.concat("</a>");
+        });
+        // H4 Third - Specific Tech
         doc.querySelectorAll("h4").forEach((currentHeading) => {
           searchContents = searchContents.concat('<a data-document="');
           // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
@@ -767,7 +813,7 @@ export function fillSearch() {
           searchContents = searchContents.concat("</a>");
         });
         // Insert the HTML on the search bar
-        // TODO - this probably does for the same link multiple times...
+        // TODO - this probably does for the same link multiple times... (not really but...JS)
         // TODO -   not sure what to best way to deal with it is since we're in a promise
         searchResults.insertAdjacentHTML("beforeend", searchContents);
         searchContents = "";
@@ -781,11 +827,11 @@ export function fillSearch() {
   }
 }
 
-// --- Show all headers for a specific ID
+// --- Show all headings for a specific ID
 export function revealID(id) {
   // Gets the object of the provided ID
-  targetHeader = document.getElementById(id);
-  if (targetHeader == null) {
+  targetHeading = document.getElementById(id);
+  if (targetHeading == null) {
     // Target hidden within an h2 section -- first we need to open it
     h2Section = 0;
     for (let x = 0; x < h2Collection.length; x++) {
@@ -796,35 +842,35 @@ export function revealID(id) {
     }
     document.querySelectorAll(".content__selectorbox--item")[h2Section].click();
   }
-  targetHeader = document.getElementById(id);
+  targetHeading = document.getElementById(id);
   let hiddenItems = null;
   let success = false;
-  // Gets the div that holds all the content for a given header
-  if (targetHeader.tagName == "H4") {
-    if (targetHeader.dataset.open != null) {
-      hiddenItems = targetHeader.dataset.open.split(" ");
+  // Gets the div that holds all the content for a given heading
+  if (targetHeading.tagName == "H4") {
+    if (targetHeading.dataset.open != null) {
+      hiddenItems = targetHeading.dataset.open.split(" ");
       success = true;
     }
-  } else if (targetHeader.parentNode.className.includes("content__")) {
-    if (targetHeader.parentNode.firstElementChild.dataset.open != null) {
+  } else if (targetHeading.parentNode.className.includes("content__")) {
+    if (targetHeading.parentNode.firstElementChild.dataset.open != null) {
       hiddenItems =
-        targetHeader.parentNode.firstElementChild.dataset.open.split(" ");
+        targetHeading.parentNode.firstElementChild.dataset.open.split(" ");
       success = true;
     }
   } else {
     // Div is one level higher if a tagging div was used
     if (
-      targetHeader.parentNode.parentNode.firstElementChild.dataset.open != null
+      targetHeading.parentNode.parentNode.firstElementChild.dataset.open != null
     ) {
       hiddenItems =
-        targetHeader.parentNode.parentNode.firstElementChild.dataset.open.split(
+        targetHeading.parentNode.parentNode.firstElementChild.dataset.open.split(
           " "
         );
       success = true;
     }
   }
   if (success) {
-    // Iterates over all related classes needed to reveal a specific header
+    // Iterates over all related classes needed to reveal a specific heading
     hiddenItems.forEach((item) => {
       let targetList = document.getElementsByClassName(item);
       // Get all objects that are possibly hidden
@@ -869,7 +915,7 @@ export function enableSmoothTOC() {
     anchor.addEventListener("click", function (e) {
       //Add smooth behaviour to all matches
       e.preventDefault();
-      //Collapses the header if needed
+      //Collapses the heading if needed
       revealID(this.getAttribute("href").substring(1));
       document.querySelector(this.getAttribute("href")).scrollIntoView({
         behavior: "smooth",

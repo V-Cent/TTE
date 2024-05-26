@@ -6,7 +6,7 @@ Markdown is a lightweight markup language that was chosen to keep track of game 
 
 The format of Markdown used is a subset of GFM (Github Flavored Markdown). Most effects should be able to be shown on Github's parser to check files if the website is offline. Most of the original Markdown syntax also work on GFM and multiple guides are available online for both.
 
-Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format for games down the line.
+Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format for games down the line. To help in understanding this document, open the raw version of this file and follow along with the examples.
 
 ## Text
 
@@ -83,14 +83,14 @@ The  syntax works by either using a emphasis symbol (*) or header symbol (#) fol
 
 The list of available parameters are:
 
-- :! -- *:! Spoiler Tag.*
-- :r -- *:r Red* Text.
-- :g -- *:g Green* Text.
-- :b -- *:b Blue* Text.
-- :y -- *:y Yellow* Text.
-- :p -- *:p Pink* Text.
-- :t -- *:t Teal* Text.
-- :{ -- Start of a custom directive.
+- :! — *:! Spoiler Tag.*
+- :r — *:r Red* Text.
+- :g — *:g Green* Text.
+- :b — *:b Blue* Text.
+- :y — *:y Yellow* Text.
+- :p — *:p Pink* Text.
+- :t — *:t Teal* Text.
+- :{ — Start of a custom directive.
 
 Custom directives are tags to modify the behavior of pages. They are json objects that are injected as the parent of the current text.
 Heres a simple example a custom directive: {'versions' : 'TTE', 'todo' : true}
@@ -116,15 +116,15 @@ Parameters should always be encapsulated in braces. The name of each parameter i
 
 ## Default Format for a Tech Page
 
-TTE does not currently enforce a strict format. However, we do need some care when dealing with headings to keep a consistent feel for the site. The first heading (#) is only used for the game title. The second (##) is used for category definitions (Mechanics, Glitches...). The third (###) is used as a sub-title for normal game mechanics or description of important techs. Finally, the forth heading (####) is used for glitches and tech definitions.
+TTE does not currently enforce a strict format. However, we do need some care when dealing with headings to keep a consistent feel for the site. The first heading (#) is only used for the game title. The second (##) is used for category definitions (Mechanics, Glitches...). The third (###) is used to start a subsection in that category (broad topic or for an important tech). Finally, the forth heading (####) is used for glitches and tech definitions.
 
 Every tech pages starts with a heading (#) of the game name followed by a simple description of when the game was released. After that, every version (if needed) that will be used throughout the document is listed. A name for each version should also be given, and that name should be used in a custom directive for version specific segments. The first heading ends with references and special thanks.
 
 The second heading (##) is used for category definitions. While you can create categories as you see fit, the following is the default format:
 
-- "Mechanics": This category is used for general game mechanics that are mostly explained in-game. *:r __Mandatory.__*
-- "Glitches": This category is used for glitches that are not related to the battle system (such as exploration) *:r __Mandatory.__*
-- "Combat": This category is used for techniques and glitches that are related to the battle system. *:r __Mandatory.__*
+- "Base Mechanics": This category is used for general game mechanics that are mostly explained in-game. It should not include any fourth headings. *:r __Mandatory.__*
+- "Glitches": This category is used for glitches that are not related to the battle system (such as exploration). *:r __Mandatory.__*
+- "Combat Techniques": This category is used for techniques and glitches that are related to the battle system. *:r __Mandatory.__*
 - "Characters": This category is used for character-specific mechanics, glitches and techniques.
 - "Bosses": This category is used for boss analysis and oddities.
 - "Misc": This category is used for any other information that does not fit in the previous categories. Minor techniques that don't affect the game as much (for example, an animation breaking) should also be placed here. When in doubt, check the Misc category of other pages.

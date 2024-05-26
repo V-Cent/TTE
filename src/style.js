@@ -1,5 +1,14 @@
 // style.js contains most of the cosmetic functions.
 
+var colorCollection = [
+  ["yellow", "#f8d959"],
+  ["pink", "#fe796f"],
+  ["teal", "#45c9c9"],
+  ["green", "#58f15b"],
+  ["red", "#e74a41"],
+  ["blue", "#205aaa"]
+];
+
 // TODO - VS recomments this being a class... Maybe? Also is a table .js file needed?
 export function sortTables() {
   var getCellValue = function (tr, idx) {
@@ -51,7 +60,7 @@ export function styleImages() {
   }
 }
 
-// --- Function for collapsing headers on tech documents
+// --- Function for collapsing headings on tech documents
 
 var mouseDown = false;
 var h2Collection = [];
@@ -60,31 +69,31 @@ var startX, scrollLeft;
 export { h2Collection };
 
 // TODO - buttons need to change
-export function collapseHeaders(page) {
+export function collapseHeadings(page) {
   h2Collection = [];
   let currentH4 = null;
   let currentH3 = null;
   let currentH2 = null;
   let newInner = "";
-  let newHeader = "";
+  let newHeading = "";
   let firstH2 = true;
   let currentHTML = page.innerHTML.split("\n");
   let contentElem = document.getElementById("content");
   for (let i = 0; i < currentHTML.length; i++) {
-    // Iterates over all the lines from the created HTML and uses it to create a new document with collapsing headers
+    // Iterates over all the lines from the created HTML and uses it to create a new document with collapsing headings
     if (currentHTML[i].includes('h4 id="')) {
       // Close the div if a h4 is in progress
       if (currentH4) {
         newInner = newInner + "</div></div>" + "\n";
       }
 
-      // Finding reference ID (the id from the original header)
+      // Finding reference ID (the id from the original heading)
       currentH4 = currentHTML[i].substring(
         currentHTML[i].indexOf('h4 id="') + 7
       );
       currentH4 = currentH4.substring(0, currentH4.indexOf('"'));
 
-      // Starts a div for the current header, divided into title and content
+      // Starts a div for the current heading, divided into title and content
       newInner = newInner + '<div class="content__h4">' + "\n";
       // Removed button
       /*newInner =
@@ -109,17 +118,16 @@ export function collapseHeaders(page) {
         currentH4 = null;
       }
       if (currentH3) {
-        newInner = newInner + "</div></div>" + "\n";
-        // TODO add stylized HR here!
+        newInner = newInner + '<hr class="content__h3--divider" draggable="false" />' + "</div></div>" + "\n";
       }
 
-      // Finding reference ID (the id from the original header)
+      // Finding reference ID (the id from the original heading)
       currentH3 = currentHTML[i].substring(
         currentHTML[i].indexOf('h3 id="') + 7
       );
       currentH3 = currentH3.substring(0, currentH3.indexOf('"'));
 
-      // Starts a div for the current header, divided into title and content
+      // Starts a div for the current heading, divided into title and content
       newInner = newInner + '<div class="content__h3">' + "\n";
       newInner =
         newInner +
@@ -127,9 +135,9 @@ export function collapseHeaders(page) {
         currentH3 +
         " " +
         currentH2 +
-        '"><span class="material-symbols-rounded">expand_more</span></button>';
+        '"><span class="material-symbols-rounded">expand_circle_up</span></button>';
       newInner = newInner + currentHTML[i] + "\n";
-      newInner = newInner + '<div class="' + currentH3 + '" hidden>' + "\n";
+      newInner = newInner + '<div class="' + currentH3 + '">' + "\n";
     } else if (currentHTML[i].includes('h2 id="')) {
       // TODO For H2, create a selector div with the id of the h2container to un-hide
       // TODO   Mechanics is open by default
@@ -170,7 +178,7 @@ export function collapseHeaders(page) {
     } else {
       if (firstH2){
         // Within the first lines of the content. Save in another variable since a tab will be added after it
-        newHeader = newHeader + currentHTML[i] + "\n";
+        newHeading = newHeading + currentHTML[i] + "\n";
       } else {
         // Normal text/tags within headings
         newInner = newInner + currentHTML[i] + "\n";
@@ -190,14 +198,7 @@ export function collapseHeaders(page) {
     newInner = "";
   }
 
-  let colorCollection = [
-    ["yellow", "#f8d959"],
-    ["pink", "#fe796f"],
-    ["teal", "#45c9c9"],
-    ["green", "#58f15b"],
-    ["red", "#e74a41"],
-    ["blue", "#205aaa"]
-  ];
+
 
   var selectionTab = '<div id="content__selector"><div id="content__selectorbox">';
 
@@ -218,9 +219,9 @@ export function collapseHeaders(page) {
   selectionTab = selectionTab + '</div><hr id="content__selectorhr"></hr></div><div id="content__currenth2"></div>';
 
   if (h2Collection.length > 0){
-      page.innerHTML = newHeader + selectionTab;
+      page.innerHTML = newHeading + selectionTab;
   } else {
-      page.innerHTML = newHeader;
+      page.innerHTML = newHeading;
   }
 
   const sliderSelector = document.querySelector('#content__selectorbox');
@@ -284,7 +285,7 @@ export function collapseHeaders(page) {
 }
 
 // --- Function for click events on collapse icons
-export function collapseHeaderStyle(event) {
+export function collapseHeadingStyle(event) {
   // Check the tags related to the current button
   let openTags = event.currentTarget.dataset.open.split(" ");
   for (let i = 0; i < openTags.length; i++) {
@@ -294,8 +295,8 @@ export function collapseHeaderStyle(event) {
       if (target.hidden) {
         target.hidden = false;
         // Change the button depending on the current art
-        if (event.currentTarget.firstChild.innerHTML == "expand_more") {
-          event.currentTarget.firstChild.innerHTML = "expand_less";
+        if (event.currentTarget.firstChild.innerHTML == "expand_circle_down") {
+          event.currentTarget.firstChild.innerHTML = "expand_circle_up";
         } else {
           event.currentTarget.firstChild.innerHTML = "remove";
         }
@@ -303,8 +304,8 @@ export function collapseHeaderStyle(event) {
         // Only hide if click target is the current heading level and is currently not hidden.
         target.hidden = true;
         // Change the button depending on the current art
-        if (event.currentTarget.firstChild.innerHTML == "expand_less") {
-          event.currentTarget.firstChild.innerHTML = "expand_more";
+        if (event.currentTarget.firstChild.innerHTML == "expand_circle_up") {
+          event.currentTarget.firstChild.innerHTML = "expand_circle_down";
         } else {
           event.currentTarget.firstChild.innerHTML = "add";
         }
