@@ -57,8 +57,12 @@ body {
 }
 
 video {
+  display: block;
   margin-top: 15px;
   margin-bottom: 15px;
+  /* Can play around with margin to make text and videos centered differently */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 hr {

@@ -145,15 +145,14 @@ When equipping narikiri dolls, some attacks change properties to reflect the wea
 
 E.g., Johnny equipping Narikiri Stahn will change his regular attacks, Kogahazan, Rekuuzan, Souryuu Rengazan and Senkuuretsuha to sonic attacks. Mary equipping Nariki Stahn would change all those attacks into slash and blunt property attacks and so on.
 
-*:{'todo' : true}*
-**Advance Gate Points**: You can use these on the New Game + shop to buy special effects. Float Gravity, for example, increases the launch power of all attacks by a multiplier. You can also manipulate your end game save file to gain more points. Decreasing and then increasing the difficulty in the same playthrough (so fight the final boss, save, load, fight again), has no effect on the points. Difficulty only has an effect based on the last playthrough difficulty.
+*:{'todo' : true} **Advance Gate Points**: You can use these on the New Game + shop to buy special effects. Float Gravity, for example, increases the launch power of all attacks by a multiplier. You can also manipulate your end game save file to gain more points. Decreasing and then increasing the difficulty in the same playthrough (so fight the final boss, save, load, fight again), has no effect on the points. Difficulty only has an effect based on the last playthrough difficulty.*
 
 **Critical Attacks**: Criticals can stun enemies or apply status effects depending on the character used. Critical attacks makes the current stagger value rise to 80+, the next hit (while the enemy is stunned) also receives bonus stagger time. When the enemy is stunned, all attacks OTG.
 
 **Text Skip**: Hold X and Square to skip all current text. Works better than mashing. Possible to use after options too.
 
-*:{'todo' : true}*
-**Collector's Book Bonus**: Maxed Collectors book gives you 15 of every item after beating the final boss.
+
+*:{'todo' : true} **Collector's Book Bonus**: Maxed Collectors book gives you 15 of every item after beating the final boss.*
 
 **Dash Lock**: After doing a ground dash on a chain (outside of chains you can link ground dashes after any action other than spells and a ground dash) you can only dash again after a back step or after touching the ground without doing any moves. "wavedashing" (jumping then dashing to the ground) can be a good option for enemies too far away for a single dash (as long as they're ground enemies with normal height), since it does not have the same penalties of the ground dash.
 

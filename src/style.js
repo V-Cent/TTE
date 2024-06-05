@@ -224,9 +224,19 @@ export function collapseHeadings(page) {
       page.innerHTML = newHeading;
   }
 
-  const sliderSelector = document.querySelector('#content__selectorbox');
+  // TODO : Maybe make this generic so it also works with something like the TOC
+  dragScrollElement('#content__selectorbox', 0);
 
-  let startDragging = function (e) {
+  contentElem.style.visibility = "visible";
+
+  // TODO add click events to the selection div
+  // Open  h2Collection[0][0]
+}
+
+export function dragScrollElement(query, direction) {
+  const sliderSelector = document.querySelector(query);
+
+  let startDraggingX = function (e) {
     mouseDown = true;
     startX = e.pageX - sliderSelector.offsetLeft;
     if (isNaN(startX)) {
@@ -235,53 +245,71 @@ export function collapseHeadings(page) {
     scrollLeft = sliderSelector.scrollLeft;
   };
 
+  let startDraggingY = function (e) {
+    mouseDown = true;
+    startY = e.pageY - sliderSelector.offsetTop;
+    if (isNaN(startY)) {
+      startY = e.changedTouches[0].pageY - sliderSelector.offsetTop;
+    }
+    scrollTop = sliderSelector.scrollTop;
+  };
+
+  let moveX = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if(!mouseDown) { return; }
+    const x = e.pageX - sliderSelector.offsetLeft;
+    const scroll = x - startX;
+    if (isNaN(x)) {
+      const x = e.changedTouches[0].pageX - sliderSelector.offsetLeft;
+      const scroll = x - startX;
+      sliderSelector.scrollLeft = scrollLeft - scroll;
+    } else {
+      sliderSelector.scrollLeft = scrollLeft - scroll;
+    }
+  };
+
+  let moveY = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if(!mouseDown) { return; }
+    const y = e.pageY - sliderSelector.offsetTop;
+    const scroll = y - startY;
+    if (isNaN(y)) {
+      const y = e.changedTouches[0].pageY - sliderSelector.offsetTop;
+      const scroll = y - startY;
+      sliderSelector.scrollTop = scrollTop - scroll;
+    } else {
+      sliderSelector.scrollTop = scrollTop - scroll;
+    }
+  };
+
   let stopDragging = function (event) {
     mouseDown = false;
   };
 
-  sliderSelector.addEventListener('mousemove', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if(!mouseDown) { return; }
-    const x = e.pageX - sliderSelector.offsetLeft;
-    const scroll = x - startX;
-    if (isNaN(x)) {
-      const x = e.changedTouches[0].pageX - sliderSelector.offsetLeft;
-      const scroll = x - startX;
-      sliderSelector.scrollLeft = scrollLeft - scroll;
-    } else {
-      sliderSelector.scrollLeft = scrollLeft - scroll;
-    }
-  });
-
   // Add the event listeners
-  sliderSelector.addEventListener('mousedown', startDragging, false);
-  sliderSelector.addEventListener('mouseup', stopDragging, false);
-  sliderSelector.addEventListener('mouseleave', stopDragging, false);
+  if (direction == 1){
+    sliderSelector.addEventListener('mousemove', moveY, false);
+    sliderSelector.addEventListener('mousedown', startDraggingY, false);
+    sliderSelector.addEventListener('mouseup', stopDragging, false);
+    sliderSelector.addEventListener('mouseleave', stopDragging, false);
 
-  // For mobile
-  sliderSelector.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if(!mouseDown) { return; }
-    const x = e.pageX - sliderSelector.offsetLeft;
-    const scroll = x - startX;
-    if (isNaN(x)) {
-      const x = e.changedTouches[0].pageX - sliderSelector.offsetLeft;
-      const scroll = x - startX;
-      sliderSelector.scrollLeft = scrollLeft - scroll;
-    } else {
-      sliderSelector.scrollLeft = scrollLeft - scroll;
-    }
-  });
-  sliderSelector.addEventListener('touchstart', startDragging, false);
-  sliderSelector.addEventListener('touchend', stopDragging, false);
+    // For mobile
+    sliderSelector.addEventListener('touchmove', moveY, false);
+    sliderSelector.addEventListener('touchstart', startDraggingY, false);
+    sliderSelector.addEventListener('touchend', stopDragging, false);
+  } else {
+    sliderSelector.addEventListener('mousemove', moveX, false);
+    sliderSelector.addEventListener('mousedown', startDraggingX, false);
+    sliderSelector.addEventListener('mouseup', stopDragging, false);
+    sliderSelector.addEventListener('mouseleave', stopDragging, false);
 
-
-  contentElem.style.visibility = "visible";
-
-  // TODO add click events to the selection div
-  // Open  h2Collection[0][0]
+    // For mobile
+    sliderSelector.addEventListener('touchmove', moveX, false);
+    sliderSelector.addEventListener('touchstart', startDraggingX, false);
+    sliderSelector.addEventListener('touchend', stopDragging, false);
+  }
 }
 
 // --- Function for click events on collapse icons

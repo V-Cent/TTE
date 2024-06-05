@@ -28,7 +28,12 @@ import {
   treatSpoilers,
   styleImages,
   h2Collection,
+  dragScrollElement,
 } from "./style.js";
+
+var currentSection = null;
+var currentDocument = null;
+var inTechPage = false;
 
 // TODO - DISABLE SOURCEMAPS before setting up hosting.
 
@@ -63,6 +68,8 @@ if (document.readyState !== "loading") {
 
 // --- Generic actions every time the page is updated
 export function updatePage() {
+  // Create TOC
+  createTOC();
   // Enable smooth scroll on hash links
   enableSmoothTOC();
   // Treat custom directives
@@ -94,6 +101,7 @@ function compileH2s() {
         button.addEventListener("click", collapseHeadingStyle);
       });
       updatePage();
+      highlightTOC();
     });
   });
 
@@ -104,7 +112,7 @@ function compileH2s() {
 // --- Function related to tagging behaviour
 function compileTags() {
   //Iterator over every element that needs tagging
-  document.querySelectorAll(".tagging").forEach((taggedElement) => {
+  document.querySelectorAll(".tagging, .tagging-text").forEach((taggedElement) => {
     //Get tags from the first child (first heading), which are saved as JSON
     let tagTextData = taggedElement.dataset.tags;
     let tagData = JSON.parse(tagTextData.replace(/'/g, '"'));
@@ -157,7 +165,7 @@ function compileTags() {
         mediaTag.height = "480";
         mediaTag.preload = "metadata";
         mediaTag.style.order = 2;
-        mediaTag.style.width = "100%";
+        mediaTag.style.width = "80%";
         mediaTag.style.outline = "none";
         mediaTag.controls = true;
         mediaTag.muted = true;
@@ -184,7 +192,7 @@ function compileTags() {
             hiddenMedia.height = "480";
             hiddenMedia.preload = "metadata";
             hiddenMedia.style.order = 2;
-            hiddenMedia.style.width = "100%";
+            hiddenMedia.style.width = "80%";
             hiddenMedia.style.outline = "none";
             hiddenMedia.controls = true;
             hiddenMedia.muted = true;
@@ -241,35 +249,53 @@ function changeEvent(event){
 
   if (event.currentTarget.dataset.document == "HOME") {
     //If the event is tagged as "HOME" (nav-bar logo redirect)
+    headings = [];
+    currentSection = "HOME";
+    currentDocument = "HOME";
+    // Removes #content__tocicon if it exists (will be created again for the current page if needed)
+    let tocIcon = document.getElementById("content__tocicon");
+    if (tocIcon != null) {
+      tocIcon.remove();
+    }
     // TODO - loadHome?();
     contentText.innerHTML = "UNDER CONSTRUCTION";
     sectionText.innerHTML = "HOME"
+    inTechPage = false;
+    document.querySelector("#nav-bar").scrollIntoView({
+      behavior: "smooth",
+    });
   } else {
     //Continuous page view
     if (event.currentTarget.dataset.document.includes("./")) {
+      headings = [];
+      // Removes #content__tocicon if it exists (will be created again for the current page if needed)
+      let tocIcon = document.getElementById("content__tocicon");
+      if (tocIcon != null) {
+        tocIcon.remove();
+      }
+      inTechPage = false;
+      currentSection = event.currentTarget.dataset.section;
+      currentDocument = event.currentTarget.dataset.document;
       sectionText.innerHTML = event.currentTarget.dataset.section;
       parseGFM(event.currentTarget.dataset.document).then((page) => {
         contentText.innerHTML = page;
         //Update page & Clear search results
         updatePage();
         clearFunction();
+        document.querySelector("#nav-bar").scrollIntoView({
+          behavior: "smooth",
+        });
       });
     } else {
       //Event is a tech document, set the section as the game name and update the content
+      inTechPage = true;
       sectionText.innerHTML = event.currentTarget.dataset.section;
+      let pastDocument = currentDocument;
+      currentSection = event.currentTarget.dataset.section;
+      currentDocument = event.currentTarget.dataset.document;
       let currentDataset = event.currentTarget.dataset;
-      parseGFM(
-        ("./tech/" + event.currentTarget.dataset.document).toLowerCase()
-      ).then((page) => {
-        // TODO - Add a loading icon here?
-        // content is hidden until collapseHeadings is finished -- the function itself changes it back
-        //   that function adds a selection menu and TOC to the page
-        contentText.style.visibility = "hidden";
-        contentText.innerHTML = page;
-        collapseHeadings(contentText);
-        //Update page & Clear search results
-        compileH2s();
-        //updatePage(); compileH2s has an updatePage() call already.
+      if (currentDocument == pastDocument) {
+        // Just redirect
         clearFunction();
         if (currentDataset.redirect != null) {
           //Event has a redirect location, collapse the headings if needed
@@ -277,15 +303,46 @@ function changeEvent(event){
           document.querySelector(currentDataset.redirect).scrollIntoView({
             behavior: "smooth",
           });
+        } else {
+          //No redirect location, scroll to top
+          document.querySelector("#nav-bar").scrollIntoView({
+            behavior: "smooth",
+          });
         }
-      });
-    }
-    //Scroll to top if no redirect is defined
-    if (event.currentTarget.dataset.redirect == null) {
-      document.documentElement.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      } else {
+        headings = [];
+        // Removes #content__tocicon if it exists (will be created again for the current page if needed)
+        let tocIcon = document.getElementById("content__tocicon");
+        if (tocIcon != null) {
+          tocIcon.remove();
+        }
+        parseGFM(
+          ("./tech/" + event.currentTarget.dataset.document).toLowerCase()
+        ).then((page) => {
+          // TODO - Add a loading icon here?
+          // content is hidden until collapseHeadings is finished -- the function itself changes it back
+          //   that function adds a selection menu and TOC to the page
+          contentText.style.visibility = "hidden";
+          contentText.innerHTML = page;
+          collapseHeadings(contentText);
+          //Update page & Clear search results
+          compileH2s();
+          //updatePage(); compileH2s has an updatePage() call already.
+          clearFunction();
+          if (currentDataset.redirect != null) {
+            //Event has a redirect location, collapse the headings if needed
+            revealID(currentDataset.redirect.substring(1));
+            document.querySelector(currentDataset.redirect).scrollIntoView({
+              behavior: "smooth",
+            });
+          } else {
+            //No redirect location, scroll to top
+            document.querySelector("#nav-bar").scrollIntoView({
+              behavior: "smooth",
+            });
+          }
+        });
+      }
     }
   }
 }
@@ -400,7 +457,11 @@ function parseJsonTag(tokens, idx) {
   if (tokens[idx+1].type == "inline") {
     tokens[idx+1].children[0].content = tokens[idx+1].content;
   }
-  return '<span class="tagging" data-tags="' + jsonTag + '">';
+  let classOp = "tagging";
+  if (tokens[idx].type == "em_open") {
+    classOp = "tagging-text";
+  }
+  return '<span class="'+ classOp +'" data-tags="' + jsonTag + '">';
 }
 
 // --- Functions related to file parsing
@@ -907,6 +968,191 @@ export function revealID(id) {
     });
   }
 }
+
+var headings = [];
+
+function createTOC() {
+  //Check if tocborder already exists
+  let tocBorder = document.getElementById("content__tocborder");
+  let selector = null;
+  let content = null;
+  let toc = null;
+  let tocMobile = null;
+  if (tocBorder == null) {
+    //Check if it is a tech page by searching for an active h2 (class == content__selectorbox--item selected)
+    let techPage = document.querySelector(".content__selectorbox--item.selected");
+    if (techPage == null) {
+      return;
+    } else {
+      // Title is the content of the div
+      h2Title = techPage.textContent;
+    }
+    //Gets div of id content and creats a new div as children
+    content = document.getElementById("content");
+    tocBorder = document.createElement("div");
+    tocBorder.id = "content__tocborder";
+    content.appendChild(tocBorder);
+    toc = document.createElement("div");
+    toc.id = "content__toc";
+    tocMobile = document.createElement("div");
+    tocMobile.id = "content__tocmobile";
+    tocBorder.appendChild(toc);
+    //Set TOC y location just after #content__selector
+    selector = document.getElementById("content__selector");
+    tocBorder.style.top = (selector.offsetTop + 150) + "px";
+
+    // Also add an icon on the #section-container__div for mobile
+    let tocIcon = document.createElement("span");
+    tocIcon.className = "material-symbols-rounded";
+    tocIcon.id = "content__tocicon";
+    tocIcon.innerHTML = "menu_book";
+    tocIcon.style.display = "none";
+    let sectionContainer = document.getElementById("section-container__div");
+    sectionContainer.appendChild(tocIcon);
+    // And a box so the ToC can be added to it. <div id="content__tocicon--box" style="width: 300px;" tabindex="0" class="fadeout">
+    let tocIconBox = document.createElement("div");
+    tocIconBox.id = "content__tocicon--box";
+    tocIconBox.style.width = "0px";
+    // set tabindex so it can get focused
+    tocIconBox.tabIndex = "0";
+    sectionContainer.appendChild(tocIconBox);
+    // Add the toc to the box
+    tocIconBox.appendChild(tocMobile);
+    dragScrollElement(("#" + tocIconBox.id), 1);
+    dragScrollElement(("#" + toc.id), 1);
+    // Add an event listener to the icon
+    tocIcon.addEventListener("click", (event) => {
+      let box = document.getElementById("content__tocicon--box");
+      var boxWidth = 300;
+      if (document.body.clientWidth >= 480) {
+        boxWidth = 360;
+      }
+      box.style.width = boxWidth + "px";
+      box.className = "fadein";
+      tocIconBox.display = "block";
+      box.focus();
+    });
+    tocIconBox.addEventListener("focusout", (event) => {
+      let box = document.getElementById("content__tocicon--box");
+      event.stopPropagation();
+      box.className = "fadeout";
+    });
+  } else {
+    selector = document.getElementById("content__selector");
+    content = document.getElementById("content");
+    toc = document.getElementById("content__toc");
+    tocMobile = document.getElementById("content__tocmobile");
+    h2Title = document.querySelector(".content__selectorbox--item.selected").textContent;
+  }
+  //Set TOCborder size to content size - offset
+  tocBorder.style.height = "calc(100% - " + (selector.offsetTop + 150) + "px)";
+  //Add content to TOC
+  let tocContent = "<p>— On this section:</p><hr>";
+  toc.innerHTML = tocContent;
+  tocMobile.innerHTML = tocContent;
+  // - Scan headinds (h3s and h4s) on #content__currenth2, creates objects with name, clientY, isH3 or isH4, and parent (if H4)
+  headings = [];
+  let h3s = document.querySelectorAll("#content__currenth2 h3");
+  let h4s = document.querySelectorAll("#content__currenth2 h4");
+  for (let h3 of h3s) {
+    headings.push({
+      name: h3.textContent,
+      clientY: h3.getBoundingClientRect().top,
+      isH3: true,
+      obj : h3,
+      id : h3.id
+    });
+  }
+  for (let h4 of h4s) {
+    headings.push({
+      name: h4.textContent,
+      clientY: h4.getBoundingClientRect().top,
+      isH3: false,
+      obj : h4,
+      id : h4.id
+    });
+  }
+  // - Sort the objects by clientY
+  headings.sort((a, b) => a.clientY - b.clientY);
+
+  // - Create a list of links to the headings
+  let tocLinks = "";
+  for (let heading of headings) {
+    let link = '<a data-document="' + currentDocument + '" data-section="'+ currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search" style="display: block;';
+    if (!(heading.isH3)) {
+      link = link.concat('padding-left: 30px; font-size: 13px; padding-top: 6px; padding-bottom: 6px;');
+    }
+    link = link.concat('">' + heading.name);
+    link = link.concat("</a>");
+    tocLinks = tocLinks.concat(link);
+  }
+  // - Add the list to the TOC
+  toc.innerHTML = tocContent.concat(tocLinks);
+  tocMobile.innerHTML = tocContent.concat(tocLinks);
+  // Add addPageChangeEvent to links
+  document.querySelectorAll(".content__toc--search").forEach((item) => {
+    addPageChangeEvent(item);
+  });
+}
+
+var ticking = false;
+
+function highlightTOC() {
+  // Check which H3 is the current one based on scrollPos & headings and hide all other h4s that are not theirs
+  let currentH3 = null;
+  let currentH3Index = 0;
+  let nextH3Index = 0;
+  for (let i = 0; i < headings.length; i++) {
+    if (headings[i].isH3) {
+      // TODO : Something related to viewport instead of 320
+      if (headings[i].obj.getBoundingClientRect().top <= 320 || (currentH3 == null)) {
+        currentH3 = headings[i];
+        currentH3Index = i;
+      } else {
+        nextH3Index = i;
+        break;
+      }
+    }
+  }
+
+  // Hide SEARCH h4s (display: none) before and after the indexes and show (display:block) the ones between
+  for (let i = 0; i < headings.length; i++) {
+    if (!(headings[i].isH3)) {
+      if ((i >= currentH3Index && i <= nextH3Index) || (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index)) {
+        let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + headings[i].id + '"]');
+        for (let search of searchH4) {
+          search.style.display = "block";
+        }
+      } else {
+        let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + headings[i].id + '"]');
+        for (let search of searchH4) {
+          search.style.display = "none";
+        }
+      }
+    }
+  }
+
+  // Add an active to the current h3 and remove active (if there are any) from other
+  let currentActive = document.querySelectorAll(".content__toc--search.active");
+  for (let active of currentActive) {
+    active.classList.remove("active");
+  }
+  let currentH3Link = document.querySelectorAll('.content__toc--search[data-redirect="#' + currentH3.id + '"]');
+  for (let active of currentH3Link) {
+    active.classList.add("active");
+  }
+}
+
+document.addEventListener("scroll", (event) => {
+  if (!ticking && inTechPage) {
+    window.requestAnimationFrame(() => {
+      highlightTOC();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
 
 // --- Function for click events on the nav-bar
 export function enableSmoothTOC() {

@@ -1,6 +1,7 @@
 /* CSS for content items. */
 
 #content {
+  position: relative;
   box-sizing: border-box;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -8,6 +9,134 @@
   padding-right: 300px;
   margin: 0 auto;
   min-height: 600px;
+}
+
+
+#content__tocicon {
+  margin-left: auto;
+  margin-right: 3%;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#content__toc, #content__tocmobile {
+  padding: 20px;
+  /* border: 1px solid #252529cc; */
+  position: sticky;
+  /* width: 100%; */
+  min-height: 100px;
+  border-radius: 26px;
+  top: 100px;
+  z-index: 11;
+  -webkit-border-radius: 26px;
+  -moz-border-radius: 26px;
+  -ms-border-radius: 26px;
+  -o-border-radius: 26px;
+  font-family: "Montserrat", sans-serif;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.03em;
+  opacity: 90%;
+  line-height: 0.5;
+  user-select: none;
+
+  grid-column: 1;
+  grid-row: 1;
+  clip-path: margin-box;
+  overflow: hidden;
+}
+
+#content__toc {
+  max-height: 50vw;
+  overflow-y: auto;
+  scrollbar-color: #252529 #1b1b1d;
+  scrollbar-width: thin;
+}
+
+#content__toc p, #content__tocmobile p {
+  line-height: 1;
+  text-align: center;
+  text-indent: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#content__toc hr, #content__tocmobile hr {
+  width: 95%;
+  opacity: 0.05;
+}
+
+.content__toc--search {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  line-height: 1;
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: clip;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.content__toc--search.active {
+  padding: 10px;
+  border: 1px solid #252529cc;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+#content__tocicon--box.fadein {
+  animation: fadein-show 0.15s 1 linear forwards;
+  -webkit-animation: fadein-show 0.15s 1 linear forwards;
+}
+
+#content__tocicon--box.fadeout {
+  animation: fadeout-hide 0.15s 1 linear forwards;
+  -webkit-animation: fadeout-hide 0.15s 1 linear forwards;
+}
+
+#content__tocborder {
+  position: absolute;
+  display: block;
+  left: 82%;
+  width: 15%;
+  height: 100%;
+  overflow: visible;
+  z-index: 10;
+}
+
+#content__tocicon--box {
+  /* Min phone width is 320px.*/
+  display: grid;
+  max-height: 600px;
+  width: 280px;
+  cursor: default;
+  position: absolute;
+  overflow-y: scroll;
+  scrollbar-color: #252529 #1b1b1d;
+  scrollbar-width: thin;
+  overflow-x: hidden;
+  display: block;
+  background-color: #1c1c1efe;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  z-index: 22;
+  top: 24px;
+  right: 24px;
+  opacity: 0;
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
+  -webkit-filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
 }
 
 #content__selector {
@@ -269,6 +398,24 @@
   order: 1;
 }
 
+.tagging-text .material-symbols-rounded {
+  display: inline-block;
+  vertical-align: middle;
+  text-indent: 0px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+@keyframes fadein-show {
+  from  {opacity: 0;}
+  to    {opacity: 1;}
+}
+
+@keyframes fadeout-hide {
+  from  {opacity: 1;}
+  to    {opacity: 0; width: 0;}
+}
+
 @media screen and (min-width: 0px) and (max-width: 1024px) {
   #content {
     padding-left: 30px;
@@ -281,6 +428,13 @@
   #footer-container {
     padding-left: 18px;
     padding-right: 18px;
+  }
+  #content__tocborder {
+    display: none;
+  }
+  #content__tocicon {
+    /* Overrides hardcoded display:none when in Desktop mode */
+    display: block !important;
   }
 }
 
@@ -296,6 +450,19 @@
   #footer-container {
     padding-left: 18px;
     padding-right: 18px;
+  }
+  #content__tocborder {
+    display: none;
+  }
+  #content__tocicon {
+    /* Overrides hardcoded display:none when in Desktop mode */
+    display: block !important;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  #content__tocicon--box {
+    visibility: hidden;
   }
 }
 

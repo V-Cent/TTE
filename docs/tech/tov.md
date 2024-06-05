@@ -244,7 +244,7 @@ The second is to have Raven in the party. During the action you want to cancel, 
 
 If you want to avoid the camera change caused by Raven's personal strategy, you can use a similar method with two controllers: set your player 1 as Raven and have hit sit on auto-mode. Use player 2 to attack until you want the cancel to happen, where you would pause, set your character's personal strategy, and un-pause. In the menu, the strategy would show as player's 2 character (the one that paused the game), but Raven's is the one that will be activated. For better control, unequip Taunt from Repede and only equip a taunt weapon once you enter the menu. You can then unequip the weapon once you don't need the cancel properties of the taunt.
 
-#### :{'media' : 'media/tov/fakeGuardArte.mp4'} Fake Guard Artes
+#### :{'media' : 'media/tov/fakeGuardArte.mp4'} Empty Guard Artes
 
 Skills needed: Guard artes.
 
@@ -276,7 +276,7 @@ The FS bonuses during battle depend on the chain before you activated them. A Gr
 
 On the Definitive version, FS glyphs stay on screen for less time than both the Vanilla version and the PS3 version. This effect happens on all platforms and with different frame rates.
 
-#### Fake Fatal Strikes
+#### False Strikes
 
 It is possible to make Fatal Strikes not instantly kill enemies by pressing the Fatal Strike button one frame before the Fatal Strike late fail state and one frame after it. This will cause both the FS success and fail animation to play at the same time. Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS); the same effects also happen on normal enemies.
 
@@ -436,10 +436,10 @@ Skills needed: Guard artes, Critical Guard.
 
 If your cancel arte is a base arte, you can use it to cancel push guards (Critical Guard skill), making it possible to chain them until your close enough to perform your buffered arte. This can be a very fast way to move forward, especially with characters like Raven.
 
-#### Fake Guard Arte Chaining
+#### Empty Guard Arte Chaining
 
 Skills needed: Guard artes, Magic Guard (optional).
 
-With semi-auto cancel, as it removes guard delay, you can chain fake guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of fake guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
+With semi-auto cancel, as it removes guard delay, you can chain empty guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of empty guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
 
 *:{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}*
