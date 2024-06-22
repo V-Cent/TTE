@@ -1,11 +1,9 @@
 # Tales of Destiny for the Playstation 2
 
-[Tales of Destiny](<https://aselia.fandom.com/wiki/Tales_of_Destiny_(PS2)>) (テイルズ オブ デスティニー Teiruzu obu Desutinii) was originally released in Japan on December 23, 1997 for the PlayStation console. This page covers the PS2 remake version of Tales of Destiny that was later released for the PlayStation 2 on November 30, 2006.
-
 Versions:
 
-- Original (_Vanilla_), released November 30, 2006 in Japan.
-- DC (_Director's Cut_), released January 31, 2008 in Japan.
+- ***:r Vanilla***: Original PS2 version; released November 30, 2006 in Japan.
+- ***:g DC***: Director's Cut — PS2 version with additional content; released January 31, 2008 in Japan.
 
 Special thanks to the [gamefaqs community](https://gamefaqs.gamespot.com/boards/942208-tales-of-destiny-directors-cut/75150763), [atwiki community](https://w.atwiki.jp/tod_remake/) and users [Zeke Belforma](https://www.youtube.com/watch?v=kzvcOjRu81o), [Bertin](https://www.youtube.com/watch?v=IlQw_DRxGj0), [Joeyjoejoejoejoe](https://www.youtube.com/watch?v=58AZmkFtH-I), [えく+Excd](https://www.youtube.com/watch?v=sAJMLSBYs1A), [tony](https://www.nicovideo.jp/watch/sm19929958), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured) and [Muctales](https://www.youtube.com/user/muctales).
 
@@ -190,7 +188,7 @@ Available since the beginning in Leon's Side and once Leon joins the party for S
 
 #### Infinite Gald and EX points
 
-*:{'media' : 'media/todps2/gald.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/todps2/gald.mp4'}*
 
 Go into a shop and buy something (x1). After that, add one of one item (dpad-right) then click buy on another item (circle). Cancel (X) then you will see an underflow, after this, you can do R-STICK left to "buy" the minimum possible, thus, gaining infinite gald or ex points. Using this when selling will cause you to lose all your money (and the items) instead. More information [here](https://www.youtube.com/watch?v=sAJMLSBYs1A).
 
@@ -208,7 +206,7 @@ You can see an example of this exploit in action [here](https://youtu.be/aBKJ1eg
 
 ### Minor Combat Glitches
 
-#### :{'media' : 'media/todps2/microDash.mp4'} Micro-Dash
+#### :{'media' : 'media/todps2/microDash.mp4', 'forcedmedia' : false} Micro-Dash
 
 If you start moving left or right but use an arte at the same time, you will get a small momentum forward. Moving back produces the most distance, but it is still very small. Also works with spells. The same happens when landing from the air (depending on your momentum).
 
@@ -253,7 +251,7 @@ Dashing a few frames after an attack can move its hitbox. It depends heavily on 
 
 Casting an spell just as an enemy hits you negates the damage you would take (gives you i-frames). You can also enter the incoming attack's hitbox with the magic cancel (by guarding as your in the casting animation) animation ! Only works for attacks that lose their hitbox once it hits something, as multi hits attacks will still hit you on their second hit. It can trigger a blast gain, and that generates more i-frames. The spell release (just before the spell comes out) animation has even more i-frames, and can be used easily by holding the spell down.
 
-*:{'media' : 'media/todps2/spellBlock.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/todps2/spellBlock.mp4'}*
 
 #### Arena Edges
 
@@ -263,7 +261,7 @@ The edges of the battle arena cancel any horizontal momentum when touched. This 
 
 The ceiling of the battle arena also has an interesting effect. When in the air, reach the ceiling (possible with just normals and jumps) and keep jumping against it to have infinite jumps. By releasing the guard button (if you have it pressed), you can change direction midair. Fall speed is increased when you bonk your head in the ceiling, since your vertical momentum is reset each time.
 
-#### :{'media' : 'media/todps2/slowFall.mp4'} Slow Falling
+#### :{'media' : 'media/todps2/slowFall.mp4', 'forcedmedia' : false} Slow Falling
 
 During a chain where you used at least one normal attack (to activate its floaty properties), do a normal attack just as the momentum is changing from upwards (momentum higher than 0) to downwards (momentum lower than zero), you will then stall in the air or, most of the time, fall slowly. Can also work after some artes.
 
@@ -344,7 +342,7 @@ It is important to note that the first normal attack of a chain has some hidden 
 
 So, how does one use this behavior to do Glides? You can simply do an aiming dash in the air (after a jump, double jump, arte or jumps into an arte) into a normal attack to maintain the momentum of the aiming dash. Doing this with a floaty normal attack will only cause you to stop after the end of the normal.
 
-*:{'media' : 'media/todps2/gliding.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/todps2/gliding.mp4'}*
 
 Theres one exception: If an enemy is above you you can always Glide, but you can only Glide from above them one time (and as said before, you lose this above Glide if you use a normal attack). The velocity and angle depend on the distance and angle you have with your enemy.
 
@@ -358,11 +356,11 @@ The only character unable to do glides is Chelsea due to her normals being float
 
 By pressing artes (or shortcut artes) and the normal attack button on the same frame you can get some interesting effects. Since the game thinks you're doing an actual normal attack (which registers before your arte), every A.C arte you do will not have the blast penalty that is applied for repeated artes. A.C can also be used for the following effects:
 
-#### :{'media' : 'media/todps2/followUp.mp4'} Follow-up Negation
+#### :{'media' : 'media/todps2/followUp.mp4', 'forcedmedia' : false} Follow-up Negation
 
 A.C can be used to ignore follow-up artes or other mechanics that require 2 moves to be used in succession. For example, Leon can use Demon Fang twice in a row if the second one is A.C.'ed.
 
-#### :{'media' : 'media/todps2/magicDash.mp4'} Magic Landing Dash
+#### :{'media' : 'media/todps2/magicDash.mp4', 'forcedmedia' : false} Magic Landing Dash
 
 When landing, if you do a Attack Cancelled Spell, you will get a small momentum forward (like the normal would do). This is similar to a Micro-Dash.
 
@@ -416,7 +414,7 @@ The three key points to that behavior are the **buffered action**, the **forced 
 
 This is called a Spatial-buffer cancel (SB Cancel). The cancel can even mess up your momentum and your character's state (such as color).
 
-*:{'media' : 'media/todps2/sbCancel.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/todps2/sbCancel.mp4'}*
 
 There are other important points to SB Canceling:
 
@@ -454,7 +452,7 @@ Finally, if the spell ends in the air and if the _buffered action_ is air-enable
 
 By changing to Manual during the _forced neutral animation_ (or during casting for spells and 1 frame after pressing the artes button for screen-wide artes), the _buffered action_ will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the _buffered action_ will still be available to use. Since you can have much more accurate movements in manual, it is possible to set up a specific position and then change to semi-auto, automatically canceling your action due to the spatial properties of the technique.
 
-*:{'media' : 'media/todps2/sbBuffer.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/todps2/sbBuffer.mp4'}*
 
 The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells.
 

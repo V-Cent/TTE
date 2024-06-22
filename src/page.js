@@ -157,55 +157,141 @@ function compileTags() {
     }
 
     if (tagData.media) {
-      //If it has a media tag, check if it is forced on the page or not.
-      if (tagData.forcedvideo) {
-        //If yes, add it just below the paragraph/heading.
-        let mediaTag = document.createElement("video");
-        mediaTag.width = "640";
-        mediaTag.height = "480";
-        mediaTag.preload = "metadata";
-        mediaTag.style.order = 2;
-        mediaTag.style.width = "80%";
-        mediaTag.style.outline = "none";
-        mediaTag.controls = true;
-        mediaTag.muted = true;
-        mediaTag.loop = true;
-        let sourceVideo = document.createElement("source");
-        sourceVideo.src = tagData.media;
-        sourceVideo.type = "video/mp4";
-        mediaTag.appendChild(sourceVideo);
-        taggedElement.appendChild(mediaTag);
-      } else {
-        //If no, display an icon that can create the video once clicked.
-        let mediaTag = document.createElement("span");
-        mediaTag.dataset.media = tagData.media;
-        mediaTag.className = "material-symbols-rounded";
-        mediaTag.style.marginRight = "15px";
-        mediaTag.style.cursor = "pointer";
-        mediaTag.textContent = "play_circle";
-        taggedElement.appendChild(mediaTag);
-        mediaTag.addEventListener("click", (mediaIcon) => {
-          let videoSibling = mediaIcon.target.nextSibling;
-          if (videoSibling == null) {
-            let hiddenMedia = document.createElement("video");
-            hiddenMedia.width = "640";
-            hiddenMedia.height = "480";
-            hiddenMedia.preload = "metadata";
-            hiddenMedia.style.order = 2;
-            hiddenMedia.style.width = "80%";
-            hiddenMedia.style.outline = "none";
-            hiddenMedia.controls = true;
-            hiddenMedia.muted = true;
-            hiddenMedia.loop = true;
-            let sourceVideo = document.createElement("source");
-            sourceVideo.src = mediaIcon.target.dataset.media;
-            sourceVideo.type = "video/mp4";
-            hiddenMedia.appendChild(sourceVideo);
-            mediaIcon.target.parentNode.appendChild(hiddenMedia);
-          } else {
-            videoSibling.remove();
+      //Check if it's an youtube video or an mp4
+      if (tagData.media.includes(".webp") || tagData.media.includes(".png") || tagData.media.includes(".jpg")) {
+        //If it has a media tag, check if it is forced on the page or not.
+        if (tagData.forcedmedia != false) {
+          //If yes, add it just below the paragraph/heading.
+          let mediaHolder = document.createElement("p");
+          mediaHolder.style.opacity = "1";
+          let mediaTag = document.createElement("img");
+          mediaTag.draggable = false;
+          mediaTag.width = "640";
+          mediaTag.height = "480";
+          mediaTag.style.order = 2;
+          mediaTag.style.width = "80%";
+          mediaTag.style.height = "auto";
+          mediaTag.style.maxWidth = "640px";
+          mediaTag.style.outline = "none";
+          mediaTag.src = tagData.media;
+          mediaHolder.appendChild(mediaTag);
+          if (tagData.caption) {
+            let caption = document.createElement("figcaption");
+            caption.textContent = "\xa0" + tagData.caption + "\xa0";
+            mediaHolder.appendChild(caption);
           }
-        });
+          taggedElement.parentNode.insertBefore(mediaHolder, taggedElement.nextSibling);
+        } else {
+          //If no, display an icon that can create the video once clicked.
+          let mediaTag = document.createElement("span");
+          mediaTag.dataset.media = tagData.media;
+          mediaTag.className = "material-symbols-rounded";
+          mediaTag.style.marginRight = "15px";
+          mediaTag.style.cursor = "pointer";
+          mediaTag.textContent = "imagesmode";
+          taggedElement.appendChild(mediaTag);
+          mediaTag.addEventListener("click", (mediaIcon) => {
+            let imgTarget = document.querySelector('p[data-media~="' + mediaIcon.target.dataset.media + '"]');
+            if (imgTarget == null) {
+              let mediaHolder = document.createElement("p");
+              mediaHolder.style.opacity = "1";
+              mediaHolder.dataset.media = mediaIcon.target.dataset.media;
+              let hiddenMedia = document.createElement("img");
+              hiddenMedia.draggable = false;
+              hiddenMedia.width = "640";
+              hiddenMedia.height = "480";
+              hiddenMedia.style.order = 2;
+              hiddenMedia.style.width = "80%";
+              hiddenMedia.style.height = "auto";
+              hiddenMedia.style.maxWidth = "640px";
+              hiddenMedia.style.outline = "none";
+              hiddenMedia.src = mediaIcon.target.dataset.media;
+              mediaHolder.appendChild(hiddenMedia);
+              if (tagData.caption) {
+                let caption = document.createElement("figcaption");
+                caption.textContent = "\xa0" + tagData.caption + "\xa0";
+                mediaHolder.appendChild(caption);
+              }
+              //mediaIcon.target.parentNode.appendChild(mediaHolder);
+              taggedElement.parentNode.insertBefore(mediaHolder, taggedElement.nextSibling);
+            } else {
+              imgTarget.remove();
+            }
+          });
+        }
+      } else {
+        //If it has a media tag, check if it is forced on the page or not.
+        if (tagData.forcedmedia != false) {
+          //If yes, add it just below the paragraph/heading.
+          let mediaHolder = document.createElement("p");
+          mediaHolder.style.opacity = "1";
+          let mediaTag = document.createElement("video");
+          mediaTag.width = "640";
+          mediaTag.height = "480";
+          mediaTag.preload = "metadata";
+          mediaTag.style.order = 2;
+          mediaTag.style.width = "80%";
+          mediaTag.style.height = "auto";
+          mediaTag.style.maxWidth = "640px";
+          mediaTag.style.outline = "none";
+          mediaTag.controls = true;
+          mediaTag.muted = true;
+          mediaTag.loop = true;
+          let sourceVideo = document.createElement("source");
+          sourceVideo.src = tagData.media;
+          sourceVideo.type = "video/mp4";
+          mediaTag.appendChild(sourceVideo);
+          mediaHolder.appendChild(mediaTag);
+          if (tagData.caption) {
+            let caption = document.createElement("figcaption");
+            caption.textContent = "\xa0" + tagData.caption + "\xa0";
+            mediaHolder.appendChild(caption);
+          }
+          taggedElement.parentNode.insertBefore(mediaHolder, taggedElement.nextSibling);
+        } else {
+          //If no, display an icon that can create the video once clicked.
+          let mediaTag = document.createElement("span");
+          mediaTag.dataset.media = tagData.media;
+          mediaTag.className = "material-symbols-rounded";
+          mediaTag.style.marginRight = "15px";
+          mediaTag.style.cursor = "pointer";
+          mediaTag.textContent = "play_circle";
+          taggedElement.appendChild(mediaTag);
+          mediaTag.addEventListener("click", (mediaIcon) => {
+            let videoTarget = document.querySelector('p[data-media~="' + mediaIcon.target.dataset.media + '"]');
+            if (videoTarget == null) {
+              let mediaHolder = document.createElement("p");
+              mediaHolder.style.opacity = "1";
+              mediaHolder.dataset.media = mediaIcon.target.dataset.media;
+              let hiddenMedia = document.createElement("video");
+              hiddenMedia.width = "640";
+              hiddenMedia.height = "480";
+              hiddenMedia.preload = "metadata";
+              hiddenMedia.style.order = 2;
+              hiddenMedia.style.width = "80%";
+              hiddenMedia.style.height = "auto";
+              hiddenMedia.style.maxWidth = "640px";
+              hiddenMedia.style.outline = "none";
+              hiddenMedia.controls = true;
+              hiddenMedia.muted = true;
+              hiddenMedia.loop = true;
+              let sourceVideo = document.createElement("source");
+              sourceVideo.src = mediaIcon.target.dataset.media;
+              sourceVideo.type = "video/mp4";
+              hiddenMedia.appendChild(sourceVideo);
+              mediaHolder.appendChild(hiddenMedia);
+              if (tagData.caption) {
+                let caption = document.createElement("figcaption");
+                caption.textContent = "\xa0" + tagData.caption + "\xa0";
+                mediaHolder.appendChild(caption);
+              }
+              //mediaIcon.target.parentNode.appendChild(mediaHolder);
+              taggedElement.parentNode.insertBefore(mediaHolder, taggedElement.nextSibling);
+            } else {
+              videoTarget.remove();
+            }
+          });
+        }
       }
     }
   });

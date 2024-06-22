@@ -106,13 +106,15 @@ The possible options are:
 - 'versions' : 'text here that defines which versions'
 - 'todo' : true (a flag that defines if the section needs work)
 - 'media' : 'url' (url of video)
-- 'forcedmedia' : true (a flag that defines if the video is forced on the page)
+- 'forcedmedia' : false (a flag that makes the media hidden in a button)
 
 For emphasis, you can also group a block of text within it, to tag a specific portion of your paragraph:
 
 *:{'versions' : 'TTE', 'todo' : true} This is a test!*
 
 Parameters should always be encapsulated in braces. The name of each parameter is set between single quotes ('); the same should be done for text values.
+
+Media should only be added in the middle of text or for fourth headings (####).
 
 ## Default Format for a Tech Page
 

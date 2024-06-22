@@ -298,7 +298,7 @@ Keep in mind that an arte will be buffered if you do this. You also need to chan
 
 While the enemy has a Fatal Strike glyph up, you can press an action and the FS button together to cancel your _current action_ (if possible) and instantly start the action you pressed (the _cancel action_). This can only be performed when you are able to perform a successful FS in the first place, so keep in mind that some actions disable your FS use momentarily. In most cases, FS use is enabled after the last hit of most artes (but earlier than it can be canceled normally).
 
-*:{'media' : 'media/tov/fscancel.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tov/fscancel.mp4'}*
 
 _Cancel actions_ can be artes or normal attacks.
 
@@ -310,7 +310,7 @@ There a few important notes about this cancel:
 
 ### Manual Cancel
 
-*:{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true} Also called Free-Run Cancel (FRC), Manual Cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.*
+*:{'media' : 'media/tov/manualCancel.mp4'} Also called Free-Run Cancel (FRC), Manual Cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.*
 
 For the Repede skill, it enables the user to use Manual Cancel in any direction (360 degrees) and also use it in semi-auto mode.
 
@@ -386,7 +386,7 @@ More information can be found [here](https://www.youtube.com/watch?v=mKdSnZqTX5w
 
 Also sometimes called Stick Cancel, the Semi-auto cancel (SAC) is a technique that abuses the free-run animation that happens when you use semi-auto, and the buffered actions of auto mode.
 
-*:{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true} Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).*
+*:{'media' : 'media/tov/sac.mp4'} Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).*
 
 SAC can be set-up mid combo, and it does not require neutral stance/guard to be in effect.
 
@@ -442,4 +442,4 @@ Skills needed: Guard artes, Magic Guard (optional).
 
 With semi-auto cancel, as it removes guard delay, you can chain empty guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of empty guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
 
-*:{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tov/fakeGuardArteChaining.mp4'}*

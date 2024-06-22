@@ -60,23 +60,23 @@ Here we will discuss various different techniques/glitches that can be used duri
 
 Generally, the only way to consistently keep a boss in a combo is through a Power Combo. However, it is possible to do multiple power combos within a single combo, by timing the end of the power hits gauge to line up with a well placed weakness hit. There are multiple ways to go about these weakness resets, which will be explained below.
 
-*:{'media' : 'media/tox2/knockdown.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tox2/knockdown.mp4'}*
 
-*:{'media' : 'media/tox2/countercancels.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tox2/countercancels.mp4'}*
 
 **OTG:** Knock down the boss right as the Power Hits gauge is about to expire, and then OTG them with their weakness. You can also hit them with their weakness while they're downed and then OTG them with a different arte, as bosses can't trigger counters while knocked down. You can also knockdown bosses in the air. Aerial knockdowns do not contribute towards to the KD limit, as long as they are OTG'd before touching the ground. In addition, human bosses will attempt to air recover at the earliest possible opportunity, requiring a near instant OTG to retain the combo.
 
-*:{'media' : 'media/tox2/kd1.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tox2/kd1.mp4'}*
 
 **Unclean Hits:** If the KD limit has been reached, the boss will gain Iron Stance to prevent you from continuing your combo. You can bypass this by petrifying them, hitting their weakness and then breaking their Iron Stance while they are frozen, in that order. Alternatively, you can also stun them with an arte that OTGs, such as Stun Blitz or backwards Hammer Flail, or use an arte with the Iron Stance Break property after hitting a weakness while they're downed.
 
 **Counter Cancel (Launch):** Wait for gauge to run out and hit the enemy with an attack that both launches upwards and hits a weakness. This will trigger a counter and depending on the boss will be RNG dependant. The counter will be rolled from their ground-counter pool and for this to work they have to use an attack that can only be used on the ground. After the super armor wears off hit with another element to resume comboing normally.
 
-*:{'media' : 'media/tox2/launch.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tox2/launch.mp4'}*
 
 **Counter Cancel (Landing):** Essentially the opposite of the launch method. Have the enemy airborne as the gauge is about to run out, then hit with anything that doesn't juggle or give the enemy more air time AND hit a weakness. This relies on the air-counter pool to roll with an attack that can only be used in the air and get cancelled as they land before they can use it. After the super armor wears off hit with another element to resume comboing normally.
 
-*:{'media' : 'media/tox2/landing.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tox2/landing.mp4'}*
 
 Outside of the obvious utility of combo extension and DPS, weakness resets can also be used to limit your own damage or element usage, without sacrificing combo length. As a practical example, some Elite Monsters will "break" after hitting them with too many elements in a Power Combo. By using weakness resets to let Power Hits end at a low multiplier, and then continue a fresh Power Hits chain from scratch, you can keep your combos going freely.
 

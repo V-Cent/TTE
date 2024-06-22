@@ -3,8 +3,8 @@
 #content {
   position: relative;
   box-sizing: border-box;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 10px;
+  padding-bottom: 0px;
   padding-left: 300px;
   padding-right: 300px;
   margin: 0 auto;
@@ -106,8 +106,9 @@
 #content__tocborder {
   position: absolute;
   display: block;
-  left: 82%;
+  right: 80px;
   width: 15%;
+  max-width: 320px;
   height: 100%;
   overflow: visible;
   z-index: 10;
@@ -212,12 +213,14 @@
 
 .content__h3 {
   position: relative;
+  clear: both;
   margin-top: 30px;
   margin-bottom: 30px;
 }
 
 .content__h4 {
   position: relative;
+  clear: both;
   margin-top: 20px;
   margin-bottom: 20px;
   padding: 20px;
@@ -230,6 +233,7 @@
 }
 
 .content__h3--divider {
+  clear: both;
   opacity: 0.05;
   margin-top: 40px;
   width: 60%;

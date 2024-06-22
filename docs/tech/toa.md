@@ -235,7 +235,7 @@ You can find more information [here](https://www.youtube.com/watch?v=WHePG4uTlEI
 
 With an action pending (cancel AI mid-chain): while on manual or semi-auto, you can go into your artes menu, change from arte settings to arte list (R2/L2 or R/T/left click) and select any air arte. You character will then perform that arte the closest to the ground possible, something which cannot be done while on semi-auto or manual.
 
-*:{'media' : 'media/toa/aic.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/toa/aic.mp4'}*
 
 If you let your character be, it will also consume any pending action and return to neutral on its own (ignoring the control mode and any strategy). This can be unwanted, since the character can have multiple actions pending. To negate this effect, simply tap (or hold) any direction after the action you chose on the menu was performed. You can also use the menu again to perform any air or ground moves on that state.
 

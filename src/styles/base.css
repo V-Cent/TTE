@@ -56,13 +56,27 @@ body {
   overflow-x: clip;
 }
 
-video {
+video, p img {
   display: block;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 25px;
+  margin-bottom: 14px;
   /* Can play around with margin to make text and videos centered differently */
   margin-left: auto;
   margin-right: auto;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+figcaption {
+  font-family: "Nunito", sans-serif;
+  text-align: center;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
 }
 
 hr {
@@ -128,7 +142,7 @@ h6 {
 }
 
 h3 {
-  text-indent: 4ch;
+  text-indent: 6ch;
   font-size: 28px;
 }
 
@@ -150,21 +164,21 @@ h4 {
 
 p {
   font-family: "Montserrat", sans-serif;
-  color: #ffffff;
   font-weight: 400;
   font-size: 18px;
   max-width: 90ch;
   text-indent: 2ch;
   letter-spacing: 0.03em;
-  opacity: 75%;
+  /* opacity: 75%; */
+  color: #ffffffcc;
 }
 
 a:link {
-  color: #ffffff;
+  color: #ffffffcc;
 }
 
 a:visited {
-  color: #ffffff;
+  color: #ffffffcc;
 }
 
 a:hover {
@@ -174,7 +188,7 @@ a:hover {
 }
 
 a:active {
-  color: #ffffff;
+  color: #ffffffcc;
 }
 
 .spoiler {
