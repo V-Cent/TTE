@@ -297,6 +297,17 @@ function compileTags() {
   });
 }
 
+function clearSectionTOC() {
+  let tocIcon = document.getElementById("content__tocicon");
+  if (tocIcon != null) {
+    tocIcon.remove();
+  }
+  let tocBox = document.getElementById("content__tocicon--box");
+  if (tocBox != null) {
+    tocBox.remove();
+  }
+}
+
 function changeEvent(event){
   // Variables to cosmetic modifications on the page
   let i, tabContent, tabLinks;
@@ -339,10 +350,7 @@ function changeEvent(event){
     currentSection = "HOME";
     currentDocument = "HOME";
     // Removes #content__tocicon if it exists (will be created again for the current page if needed)
-    let tocIcon = document.getElementById("content__tocicon");
-    if (tocIcon != null) {
-      tocIcon.remove();
-    }
+    clearSectionTOC();
     // TODO - loadHome?();
     contentText.innerHTML = "UNDER CONSTRUCTION";
     sectionText.innerHTML = "HOME"
@@ -355,10 +363,7 @@ function changeEvent(event){
     if (event.currentTarget.dataset.document.includes("./")) {
       headings = [];
       // Removes #content__tocicon if it exists (will be created again for the current page if needed)
-      let tocIcon = document.getElementById("content__tocicon");
-      if (tocIcon != null) {
-        tocIcon.remove();
-      }
+      clearSectionTOC();
       inTechPage = false;
       currentSection = event.currentTarget.dataset.section;
       currentDocument = event.currentTarget.dataset.document;
@@ -398,10 +403,7 @@ function changeEvent(event){
       } else {
         headings = [];
         // Removes #content__tocicon if it exists (will be created again for the current page if needed)
-        let tocIcon = document.getElementById("content__tocicon");
-        if (tocIcon != null) {
-          tocIcon.remove();
-        }
+        clearSectionTOC();
         parseGFM(
           ("./tech/" + event.currentTarget.dataset.document).toLowerCase()
         ).then((page) => {
@@ -445,10 +447,13 @@ export function addPageChangeEvent(item) {
 
 import { Remarkable } from 'remarkable'; // This is where the bulk of the filesize comes from
 
+import rkatex from 'remarkable-katex';
+
 var md = new Remarkable('full', {
   html: true,
   typographer: false,
 });
+md.use(rkatex);
 
 const openEmRenderer = md.renderer.rules.em_open;
 const closeEmRenderer = md.renderer.rules.em_close;
@@ -469,7 +474,7 @@ var tagMap = {
 };
 
 // https://www.npmjs.com/package/remarkable-youtube
-//     When video sources are from Youtube?
+//     When video sources are from Youtube? or remarkable-embed
 
 md.renderer.rules.heading_open = function(tokens, idx, options, env) {
   if (tokens[idx+1].content[0] == ':') {
@@ -1204,7 +1209,7 @@ function highlightTOC() {
   // Hide SEARCH h4s (display: none) before and after the indexes and show (display:block) the ones between
   for (let i = 0; i < headings.length; i++) {
     if (!(headings[i].isH3)) {
-      if ((i >= currentH3Index && i <= nextH3Index) || (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index)) {
+      if ((i >= currentH3Index && i <= nextH3Index) || (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index) || (nextH3Index == 0 && currentH3Index == 0)) {
         let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + headings[i].id + '"]');
         for (let search of searchH4) {
           search.style.display = "block";

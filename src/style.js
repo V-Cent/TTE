@@ -10,6 +10,8 @@ var colorCollection = [
 ];
 
 // TODO - VS recomments this being a class... Maybe? Also is a table .js file needed?
+
+// sorts and styles tables
 export function sortTables() {
   var getCellValue = function (tr, idx) {
     return tr.children[idx].innerText || tr.children[idx].textContent;
@@ -25,7 +27,9 @@ export function sortTables() {
     };
   };
 
-  document.querySelectorAll("th").forEach((th) =>
+  document.querySelectorAll("th").forEach((th) => {
+    // add a cosmetic sort span
+    th.innerHTML = th.innerHTML + '<span class="material-symbols-rounded">swap_vert</span>';
     th.addEventListener("click", () => {
       const table = th.closest("table");
       const tbody = table.querySelector("tbody");
@@ -38,7 +42,7 @@ export function sortTables() {
         )
         .forEach((tr) => tbody.appendChild(tr));
     })
-  );
+  });
 }
 
 export function treatSpoilers() {

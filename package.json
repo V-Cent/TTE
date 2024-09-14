@@ -1,12 +1,14 @@
 {
   "name": "tte",
-  "version": "0.15.2",
+  "version": "0.15.4",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,
   "license": "MIT",
   "nodemonConfig": {
-    "ignore": ["docs/"],
+    "ignore": [
+      "docs/"
+    ],
     "ext": "js,html,css"
   },
   "scripts": {
@@ -16,7 +18,9 @@
   "dependencies": {
     "@minify-html/node": "^0.11.1",
     "esbuild": "^0.21.4",
+    "katex": "^0.16.10",
     "nodemon": "^3.0.1",
-    "remarkable": "^2.0.1"
+    "remarkable": "^2.0.1",
+    "remarkable-katex": "^1.2.1"
   }
 }
