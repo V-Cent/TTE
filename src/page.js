@@ -124,7 +124,7 @@ function compileTags() {
       todoTag.style.color = "goldenrod";
       todoTag.style.marginRight = "15px";
       todoTag.style.cursor = "help";
-      todoTag.textContent = "error_outline";
+      todoTag.textContent = "error";
       taggedElement.appendChild(todoTag);
       todoTag.addEventListener("mouseover", () => {
         loadTooltip(
@@ -447,13 +447,10 @@ export function addPageChangeEvent(item) {
 
 import { Remarkable } from 'remarkable'; // This is where the bulk of the filesize comes from
 
-import rkatex from 'remarkable-katex';
-
 var md = new Remarkable('full', {
   html: true,
   typographer: false,
 });
-md.use(rkatex);
 
 const openEmRenderer = md.renderer.rules.em_open;
 const closeEmRenderer = md.renderer.rules.em_close;
@@ -896,73 +893,62 @@ export function fillSearch() {
             addPageChangeEvent(item);
           });
 
+
         const doc = parser.parseFromString(currentDocument, "text/html");
-        // H1 First - Game Title
-        doc.querySelectorAll("h1").forEach((currentHeading) => {
-          searchContents = searchContents.concat('<a data-document="');
-          // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.document
-          );
-          searchContents = searchContents.concat(
-            '" class = "nav-bar__search--results" tabindex="0" data-section="'
-          );
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.section
-          );
-          searchContents = searchContents.concat('" data-redirect="#');
-          searchContents = searchContents.concat(currentHeading.id);
-          searchContents = searchContents.concat('"><b>');
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.section
-          );
-          searchContents = searchContents.concat("</b> </a>");
-        });
-        // H3 Second - Articles
-        doc.querySelectorAll("h3").forEach((currentHeading) => {
-          searchContents = searchContents.concat('<a data-document="');
-          // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.document
-          );
-          searchContents = searchContents.concat(
-            '" class = "nav-bar__search--results" tabindex="0" data-section="'
-          );
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.section
-          );
-          searchContents = searchContents.concat('" data-redirect="#');
-          searchContents = searchContents.concat(currentHeading.id);
-          searchContents = searchContents.concat('"><b>');
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.document
-          );
-          searchContents = searchContents.concat("</b> <br>&nbsp;&nbsp;&nbsp;");
-          searchContents = searchContents.concat(currentHeading.textContent);
-          searchContents = searchContents.concat("</a>");
-        });
-        // H4 Third - Specific Tech
-        doc.querySelectorAll("h4").forEach((currentHeading) => {
-          searchContents = searchContents.concat('<a data-document="');
-          // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.document
-          );
-          searchContents = searchContents.concat(
-            '" class = "nav-bar__search--results" tabindex="0" data-section="'
-          );
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.section
-          );
-          searchContents = searchContents.concat('" data-redirect="#');
-          searchContents = searchContents.concat(currentHeading.id);
-          searchContents = searchContents.concat('"><b>');
-          searchContents = searchContents.concat(
-            tabLinks[currentIndex].dataset.document
-          );
-          searchContents = searchContents.concat("</b> <br>&nbsp;&nbsp;&nbsp;");
-          searchContents = searchContents.concat(currentHeading.textContent);
-          searchContents = searchContents.concat("</a>");
+
+        // Get all h1, h3, and h4 elements in the order they appear in the document
+        const headings = doc.querySelectorAll("h1, h2, h3, h4");
+
+        // Process each heading in the order they appear
+        let currentH2 = null;
+        headings.forEach((currentHeading) => {
+          if (currentHeading.tagName == "H1") {
+            currentH2 = null;
+            searchContents = searchContents.concat('<a data-document="');
+            // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
+            searchContents = searchContents.concat(
+              tabLinks[currentIndex].dataset.document
+            );
+            searchContents = searchContents.concat(
+              '" class = "nav-bar__search--results" tabindex="0" data-section="'
+            );
+            searchContents = searchContents.concat(
+              tabLinks[currentIndex].dataset.section
+            );
+            searchContents = searchContents.concat('" data-redirect="#');
+            searchContents = searchContents.concat(currentHeading.id);
+            searchContents = searchContents.concat('"><b>');
+            searchContents = searchContents.concat(
+              tabLinks[currentIndex].dataset.section
+            );
+            searchContents = searchContents.concat("</b> </a>");
+          } else {
+            if (currentHeading.tagName == "H2") {
+              currentH2 = currentHeading.id;
+            }
+            if ((currentH2 == "glitches" || currentH2 == "techniques") && currentHeading.id != "general-techniques") {
+              searchContents = searchContents.concat('<a data-document="');
+              // Create a link composed of the game name (short) and tech name and concat to the other links made by this function
+              searchContents = searchContents.concat(
+                tabLinks[currentIndex].dataset.document
+              );
+              searchContents = searchContents.concat(
+                '" class = "nav-bar__search--results" tabindex="0" data-section="'
+              );
+              searchContents = searchContents.concat(
+                tabLinks[currentIndex].dataset.section
+              );
+              searchContents = searchContents.concat('" data-redirect="#');
+              searchContents = searchContents.concat(currentHeading.id);
+              searchContents = searchContents.concat('"><b>');
+              searchContents = searchContents.concat(
+                tabLinks[currentIndex].dataset.document
+              );
+              searchContents = searchContents.concat("</b> <br>&nbsp;&nbsp;&nbsp;");
+              searchContents = searchContents.concat(currentHeading.textContent);
+              searchContents = searchContents.concat("</a>");
+            }
+          }
         });
         // Insert the HTML on the search bar
         // TODO - this probably does for the same link multiple times... (not really but...JS)
@@ -1224,13 +1210,15 @@ function highlightTOC() {
   }
 
   // Add an active to the current h3 and remove active (if there are any) from other
-  let currentActive = document.querySelectorAll(".content__toc--search.active");
-  for (let active of currentActive) {
-    active.classList.remove("active");
-  }
-  let currentH3Link = document.querySelectorAll('.content__toc--search[data-redirect="#' + currentH3.id + '"]');
-  for (let active of currentH3Link) {
-    active.classList.add("active");
+  if (currentH3 != null) {
+    let currentActive = document.querySelectorAll(".content__toc--search.active");
+    for (let active of currentActive) {
+      active.classList.remove("active");
+    }
+    let currentH3Link = document.querySelectorAll('.content__toc--search[data-redirect="#' + currentH3.id + '"]');
+    for (let active of currentH3Link) {
+      active.classList.add("active");
+    }
   }
 }
 

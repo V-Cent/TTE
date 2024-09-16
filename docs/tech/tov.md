@@ -170,7 +170,7 @@ On the switch version, artes come out on stick release, and holding the stick ma
 
 You can find more information about it [here](https://t.co/XV4Xg4M0mv).
 
-## Combat Techniques
+## Techniques
 
 Here we will discuss various different techniques/glitches that can be used during combat.
 

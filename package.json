@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.15.4",
+  "version": "0.15.6",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,
@@ -13,13 +13,15 @@
   },
   "scripts": {
     "watch": "nodemon --watch \"src/\" --exec \"npm run build\"",
-    "build": "esbuild src/scroll.js src/logo.js src/tooltip.js src/style.js src/page.js --bundle --minify --sourcemap --outdir=docs/scripts && esbuild src/styles/base.css src/styles/content.css src/styles/elements.css src/styles/navbar.css src/styles/scroll.css --bundle --minify --outdir=docs/styles && minify-html --output docs/index.html --keep-closing-tags --minify-css src/index.html"
+    "build": "node esbuild.mjs && minify-html --output docs/index.html --keep-closing-tags --minify-css src/index.html"
   },
   "dependencies": {
-    "@minify-html/node": "^0.11.1",
-    "esbuild": "^0.21.4",
-    "katex": "^0.16.10",
-    "nodemon": "^3.0.1",
+    "@minify-html/node": "^0.15.0",
+    "esbuild": "^0.23.1",
+    "esbuild-plugin-alias": "^0.2.1",
+    "esbuild-plugin-ignore": "^1.1.1",
+    "katex": "^0.16.11",
+    "nodemon": "^3.1.4",
     "remarkable": "^2.0.1",
     "remarkable-katex": "^1.2.1"
   }

@@ -224,7 +224,7 @@ If you're currently doing a definite strike chain and stun/sleep/stone an enemy 
 
 Enemies can only take so much stagger before going instantly into hard knockdown state. It happens when stagger is past 40 frames and you do any attack, arte or action that adds more stagger.
 
-## Combat Techniques
+## Techniques
 
 Here we will discuss various different techniques/glitches that can be used during combat.
 

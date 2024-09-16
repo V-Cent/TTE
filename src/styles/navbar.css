@@ -38,8 +38,8 @@
   vertical-align: middle;
   z-index: 2;
   margin-top: 2px;
-  filter: invert(10%) sepia(7%) saturate(657%) hue-rotate(202deg) brightness(102%) contrast(90%);
   -webkit-filter: invert(10%) sepia(7%) saturate(657%) hue-rotate(202deg) brightness(102%) contrast(90%);
+  filter: invert(10%) sepia(7%) saturate(657%) hue-rotate(202deg) brightness(102%) contrast(90%);
 }
 
 #nav-bar__title__text {
@@ -58,8 +58,8 @@
 }
 
 .nav-bar__tab-bar--content {
-  animation: nav-bar__tab-bar--content--fade 1s;
   -webkit-animation: nav-bar__tab-bar--content--fade 1s;
+  animation: nav-bar__tab-bar--content--fade 1s;
 }
 
 /* Go from zero to full opacity */
@@ -102,8 +102,10 @@
   float: right;
   vertical-align: middle;
   cursor: pointer;
-  user-select: none;
+  -moz-user-select: none;
   -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #nav-bar__games .material-symbols-rounded {
@@ -130,11 +132,11 @@
   flex-direction: column;
   flex-flow: column nowrap;
   background-color: #1c1c1efe;
-  border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
+  border-radius: 4px;
   z-index: 22;
   width: 200px;
   top: -3px;
@@ -145,8 +147,8 @@
   -moz-transition:w 0.35s ease-out;
   -ms-transition:w 0.35s ease-out;
   -o-transition:w 0.35s ease-out;*/
-  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
   -webkit-filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
 }
 
 #nav-bar__gamesbox {
@@ -158,17 +160,17 @@
   overflow-x: hidden;
   display: block;
   background-color: #1c1c1efe;
-  border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
+  border-radius: 4px;
   z-index: 22;
   top: -3px;
   right: -3px;
   opacity: 0;
-  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
   -webkit-filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,0.2));
 }
 /* Use flex-shink: 0 if parent is a flex */
 .nav-bar__games--wrapper {
@@ -177,12 +179,12 @@
   display: inline-block;
   padding-left: 4px;
   padding-right: 4px;
-  border-radius: 4px;
-  height: 65px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
+  border-radius: 4px;
+  height: 65px;
 }
 
 .nav-bar__games--wrapper figcaption {
@@ -198,52 +200,52 @@
 
 .nav-bar__games--wrapper:hover {
   background-color: #252529;
-  filter: brightness(1.1);
   -webkit-filter: brightness(1.1);
+  filter: brightness(1.1);
 }
 
 #nav-bar__gamesbox img {
   border: 1px solid #ffffff55;
   width: 44px;
   height: 44px;
-  border-radius: 8px;
-  opacity: 80%;
-  filter: blur(0.4px) contrast(110%);
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -ms-border-radius: 8px;
   -o-border-radius: 8px;
+  border-radius: 8px;
+  opacity: 80%;
   -webkit-filter: blur(0.4px) contrast(110%);
+  filter: blur(0.4px) contrast(110%);
 }
 
 #nav-bar__searchbox.fadein {
-  animation: fadein-show 0.15s 1 linear forwards;
   -webkit-animation: fadein-show 0.15s 1 linear forwards;
+  animation: fadein-show 0.15s 1 linear forwards;
 }
 
 #nav-bar__searchbox.fadeout {
-  animation: fadeout-hide 0.15s 1 linear forwards;
   -webkit-animation: fadeout-hide 0.15s 1 linear forwards;
+  animation: fadeout-hide 0.15s 1 linear forwards;
 }
 
 #nav-bar__gamesbox.fadein {
-  animation: fadein-show 0.15s 1 linear forwards;
   -webkit-animation: fadein-show 0.15s 1 linear forwards;
+  animation: fadein-show 0.15s 1 linear forwards;
 }
 
 #nav-bar__gamesbox.fadeout {
-  animation: fadeout-hide 0.15s 1 linear forwards;
   -webkit-animation: fadeout-hide 0.15s 1 linear forwards;
+  animation: fadeout-hide 0.15s 1 linear forwards;
 }
 
 .logo-fadein {
-  animation: logo-fadein 0.15s 1 ease-out forwards;
   -webkit-animation: logo-fadein 0.15s 1 ease-out forwards;
+  animation: logo-fadein 0.15s 1 ease-out forwards;
 }
 
 .logo-fadeout {
-  animation: logo-fadeout 0.15s 1 ease-in forwards;
   -webkit-animation: logo-fadeout 0.15s 1 ease-in forwards;
+  animation: logo-fadeout 0.15s 1 ease-in forwards;
 }
 
 @keyframes fadein-show {

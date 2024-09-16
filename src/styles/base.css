@@ -10,6 +10,45 @@ Greys are:
 All neutral on red green, with a slight blue hue.
 */
 
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../fonts/gsymbols.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/gmontserrat.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/gnunito.woff2") format('woff2');
+}
+
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+}
+
 .material-symbols-rounded {
   border: none !important;
   border-width: 0px;
@@ -63,12 +102,12 @@ video, p img {
   /* Can play around with margin to make text and videos centered differently */
   margin-left: auto;
   margin-right: auto;
-  user-drag: none;
   -webkit-user-drag: none;
-  user-select: none;
+  user-drag: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  user-select: none;
 }
 
 figcaption {
@@ -112,8 +151,8 @@ h2 {
   padding-bottom: 0.1em;
   border-bottom: 1px solid #252529;
   margin-right: 15px;
-  width: fit-content;
   width: -moz-fit-content;
+  width: fit-content;
   margin-top: 0%;
   margin-bottom: 0%;
 }
@@ -129,8 +168,8 @@ h6 {
   opacity: 85%;
   margin-right: 15px;
   scroll-margin-top: 100px;
-  width: fit-content;
   width: -moz-fit-content;
+  width: fit-content;
   margin-top: 0%;
   margin-bottom: 0%;
 }
@@ -183,8 +222,8 @@ a:visited {
 
 a:hover {
   background: #252529;
-  filter: brightness(1.25);
   -webkit-filter: brightness(1.25);
+  filter: brightness(1.25);
 }
 
 a:active {
@@ -197,11 +236,11 @@ a:active {
   opacity: 85%;
   cursor: pointer;
   transition-timing-function: ease-out;
-  transition: background 0.35s;
   -webkit-transition: background 0.35s;
   -moz-transition: background 0.35s;
   -ms-transition: background 0.35s;
   -o-transition: background 0.35s;
+  transition: background 0.35s;
 }
 
 #game-instances {

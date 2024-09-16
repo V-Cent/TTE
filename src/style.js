@@ -6,7 +6,8 @@ var colorCollection = [
   ["teal", "#45c9c9"],
   ["green", "#58f15b"],
   ["red", "#e74a41"],
-  ["blue", "#205aaa"]
+  ["blue", "#205aaa"],
+  ["lavender", "#c8a2b0"]
 ];
 
 // TODO - VS recomments this being a class... Maybe? Also is a table .js file needed?
