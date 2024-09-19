@@ -2,16 +2,15 @@ import * as esbuild from 'esbuild';
 
 await esbuild.build({
     entryPoints: [
-    'src/scroll.js',
-    'src/logo.js',
-    'src/tooltip.js',
-    'src/style.js',
-    'src/page.js',
+    'src/main.js',
     ],
     bundle: true,
     minify: true,
     sourcemap: true,
+    logLevel : "info",
     outdir: 'docs/scripts',
+    splitting: true,
+    format: 'esm',
 });
 
 await esbuild.build({
@@ -24,6 +23,7 @@ await esbuild.build({
     ],
     bundle: true,
     minify: true,
+    logLevel : "info",
     outdir: 'docs/styles',
     plugins: [{
         name: 'ignore-fonts',

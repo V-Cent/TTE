@@ -10,6 +10,7 @@ Greys are:
 All neutral on red green, with a slight blue hue.
 */
 
+/* Fonts are preloaded so hopefully they are ready by now */
 @font-face {
   font-family: 'Material Symbols Rounded';
   font-style: normal;
@@ -230,6 +231,24 @@ a:active {
   color: #ffffffcc;
 }
 
+.button__redirect:link {
+  color: #ffffffcc;
+}
+
+.button__redirect:visited {
+  color: #ffffffcc;
+}
+
+.button__redirect:hover {
+  background: #252529;
+  -webkit-filter: brightness(1.25);
+  filter: brightness(1.25);
+}
+
+.button__redirect:active {
+  color: #ffffffcc;
+}
+
 .spoiler {
   color: #ffffff;
   background-color: #ffffff;
@@ -241,12 +260,6 @@ a:active {
   -ms-transition: background 0.35s;
   -o-transition: background 0.35s;
   transition: background 0.35s;
-}
-
-#game-instances {
-  display: none;
-  width: 0;
-  height: 0;
 }
 
 .green {

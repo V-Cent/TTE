@@ -25,6 +25,8 @@ TODO
 
 #### Hello here3
 
+*:{'media' : 'media/TTE2.webp', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
+
 ## Glitches
 
 ### Out of Bounds and Sequence Breaks

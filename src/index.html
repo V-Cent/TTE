@@ -1,14 +1,22 @@
 <!DOCTYPE html>
+<!-- This page gets minified and moved. The one you want to serve is in docs/ -->
 <html id="page" lang="en">
   <head>
     <meta charset="utf-8" />
     <!-- To speedup LCP -->
+    <!-- We preload everything that is needed for the viewable part of the home (footer won't appear in most cases) and also the script so page interactions works sooner-->
     <link fetchpriority="high" rel="preload" href="media/TTE22.svg" as="image" type="image/svg+xml">
     <link fetchpriority="high" rel="preload" href="media/TTEtext2.svg" as="image" type="image/svg+xml">
-    <link fetchpriority="high" rel="preload" as="script" href="./scripts/page.js">
     <link fetchpriority="high" rel="preload" href="fonts/gsymbols.woff2" as="font" type="font/woff2" crossorigin>
     <link fetchpriority="high" rel="preload" href="fonts/gmontserrat.woff2" as="font" type="font/woff2" crossorigin>
     <link fetchpriority="high" rel="preload" href="fonts/gnunito.woff2" as="font" type="font/woff2" crossorigin>
+    <link fetchpriority="high" rel="preload" href="./styles/base.css" as="style" type="text/css">
+    <link fetchpriority="high" rel="preload" href="./styles/navbar.css" as="style" type="text/css">
+    <link fetchpriority="high" rel="preload" href="./styles/scroll.css" as="style" type="text/css">
+    <!-- This speedups chrome but firefox downloads it twice...-->
+    <link fetchpriority="high" rel="preload" href="./scripts/main.js" as="script" crossorigin="anonymous">
+    <script async="1" src="./scripts/main.js" type="module" crossorigin="anonymous"></script>
+
     <!-- To prevent flash of unstyled content -->
     <style>
       html {
@@ -33,37 +41,6 @@
     />
     <meta name="robots" content="index,follow" />
     <title>Tales Tech Encyclopedia</title>
-
-    <!--
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-      rel="preload stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0&display=block"
-      as="style"
-      crossorigin
-    />
-
-    <link
-      rel="preload stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap"
-      as="style"
-      crossorigin
-    />
-    <link
-      rel="preload stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@300;500&display=swap"
-      as="style"
-      crossorigin
-    />
-    <link
-      rel="preload stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap"
-      as="style"
-      crossorigin
-    />
-    -->
 
     <link
       href="./styles/base.css"
@@ -161,6 +138,7 @@
       </div>
 
       <!-- Game search -->
+      <!-- icons are made with: cwebp -size 1024 -af -f 20 -crop 17 28 66 66 TOVICON.webp -o TOVICONs3.webp -->
       <div id="nav-bar__games">
         <span
           tabindex="0"
@@ -234,66 +212,9 @@
       </div>
     </div>
 
-    <!-- Game list.
-          This is done so js can know which games have markdown files ready.
-          Technically an external file would be better. This is easier to track for now though. -->
-    <div id="game-instances" style="display: none">
-      <span
-        class="game-instances--links"
-        data-document="TODPS2"
-        data-section="Tales of Destiny PS2"
-        data-dim="2D"
-      ></span>
-      <span
-        class="game-instances--links"
-        data-document="TOL"
-        data-section="Tales of Legendia"
-        data-dim="2D"
-      ></span>
-      <span
-        class="game-instances--links"
-        data-document="TOA"
-        data-section="Tales of Arise"
-        data-dim="3D"
-      ></span>
-      <span
-        class="game-instances--links"
-        data-document="TOV"
-        data-section="Tales of Vesperia"
-        data-dim="3D"
-      ></span>
-      <span
-        class="game-instances--links"
-        data-document="TOTA"
-        data-section="Tales of the Abyss"
-        data-dim="3D"
-      ></span>
-      <span
-        class="game-instances--links"
-        data-document="TOX2"
-        data-section="Tales of Xillia 2"
-        data-dim="3D"
-      ></span>
-      <span
-        class="game-instances--links"
-        data-document="TOZ"
-        data-section="Tales of Zestiria"
-        data-dim="3D"
-      ></span>
-      <!--
-      <span class="game-instances--links"
-            data-document="TOHDS"
-            data-section="Tales of Hearts DS"></span> -->
-    </div>
-
     <!-- Scroll up button fix on bottom right corner of the page -->
     <button type="button" id="scroll__button--to-top">
       <span class="material-symbols-rounded"> arrow_circle_up </span>
     </button>
-
-    <script src="./scripts/page.js" defer></script>
-    <script async src="./scripts/logo.js"></script>
-    <script async src="./scripts/tooltip.js"></script>
-    <script async src="./scripts/scroll.js"></script>
   </body>
 </html>

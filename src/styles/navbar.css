@@ -308,7 +308,7 @@
   margin-bottom: 0px;
 }
 
-#nav-bar__search a, #nav-bar__search--results {
+#nav-bar__search .button__redirect, #nav-bar__search--results {
   font-family: "Montserrat", sans-serif;
   position: relative;
   color: #ffffff;
