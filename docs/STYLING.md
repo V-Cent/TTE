@@ -93,21 +93,13 @@ The list of available parameters is as follows:
 - :{ — Start of a custom directive.
 
 Custom directives are tags to modify the behavior of pages. They are JSON objects that are injected as the parent of the current text.
-Here is a simple example of a custom directive: {'versions' : 'TTE', 'todo' : true}
+Here is a simple example of a custom directive: {'versions' : 'TTE'}
 
 By using the emphasis symbol, you can even use them without text to insert something in a line (for example, a video). For example, the custom direction above, when inserted in an empty line, becomes this:
 
-*:{'versions' : 'TTE', 'todo' : true}*
+*:{'versions' : 'TTE'}*
 
-Headings only allow custom directives. The first colon should also have one space before it. An example: ### :{ 'versions' : 'TTE', 'todo' : true} Heading3.
-
-The possible options are:
-
-- 'versions' : 'text here that defines which versions'
-- 'todo' : true (a flag that defines if the section needs work)
-- 'media' : 'url' (url of video)
-- 'forcedmedia' : false (a flag that makes the media hidden in a button)
-- 'caption' : 'text here to caption a video or image'
+Most custom directives also work with headings. In these cases, the first colon should also have one space before it. An example: ### :{ 'versions' : 'TTE', 'todo' : true} Heading3.
 
 For emphasis, you can also group a block of text within it, to tag a specific portion of your paragraph:
 
@@ -115,7 +107,46 @@ For emphasis, you can also group a block of text within it, to tag a specific po
 
 Parameters should always be encapsulated in braces. The name of each parameter is set between single quotes ('); the same should be done for text values.
 
-Media should only be added in the middle of text or for fourth headings (####).
+The following is a list of custom directives:
+
+> **TODO**
+
+Signifies something is being worked on or tested. It has a simple tooltip when hovered. When used, it will create an icon after the text content. Options for this directive are:
+
+- 'todo' : true (if true, enables this directive)
+
+Example: This is a TODO. *:{'todo' : true}*
+
+> **Versions**
+
+Shows a version-specific icon besides the text. It has a simple tooltip when hovered. Options for this directive are:
+
+- 'version' : 'text' (text will be shown as a tooltip)
+
+Example: This is a version icon. *:{'versions' : 'SNES'}*
+
+> **Media**
+
+Directive for images or videos. Should only be added in the middle of text or for fourth headings (####). They can be forced in the page, or hidden within an icon that needs to be clicked. Options for this directive are:
+
+- 'media' : 'url' (url of video or image)
+- 'forcedmedia' : false (optional; default is true; if false, the media hidden in a button)
+- 'caption' : 'text' (optional; text will be added as a caption)
+
+Example: This is an example video. *:{'media' : 'media/todps2/push.mp4', 'forcedmedia' : false, 'caption' : 'Example caption.' }*
+
+> **Redirect**
+
+Allows you to create a link to a heading of a tech page. Requires you to provide the link to the specific heading by using following syntax:  #name-of-the-heading. This can only be used in text, not for headings. Options for this directive are:
+
+- 'redirect' : '#link' (id of heading)
+- 'document' : 'text' (optional; use to redirect to different game pages; must be the acronym of the game title)
+
+Example: This is an example redirect (will bring you to the Tales of Destiny PS2 page). *:{'redirect' : '#stagger-techniques', 'document' : 'TODPS2'} Stagger Techniques*
+
+Additionally, you can also create redirects for references. When doing this, using the 'redirect' or 'document' options are not needed. Use the text content to signify the number of the reference, like for example this {'reference' : true}1* (this first emphasis symbol was removed to show this in raw text).
+
+- 'reference' : true (if true, the icon will be ommited and the link will go to the references tab)
 
 ## Default Format for a Tech Page
 

@@ -13,7 +13,7 @@ export class TOC {
     // Enable smart section highlighing based on scroll position
     //   bind the scroll event listener
     document.addEventListener("scroll", (event) => {
-      if (!this.ticking && this.inTechPage) {
+      if (!this.ticking && this.helperObj.inTechPage) {
         window.requestAnimationFrame(() => {
           this.highlightTOC();
           this.ticking = false;
@@ -26,7 +26,7 @@ export class TOC {
   // Update functions
   updateStatus(section, tech) {
     this.currentSection = section;
-    this.inTechPage = tech;
+    this.helperObj.inTechPage = tech;
   }
 
   clearHeadings() {
@@ -145,7 +145,7 @@ export class TOC {
     // - Create a list of links to the headings
     let tocLinks = "";
     for (let heading of this.headings) {
-      let link = '<div data-document="' + currentDocument + '" data-section="' + this.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search button__redirect" style="display: block;';
+      let link = '<div data-document="' + currentDocument + '" data-section="' + this.helperObj.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search button__redirect" style="display: block;';
       if (!(heading.isH3)) {
         link = link.concat('padding-left: 30px; font-size: 13px; padding-top: 6px; padding-bottom: 6px;');
       }

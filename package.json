@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.15.8",
+  "version": "0.15.9",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,

@@ -27,6 +27,15 @@ TODO
 
 *:{'media' : 'media/TTE2.webp', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Check item *:{'redirect' : '#redirect-target'} Redirect*, to see more. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. For air to ground cancel in Tales of Vesperia check *:{'redirect' : '#air-to-ground-cancel', 'document' : 'TOV'} AtGC*. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+*:{'redirect' : '#references'} Redirect*
+
+
+Tales of Legendia is a game. *:{'reference' : true} 1* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
 ## Glitches
 
 ### Out of Bounds and Sequence Breaks
@@ -47,6 +56,10 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 - "Bosses": This category is used for boss analysis and oddities.
 - "Misc": This category is used for any other information that does not fit in the previous categories. Minor techniques that don't affect the game as much (for example, an animation breaking) should also be placed here. When in doubt, check the Misc category of other pages.
 
+#### Redirect Target
+
+Test
+
 ## Techniques
 
 ## Characters
@@ -65,7 +78,7 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 
 ### Hello here
 
-#### Hello here2
+##### [1]
 
 Contributors:
  - People that wrote in the page

@@ -139,6 +139,39 @@ export class Directives {
           addMediaIcon(mediaType, tagData.media, tagData.caption);
         }
       }
+
+      if (tagData.redirect) {
+        // If it has a redirect tag, create a div to be used with changePage function with data-section, data-document, and data-redirect
+        //   turn tagged element into a div
+        let redirectIcon = document.createElement("span");
+        redirectIcon.className = "material-symbols-rounded";
+        redirectIcon.style.marginRight = "5px";
+        redirectIcon.textContent = "link";
+        taggedElement.classList.remove("tagging");
+        taggedElement.classList.remove("tagging-text");
+        taggedElement.classList.add("content__redirect");
+        taggedElement.dataset.redirect = tagData.redirect;
+        if (tagData.document) {
+          taggedElement.dataset.document = tagData.document;
+          // search the list of objects at this.helperObj.fileList for the object with document tagData.document to get the section
+          taggedElement.dataset.section = this.helperObj.fileList.find((obj) => obj.document === tagData.document).section;
+        } else {
+          taggedElement.dataset.document = this.helperObj.currentDocument;
+          taggedElement.dataset.section = this.helperObj.currentSection;
+        }
+        taggedElement.insertBefore(redirectIcon, taggedElement.firstChild);
+        this.helperObj.addPageChangeEvent(taggedElement);
+      }
+
+      if (tagData.reference) {
+        taggedElement.classList.remove("tagging");
+        taggedElement.classList.remove("tagging-text");
+        taggedElement.classList.add("content__redirect");
+        taggedElement.dataset.redirect = "#references";
+        taggedElement.dataset.document = this.helperObj.currentDocument;
+        taggedElement.dataset.section = this.helperObj.currentSection;
+        this.helperObj.addPageChangeEvent(taggedElement);
+      }
     });
   }
 

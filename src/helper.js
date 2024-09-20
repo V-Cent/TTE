@@ -4,7 +4,7 @@
 //   a better alternative than sessionStorage and can also save live objects
 
 export class Helper {
-  constructor() {
+  constructor(addPageChangeEvent, fileList) {
     this.mouseDown = false;
     this.startX = 0;
     this.scrollLeft = 0;
@@ -18,6 +18,17 @@ export class Helper {
     this.rotateFlag = false;
     this.leaveCounter = 0;
     this.currentVelocity = 0;
+    this.currentSection = null;
+    this.currentDocument = null;
+    this.inTechPage = false;
+    this.addPageChangeEvent = addPageChangeEvent;
+    this.fileList = fileList;
+  }
+
+  updateStatus(document, section, inTechPage) {
+    this.currentDocument = document;
+    this.currentSection = section;
+    this.inTechPage = inTechPage;
   }
 
   // --- Logo functions

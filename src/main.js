@@ -14,14 +14,6 @@ import { Headings } from "./headings.js";
 import { Directives } from "./directives.js";
 import { Helper } from "./helper.js";
 
-// --- Module Objects
-var searchObj = null;
-var tocObj = null;
-var helperObj = new Helper();
-var headingsObj = new Headings(helperObj);
-var directivesObj = new Directives(helperObj);
-var parserObj = new Parser();
-
 // Every page we need to load
 var parsedDocuments = new Map();
 let fileList = [
@@ -36,6 +28,14 @@ let fileList = [
   { document: "TOX2", section: "Tales of Xillia 2", dim: "3D" },
   { document: "TOZ", section: "Tales of Zestiria", dim: "3D" }
 ];
+
+// --- Module Objects
+var searchObj = null;
+var tocObj = null;
+var helperObj = new Helper(addPageChangeEvent, fileList);
+var headingsObj = new Headings(helperObj, fileList);
+var directivesObj = new Directives(helperObj);
+var parserObj = new Parser();
 
 // Create an array of promises for parsing each document
 var parsePromises = fileList.map((item) => {
@@ -119,7 +119,7 @@ function changeEvent(event){
 function toHome(sectionText, contentText, event) {
   currentDocument = event.currentTarget.dataset.document;
   tocObj.clearHeadings();
-  tocObj.updateStatus("HOME", false);
+  helperObj.updateStatus("HOME", "HOME", false);
   tocObj.clearSectionTOC();
   // Removes #content__tocicon if it exists
   // TODO : hardcoded home page HTML. Maybe save in an external file and load from here (using the same method as the parser does)
@@ -135,7 +135,7 @@ function toHome(sectionText, contentText, event) {
 function toPage(sectionText, contentText, event) {
   currentDocument = event.currentTarget.dataset.document;
   tocObj.clearHeadings();
-  tocObj.updateStatus(event.currentTarget.dataset.section, false);
+  helperObj.updateStatus(event.currentTarget.dataset.document, event.currentTarget.dataset.section, false);
   tocObj.clearSectionTOC();
   // Set section-container
   sectionText.innerHTML = event.currentTarget.dataset.section;
@@ -160,7 +160,7 @@ function toPage(sectionText, contentText, event) {
 
 // --- Load Tech Page
 function toTech(sectionText, contentText, event){
-  tocObj.updateStatus(event.currentTarget.dataset.section, true);
+  helperObj.updateStatus(event.currentTarget.dataset.document, event.currentTarget.dataset.section, true);
   // Set section-container
   sectionText.innerHTML = event.currentTarget.dataset.section;
   // Check if the page to load is the same one
