@@ -45,7 +45,7 @@ var parsePromises = fileList.map((item) => {
       parsedDocuments.set(item, page);
     });
   } else {
-    return parserObj.parseGFM("./tech/" + item.document).then((page) => {
+    return parserObj.parseGFM("./tech/" + item.document.toLowerCase()).then((page) => {
       parsedDocuments.set(item, page);
     });
   }
