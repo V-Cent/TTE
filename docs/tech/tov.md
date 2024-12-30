@@ -7,8 +7,6 @@ Versions:
 - Original Xbox (_Vanilla_), released August 7, 2008 in Japan; August 26, 2008 in NA; June 26, 2009 in Europe.
 - Port (_PS3_), released September 17, 2009 in Japan. Remastered January 11, 2019 as the Definitive Edition.
 
-Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Rin Kiri](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts), [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc), [zxcxzaq](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s), [Fanatic](https://www.youtube.com/watch?v=PWfSeT08yUs), [Jamesaga](https://www.youtube.com/user/AHerosLegacy/featured), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured), [Kevassa](https://www.youtube.com/user/Kevassa02/featured), [Omegaevolution](https://youtu.be/uTMcL1KJD74?t=131), [aigod1024](https://youtu.be/A10Zua38cv0?t=232) and [Muggshotter](https://www.youtube.com/channel/UC0-MXTAUAcWbPiaX0LO5dNg/featured).
-
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
@@ -51,7 +49,7 @@ Overlimit is a mechanic where you can consume the overlimit bar for special effe
 Overlimit has special effects depending on the level of overlimit used (higher levels also have the effects of lower ones):
 
 - Lv.1: No special effects.
-- Lv.2: All attacks OTG and deal increased damage to downed enemies.
+- Lv.2: All attacks restand and deal increased damage to downed enemies.
 - Lv.3: No TP is consumed for using artes. Mystic artes are enabled for use by holding the normal attack button after an arcane arte or burst arte.
 - Lv.4: Characters will be invincible from enemies attack. Be careful since you (and enemies) can still be stunned!
 
@@ -61,51 +59,52 @@ Keep in mind that some of your opponents can also have Overlimit! They gain it t
 
 The overlimit activation hit also has different effects depending on the character you are using. These usually influence the vertical launch power or the pushback of the overlimit hit. The effects are the following:
 
-- **Yuri**: Very small launch and small pushback. Enemy is put in a downed state.
+- **Yuri**: Very small launch and small pushback. Enemy is knocked down.
 - **Estelle**: Medium launch and small pushback. Enemy is put in a spinning state for 70 frames. OTGs (doesn't cause the spinning state if enemy is down, stagger time does not change).
 - **Repede**: No launch and no pushback. Enemy is put in a spinning state for 90 frames. OTGs (doesn't cause the spinning state if enemy is down, stagger time does not change).
-- **Karol**: No launch and very small pushback. Enemy is put in a downed state.
-- **Rita**: Medium launch and small pushback. Enemy is put in a downed state.
+- **Karol**: No launch and very small pushback. Enemy is knocked down.
+- **Rita**: Medium launch and small pushback. Enemy is knocked down.
 - **Raven**: No launch and medium pushback. Does not knockdown the enemy (staggers for about 60 frames). OTGs.
-- **Judith**: Very high launch and medium pushback. Enemy is put in a downed state.
+- **Judith**: Very high launch and medium pushback. Enemy is knocked down.
 - **Patty**: Depends on Patty's current form.
-> - Normal Form: High launch and medium pushback. Enemy is put in a downed state.
-> - Advance Form: Small launch and small pushback. Enemy is put in a downed state.
-> - Brainiac Form: No launch and very high pushback. Enemy is put in a downed state.
+> - Normal Form: High launch and medium pushback. Enemy is knocked down.
+> - Advance Form: Small launch and small pushback. Enemy is knocked down.
+> - Brainiac Form: No launch and very high pushback. Enemy is knocked down.
 > - Critical Form: Medium launch and small pushback. Enemy is put in a spinning state for 90 frames. OTGs (doesn't cause the spinning state if enemy is down, stagger time does not change).
-- **Flynn**: Medium launch and medium pushback. Enemy is put in a downed state.
+- **Flynn**: Medium launch and medium pushback. Enemy is knocked down.
 
 Multiple activations (either by yourself or with CPUs/other players) will cause effects to stack or interact with one another. This may result in a very high vertical launch or knockdown. Make sure to be ready to attack downed enemies when specific characters use overlimit. When using Yuri, remember you can chain the OVL activation hit with a free-run attack, picking the enemy up and making follow up attacks easier.
 
 ### Other information
 
-**Down Hit Mechanics**
+**Staggered States and Down Mechanics**
+Enemies have 3 different states they can be in while staggered.
 
-There are different types of down states, and each has different characteristics:
+*Standing*:
+- The enemy is staggered but still standing. They can be hit by any attack. From here, they can transition to two other states: ground-down and aerial-down.
 
-Ground down
+*Ground-Down*:
+- This is the normal grounded state, which starts when the enemy touches the ground.
+- Attacks that have a "grounded" tag can hit an enemy that is down. Some grounded attacks can also *restand*, which will instantly put the staggered enemy back on its feet. If the attack does not restand, it will either cause another ground-down or an aerial-down.
+-The enemy will start an animation to get up after a certain period.  During the initial frames of this animation, the enemy can be hit by all attacks. This is called a **down hit**. This only lasts for a few frames. After that, the enemy becomes invulnerable as it gets up.
+- You can also perform **down hits** at any moment if the enemy is stunned. This only works once per stun, since if you hit them the stun will disappear.
 
-- Normal downed state.
-- The enemy will start an animation to get up after a certain period. During the initial frames of this animation (even before the enemy starts to get up) the enemy can be hit by most attacks.
-- OTG attacks (and specific attacks that affect downed enemies) can hit through most of the ground down state, and will instantly put the staggered enemy back on its feet.
-- If you hit the enemy with an attack that launches upward, it will transition to the "Aerial Down" state.
-- Any other attack which does not launch will stagger and the enemy will drop to the "Ground down" state again.
-
-Aerial down
-
-- Most attacks will hit without needing specific timing like ground down. They will also juggle a slight bit.
-- Once down to the ground, the enemy will do a slight bounce and transition to the "Ground down" state.
-
-**Ground Hit Limit**
-
-While attacking downed enemies, there is a hard limit on 9 hits that you can do before they ignore any further attacks that would cause a ground down. You can still hit them with moves that cause an aerial down.
-
-This counter is only reduced when hitting an enemy that is in the ground down state. Both Aerial down hits and Ground down hits will count to this limit.
-
+*Aerial-Down*:
+- This is an aerial state for when the enemy is down in the air. The animation that plays during this state is different from the ground-down animation.
+- While in the air, the enemy can be hit by most attacks. This allows you to juggle the enemy by using artes that launch the enemy up.
+- Once the enemy touches the ground, they will bounce and transition to the ground-down state.
 
 Definitions:
+Grounded attacks: Attacks that can hit during any part of a ground-down.
+Restands: Attacks that put the staggered enemy back to the standing state. Restands work independently from grounded attacks (e.g., the second hit of Shining Dragon Swarm restands, but the attack is not tagged as grounded and thus you need to time a *down hit*).
+Down Hit: When you attack an enemy just before it starts getting up or if they're down and stunned.
 
-**OTG**: OTG, or off-the-ground attacks, are flags that certain attacks (or part of attacks) have that make the enemy transition from a downed to a standing state when hit. They can be useful to continue the normal combo progression after a knockdown arte or spell.
+**Ground-Down Limit**
+Staggered enemies have a hard limit of 10 ground-downs. Overlimit activations that cause a ground-down do not count towards this counter. Once you hit the limit, you can no longer perform down hits. Attacks that have the "grounded" flag will still work. An exception is that, once you hit the limit, you can still perform down hits during your current attack chain. Ending the chain (e.g., by performing a manual cancel or returning to neutral) will prevent further down hits.
+
+Notes:
+If the boss performs the "Recover" skill, they will still maintain the ground-down counter. Additionally, bosses can only recover or do techouts/revenge attacks during or just after an aerial-down. Once in the ground-down state, ground hits or attacks that only cause a ground-down will not cause a recover or techout/revenge.
+Some bosses or enemies may not have an aerial-down state. If the enemy is standing, aerial-down attacks will instead instantly transition to the ground-down state; if not, the enemy will not react, but the stagger time will increase like normal. After the enemy is knocked down, further aerial-downs will also disable techouts/revenges and the use of recover.
 
 **Spell Casting Time Mechanics**
 
@@ -169,7 +168,7 @@ On the switch version, artes come out on stick release, and holding the stick ma
 
 You can find more information about it [here](https://t.co/XV4Xg4M0mv).
 
-## Combat Techniques
+## Techniques
 
 Here we will discuss various different techniques/glitches that can be used during combat.
 
@@ -244,7 +243,7 @@ The second is to have Raven in the party. During the action you want to cancel, 
 
 If you want to avoid the camera change caused by Raven's personal strategy, you can use a similar method with two controllers: set your player 1 as Raven and have hit sit on auto-mode. Use player 2 to attack until you want the cancel to happen, where you would pause, set your character's personal strategy, and un-pause. In the menu, the strategy would show as player's 2 character (the one that paused the game), but Raven's is the one that will be activated. For better control, unequip Taunt from Repede and only equip a taunt weapon once you enter the menu. You can then unequip the weapon once you don't need the cancel properties of the taunt.
 
-#### :{'media' : 'media/tov/fakeGuardArte.mp4'} Fake Guard Artes
+#### :{'media' : 'media/tov/fakeGuardArte.mp4'} Empty Guard Artes
 
 Skills needed: Guard artes.
 
@@ -276,7 +275,7 @@ The FS bonuses during battle depend on the chain before you activated them. A Gr
 
 On the Definitive version, FS glyphs stay on screen for less time than both the Vanilla version and the PS3 version. This effect happens on all platforms and with different frame rates.
 
-#### Fake Fatal Strikes
+#### False Strikes
 
 It is possible to make Fatal Strikes not instantly kill enemies by pressing the Fatal Strike button one frame before the Fatal Strike late fail state and one frame after it. This will cause both the FS success and fail animation to play at the same time. Doing this on a boss makes so that the FS gauge does not recover and that no bonuses for FS are applied (for the current FS); the same effects also happen on normal enemies.
 
@@ -298,7 +297,7 @@ Keep in mind that an arte will be buffered if you do this. You also need to chan
 
 While the enemy has a Fatal Strike glyph up, you can press an action and the FS button together to cancel your _current action_ (if possible) and instantly start the action you pressed (the _cancel action_). This can only be performed when you are able to perform a successful FS in the first place, so keep in mind that some actions disable your FS use momentarily. In most cases, FS use is enabled after the last hit of most artes (but earlier than it can be canceled normally).
 
-*:{'media' : 'media/tov/fscancel.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tov/fscancel.mp4'}*
 
 _Cancel actions_ can be artes or normal attacks.
 
@@ -310,7 +309,7 @@ There a few important notes about this cancel:
 
 ### Manual Cancel
 
-*:{'media' : 'media/tov/manualCancel.mp4', 'forcedvideo' : true} Also called Free-Run Cancel (FRC), Manual Cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.*
+*:{'media' : 'media/tov/manualCancel.mp4'} Also called Free-Run Cancel (FRC), Manual Cancel is a basic battle technique where you can cancel the recovery frames of attacks. This technique can be used in all characters in the PS3 version (while in manual mode), while in the vanilla only Repede can use it with a skill.*
 
 For the Repede skill, it enables the user to use Manual Cancel in any direction (360 degrees) and also use it in semi-auto mode.
 
@@ -386,7 +385,7 @@ More information can be found [here](https://www.youtube.com/watch?v=mKdSnZqTX5w
 
 Also sometimes called Stick Cancel, the Semi-auto cancel (SAC) is a technique that abuses the free-run animation that happens when you use semi-auto, and the buffered actions of auto mode.
 
-*:{'media' : 'media/tov/sac.mp4', 'forcedvideo' : true} Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).*
+*:{'media' : 'media/tov/sac.mp4'} Using SAC's cancels any sort of casting bonuses and resets actions that can only be done 1 per chain (such as Judith's dash and guard artes).*
 
 SAC can be set-up mid combo, and it does not require neutral stance/guard to be in effect.
 
@@ -436,10 +435,19 @@ Skills needed: Guard artes, Critical Guard.
 
 If your cancel arte is a base arte, you can use it to cancel push guards (Critical Guard skill), making it possible to chain them until your close enough to perform your buffered arte. This can be a very fast way to move forward, especially with characters like Raven.
 
-#### Fake Guard Arte Chaining
+#### Empty Guard Arte Chaining
 
 Skills needed: Guard artes, Magic Guard (optional).
 
-With semi-auto cancel, as it removes guard delay, you can chain fake guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of fake guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
+With semi-auto cancel, as it removes guard delay, you can chain empty guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of empty guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
 
-*:{'media' : 'media/tov/fakeGuardArteChaining.mp4', 'forcedvideo' : true}*
+*:{'media' : 'media/tov/fakeGuardArteChaining.mp4'}*
+
+## References
+
+https://www.youtube.com/watch?v=mKdSnZqTX5w
+https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV
+https://www.youtube.com/watch?v=uAFJ4Ho-Qts
+https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc
+https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s
+https://www.youtube.com/watch?v=PWfSeT08yUs

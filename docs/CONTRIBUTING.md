@@ -1,41 +1,35 @@
 # How to Contribute
 
-Thank you for taking interesting in contributing to TTE! The format of this project is quite simple and made for ease-of-use, thus you can contribute even without knowing markdown or web technologies (html, css, javascript).
+We appreciate your interest in contributing to TTE!
 
-The only strict rule we adhere is making sure the content of markdown page is fairly original or is given the sources and credits when necessary. If you're not the original author of a guide or a segment of text, make sure to ask for permission first and then add credits in the document.
+If you wish to contribute on the page of a game, such as adding **new techniques**, clarifying old ones, **fixing errors**, and the sort, you may only need a GitHub account. For those, we use markdown, which is a simple text format that is used in multiple projects (like when you type in Discord!). If you need some guidance on how to work with markdown files, you can check our styling guide which is found at the bottom of every page. The only strict rule we adhere to is making sure the content of the markdown page is fairly original or is given the sources and credits when necessary. If you're not the original author of a guide or a segment of text, make sure to ask for permission first and then add credits to the document.
 
-If you need some guidance on how to work with markdown files, you can check our styling guide which can be found on the bottom of every page.
-
-## Discussions
-
-One of the objectives of TTE is working on techniques that have been already found, but lack a consistent way to perform. For that, we may have segments in tech segments with a TODO tag or we may use GitHub issues to track progress on each technique.
-
-### Issues
-
-If you know about a technique but you're still not sure how it works, you can create a GitHub issue to start a discussion on that topic. You can also create a GitHub issue if you know a technique but don't know how to use Git to create a new addition (by doing a Pull Request) or simply don't wish to. A team member will add the technique to the page and credit you by linking the GitHub issue number.
-
-To create a GitHub issue, you need to log in on your GitHub account and go to the Issues page of the TTE project (not the home page of the app). There, you can start an issue based on different templates.
+If you wish to contribute to the functionality of the page, you may have noticed — we only use javascript/css/html. This was originally done for community maintainability. However, this decision is open to change. If you're an experienced Front-End developer and wish to contribute on this end, feel free to reach out with your ideas on the GitHub discussions page! The project aims to have a light and fast static website where each document is created in a human-readable language, enabling those who do not know any web technologies to contribute easily.
 
 ## Tech
 
-For tech pages, our objective is readability and well-defined explanations. Because of that, modifications on tech pages can be done both for adding new information or modifying the current page to improve a segment and fix any grammar mistakes.
+For tech pages, our objective is readability and well-defined explanations. Because of that, modifications on tech pages can be done both to add new information or to modify the current page to improve a segment and fix any grammar mistakes.
 
-To do that, you can either create an issue as explained above, or make the changes yourself and start a pull request.
+To do that, you can use our GitHub Discussions tab (explained below) or start a Pull Request.
 
-The flow to start a Pull Request is first to fork the project. To do that, you can simply go to the top right corner of the TTE project page. This fork is where you can do changes that only affect your version of TTE.
+The flow to start a Pull Request is first to fork the project. To do that, you can simply check the top right corner of the TTE project page. This fork is where you can make changes that only affect your version of TTE.
 
-You can either clone that fork using git or edit the pages using GitHub itself (something that can be easy since the tech pages are made using the markdown format). After you did your changes, you can commit it to your fork and then proceed to a pull request.
+You can either clone that fork using git or edit the pages using GitHub itself (something that can be easy since the tech pages are made using the markdown format). After you perform your changes, you can commit it to your fork and then proceed to a pull request.
 
-To start a pull request, you can go to the Pull Requests page for the TTE project and start comparing your version to the current main branch of TTE. Fill the template that is on screen and you're done! A team member will review your changes, request modifications if needed and merge it with TTE.
+To start a pull request, you can go to the Pull Requests page for the TTE project and start comparing your version to the current main branch of TTE. Fill in the template that is on the screen and you're done! A team member will review your changes, request modifications if needed, and merge them to TTE.
+
+### Github Discussions
+
+Another objective of TTE is working on techniques that have been already found, but lack a consistent way to perform. For that, we may have segments in tech segments with a TODO tag or we may use GitHub Discussions to track progress on each technique.
+
+If you know about a technique but you're still not sure how it works, you can contribute by updating the GitHub Discussions page of that game. You can also use that page if you know a technique but don't know how to create a Pull Request or simply don't wish to. A team member will add the technique to the page and credit you by linking the GitHub Discussion link.
+
+To use GitHub Discussions, you need to log in to your GitHub account and go to the "Github Discussions" tab of the TTE project repository (not the home page of the app).
 
 ### Media
 
-One important thing that you may question when making changes is how to handle media.
-
-For videos, you can either link a third-party source (such as an youtube link) or add a video manually to the project (on the media folder). Videos are MP4 480p 30fps with a bitrate of 1000 for games before Zestiria and 2500 for Zestiria and newer games. All videos must have no audio (unless required).
-
-For images, you can just put the link on the tech page and it will automatically appear on the page. Images that are a part of something else (such as game logos) should  have a small file size (>100KB, webp format).
+Media elements, such as videos and pictures, do not have a strict quality requirement. Since we currently host them together with the site, just keep the size of the files low. The aspect ratio of the original game also needs to match when uploading new media. Higher-quality media may be uploaded once we start using an external service for it.
 
 ## Enhancements, Bug Fixes and Other
 
-For all other modifications, you can also follow the same tips as above -- create an issue or a pull request with your changes.
+For all other modifications, you can also follow the same tips as above -- use GitHub discussions, create an issue, or create a pull request with your changes.
