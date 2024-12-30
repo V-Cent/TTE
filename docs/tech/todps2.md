@@ -28,7 +28,7 @@ Secondary:
 - **Concentration (集中)** → Increase Critical hit chance.
 - **Accuracy (命中)** → Decreases enemy blast gain rate and breaks through Evasion.
 
-*:{'media' : 'media/TODPS2/stats.png', 'caption' : 'The status menu in-game. Primary parameters are in gold and secondary in purple.'}*
+*:{'media' : 'media/todps2/stats.png', 'caption' : 'The status menu in-game. Primary parameters are in gold and secondary in purple.'}*
 
 Status can be increased by equipment and by using herbs. Every primary parameter is increased at every level up. This growth is defined by the following formula: $\frac{\alpha * \beta}{Phy.Atk + Phy.Def + Mag.Atk + Mag.Def}$, $\alpha$ being the primary parameter being increased and $\beta$ being the growth rate for that character. Keep in mind that herbs, equipment, and jewels also affect the values in the formula. Therefore, changing your equipment before leveling up can affect your character's growth. For example, increasing Physical Attack as much as possible and decreasing the other stats (such as removing armors) will make so that you will have a higher Physical Attack gain than normal. A table with the growth rate for each character is shown below:
 
@@ -89,19 +89,19 @@ Certain characters have access to Swordians. These are weapons that can grow bas
 
 With enough points, you can set active skills in the swordian menu. Each skill costs a set amount of points. After fighting a certain number of battles with a skill set, it can be mastered, reducing the number of points required to set it by 20%.
 
-*:{'media' : 'media/TODPS2/swordian.png', 'caption' : 'The swordian menu in-game. The star denotes a mastered skill.'}*
+*:{'media' : 'media/todps2/swordian.png', 'caption' : 'The swordian menu in-game. The star denotes a mastered skill.'}*
 
 ### Re-rise
 
 For armor, jewels, and characters that do not use swordians, upgrading equipment is done through the re-rise system. By using lenses, which are dropped from monsters, you can create and upgrade various items. Once an item has been upgraded, it cannot be rolled back. To be able to re-rise certain pieces of equipment, you may need to increase your party level, which is the average level between all party members. There is no level requirement for using different types of lenses.
 
-*:{'media' : 'media/TODPS2/rerise.png', 'caption' : 'The re-rise menu in-game.'}*
+*:{'media' : 'media/todps2/rerise.png', 'caption' : 'The re-rise menu in-game.'}*
 
 ### Battle
 
 Actions in battle are based on the chain capacity (_CC_) system. If you have enough CC, you can perform any action freely. CC is divided into minimum and maximum CC. You begin each fight with your minimum CC value and, by doing *chains*, you increase your current maximum CC by 1. This happens until you reach your character's maximum CC value; if you do any actions after that, your current maximum CC goes down to your current CC value or your minimum CC (the highest one). In any occasion, CC recovers naturally when not in a chain, at a rate of 1 CC for every 4 frames.
 
-*:{'media' : 'media/TODPS2/cc.png', 'caption' : 'The battle arena. In the picture, the first character has a minimum CC of 8 and a maximum of 16.'}*
+*:{'media' : 'media/todps2/cc.png', 'caption' : 'The battle arena. In the picture, the first character has a minimum CC of 8 and a maximum of 16.'}*
 
 Doing offensive or movement actions starts a _chain_. This can affect a myriad of things, from techniques to casting time. CC will not recover naturally while in a chain. A chain will be extended by doing any other action while in one, and will only end once your character goes into a neutral stance. Once you hit 0 CC, any action that would require CC to perform will fail (even if you have bonuses that decrease that action's cost to 0), making you end your chain. If you have more than 0 CC but try to perform an arte that requires more than your current amount, a normal attack will happen instead.
 
@@ -136,7 +136,7 @@ When an enemy activates evasion, or when they're doing certain attacks, they gai
 
 You can walk left or right with the D-Pad. Double pressing a direction or using the left stick will allow you to run, which enables you to pass through enemies. Certain enemies can push you back when you try to pass through them by blocking. You can also do the same against enemies who try to run behind you.
 
-*:{'media' : 'media/TODPS2/guardPush.mp4'}*
+*:{'media' : 'media/todps2/guardPush.mp4'}*
 
 By holding guard and pressing forward you will do an aiming dash. This will make your character dash towards the enemy, and go into the air if needed. By pressing backward instead, you will backstep. This will make your character take a step back to evade enemies' attacks. Backsteps and aiming steps do not have invincibility and cost 1CC (without NG+ options). While backsteps can be done indefinitely, aiming dashes from the ground cannot be done successively without a different action in between. Additionally, if you are in a chain, you are limited to one aiming dash unless you do a backstep, touch the ground from landing, or if you are in the air. Aiming dashes and backsteps should always be done based on the direction your character is facing. This is important if you're running away from an enemy or if you jump over them. If you're running away from the enemy while on the ground, your backstep will instead make you stop and face the enemy. Therefore, if you wish to backstep while running away, you have the hold guard and press towards the enemy to stop and face the enemy, then hold guard and press away from the enemy to backstep.
 
@@ -179,7 +179,7 @@ Once you have a full blast gauge, you can use a Blast Caliber by pressing or hol
 
 If your character is being continuously staggered by the enemy (more than one hit/arte) and you have 1 complete blast gauge, press L1 (just before or during a hit) to perform a Damage Break. Damage Break takes 500 Blast Points (half a gauge), gives you invincibility for 60 frames, and, on the DC version, restores your HP by 10%. This is similar to the effect that enemies have when they reach 100% blast (minus the healing). Most enemies can only do a damage break when on the ground, while the player and some specific enemies can also do it in the air.
 
-*:{'media' : 'media/TODPS2/damageBreak.mp4'}*
+*:{'media' : 'media/todps2/damageBreak.mp4'}*
 
 #### Control Modes
 
@@ -199,7 +199,7 @@ To continue combo'ing from a knockdown, some attacks have the off-the-ground (OT
 
 Some enemies cannot get knocked down. While this doesn't affect stagger time directly, they still gain the knockdown effects (and thus won't gain stagger from connecting attacks) if they would be knockdown due to high stagger (>50 frames). This can make enemies feel like they're resisting stagger when in fact they're being treated as knockdown'ed. While there are no visual cues to this effect, doing an OTG attack will also clear the knockdown effect as it would do normally.
 
-*:{'media' : 'media/TODPS2/staggerKnock.mp4', 'caption' : 'Example of an enemy that normally cannot get knocked-down, but does due to high stagger.'}*
+*:{'media' : 'media/todps2/staggerKnock.mp4', 'caption' : 'Example of an enemy that normally cannot get knocked-down, but does due to high stagger.'}*
 
 #### Status Ailments and Stun
 

@@ -33,7 +33,7 @@ TODO
 
 #### Hello here3
 
-*:{'media' : 'media/TODPS2/snow.png', 'caption' : 'Test Caption 3'}*
+*:{'media' : 'media/todps2/snow.png', 'caption' : 'Test Caption 3'}*
 
 *:{'media' : 'media/TTE2.webp', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
 
