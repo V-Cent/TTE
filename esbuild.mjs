@@ -3,6 +3,7 @@ import * as esbuild from 'esbuild';
 await esbuild.build({
     entryPoints: [
     'src/main.js',
+    'src/katex.min.js',
     ],
     bundle: true,
     minify: true,
@@ -11,6 +12,7 @@ await esbuild.build({
     outdir: 'docs/scripts',
     splitting: true,
     format: 'esm',
+    external: ['./scripts/katex.min.js']
 });
 
 await esbuild.build({
@@ -20,6 +22,7 @@ await esbuild.build({
     'src/styles/elements.css',
     'src/styles/navbar.css',
     'src/styles/scroll.css',
+    'src/styles/katex.min.css',
     ],
     bundle: true,
     minify: true,

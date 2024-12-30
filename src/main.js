@@ -16,6 +16,7 @@ import { Helper } from "./helper.js";
 
 // Every page we need to load
 var parsedDocuments = new Map();
+// Add new documents here!!
 let fileList = [
   { document: "./README", section: "README", dim: "N/A" },
   { document: "./STYLING", section: "Doucment Syling", dim: "N/A" },
@@ -51,6 +52,7 @@ var parsePromises = fileList.map((item) => {
 });
 
 var currentDocument = null;
+var katexLoaded = false;
 
 // Check if DOM elements are ready, if yes, we can start running stuff
 if (document.readyState === "loading") {
@@ -91,8 +93,45 @@ export function addPageChangeEvent(item) {
   item.addEventListener("click", changeEvent);
 }
 
-// Function to handle changes to content
+// Function to make sure Katex is loaded before changing the page, then calls changeDocument
+//   the only data that is downloaded as the page is being loaded are images, videos, and Katex
 function changeEvent(event){
+
+  var parsedKatex = null;
+
+  if (!katexLoaded) {
+    parsedKatex = new Promise((resolve) => {
+      // Create a script element for KaTeX JavaScript
+      import("./katex.min.js").then((module) => {
+        directivesObj.setKatex(module.default);
+        // Create a link element for KaTeX CSS
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.crossOrigin = 'anonymous';
+        link.href = 'styles/katex.min.css'; // URL to the KaTeX CSS
+        link.onload = () => {
+          resolve('KaTeX JS and CSS loaded');
+        };
+
+        // Append the link to the head
+        document.head.appendChild(link);
+      });
+    });
+
+    const currentTarget = event.currentTarget;
+
+    parsedKatex.then(() => {
+      katexLoaded = true;
+      changeDocument(currentTarget);
+    });
+
+  } else {
+    changeDocument(event.currentTarget);
+  }
+}
+
+// Function to handle changes to content
+function changeDocument(eventTarget) {
   // Get the section and content elements to change the document presented on the page
   let sectionText = document.getElementById("section-container__text");
   let contentText = document.getElementById("content");
@@ -101,23 +140,23 @@ function changeEvent(event){
   searchObj.clearFunction();
   helperObj.addLogoVelocity();
 
-  if (event.currentTarget.dataset.document == "HOME") {
+  if (eventTarget.dataset.document == "HOME") {
     // Redirect to home page
-    toHome(sectionText, contentText, event);
+    toHome(sectionText, contentText, eventTarget);
   } else {
-    if (event.currentTarget.dataset.document.includes("./")) {
+    if (eventTarget.dataset.document.includes("./")) {
       // Redirect to pages like the readme, document styling...
-      toPage(sectionText, contentText, event);
+      toPage(sectionText, contentText, eventTarget);
     } else {
       //Event is a tech document, set the section as the game name and update the content
-      toTech(sectionText, contentText, event);
+      toTech(sectionText, contentText, eventTarget);
     }
   }
 }
 
 // --- Load Home Page
-function toHome(sectionText, contentText, event) {
-  currentDocument = event.currentTarget.dataset.document;
+function toHome(sectionText, contentText, eventTarget) {
+  currentDocument = eventTarget.dataset.document;
   tocObj.clearHeadings();
   helperObj.updateStatus("HOME", "HOME", false);
   tocObj.clearSectionTOC();
@@ -132,14 +171,14 @@ function toHome(sectionText, contentText, event) {
 }
 
 // --- Load Generic Page
-function toPage(sectionText, contentText, event) {
-  currentDocument = event.currentTarget.dataset.document;
+function toPage(sectionText, contentText, eventTarget) {
+  currentDocument = eventTarget.dataset.document;
   tocObj.clearHeadings();
-  helperObj.updateStatus(event.currentTarget.dataset.document, event.currentTarget.dataset.section, false);
+  helperObj.updateStatus(eventTarget.dataset.document, eventTarget.dataset.section, false);
   tocObj.clearSectionTOC();
   // Set section-container
-  sectionText.innerHTML = event.currentTarget.dataset.section;
-  const documentKey = event.currentTarget.dataset.document;
+  sectionText.innerHTML = eventTarget.dataset.section;
+  const documentKey = eventTarget.dataset.document;
   let parsedPage = null;
 
   // Iterate over the entries in parsedDocuments to find the matching document
@@ -159,14 +198,14 @@ function toPage(sectionText, contentText, event) {
 }
 
 // --- Load Tech Page
-function toTech(sectionText, contentText, event){
-  helperObj.updateStatus(event.currentTarget.dataset.document, event.currentTarget.dataset.section, true);
+function toTech(sectionText, contentText, eventTarget){
+  helperObj.updateStatus(eventTarget.dataset.document, eventTarget.dataset.section, true);
   // Set section-container
-  sectionText.innerHTML = event.currentTarget.dataset.section;
+  sectionText.innerHTML = eventTarget.dataset.section;
   // Check if the page to load is the same one
   let pastDocument = currentDocument;
-  currentDocument = event.currentTarget.dataset.document;
-  let currentDataset = event.currentTarget.dataset;
+  currentDocument = eventTarget.dataset.document;
+  let currentDataset = eventTarget.dataset;
   if (currentDocument == pastDocument) {
     // If yes --> Just redirect
     if (currentDataset.redirect != null) {
@@ -184,7 +223,7 @@ function toTech(sectionText, contentText, event){
   } else {
     tocObj.clearHeadings();
     tocObj.clearSectionTOC();
-    const documentKey = event.currentTarget.dataset.document;
+    const documentKey = eventTarget.dataset.document;
     let parsedPage = null;
 
     // Iterate over the entries in parsedDocuments to find the matching document

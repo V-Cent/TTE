@@ -2,6 +2,14 @@
 
 This is currently a test page for the layout of tech documents.
 
+Inline equation: $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ , and text continues.
+
+Block equation:
+
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+
 ## Mechanics
 
 Table test:
@@ -24,6 +32,8 @@ Table test:
 TODO
 
 #### Hello here3
+
+*:{'media' : 'media/TODPS2/snow.png', 'caption' : 'Test Caption 3'}*
 
 *:{'media' : 'media/TTE2.webp', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
 
@@ -81,7 +91,7 @@ Test
 ##### [1]
 
 Contributors:
- - People that wrote in the page
+ - People that wrote in the page or directly contributed to its content, alphabetical order.
 
 Special Thanks:
 - X person: for x,y,z...

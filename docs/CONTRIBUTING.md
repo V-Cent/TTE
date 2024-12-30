@@ -1,10 +1,10 @@
 # How to Contribute
 
-We appreciate your interest in making a contribution to TTE!
+We appreciate your interest in contributing to TTE!
 
 If you wish to contribute on the page of a game, such as adding **new techniques**, clarifying old ones, **fixing errors**, and the sort, you may only need a GitHub account. For those, we use markdown, which is a simple text format that is used in multiple projects (like when you type in Discord!). If you need some guidance on how to work with markdown files, you can check our styling guide which is found at the bottom of every page. The only strict rule we adhere to is making sure the content of the markdown page is fairly original or is given the sources and credits when necessary. If you're not the original author of a guide or a segment of text, make sure to ask for permission first and then add credits to the document.
 
-If you wish to contribute to the functionality of the page, you may have noticed — we only use javascript/css/html. This was originally done for community maintainability. However, this decision is open to change. If you're an experienced Front-End developer and wish to contribute on this end, feel free to reach out with your ideas on the GitHub discussions page! The project's aim is to have a light, fast, and modern static website where each document is created in a human-readable language, enabling those who do not know any web technologies to contribute easily.
+If you wish to contribute to the functionality of the page, you may have noticed — we only use javascript/css/html. This was originally done for community maintainability. However, this decision is open to change. If you're an experienced Front-End developer and wish to contribute on this end, feel free to reach out with your ideas on the GitHub discussions page! The project aims to have a light and fast static website where each document is created in a human-readable language, enabling those who do not know any web technologies to contribute easily.
 
 ## Tech
 
@@ -28,7 +28,7 @@ To use GitHub Discussions, you need to log in to your GitHub account and go to t
 
 ### Media
 
-TODO.
+Media elements, such as videos and pictures, do not have a strict quality requirement. Since we currently host them together with the site, just keep the size of the files low. The aspect ratio of the original game also needs to match when uploading new media. Higher-quality media may be uploaded once we start using an external service for it.
 
 ## Enhancements, Bug Fixes and Other
 

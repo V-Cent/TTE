@@ -1,15 +1,16 @@
 # Tales Tech Encyclopedia
 
-Tales Tech Encyclopedia (TTE) is a community project that aims to document techniques and mechanics for the various games of the "Tales of Series". Our primary objective is demystifying all gameplay aspects, such as glitches, exploits, or any other behavior that can be reproduced. This project is still in development (everything is subject to change).
+Tales Tech Encyclopedia (TTE) is a community project that aims to document techniques and mechanics for the various games of the "Tales of Series". Our primary objective is to clarify all gameplay aspects, such as glitches, exploits, or any other behavior that can be reproduced. This project is still in development (everything is subject to change).
 
-The project started 12th of April 2021.
+Project started 12th of April 2021.
 
 ## Project
 
-TTE is a simple static website. Game articles are formatted as human-readable Markdown pages. This was done to help with maintainability and simplify the contribution process due to not requiring any knowledge of HTML or CSS.
+TTE is a simple static website. Game articles are formatted as human-readable Markdown pages. This was done to help with maintainability and simplifies the contribution process because it does not require any knowledge of HTML or CSS.
 
-The project currently uses only basic web technologies and javascript. We use **esbuild** for bundling, and you can see instructions on how to build it yourself on the section below. We also use **remarkable** for parsing markdown files.
-Pull Requests for Front-End or other improvements are welcome! Just make sure to follow the guidelines from the "How to Contribute" page (on the footer of the website) and to keep the site static and fast.
+The project currently uses only basic web technologies and javascript. We use **esbuild** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files.
+
+Pull Requests for Front-End or other improvements are welcome! Just follow the guidelines from the "How to Contribute" page (in the footer of the website) and keep the site static and fast.
 
 ## Building
 

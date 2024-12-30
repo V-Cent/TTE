@@ -2,8 +2,6 @@
 
 [Tales of Arise](https://aselia.fandom.com/wiki/Tales_of_Arise) (テイルズ オブ アライズ Teiruzu obu Araizu) was released internationally on September 9, 2021 for the PS4, PS5, XBox One, Xbox Series X/S and PC.
 
-Special thanks to users [Rin Kiri](https://www.youtube.com/@RinKiriTales), [Swillo](https://gamefaqs.gamespot.com/boards/265989-tales-of-arise/79639361), [ThatSkeletonMan](https://www.youtube.com/watch?v=qNKUv9p1X7I), [lilliedesu](https://www.youtube.com/watch?v=SLCvRBacgI8), [動画置き場](https://www.youtube.com/watch?v=WHePG4uTlEI), [Jakkun](https://twitter.com/UnheardPhantasm/status/1447392198698442754), [Zeke Belforma](https://www.youtube.com/channel/UCvpBWnhTDYvTlZSwTcaSxlQ) and [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured).
-
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
@@ -253,3 +251,10 @@ There are a few key points to remember:
 - You must be close enough to the enemy so that your character wouldn't start a semi-auto run.
 - You can cancel the arte you choose on the menu by taking control just after your character starts the jump.
 - You must be in either semi-auto or manual mode.
+
+## References
+
+https://www.youtube.com/watch?v=qNKUv9p1X7I
+https://www.youtube.com/watch?v=SLCvRBacgI8
+https://www.youtube.com/watch?v=WHePG4uTlEI
+https://twitter.com/UnheardPhantasm/status/1447392198698442754

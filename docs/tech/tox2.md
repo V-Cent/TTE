@@ -2,8 +2,6 @@
 
 [Tales of Xillia 2](https://aselia.fandom.com/wiki/Tales_of_Xillia_2) (テイルズ オブ エクシリア ２ Teiruzu obu Ekushiria Tsu) was released in Japan on November 1, 2012 for the PS3 (later releasing on North America and Europe).
 
-Special thanks to users [Jakkun](https://www.youtube.com/user/UnlimitedMrX/featured) and [Samu](https://www.youtube.com/user/SamucHedgehog).
-
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
@@ -151,3 +149,7 @@ Normally, equipping the Aerial Spell skill disables Milla's ability to Spirit Sh
 Use an arte while in the air and then input the spell you want to use while the current arte is being performed. Right as the spell is about to come out, either set Milla to Auto Mode or switch to another character. The timing is tight, but if done correctly Milla should transition into the spell instead of its shifted version.
 
 Despite Elize and Muzét having access to Aerial Spell in Xillia 2, this tech is exclusive to Milla as it is a glitch involving the Spirit Shift mechanic.
+
+## References
+
+Special thanks to users [Jakkun](https://www.youtube.com/user/UnlimitedMrX/featured) and [Samu](https://www.youtube.com/user/SamucHedgehog).

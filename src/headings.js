@@ -4,14 +4,15 @@
 
 export class Headings {
   constructor(helperObj) {
+    // Blue is currently unused.
     this.colorCollection = [
       ["yellow", "#f8d959"],
       ["pink", "#fe796f"],
       ["teal", "#45c9c9"],
       ["green", "#58f15b"],
       ["red", "#e74a41"],
-      ["blue", "#205aaa"],
-      ["lavender", "#c8a2b0"]
+      ["lavender", "#c8a2b0"],
+      ["blue", "#205aaa"]
     ];
     this.mouseDown = false;
     // h2Collection will have every data for each section, that way we can load each one individually

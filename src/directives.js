@@ -12,12 +12,22 @@ export class Directives {
     this.styleImages = this.styleImages.bind(this);
     this.compileTags = this.compileTags.bind(this);
     this.helperObj = helperObj;
+    this.katexObj = null;
+  }
+
+  // This is used to set the KaTeX object from the main script
+  setKatex(katex) {
+    this.katexObj = katex;
   }
 
   // This transforms elements that were tagged (part of a custom directive) to something we can manipulate on HTML or with CSS
   compileTags() {
     //Iterator over every element that needs tagging
     document.querySelectorAll(".tagging, .tagging-text").forEach((taggedElement) => {
+      if (taggedElement.classList.contains("tagging-computed")){
+        return;
+      }
+      taggedElement.classList.add("tagging-computed");
       //Get tags from the first child (first heading), which are saved as JSON
       let tagTextData = taggedElement.dataset.tags;
       let tagData = JSON.parse(tagTextData.replace(/'/g, '"'));
@@ -72,6 +82,7 @@ export class Directives {
           const mediaHolder = document.createElement("p");
           mediaHolder.style.opacity = "1";
 
+          // Specific parameters
           let mediaTag;
           if (type === "img") {
             mediaTag = document.createElement("img");
@@ -87,6 +98,7 @@ export class Directives {
             mediaTag.appendChild(source);
           }
 
+          // Parameters that affect both videos and images
           mediaTag.draggable = false;
           mediaTag.width = width;
           mediaTag.height = height;
@@ -95,6 +107,7 @@ export class Directives {
           mediaTag.style.height = "auto";
           mediaTag.style.maxWidth = "640px";
           mediaTag.style.outline = "none";
+          mediaTag.style.borderRadius = "14px";
           mediaTag.src = src;
           mediaHolder.appendChild(mediaTag);
 
@@ -172,6 +185,18 @@ export class Directives {
         taggedElement.dataset.section = this.helperObj.currentSection;
         this.helperObj.addPageChangeEvent(taggedElement);
       }
+    });
+
+    document.querySelectorAll(".tagging-katex").forEach((taggedElement) => {
+      if (taggedElement.classList.contains("tagging-computed")){
+        return;
+      }
+      taggedElement.classList.add("tagging-computed");
+
+      // Get the text content and replace the innerHTML with the KaTeX version
+      let katexText = taggedElement.innerHTML;
+      taggedElement.innerHTML = this.katexObj.renderToString(katexText);
+
     });
   }
 

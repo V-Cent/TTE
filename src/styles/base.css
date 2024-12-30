@@ -16,21 +16,21 @@ All neutral on red green, with a slight blue hue.
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../fonts/gsymbols.woff2") format('woff2');
+  src: url("../styles/fonts/gsymbols.woff2") format('woff2');
 }
 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-display: swap;
-  src: url("../fonts/gmontserrat.woff2") format('woff2');
+  src: url("../styles/fonts/gmontserrat.woff2") format('woff2');
 }
 
 @font-face {
   font-family: 'Nunito';
   font-style: normal;
   font-display: swap;
-  src: url("../fonts/gnunito.woff2") format('woff2');
+  src: url("../styles/fonts/gnunito.woff2") format('woff2');
 }
 
 .material-symbols-rounded {

@@ -171,9 +171,21 @@ export class Helper {
       }
     }
     //Scroll either to top of the page or to the selector smoothly
-    // TODO : Chrome has a bug on scrolling elements that has been around for some time. A previous scroll event will interefere with scrollTo and cause it to stop mid-way.
     window.requestAnimationFrame(() => {
-      const behavior = navigator.userAgent.includes('Chrome') ? 'auto' : 'smooth'
+      let behavior = 'smooth';
+      if (navigator.userAgent.includes('Chrome')){
+        let pieces = navigator.userAgent.match(/Chrom(?:e|ium)\/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)/);
+        if (pieces.length >= 1){
+          // Chromes versions below 130 have a bug that will interefere with scrollTo and cause it to stop mid-way.
+          if (!(isNaN(pieces[1]))){
+            if ((Number(pieces[1]) < 130)){
+              behavior = 'auto';
+            }
+          } else {
+            behavior = 'auto';
+          }
+        }
+      }
       this.rootElement.scrollTo({
         top: tocLocation,
         behavior: behavior,

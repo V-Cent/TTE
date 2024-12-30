@@ -7,8 +7,6 @@ Versions:
 - Original Xbox (_Vanilla_), released August 7, 2008 in Japan; August 26, 2008 in NA; June 26, 2009 in Europe.
 - Port (_PS3_), released September 17, 2009 in Japan. Remastered January 11, 2019 as the Definitive Edition.
 
-Special thanks to the [atwiki community](https://w.atwiki.jp/vesperia/) and users [Miraclechao](https://www.youtube.com/watch?v=mKdSnZqTX5w), [Rin Kiri](https://www.youtube.com/playlist?list=PLSeHNaASeaUq3Fv5l6-9fwNF9PoRR9LeP), [Muragiri](https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV), [dongadonga86](https://www.youtube.com/watch?v=uAFJ4Ho-Qts), [SailorVick](https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc), [zxcxzaq](https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s), [Fanatic](https://www.youtube.com/watch?v=PWfSeT08yUs), [Jamesaga](https://www.youtube.com/user/AHerosLegacy/featured), [Crystal Spire](https://www.youtube.com/c/CrystalSpire/featured), [Kevassa](https://www.youtube.com/user/Kevassa02/featured), [Omegaevolution](https://youtu.be/uTMcL1KJD74?t=131), [aigod1024](https://youtu.be/A10Zua38cv0?t=232) and [Muggshotter](https://www.youtube.com/channel/UC0-MXTAUAcWbPiaX0LO5dNg/featured).
-
 ## Base Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
@@ -444,3 +442,12 @@ Skills needed: Guard artes, Magic Guard (optional).
 With semi-auto cancel, as it removes guard delay, you can chain empty guard artes in place instead of needing to run a bit. The invincibility effect stacks, so chaining a lot of empty guard artes can make you invincible for tens of seconds (with only about 2 seconds of mashing). Using a magic guard (with the cancel base arte set as down) can make you perform the chains even faster, making you invincible for multiple seconds and even minutes.
 
 *:{'media' : 'media/tov/fakeGuardArteChaining.mp4'}*
+
+## References
+
+https://www.youtube.com/watch?v=mKdSnZqTX5w
+https://muragiri.hatenadiary.org/archive/category/%E3%82%82%E3%81%A3%E3%81%A8%E6%A5%BD%E3%81%97%E3%82%80%20TOV
+https://www.youtube.com/watch?v=uAFJ4Ho-Qts
+https://www.twitch.tv/sailorvick/clip/HonestBetterSaladSMOrc
+https://www.youtube.com/watch?v=nZizRvRh3Oo&t=44s
+https://www.youtube.com/watch?v=PWfSeT08yUs

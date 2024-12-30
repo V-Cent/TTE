@@ -14,15 +14,15 @@
 .content__redirect {
   text-indent: 0ch;
   display: inline-flex;
-  font-size: 10pt;
+  font-size: 12pt;
   align-items: center;
   width: fit-content;
-  vertical-align: middle;
+  vertical-align: bottom;
   cursor: pointer;
   padding-left: 3px;
   padding-right: 3px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   border: 1px solid #ffffff55;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -241,6 +241,19 @@
   position: relative;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#content__currenth2 {
+  /* To match the size of paragraphs. Helps in centering tables.*/
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  max-width: 90ch;
+  letter-spacing: .03em;
+}
+
+blockquote p {
+  text-indent: 0ch !important;
 }
 
 .content__h3 {
