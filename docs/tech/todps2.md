@@ -23,7 +23,7 @@ Primary:
 
 Secondary:
 
-- **Strength (体力)** → Determines Character HP.
+- **Stamina (体力)** → Determines Character HP.
 - **Evasion (回避)** → Increases Evasion chance.
 - **Concentration (集中)** → Increase Critical hit chance.
 - **Accuracy (命中)** → Decreases enemy blast gain rate and breaks through Evasion.
@@ -47,26 +47,26 @@ Status can be increased by equipment and by using herbs. Every primary parameter
 
 Secondary parameters are based on the value of two primary ones, and work based on the following formula: $\frac{(\alpha * 2) + \beta}{6}$, $\alpha$ being the primary parameter with the lowest value and $\beta$ the one with the highest value. Secondary parameters scale off the following primary parameters:
 
-- Strength: Physical Attack and Physical Defense.
+- Stamina: Physical Attack and Physical Defense.
 - Evasion: Physical Defense and Magical Defense.
 - Concentration: Magical Attack and Magical Defense.
 - Accuracy: Physical Attack and Magical Attack.
 
 Each character also has an innate bonus to certain secondary parameters:
 
-- Stahn: Strength +4.
+- Stahn: Stamina +4.
 - Rutee: Evasion +5, Accuracy -10.
 - Leon: Evasion +25, Accuracy +20.
 - Mary: Accuracy -10, Concentration +10.
 - Chelsea: Evasion +40.
-- Johnny: Strength +40.
-- Kongman: Strength +100, Concentration +30.
+- Johnny: Stamina +40.
+- Kongman: Stamina +100, Concentration +30.
 
 #### Definitions
 
 While primary parameters are straightforward, secondary ones can have multiple effects during battle.
 
-**Strength** is the most basic one, which is the parameter that defines your maximum number of health points (HP). Your HP is $Strength * 6$.
+**Stamina** is the most basic one, which is the parameter that defines your maximum number of health points (HP). Your HP is $Stamina * 6$.
 
 **Evasion** is a defensive parameter that affects two mechanics. First, it increases the chance your character will automatically guard against attacks (if not in a *:{'redirect' : '#battle'} chain*). For enemies, instead of guarding those attacks will hit aa *:{'redirect' : '#guarding'} iron stance*. The second effect is that evasion decreases the chance for that character to receive critical hits.
 
