@@ -22,12 +22,15 @@ let fileList = [
   { document: "./STYLING", section: "Doucment Syling", dim: "N/A" },
   { document: "./CONTRIBUTING", section: "How to Contribute", dim: "N/A" },
   { document: "TODPS2", section: "Tales of Destiny", dim: "2D" },
+  { document: "TODPS2-C", section: "Tales of Destiny Characters", dim: "2D" },
+  { document: "TODPS2-B", section: "Tales of Destiny Bosses", dim: "2D" },
   { document: "TOL", section: "Tales of Legendia", dim: "2D" },
   { document: "TOA", section: "Tales of Arise", dim: "3D" },
   { document: "TOV", section: "Tales of Vesperia", dim: "3D" },
   { document: "TOTA", section: "Tales of the Abyss", dim: "3D" },
   { document: "TOX2", section: "Tales of Xillia 2", dim: "3D" },
-  { document: "TOZ", section: "Tales of Zestiria", dim: "3D" }
+  { document: "TOZ", section: "Tales of Zestiria", dim: "3D" },
+  { document: "HOME", section: "HOME", dim: "N/A" }
 ];
 
 // --- Module Objects
@@ -42,6 +45,10 @@ var parserObj = new Parser();
 var parsePromises = fileList.map((item) => {
   if (item.document.includes("./")) {
     return parserObj.parseGFM(item.document).then((page) => {
+      parsedDocuments.set(item, page);
+    });
+  } else if (item.document == "HOME") {
+    return parserObj.asyncRead("./home.html").then((page) => {
       parsedDocuments.set(item, page);
     });
   } else {
@@ -60,9 +67,10 @@ if (document.readyState === "loading") {
 } else {
   pageInit();
 }
-
 // --- Search and click redirections
 function pageInit() {
+  // add Showcase functionality
+  prepHome();
   // Add redirect links for title and footer
   document
     .querySelectorAll(
@@ -78,6 +86,7 @@ function pageInit() {
   Promise.all(parsePromises).then(() => {
     searchObj = new Search(parsedDocuments, addPageChangeEvent);
     searchObj.initSearchIcons();
+    searchObj.initOnboardingIcon();
 
     tocObj = new TOC(helperObj);
 
@@ -86,9 +95,55 @@ function pageInit() {
   });
 }
 
+function prepHome() {
+  // function to add functionality to the home page -- called everytime it is loaded
+  document
+    .querySelectorAll(
+      "img#title-text__img, span.content__redirect"
+    )
+    .forEach((item) => {
+      addPageChangeEvent(item);
+    });
+  for (let elem of document.querySelectorAll(".content__home__showcase-item--play")) {
+    elem.addEventListener("click", function() {
+      if (event.currentTarget.innerHTML == "play_circle") {
+        event.currentTarget.innerHTML = "stop_circle";
+        // create child in parent element (so sibling of target), that is a video source
+        let video = document.createElement("video");
+        video.src = event.currentTarget.dataset.video;
+        video.className = "content__home__showcase-item--video";
+        video.autoplay = true;
+        video.controls = false;
+        video.muted = true;
+        video.loop = true;
+        event.currentTarget.parentElement.appendChild(video);
+        setTimeout((video) => {
+          video.style.opacity = 1;
+        }, 50, video);
+      } else {
+        // try and find the video element, set opacity to 0, and remove it after 2 seconds
+        let video = event.currentTarget.parentElement.querySelector(".content__home__showcase-item--video");
+        if (video != null) {
+          video.style.opacity = 0;
+          setTimeout(([element, video]) => {
+            video.remove();
+            element.innerHTML = "play_circle";
+          }, 500, [event.currentTarget, video]);
+        } else {
+          event.currentTarget.innerHTML = "play_circle";
+        }
+      }
+    });
+  }
+}
+
 // --- Function for click events on redirects
 export function addPageChangeEvent(item) {
   // Remove the previous event if one exist. This is a bandaid fix fo the fillSearch function.
+  let inputField = document.querySelector("#nav-bar__search--input");
+  if (inputField != null) {
+    inputField.blur();
+  }
   item.removeEventListener("click", changeEvent);
   item.addEventListener("click", changeEvent);
 }
@@ -96,6 +151,13 @@ export function addPageChangeEvent(item) {
 // Function to make sure Katex is loaded before changing the page, then calls changeDocument
 //   the only data that is downloaded as the page is being loaded are images, videos, and Katex
 function changeEvent(event){
+  // remove focus from search bar
+  let inputField = document.querySelector("#nav-bar__search--input");
+  if (inputField != null) {
+    event.stopPropagation();
+    document.activeElement.blur();
+    inputField.blur();
+  }
 
   var parsedKatex = null;
 
@@ -132,8 +194,7 @@ function changeEvent(event){
 
 // Function to handle changes to content
 function changeDocument(eventTarget) {
-  // Get the section and content elements to change the document presented on the page
-  let sectionText = document.getElementById("section-container__text");
+  // Get the content element to change the document presented on the page
   let contentText = document.getElementById("content");
 
   // Clear active search result
@@ -142,42 +203,50 @@ function changeDocument(eventTarget) {
 
   if (eventTarget.dataset.document == "HOME") {
     // Redirect to home page
-    toHome(sectionText, contentText, eventTarget);
+    toHome(contentText, eventTarget);
+    contentText.style.minHeight = "600px";
   } else {
     if (eventTarget.dataset.document.includes("./")) {
       // Redirect to pages like the readme, document styling...
-      toPage(sectionText, contentText, eventTarget);
+      contentText.style.minHeight = "600px";
+      toPage(contentText, eventTarget);
     } else {
       //Event is a tech document, set the section as the game name and update the content
-      toTech(sectionText, contentText, eventTarget);
+      contentText.style.minHeight = "100vh";
+      toTech(contentText, eventTarget);
     }
   }
 }
 
 // --- Load Home Page
-function toHome(sectionText, contentText, eventTarget) {
+function toHome(contentText, eventTarget) {
   currentDocument = eventTarget.dataset.document;
   tocObj.clearHeadings();
   helperObj.updateStatus("HOME", "HOME", false);
   tocObj.clearSectionTOC();
   // Removes #content__tocicon if it exists
-  // TODO : hardcoded home page HTML. Maybe save in an external file and load from here (using the same method as the parser does)
-  contentText.innerHTML = "UNDER CONSTRUCTION";
-  // Set section-container
-  sectionText.innerHTML = "HOME"
-  document.querySelector("#nav-bar").scrollIntoView({
-    behavior: "smooth",
-  });
+  // load content from home.html fil and apply to contentText
+  let parsedPage = null;
+
+  // Iterate over the entries in parsedDocuments to find the matching document
+  for (const [key, value] of parsedDocuments.entries()) {
+    if (key.document === "HOME") {
+      parsedPage = value;
+      break;
+    }
+  }
+
+  contentText.innerHTML = parsedPage;
+  prepHome();
+  searchObj.initOnboardingIcon();
 }
 
 // --- Load Generic Page
-function toPage(sectionText, contentText, eventTarget) {
+function toPage(contentText, eventTarget) {
   currentDocument = eventTarget.dataset.document;
   tocObj.clearHeadings();
   helperObj.updateStatus(eventTarget.dataset.document, eventTarget.dataset.section, false);
   tocObj.clearSectionTOC();
-  // Set section-container
-  sectionText.innerHTML = eventTarget.dataset.section;
   const documentKey = eventTarget.dataset.document;
   let parsedPage = null;
 
@@ -198,10 +267,8 @@ function toPage(sectionText, contentText, eventTarget) {
 }
 
 // --- Load Tech Page
-function toTech(sectionText, contentText, eventTarget){
+function toTech(contentText, eventTarget){
   helperObj.updateStatus(eventTarget.dataset.document, eventTarget.dataset.section, true);
-  // Set section-container
-  sectionText.innerHTML = eventTarget.dataset.section;
   // Check if the page to load is the same one
   let pastDocument = currentDocument;
   currentDocument = eventTarget.dataset.document;
@@ -240,14 +307,16 @@ function toTech(sectionText, contentText, eventTarget){
     compileH2s();
     //updatePage(); compileH2s has an updatePage() call already.
     if (currentDataset.redirect != null) {
-      //Event has a redirect location, collapse the headings if needed
-      searchObj.revealID(currentDataset.redirect.substring(1));
-      // Set timeout to give time to page to update (it also looks nice)
-      setTimeout(() => {
-        document.querySelector(currentDataset.redirect).scrollIntoView({
-          behavior: "smooth",
-        });
-      }, 250);
+      if (currentDataset.redirect != "NONE"){
+        //Event has a redirect location, collapse the headings if needed
+        searchObj.revealID(currentDataset.redirect.substring(1));
+        // Set timeout to give time to page to update (it also looks nice)
+        setTimeout(() => {
+          document.querySelector(currentDataset.redirect).scrollIntoView({
+            behavior: "smooth",
+          });
+        }, 250);
+      }
     } else {
       //No redirect location, scroll to top
       document.querySelector("#nav-bar").scrollIntoView({

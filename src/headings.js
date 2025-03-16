@@ -168,17 +168,169 @@ export class Headings {
     // Save to session storage, used in search
     sessionStorage.setItem("h2Collection", JSON.stringify(this.h2Collection));
 
-    selectionTab = selectionTab + '</div><hr id="content__selectorhr"></hr></div><div id="content__currenth2"></div>';
+    selectionTab = selectionTab + '</div><hr id="content__selectorhr"></hr>';
+
+    var mobileChevrons = '<div id="content__mobilechevrons"><span class="content__mobilechevrons--left material-symbols-rounded">chevron_backward</span><span class="content__mobilechevrons--right material-symbols-rounded">chevron_forward</span></div></div><div id="content__currenth2"></div>';
 
     if (this.h2Collection.length > 0){
-        page.innerHTML = newHeading + selectionTab;
+        page.innerHTML = newHeading + selectionTab + mobileChevrons;
     } else {
         page.innerHTML = newHeading;
     }
 
     this.helperObj.dragScrollElement('#content__selectorbox', 0);
 
+    this.setupChevrons();
+
     contentElem.style.visibility = "visible";
+  }
+
+  setupChevrons(){
+    // TODO : this could probably use a refactor later
+    // Get all three elements
+    let chevronBox = document.getElementById("content__mobilechevrons");
+    let chevronLeft = document.getElementsByClassName("content__mobilechevrons--left")[0];
+    let chevronRight = document.getElementsByClassName("content__mobilechevrons--right")[0];
+
+    // check if any item in content__selectorbox is out-of-bounds. If yes, enable the chevronBox
+    let selectorBox = document.getElementById("content__selectorbox");
+    let selectorBoxWidth = selectorBox.clientWidth;
+    let selectorBoxScrollWidth = selectorBox.scrollWidth;
+    if (selectorBoxWidth < selectorBoxScrollWidth){
+      chevronBox.style.display = "block";
+      chevronBox.style.left = selectorBox.getBoundingClientRect()["right"] + "px";
+    } else {
+      chevronBox.style.display = "none";
+    }
+
+    // Add an event to window to check when it is resized to see if enabling the chevronBox is needed
+    window.addEventListener('resize', function(event){
+      let selectorBox = document.getElementById("content__selectorbox");
+      if (selectorBox == null){
+        return;
+      }
+      let chevronBox = document.getElementById("content__mobilechevrons");
+      let selectorBoxWidth = selectorBox.clientWidth;
+      let selectorBoxScrollWidth = selectorBox.scrollWidth;
+      let chevronLeft = document.getElementsByClassName("content__mobilechevrons--left")[0];
+      let chevronRight = document.getElementsByClassName("content__mobilechevrons--right")[0];
+      if (selectorBoxWidth < selectorBoxScrollWidth){
+        chevronBox.style.display = "block";
+        chevronBox.style.left = selectorBox.getBoundingClientRect()["right"] + "px";
+        let sBoxScrollLeft = selectorBox.scrollLeft;
+        if (sBoxScrollLeft > 0){
+          chevronLeft.classList.add("active");
+        }
+        if (sBoxScrollLeft < selectorBox.scrollWidth - selectorBox.offsetWidth){
+          chevronRight.classList.add("active");
+        }
+      } else {
+        chevronBox.style.display = "none";
+      }
+    },true);
+
+    // the buttons become active if they're not at the end of their scrolls
+    let leftActive = false;
+    let rightActive = true;
+    let sBoxScrollLeft = selectorBox.scrollLeft;
+    if (sBoxScrollLeft > 0){
+      leftActive = true;
+      chevronLeft.classList.add("active");
+    }
+    if (sBoxScrollLeft < selectorBox.scrollWidth - selectorBox.offsetWidth){
+      rightActive = true;
+      chevronRight.classList.add("active");
+    }
+
+    // Add event listeners to the chevrons -- if they are enabled they scroll to their direction by selectorBoxWidth
+    chevronLeft.addEventListener('click', function(event){
+      let chevronLeft = document.getElementsByClassName("content__mobilechevrons--left")[0];
+      let chevronRight = document.getElementsByClassName("content__mobilechevrons--right")[0];
+      let selectorBox = document.getElementById("content__selectorbox");
+      let selectorBoxWidth = selectorBox.offsetWidth;
+
+      let leftActive = chevronLeft.classList.contains("active");
+      let rightActive = chevronRight.classList.contains("active");
+      if (leftActive){
+        if (selectorBox.scrollLeft - selectorBoxWidth <= 0){
+          selectorBox.dataset.isScrolling = "true";
+          chevronLeft.classList.remove("active");
+          setTimeout(function(){
+            let selectorBox = document.getElementById("content__selectorbox");
+            selectorBox.dataset.isScrolling = "false";
+          }, 700);
+          leftActive = false;
+        }
+        selectorBox.scrollTo({
+          left: selectorBox.scrollLeft - selectorBoxWidth,
+          behavior: 'smooth'
+        });
+        if (!rightActive){
+          chevronRight.classList.add("active");
+        }
+      }
+    } ,true);
+
+    chevronRight.addEventListener('click', function(event){
+      let chevronLeft = document.getElementsByClassName("content__mobilechevrons--left")[0];
+      let chevronRight = document.getElementsByClassName("content__mobilechevrons--right")[0];
+      let selectorBox = document.getElementById("content__selectorbox");
+      let selectorBoxWidth = selectorBox.offsetWidth;
+
+      let rightActive = chevronRight.classList.contains("active");
+      let leftActive = chevronLeft.classList.contains("active");
+      if (rightActive){
+
+        // Get the last child element
+        if (selectorBox.scrollLeft + selectorBoxWidth + selectorBoxWidth >= selectorBox.scrollWidth){
+          selectorBox.dataset.isScrolling = "true";
+          chevronRight.classList.remove("active");
+          setTimeout(function(){
+            let selectorBox = document.getElementById("content__selectorbox");
+            selectorBox.dataset.isScrolling = "false";
+          }, 700);
+          rightActive = false;
+        }
+        selectorBox.scrollTo({
+          left: selectorBox.scrollLeft + selectorBoxWidth,
+          behavior: 'smooth'
+        });
+        if (!leftActive){
+          chevronLeft.classList.add("active");
+          leftActive = true;
+        }
+      }
+    } ,true);
+
+    // add a scroll event to the selector box to disable/enable scroll when the user scrolls themselves
+    selectorBox.addEventListener('scroll', function(event){
+      let chevronLeft = document.getElementsByClassName("content__mobilechevrons--left")[0];
+      let chevronRight = document.getElementsByClassName("content__mobilechevrons--right")[0];
+      let selectorBox = document.getElementById("content__selectorbox");
+      let selectorBoxWidth = selectorBox.offsetWidth;
+
+      if (selectorBox.dataset.isScrolling != undefined){
+        if (selectorBox.dataset.isScrolling == "true"){
+          return;
+        }
+      }
+
+      let leftActive = chevronLeft.classList.contains("active");
+      let rightActive = chevronRight.classList.contains("active");
+
+      if (selectorBox.scrollLeft <= 0){
+        chevronLeft.classList.remove("active");
+      } else if (!leftActive){
+        chevronLeft.classList.add("active");
+      }
+
+      if (selectorBox.scrollLeft >= selectorBox.scrollWidth - selectorBoxWidth){
+        chevronRight.classList.remove("active");
+      } else if (!rightActive){
+        chevronRight.classList.add("active");
+      }
+    }, true);
+
   }
 
   // This is the collapse event for when you click the icon for an h3
@@ -194,8 +346,6 @@ export class Headings {
           // Change the button depending on the current art
           if (event.currentTarget.firstChild.innerHTML == "expand_circle_down") {
             event.currentTarget.firstChild.innerHTML = "expand_circle_up";
-          } else {
-            event.currentTarget.firstChild.innerHTML = "remove";
           }
         } else if (i == 0) {
           // Only hide if click target is the current heading level and is currently not hidden.
@@ -203,8 +353,6 @@ export class Headings {
           // Change the button depending on the current art
           if (event.currentTarget.firstChild.innerHTML == "expand_circle_up") {
             event.currentTarget.firstChild.innerHTML = "expand_circle_down";
-          } else {
-            event.currentTarget.firstChild.innerHTML = "add";
           }
         }
       }

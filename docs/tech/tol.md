@@ -2,13 +2,13 @@
 
 This is currently a test page for the layout of tech documents.
 
-Inline equation: $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ , and text continues.
+Quick intro.
 
-Block equation:
+Introduce version list.
 
-$$
-\binom{n}{k} = \frac{n!}{k!(n-k)!}
-$$
+Introduce sections.
+
+*:{'sections' : true}*
 
 ## Mechanics
 
@@ -27,6 +27,14 @@ Table test:
 | Lilith    | 11.76        |
 | Leon      | 11.46        |
 
+Inline equation: $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ , and text continues.
+
+Block equation:
+
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+
 ### Stats
 
 TODO
@@ -41,10 +49,30 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. For air to ground cancel in Tales of Vesperia check *:{'redirect' : '#air-to-ground-cancel', 'document' : 'TOV'} AtGC*. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+- [] AA
+- [x] aa
+- []
+
+aa
+[x] aa
+[] aa
+
+
+
 *:{'redirect' : '#references'} Redirect*
 
 
 Tales of Legendia is a game. *:{'reference' : true} 1* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+### :{'versions' : 'A'} Test Versions
+
+#### :{'versions' : 'B'} Test Versions 2
+
+#### :{'versions' : 'A'} Test Versions 2
+
+#### :{'versions' : 'B'} Test Versions 2
+
+#### :{'versions' : 'C'} Test Versions 2
 
 ## Glitches
 
@@ -69,6 +97,16 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 #### Redirect Target
 
 Test
+
+### :{'versions' : 'A'} Test Versions
+
+#### :{'versions' : 'B'} Test Versions 2
+
+#### :{'versions' : 'A'} Test Versions 2
+
+#### :{'versions' : 'B'} Test Versions 2
+
+#### :{'versions' : 'C'} Test Versions 2
 
 ## Techniques
 
@@ -95,3 +133,16 @@ Contributors:
 
 Special Thanks:
 - X person: for x,y,z...
+
+## References
+## References
+## References
+## References
+## References
+## References
+## References
+## References
+## References
+## References
+## References
+## References

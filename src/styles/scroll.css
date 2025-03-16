@@ -6,8 +6,8 @@
   padding: 0px;
   border: none !important;
   border-width: 0px;
-  border-color: #161618;
-  background-color: #161618;
+  border-color: var(--gray-bg);
+  background-color: var(--gray-bg);
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;

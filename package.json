@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.16.5",
+  "version": "0.18.2",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "watch": "nodemon --watch \"src/\" --exec \"npm run build\"",
-    "build": "rimraf docs/scripts docs/styles && node esbuild.mjs && minify-html --output docs/index.html --keep-closing-tags --minify-css src/index.html && copy-folder src/styles/fonts docs/styles/fonts --summary"
+    "build": "rimraf docs/scripts docs/styles && node esbuild.mjs && minify-html --output docs/home.html --keep-closing-tags --minify-css src/home.html && minify-html --output docs/index.html --keep-closing-tags --minify-css src/index.html && copy-folder src/styles/fonts docs/styles/fonts --summary"
   },
   "dependencies": {
     "@minify-html/node": "^0.15.0",

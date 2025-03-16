@@ -34,7 +34,7 @@ export class TOC {
   }
 
   // Creates the TOC based on the provided document. Only for tech pages (looks off when used with something like readme)
-  //   this, however, requires a strict styling format for the markdown file 
+  //   this, however, requires a strict styling format for the markdown file
   createTOC(currentDocument) {
     // Check if tocborder already exists
     let tocBorder = document.getElementById("content__tocborder");
@@ -66,7 +66,7 @@ export class TOC {
       tocBorder.appendChild(toc);
       // Set TOC y location just after #content__selector
       selector = document.getElementById("content__selector");
-      tocBorder.style.top = (selector.offsetTop + 150) + "px";
+      tocBorder.style.top = (selector.getBoundingClientRect().bottom + document.documentElement.scrollTop + 180) + "px";
 
       // Also add an icon on the #section-container__div for mobile
       let tocIcon = document.createElement("span");
@@ -114,7 +114,7 @@ export class TOC {
     // Set TOCborder size to content size - offset
     tocBorder.style.height = "calc(100% - " + (selector.offsetTop + 150) + "px)";
     // Add content to TOC
-    let tocContent = "<p>— On this section:</p><hr>";
+    let tocContent = "<p>ON THIS SECTION</p><hr>";
     toc.innerHTML = tocContent;
     tocMobile.innerHTML = tocContent;
     // - Scan headings (h3s and h4s) on #content__currenth2, creates objects with name, clientY, isH3 or isH4, and parent (if H4)
@@ -145,9 +145,11 @@ export class TOC {
     // - Create a list of links to the headings
     let tocLinks = "";
     for (let heading of this.headings) {
-      let link = '<div data-document="' + currentDocument + '" data-section="' + this.helperObj.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search button__redirect" style="display: block;';
+      let link = "";
       if (!(heading.isH3)) {
-        link = link.concat('padding-left: 30px; font-size: 13px; padding-top: 6px; padding-bottom: 6px;');
+        link = '<div data-document="' + currentDocument + '" data-section="' + this.helperObj.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search content__toc--search-h4 button__redirect" style="display: block;';
+      } else {
+        link = '<div data-document="' + currentDocument + '" data-section="' + this.helperObj.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search button__redirect" style="display: block;';
       }
       link = link.concat('">' + heading.name);
       link = link.concat("</div>");
@@ -176,23 +178,6 @@ export class TOC {
       }
     }
 
-    // Hide SEARCH h4s (display: none) before and after the indexes and show (display:block) the ones between
-    for (let i = 0; i < this.headings.length; i++) {
-      if (!(this.headings[i].isH3)) {
-        if ((i >= currentH3Index && i <= nextH3Index) || (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index) || (nextH3Index == 0 && currentH3Index == 0)) {
-          let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + this.headings[i].id + '"]');
-          for (let search of searchH4) {
-            search.style.display = "block";
-          }
-        } else {
-          let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + this.headings[i].id + '"]');
-          for (let search of searchH4) {
-            search.style.display = "none";
-          }
-        }
-      }
-    }
-
     // Add an active to the current h3 and remove active (if there are any) from other
     if (currentH3 != null) {
       let currentActive = document.querySelectorAll(".content__toc--search.active");
@@ -204,6 +189,25 @@ export class TOC {
         active.classList.add("active");
       }
     }
+
+    // Hide SEARCH h4s (display: none) before and after the indexes and show (display:block) the ones between
+    for (let i = 0; i < this.headings.length; i++) {
+      if (!(this.headings[i].isH3)) {
+        if ((i >= currentH3Index && i <= nextH3Index) || (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index) || (nextH3Index == 0 && currentH3Index == 0)) {
+          let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + this.headings[i].id + '"]');
+          for (let search of searchH4) {
+            search.style.display = "block";
+            search.classList.add("active");
+          }
+        } else {
+          let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + this.headings[i].id + '"]');
+          for (let search of searchH4) {
+            search.style.display = "none";
+          }
+        }
+      }
+    }
+
   }
 
   // Completely remove the TOC

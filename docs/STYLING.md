@@ -73,9 +73,9 @@ Quote blocks can be created by starting a line with a greater-than sign (>). The
 > If you wish to continue the quote in another line,  
 > finish the current line with two empty spaces.
 
-### Equations
+### Mathematical Expressions
 
-TTE also supports LaTeX equations. These can be placed in-line by encompassing the equation with the "\$" symbol or as a block by putting the equation between lines with the "\$\$" symbol.
+TTE also supports LaTeX expressions. These can be placed in-line by encompassing the equation with the "\$" symbol or as a block by putting the equation between lines with the "\$\$" symbol.
 
 This is an example of an inline equation: $E=mc^2$. Text can continue after it.
 
@@ -169,13 +169,16 @@ The second heading (##) is used for category definitions. While you can create c
 - "Mechanics": This category is used for general game mechanics that are mostly explained in-game. It should be a general overview of the battle system. *:r __Mandatory.__*
 - "Techniques": This category is used for techniques and glitches that are related to the battle system. *:r __Mandatory.__*
 - "Glitches": This category is used for glitches that are not related to the battle system (such as exploration). *:r __Mandatory.__*
-- "Characters": This category should include a summary of each playable character and important parameters for their artes, serving as a reference for players. It also should include character-specific mechanics, glitches, and techniques. May also include strategy (game mechanic) and boss information, glitches, and oddities.
 - "Misc": This category is used for any other information that does not fit in the previous categories. Minor techniques that don't affect the game as much (for example, an animation breaking) should also be placed here. When in doubt, check the Misc category of other pages. Version differences can also be placed here.
 - "References": References for the current page. *:r __Mandatory.__*
 
 As a general tip, use images, videos, tables, and formulas as much as you can to break the page flow and make things easier to read. A full view (1 screen on desktop and 2 screens on mobile) with only text can be tiring to read and can cause users to skip ahead.
 
 The page will be automatically divided for each second heading. A table of contents will also be added to link to the third and fourth headings of the section. Finally, any third and fourth heading inside "Techniques" or "Glitches" will be added to the search menu.
+
+Pages can also be created for two other articles, being:
+- "Characters": Includes a summary of each playable character and important parameters for their artes, serving as a reference for players. It also should include character-specific mechanics, glitches, and techniques. May also include strategy (game mechanic) and boss information, glitches, and oddities.
+- "Bosses": Spoiler article containing a reference for the game's bosses.
 
 ## Other Resources
 

@@ -1,16 +1,19 @@
 # Tales of Destiny for the PlayStation 2
 
-Versions:
+This page covers the PS2 remake of Tales of Destiny (テイルズ オブ デスティニー). The versions covered in this page are listed below; version-specific information will be marked by colored icons. Details on version differences can be found *:{'redirect' : '#version-differences'} here*.
 
-- ***:r Vanilla***: Original PS2 version; released November 30, 2006 in Japan.
-- ***:g DC***: Director's Cut — PS2 version with additional content; released January 31, 2008 in Japan.
+- *:{'versions' : 'Vanilla'}***Vanilla**: Original PS2 version; released on November 30, 2006 in Japan.
+- *:{'versions' : 'DC'}***DC**: Director's Cut — PS2 version with additional content; released on January 31, 2008 in Japan.
 
-Version differences can be found *:{'redirect' : '#version-differences'} here*.
-A technique or sentence that only applies to a specific version will have the following symbol next to it: *:{'versions' : 'Vanilla/DC'}*
+Use the selection menu below to choose the article you wish to view.
+
+*:{'sections' : true}*
 
 ## Mechanics
 
-### Status
+This section contains a discussion on the various game mechanics, covering RPG elements like character stats and status effects, as well as core systems such as menus and universal controls.
+
+### Parameters
 
 Each character has 8 different parameters, separated into two categories:
 
@@ -23,14 +26,14 @@ Primary:
 
 Secondary:
 
-- **Strength (体力)** → Determines Character HP.
+- **Stamina (体力)** → Determines Character HP.
 - **Evasion (回避)** → Increases Evasion chance.
 - **Concentration (集中)** → Increase Critical hit chance.
 - **Accuracy (命中)** → Decreases enemy blast gain rate and breaks through Evasion.
 
 *:{'media' : 'media/todps2/stats.png', 'caption' : 'The status menu in-game. Primary parameters are in gold and secondary in purple.'}*
 
-Status can be increased by equipment and by using herbs. Every primary parameter is increased at every level up. This growth is defined by the following formula: $\frac{\alpha * \beta}{Phy.Atk + Phy.Def + Mag.Atk + Mag.Def}$, $\alpha$ being the primary parameter being increased and $\beta$ being the growth rate for that character. Keep in mind that herbs, equipment, and jewels also affect the values in the formula. Therefore, changing your equipment before leveling up can affect your character's growth. For example, increasing Physical Attack as much as possible and decreasing the other stats (such as removing armors) will make so that you will have a higher Physical Attack gain than normal. A table with the growth rate for each character is shown below:
+Parameters can be increased by equipment and by using herbs. Every primary parameter is increased at every level up. This growth is defined by the following formula: $\frac{\alpha * \beta}{Phy.Atk + Phy.Def + Mag.Atk + Mag.Def}$, $\alpha$ being the primary parameter being increased and $\beta$ being the growth rate for that character. Keep in mind that herbs, equipment, and jewels also affect the values in the formula. Therefore, changing your equipment before leveling up can affect your character's growth. For example, increasing Physical Attack as much as possible and decreasing the other stats (such as removing armors) will make so that you will have a higher Physical Attack gain than normal. A table with the growth rate for each character is shown below:
 
 | Character | Growth Rate |
 | :-------- | :----------: |
@@ -47,26 +50,26 @@ Status can be increased by equipment and by using herbs. Every primary parameter
 
 Secondary parameters are based on the value of two primary ones, and work based on the following formula: $\frac{(\alpha * 2) + \beta}{6}$, $\alpha$ being the primary parameter with the lowest value and $\beta$ the one with the highest value. Secondary parameters scale off the following primary parameters:
 
-- Strength: Physical Attack and Physical Defense.
+- Stamina: Physical Attack and Physical Defense.
 - Evasion: Physical Defense and Magical Defense.
 - Concentration: Magical Attack and Magical Defense.
 - Accuracy: Physical Attack and Magical Attack.
 
 Each character also has an innate bonus to certain secondary parameters:
 
-- Stahn: Strength +4.
+- Stahn: Stamina +4.
 - Rutee: Evasion +5, Accuracy -10.
 - Leon: Evasion +25, Accuracy +20.
 - Mary: Accuracy -10, Concentration +10.
 - Chelsea: Evasion +40.
-- Johnny: Strength +40.
-- Kongman: Strength +100, Concentration +30.
+- Johnny: Stamina +40.
+- Kongman: Stamina +100, Concentration +30.
 
 #### Definitions
 
 While primary parameters are straightforward, secondary ones can have multiple effects during battle.
 
-**Strength** is the most basic one, which is the parameter that defines your maximum number of health points (HP). Your HP is $Strength * 6$.
+**Stamina** is the most basic one, which is the parameter that defines your maximum number of health points (HP). This is set by the following expression: $Stamina * 6$.
 
 **Evasion** is a defensive parameter that affects two mechanics. First, it increases the chance your character will automatically guard against attacks (if not in a *:{'redirect' : '#battle'} chain*). For enemies, instead of guarding those attacks will hit aa *:{'redirect' : '#guarding'} iron stance*. The second effect is that evasion decreases the chance for that character to receive critical hits.
 
@@ -115,7 +118,7 @@ Normal attacks are the cheapest offensive action costing only 1 CC. However, doi
 
 #### Guarding
 
-Guarding is used to reduce damage from physical attacks and to prevent being staggered. Damage is reduced by 75% when guarding on the vanilla version, but on the DC version, damage is further reduced based on difficulty. You can also perform a *Flash Guard* by guarding just before an attack hits, which reduces damage by 90% (which is lower than normally guarding attacks when playing the DC version at the Chaos difficulty).
+Guarding is used to reduce damage from physical attacks and to prevent being staggered. Damage is reduced by 75% when guarding on the vanilla version, but on the DC version, damage is further reduced based on difficulty. You can also perform a *Flash Guard* by guarding just before an attack hits, which reduces damage by 90% (lower than normally guarding attacks when playing the DC version at the Chaos difficulty).
 
 | Difficulty | Reduction   |
 | :--- | :----: |
@@ -150,7 +153,7 @@ Artes and spells cost more CC than a normal attack, but they normally do more da
 
 Spells require a certain cast time before coming out. This is divided into the casting animation and the release animation. Spells can be held and not released by holding the artes button or be canceled by tapping guard (produces the same animation as turning around when running, which has a different recovery time depending on the character). Spells **cannot be canceled** if done at the start of a chain in semi-auto mode (will cause them to be re-cast instead). Additionally, some spells may impose a limit on how many are present on the screen. These are usually reserved to screen-wide spells and they are limited to 4 at a time.
 
-Cancelling spells can be an easy way to reach max CC. However, make sure you don't do it after guarding, as that will lock your CC in place. Doing any attack or movement option (other than walking or running) will cancel this.
+Sucessevely cancelling spells can be an fast way to reach max CC. If you perform this after guarding however, you won't gain any additional CC. Doing any attack or movement option (other than walking or running) will fix this behavior.
 
 As you use artes and spells, they gain additional effects:
 
@@ -187,11 +190,11 @@ By pressing the select button during battle, or changing it manually in the arte
 
 On auto, the default control mode for your party members, the character will act according to the strategy you have set. You cannot move characters or do any action manually other than using items, using shortcut artes from your controlled character, or requesting them to do artes or spells from the artes menu. On semi-auto mode, you can move and perform actions yourself. At the first attack of a chain (and only if you are not currently in a chain), your character will adjust their position automatically (with running and dashing). Additionally, attacks are automatically defended against if possible. This is similar to the auto-guard that happens when evasion triggers. On manual, all actions are controlled by the player.
 
-### Combat States
+### Battle States
 
 #### Stagger
 
-The player and enemies may be in various states during battle. The most common of these is the staggered state. If an attack hits, the enemy is staggered and is allowed to be combo'ed. An attack can also launch its target into the air, which will cause a slight bounce when they touch the ground. Other than the vertical launch, aerial combos and launch attacks do not have any special effects on stagger time. During a combo chain (a chain where you've previously hit the enemy), attacks cause an initial burst ( *chain stagger extension*) of stagger on startup to allow further attacks to connect better. This is 12 frames for normal attacks and around 14 frames for artes (though it differs from arte to arte and can be 20+ frames). Combo'ed enemies can only drop out of combos by running out of stagger, using a *:{'redirect' : '#blast-use'} damage break*, or by boss-specific mechanics. Combos also increase experience points. After 100 hits, the launch power of attacks becomes slightly random to make infinite combos harder.
+The player and enemies may be in various states during battle. The most common of these is the staggered state. If an attack hits, the enemy is staggered and is allowed to be combo'ed. An attack can also launch its target into the air, which will cause a slight bounce when they touch the ground. Other than the vertical launch, aerial combos and launch attacks do not have any special effects on stagger time. During a combo chain (a chain where you've previously hit the enemy), attacks cause an initial burst ( *chain stagger extension*) of stagger on startup to allow further attacks to connect better. This is around 12 frames for normal attacks and around 14 frames for artes (though some artes can have 20+ frames of chain stagger). Combo'ed enemies can only drop out of combos by running out of stagger, using a *:{'redirect' : '#blast-use'} damage break*, or by boss-specific mechanics. Combos also increase experience points. After 100 hits, the launch power of attacks becomes slightly random to make infinite combos harder.
 
 Some attacks can also also cause a knockdown. This is a state where the character is knocked into the ground and does not receive any additional stagger other than from a chain stagger extension. They will also iron stance through attacks if hit when at 10 stagger or below. A knockdown can also be caused by hitting an enemy from high enough from the ground and letting them fall. The knockdown effect, if applied on the air, can be overwritten by another status (such as a normal stagger) if it is applied before the enemy touches the ground. Some specific attacks can also cause a hard knockdown. This is the same as the normal knockdown but will not cause a bounce if done from the air. When on the ground, enemies can only take so much stagger before instantly going into a knockdown state. This happens when a chain stagger extension or *:{'redirect' : '#stagger-storage'} similar mechanic* makes the stagger value reach 50 frames.
 
@@ -223,6 +226,8 @@ Elements are divided into offensive (applying elemental effects) and defensive a
 | Chaos  | 0.30x   | 3.00x |
 
 ## Techniques
+
+This section contains a discussion on useful battle techniques that can be used during battle.
 
 ### General Techniques
 
@@ -413,6 +418,8 @@ Various effects can be created using transition glitches. However, keep in mind 
 
 ## Glitches
 
+This section contains a discussion on useful glitches and exploits that can be used outside of battle.
+
 ### Out-of-Bounds and Sequence Breaks
 
 #### :{'media' : 'media/todps2/caveQueen.mp4'} Skip Cave Queen
@@ -447,43 +454,9 @@ These are the Definite Strikes you have to perform against each part:
 - Philia vs Cave Swell: Wind Arrow → Lightning
 - Stahn vs Cave Queen: Bakuenken → Souryuu Rengazan
 
-## Characters
-
-This section is under construction and may not represent correctly the contents that will be present in the final version.
-
-[TODO] List of characters and (important) arte parameters.
-
-[TODO] Strategy Menu.
-
-### Leon
-
-Aerial spells require a hit confirm.
-
-- Leon's Glimmer Dragon (Garyuusen): +22 frames of stagger.
-
-#### :{'media' : 'media/todps2/leonJump.mp4'} Swallow Talon Glitch
-
-Swallow Talon has an interesting effect when mid-way canceling with a jump. Normally, the user will jump forward slightly. However, if you jump just before the second part of the attack, you will get a large amount of momentum backward. If you do a normal attack instead, you will get some vertical height during your attack.
-
-#### Attack Cancel Glitched Artes
-
-Using *:{'redirect' : '#attack-cancel'} attack canceled* artes after a normal attack or another attack canceled arte can have some glitchy effects. For example, Dragon Swarmn and Phantom Edge will have half as much range. Only some artes can cause this effect. Artes that are not affected by this glitch will not cancel it, and the effect will be stored in memory until it is consumed. For example, you can do a normal attack followed by an attack canceled arte that doesn't consume the effect (ex: Glimmer Dragon) to store it for a future combo.
-
-### Strategy Menu
-
-### Boss Strategies
-
-#### Boss AI Manipulation
-
-Multiple bosses in Tales of Destiny can be manipulated to make fights easier, such as ignoring mechanics or skipping phases. Bait resets can be used to easily punish bosses, and spell locking can trivialize some fights.
-
-Certain fights, however, have unique ways in that they can be manipulated.
-
-*:!Ilene* has a unique glitch where, if she blocks a BC, she will stay in that state until you pause the game, try to change targets, or hit her. This effect changes in the different versions of the game. You can use this time to heal up, cast spells, or even safely set up the spell lock technique.
-
-The *:!Rembrandt* fight has multiple ways in which you can manipulate it. The fight has certain HP thresholds where he changes from a ground form to an air form. All of these can be canceled by using a BC. You can also use a BC just after the change form animation is playing: if you do it while he is going to the air, he will be stuck in the air on the ground form; if you do it while he is going to the ground, he will be stuck in the ground on the air form.
-
 ## Misc
+
+This section includes miscellaneous details not covered in other sections, along with glitches and combat techniques with limited practicality.
 
 ### Game Mechanics
 
@@ -569,5 +542,3 @@ Below is a non-exhaustive list of version changes that were made for the 2008 re
 - Muctales
 - VCent
 - Zeke Belforma
-
-### Resources
