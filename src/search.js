@@ -1,4 +1,3 @@
-
 // ---------
 // search.js controls the search actions and redirects
 
@@ -31,7 +30,7 @@ export class Search {
     search.addEventListener("focusout", (event) => {
       let searchField = document.querySelector("#nav-bar__search");
       event.stopPropagation();
-      if (!(searchField.contains(event.relatedTarget))) {
+      if (!searchField.contains(event.relatedTarget)) {
         this.clearFunction();
       }
     });
@@ -41,7 +40,9 @@ export class Search {
   }
 
   initOnboardingIcon() {
-    let onboardingIcon = document.querySelector("#content__home__onboarding--icon");
+    let onboardingIcon = document.querySelector(
+      "#content__home__onboarding--icon",
+    );
     if (onboardingIcon != null) {
       onboardingIcon.addEventListener("click", this.gamesFunction);
     }
@@ -78,7 +79,7 @@ export class Search {
 
     // Based on min mobile widths
     var searchboxWidth = 280;
-    if (this.currentActiveSearch == "search"){
+    if (this.currentActiveSearch == "search") {
       if (document.body.clientWidth >= 480) {
         searchboxWidth = 400;
       }
@@ -88,7 +89,7 @@ export class Search {
     base.style.width = searchboxWidth + "px";
 
     // Focus on the elemtents to use focusout to exit them
-    if (this.currentActiveSearch == "search"){
+    if (this.currentActiveSearch == "search") {
       inputField = document.querySelector(inputName);
       inputField.focus();
     } else {
@@ -115,7 +116,6 @@ export class Search {
     }
     document.querySelector(referenceId + "--hr").style.display = "none";
     this.navLock = false;
-
   }
 
   // Filter up to 6 options when you type something in search
@@ -137,16 +137,19 @@ export class Search {
       // For each link, test if the user input makes part of its text value (ignoring empty inputs)
       // Hide any link that does not have any relation to the current input
       let txtValue = a[i].textContent || a[i].innerText;
-      txtValue = txtValue + " " + a[i].dataset.section + " " + a[i].dataset.document;
+      txtValue =
+        txtValue + " " + a[i].dataset.section + " " + a[i].dataset.document;
       let compareTxtValue = txtValue.toUpperCase();
       let containFlag = true;
       for (const stringFilter of filterArray.values()) {
-        if (!(compareTxtValue.includes(stringFilter) && !(filter.length === 0))) {
+        if (
+          !(compareTxtValue.includes(stringFilter) && !(filter.length === 0))
+        ) {
           containFlag = false;
         }
       }
       if (containFlag) {
-        if ("TALES OF".includes(filter) || filter == "T" || filter == "TO"){
+        if ("TALES OF".includes(filter) || filter == "T" || filter == "TO") {
           if (a[i].dataset.tag == "game") {
             a[i].style.display = "block";
           }
@@ -163,7 +166,13 @@ export class Search {
         a[i].style.display = "none";
       }
     }
-    if ((searchCounter > 0 || "TALES OF".includes(filter) || filter == "T" || filter == "TO" ) && filter.length > 0) {
+    if (
+      (searchCounter > 0 ||
+        "TALES OF".includes(filter) ||
+        filter == "T" ||
+        filter == "TO") &&
+      filter.length > 0
+    ) {
       document.querySelector(idReference + "--hr").style.display = "block";
     } else {
       document.querySelector(idReference + "--hr").style.display = "none";
@@ -202,12 +211,17 @@ export class Search {
     var searchResults = document.querySelector("#nav-bar__searchbox");
 
     // Insert a hidden hr on the first slot of the search
-    let hrElem = "<hr id='nav-bar__search--hr'  tabindex='0' style='display: none;'>";
+    let hrElem =
+      "<hr id='nav-bar__search--hr'  tabindex='0' style='display: none;'>";
     searchResults.insertAdjacentHTML("beforeend", hrElem);
 
     // Tech pages are created by the parser. main saves that and uses it to create the search object
     for (const [key, techDocument] of this.techPages.entries()) {
-      if (key.dim === "N/A" || key.document.includes("-C") || key.document.includes("-B")) {
+      if (
+        key.dim === "N/A" ||
+        key.document.includes("-C") ||
+        key.document.includes("-B")
+      ) {
         continue; // Skip items with dim as "N/A" (like readme)
       }
 
@@ -221,13 +235,17 @@ export class Search {
       const headings1 = doc.querySelectorAll("h1");
 
       // H1s have different styling. Additionally, they should appear first in the list
-      headings1.forEach((currentHeading) => {
+      headings1.forEach(() => {
         searchContents1 = "";
         searchContents1 = searchContents1.concat('<div data-document="');
         searchContents1 = searchContents1.concat(key.document);
-        searchContents1 = searchContents1.concat('" class="nav-bar__search--results button__redirect" tabindex="0" data-section="');
+        searchContents1 = searchContents1.concat(
+          '" class="nav-bar__search--results button__redirect" tabindex="0" data-section="',
+        );
         searchContents1 = searchContents1.concat(key.section);
-        searchContents1 = searchContents1.concat('" data-tag="game"><span class="nav-bar__search--results--games material-symbols-rounded"> sports_esports </span><b>');
+        searchContents1 = searchContents1.concat(
+          '" data-tag="game"><span class="nav-bar__search--results--games material-symbols-rounded"> sports_esports </span><b>',
+        );
         searchContents1 = searchContents1.concat(key.section);
         searchContents1 = searchContents1.concat("</b> </div>");
         searchContents1L.push(searchContents1);
@@ -245,18 +263,32 @@ export class Search {
           if (currentHeading.tagName === "H2") {
             currentH2 = currentHeading.id;
           }
-          if ((currentH2 === "glitches" || currentH2 === "techniques") && currentHeading.id !== "general-techniques" && currentHeading.tagName !== "H2") {
+          if (
+            (currentH2 === "glitches" || currentH2 === "techniques") &&
+            currentHeading.id !== "general-techniques" &&
+            currentHeading.tagName !== "H2"
+          ) {
             searchContents2 = "";
             searchContents2 = searchContents2.concat('<div data-document="');
             searchContents2 = searchContents2.concat(key.document);
-            searchContents2 = searchContents2.concat('" class="nav-bar__search--results button__redirect" tabindex="0" data-section="');
+            searchContents2 = searchContents2.concat(
+              '" class="nav-bar__search--results button__redirect" tabindex="0" data-section="',
+            );
             searchContents2 = searchContents2.concat(key.section);
-            searchContents2 = searchContents2.concat('" data-tag="tech" data-redirect="#');
+            searchContents2 = searchContents2.concat(
+              '" data-tag="tech" data-redirect="#',
+            );
             searchContents2 = searchContents2.concat(currentHeading.id);
-            searchContents2 = searchContents2.concat('"><span class="nav-bar__search--results--games material-symbols-rounded"> book_2 </span><b>');
+            searchContents2 = searchContents2.concat(
+              '"><span class="nav-bar__search--results--games material-symbols-rounded"> book_2 </span><b>',
+            );
             searchContents2 = searchContents2.concat(key.document);
-            searchContents2 = searchContents2.concat("</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-            searchContents2 = searchContents2.concat(currentHeading.textContent);
+            searchContents2 = searchContents2.concat(
+              "</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            );
+            searchContents2 = searchContents2.concat(
+              currentHeading.textContent,
+            );
             searchContents2 = searchContents2.concat("</div>");
             searchContents2L.push(searchContents2);
           }
@@ -273,9 +305,11 @@ export class Search {
     // Insert the HTML on the search bar
     searchResults.insertAdjacentHTML("beforeend", searchContents);
     searchContents = "";
-    document.querySelectorAll("div.nav-bar__search--results").forEach((item) => {
-      this.addPageChangeEvent(item);
-    });
+    document
+      .querySelectorAll("div.nav-bar__search--results")
+      .forEach((item) => {
+        this.addPageChangeEvent(item);
+      });
   }
 
   // --- Show all headings for a specific ID
@@ -293,7 +327,9 @@ export class Search {
           break;
         }
       }
-      document.querySelectorAll(".content__selectorbox--item")[h2Section].click();
+      document
+        .querySelectorAll(".content__selectorbox--item")
+        [h2Section].click();
     }
     targetHeading = document.getElementById(id);
     let hiddenItems = null;
@@ -313,11 +349,12 @@ export class Search {
     } else {
       // Div is one level higher if a tagging div was used
       if (
-        targetHeading.parentNode.parentNode.firstElementChild.dataset.open != null
+        targetHeading.parentNode.parentNode.firstElementChild.dataset.open !=
+        null
       ) {
         hiddenItems =
           targetHeading.parentNode.parentNode.firstElementChild.dataset.open.split(
-            " "
+            " ",
           );
         success = true;
       }

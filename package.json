@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.18.2",
+  "version": "0.18.3",
   "description": "Tales Tech Encyclopedia",
   "main": "src/documentParser.js",
   "private": true,
@@ -18,12 +18,23 @@
   "dependencies": {
     "@minify-html/node": "^0.15.0",
     "copy-folder-util": "^1.1.4",
-    "esbuild": "^0.23.1",
+    "esbuild": "^0.25.1",
     "esbuild-plugin-alias": "^0.2.1",
     "esbuild-plugin-ignore": "^1.1.1",
     "katex": "^0.16.11",
     "nodemon": "^3.1.4",
     "remarkable": "^2.0.1",
     "rimraf": "^6.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "globals": "^16.0.0",
+    "prettier": "3.5.3"
   }
 }

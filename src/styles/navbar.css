@@ -35,7 +35,8 @@
   transform: rotate(0deg);
   vertical-align: middle;
   z-index: 2;
-  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(28deg) brightness(100%) contrast(87%);
+  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(28deg) brightness(100%)
+    contrast(87%);
 }
 
 #nav-bar__title__text {
@@ -115,7 +116,7 @@
   margin-right: 0%;
 }
 
-#nav-bar__searchbox{
+#nav-bar__searchbox {
   cursor: default;
   position: absolute;
   overflow-y: scroll;
@@ -155,7 +156,6 @@
 
   padding-top: 1px;
   padding-bottom: 1px;
-
 }
 
 .nav-bar__search--results--games {
@@ -170,7 +170,7 @@
   font-size: 22px;
 }
 
-#nav-bar__search--icon{
+#nav-bar__search--icon {
   position: absolute;
   left: 6px;
   top: 6px;
@@ -179,7 +179,7 @@
   cursor: default;
 }
 
-#nav-bar__games--icon{
+#nav-bar__games--icon {
   position: absolute;
   right: 8px;
   top: 8px;
@@ -203,7 +203,8 @@
 }
 
 #nav-bar__gamesbox {
-  /*Minphonewidthis320px.ThisJUSTfitsonthepage.*/width: 300px;
+  /*Minphonewidthis320px.ThisJUSTfitsonthepage.*/
+  width: 300px;
   cursor: default;
   position: absolute;
   overflow-x: hidden;
@@ -298,26 +299,41 @@
 }
 
 @keyframes fadein-show {
-  from  {opacity: 0;}
-  to    {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeout-hide {
-  from  {opacity: 1;}
-  to    {opacity: 0; width: 0;}
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    width: 0;
+  }
 }
 
-
 @keyframes logo-fadein {
-  from  {opacity: 0.6;}
-  to    {opacity: 0.8;}
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
 
 @keyframes logo-fadeout {
-  from  {opacity: 0.8;}
-  to    {opacity: 0.6;}
+  from {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0.6;
+  }
 }
-
 
 #nav-bar__search--input {
   border: none !important;
@@ -338,11 +354,17 @@
   opacity: 90%;
 }
 
-input[type="submit"]::-moz-focus-inner {border:0;}
+input[type="submit"]::-moz-focus-inner {
+  border: 0;
+}
 
-#nav-bar__search--input::-moz-focus-inner {border:0;}
+#nav-bar__search--input::-moz-focus-inner {
+  border: 0;
+}
 
-#nav-bar__search--hr, #nav-bar__games--hr2D, #nav-bar__games--hr3D {
+#nav-bar__search--hr,
+#nav-bar__games--hr2D,
+#nav-bar__games--hr3D {
   border: none;
   border-top-width: medium;
   border-top-style: none;
@@ -360,7 +382,8 @@ input[type="submit"]::-moz-focus-inner {border:0;}
   margin-bottom: 0px;
 }
 
-#nav-bar__search .button__redirect, #nav-bar__search--results {
+#nav-bar__search .button__redirect,
+#nav-bar__search--results {
   font-family: "Dosis", sans-serif;
   position: relative;
   color: var(--white-text);

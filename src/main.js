@@ -30,7 +30,7 @@ let fileList = [
   { document: "TOTA", section: "Tales of the Abyss", dim: "3D" },
   { document: "TOX2", section: "Tales of Xillia 2", dim: "3D" },
   { document: "TOZ", section: "Tales of Zestiria", dim: "3D" },
-  { document: "HOME", section: "HOME", dim: "N/A" }
+  { document: "HOME", section: "HOME", dim: "N/A" },
 ];
 
 // --- Module Objects
@@ -52,9 +52,11 @@ var parsePromises = fileList.map((item) => {
       parsedDocuments.set(item, page);
     });
   } else {
-    return parserObj.parseGFM("./tech/" + item.document.toLowerCase()).then((page) => {
-      parsedDocuments.set(item, page);
-    });
+    return parserObj
+      .parseGFM("./tech/" + item.document.toLowerCase())
+      .then((page) => {
+        parsedDocuments.set(item, page);
+      });
   }
 });
 
@@ -73,9 +75,7 @@ function pageInit() {
   prepHome();
   // Add redirect links for title and footer
   document
-    .querySelectorAll(
-      "div#nav-bar__title, p.footer-container__help--links"
-    )
+    .querySelectorAll("div#nav-bar__title, p.footer-container__help--links")
     .forEach((item) => {
       addPageChangeEvent(item);
     });
@@ -98,14 +98,14 @@ function pageInit() {
 function prepHome() {
   // function to add functionality to the home page -- called everytime it is loaded
   document
-    .querySelectorAll(
-      "img#title-text__img, span.content__redirect"
-    )
+    .querySelectorAll("img#title-text__img, span.content__redirect")
     .forEach((item) => {
       addPageChangeEvent(item);
     });
-  for (let elem of document.querySelectorAll(".content__home__showcase-item--play")) {
-    elem.addEventListener("click", function() {
+  for (let elem of document.querySelectorAll(
+    ".content__home__showcase-item--play",
+  )) {
+    elem.addEventListener("click", function () {
       if (event.currentTarget.innerHTML == "play_circle") {
         event.currentTarget.innerHTML = "stop_circle";
         // create child in parent element (so sibling of target), that is a video source
@@ -117,18 +117,28 @@ function prepHome() {
         video.muted = true;
         video.loop = true;
         event.currentTarget.parentElement.appendChild(video);
-        setTimeout((video) => {
-          video.style.opacity = 1;
-        }, 50, video);
+        setTimeout(
+          (video) => {
+            video.style.opacity = 1;
+          },
+          50,
+          video,
+        );
       } else {
         // try and find the video element, set opacity to 0, and remove it after 2 seconds
-        let video = event.currentTarget.parentElement.querySelector(".content__home__showcase-item--video");
+        let video = event.currentTarget.parentElement.querySelector(
+          ".content__home__showcase-item--video",
+        );
         if (video != null) {
           video.style.opacity = 0;
-          setTimeout(([element, video]) => {
-            video.remove();
-            element.innerHTML = "play_circle";
-          }, 500, [event.currentTarget, video]);
+          setTimeout(
+            ([element, video]) => {
+              video.remove();
+              element.innerHTML = "play_circle";
+            },
+            500,
+            [event.currentTarget, video],
+          );
         } else {
           event.currentTarget.innerHTML = "play_circle";
         }
@@ -150,7 +160,7 @@ export function addPageChangeEvent(item) {
 
 // Function to make sure Katex is loaded before changing the page, then calls changeDocument
 //   the only data that is downloaded as the page is being loaded are images, videos, and Katex
-function changeEvent(event){
+function changeEvent(event) {
   // remove focus from search bar
   let inputField = document.querySelector("#nav-bar__search--input");
   if (inputField != null) {
@@ -167,12 +177,12 @@ function changeEvent(event){
       import("./katex.min.js").then((module) => {
         directivesObj.setKatex(module.default);
         // Create a link element for KaTeX CSS
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.crossOrigin = 'anonymous';
-        link.href = 'styles/katex.min.css'; // URL to the KaTeX CSS
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.crossOrigin = "anonymous";
+        link.href = "styles/katex.min.css"; // URL to the KaTeX CSS
         link.onload = () => {
-          resolve('KaTeX JS and CSS loaded');
+          resolve("KaTeX JS and CSS loaded");
         };
 
         // Append the link to the head
@@ -186,7 +196,6 @@ function changeEvent(event){
       katexLoaded = true;
       changeDocument(currentTarget);
     });
-
   } else {
     changeDocument(event.currentTarget);
   }
@@ -245,7 +254,11 @@ function toHome(contentText, eventTarget) {
 function toPage(contentText, eventTarget) {
   currentDocument = eventTarget.dataset.document;
   tocObj.clearHeadings();
-  helperObj.updateStatus(eventTarget.dataset.document, eventTarget.dataset.section, false);
+  helperObj.updateStatus(
+    eventTarget.dataset.document,
+    eventTarget.dataset.section,
+    false,
+  );
   tocObj.clearSectionTOC();
   const documentKey = eventTarget.dataset.document;
   let parsedPage = null;
@@ -267,8 +280,12 @@ function toPage(contentText, eventTarget) {
 }
 
 // --- Load Tech Page
-function toTech(contentText, eventTarget){
-  helperObj.updateStatus(eventTarget.dataset.document, eventTarget.dataset.section, true);
+function toTech(contentText, eventTarget) {
+  helperObj.updateStatus(
+    eventTarget.dataset.document,
+    eventTarget.dataset.section,
+    true,
+  );
   // Check if the page to load is the same one
   let pastDocument = currentDocument;
   currentDocument = eventTarget.dataset.document;
@@ -307,7 +324,7 @@ function toTech(contentText, eventTarget){
     compileH2s();
     //updatePage(); compileH2s has an updatePage() call already.
     if (currentDataset.redirect != null) {
-      if (currentDataset.redirect != "NONE"){
+      if (currentDataset.redirect != "NONE") {
         //Event has a redirect location, collapse the headings if needed
         searchObj.revealID(currentDataset.redirect.substring(1));
         // Set timeout to give time to page to update (it also looks nice)
@@ -341,29 +358,39 @@ export function updatePage() {
 // Adds functionality to the h2 section divider and opens the first one
 function compileH2s() {
   // Add events to selector tab
-  document.querySelectorAll(".content__selectorbox--item").forEach((selectorBox) => {
-    selectorBox.style.setProperty('--highlight-color', selectorBox.dataset.highlight);
-    selectorBox.addEventListener("click", (event) => {
-      // iterate every selectorbox--item
-      // -- remove selected status from other elements
-      document.querySelectorAll(".content__selectorbox--item").forEach((selectorBox) => {
-        selectorBox.className = "content__selectorbox--item";
-      });
-      // add selected status to the clicked selectorbox--item
-      event.currentTarget.className = "content__selectorbox--item selected";
-      // replace content_currenth2 with data from h2Collectio[x][3]
-      // select the h2Collection based on the current selectorBox.dataset.open
-      let currentCollection = headingsObj.returnH2Collection().filter((h2) => h2[0] == event.currentTarget.dataset.open);
-      document.getElementById("content__currenth2").innerHTML = currentCollection[0][2];
+  document
+    .querySelectorAll(".content__selectorbox--item")
+    .forEach((selectorBox) => {
+      selectorBox.style.setProperty(
+        "--highlight-color",
+        selectorBox.dataset.highlight,
+      );
+      selectorBox.addEventListener("click", (event) => {
+        // iterate every selectorbox--item
+        // -- remove selected status from other elements
+        document
+          .querySelectorAll(".content__selectorbox--item")
+          .forEach((selectorBox) => {
+            selectorBox.className = "content__selectorbox--item";
+          });
+        // add selected status to the clicked selectorbox--item
+        event.currentTarget.className = "content__selectorbox--item selected";
+        // replace content_currenth2 with data from h2Collectio[x][3]
+        // select the h2Collection based on the current selectorBox.dataset.open
+        let currentCollection = headingsObj
+          .returnH2Collection()
+          .filter((h2) => h2[0] == event.currentTarget.dataset.open);
+        document.getElementById("content__currenth2").innerHTML =
+          currentCollection[0][2];
 
-      // Adds click events for the buttons
-      document.querySelectorAll(".content__collapse").forEach((button) => {
-        button.addEventListener("click", headingsObj.collapseHeadingStyle);
+        // Adds click events for the buttons
+        document.querySelectorAll(".content__collapse").forEach((button) => {
+          button.addEventListener("click", headingsObj.collapseHeadingStyle);
+        });
+        updatePage();
+        tocObj.highlightTOC();
       });
-      updatePage();
-      tocObj.highlightTOC();
     });
-  });
 
   // Opens first H2
   document.querySelectorAll(".content__selectorbox--item")[0].click();

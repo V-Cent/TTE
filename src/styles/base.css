@@ -45,45 +45,45 @@
 
 /* Fonts are preloaded so hopefully they are ready by now */
 @font-face {
-  font-family: 'Material Symbols Rounded';
+  font-family: "Material Symbols Rounded";
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url("../styles/fonts/gsymbols.woff2") format('woff2');
+  src: url("../styles/fonts/gsymbols.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'Mulish';
+  font-family: "Mulish";
   font-style: normal;
   font-display: swap;
-  src: url("../styles/fonts/gmulish.woff2") format('woff2');
+  src: url("../styles/fonts/gmulish.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'Dosis';
+  font-family: "Dosis";
   font-style: normal;
   font-display: swap;
-  src: url("../styles/fonts/gdosis.woff2") format('woff2');
+  src: url("../styles/fonts/gdosis.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'Expletus Sans';
+  font-family: "Expletus Sans";
   font-style: normal;
   font-display: swap;
   font-weight: normal;
-  src: url("../styles/fonts/gexpletus.woff2") format('woff2');
+  src: url("../styles/fonts/gexpletus.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'Expletus Sans';
+  font-family: "Expletus Sans";
   font-style: normal;
   font-display: swap;
   font-weight: 700;
-  src: url("../styles/fonts/gexpletus700.woff2") format('woff2');
+  src: url("../styles/fonts/gexpletus700.woff2") format("woff2");
 }
 
 .material-symbols-rounded {
-  font-family: 'Material Symbols Rounded';
+  font-family: "Material Symbols Rounded";
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -107,7 +107,7 @@
   color: var(--white-text);
   opacity: 80%;
   z-index: 8;
-  font-family: 'Material Symbols Rounded' !important;
+  font-family: "Material Symbols Rounded" !important;
 }
 
 * {
@@ -160,7 +160,8 @@ strong {
   font-weight: bold;
 }
 
-video, p img {
+video,
+p img {
   display: block;
   margin-top: 25px;
   margin-bottom: 14px;
@@ -251,7 +252,7 @@ h3 {
 }
 
 /* Targers Symbols that are just after headings (~ symbol) */
-.content__h3 *  h3 ~ .material-symbols-rounded {
+.content__h3 * h3 ~ .material-symbols-rounded {
   font-size: 30px;
   padding-top: 2px;
 }
@@ -324,4 +325,3 @@ a:active {
   -o-transition: background 0.35s;
   transition: background 0.35s;
 }
-

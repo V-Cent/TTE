@@ -12,7 +12,7 @@ export class TOC {
 
     // Enable smart section highlighing based on scroll position
     //   bind the scroll event listener
-    document.addEventListener("scroll", (event) => {
+    document.addEventListener("scroll", () => {
       if (!this.ticking && this.helperObj.inTechPage) {
         window.requestAnimationFrame(() => {
           this.highlightTOC();
@@ -42,17 +42,14 @@ export class TOC {
     let content = null;
     let toc = null;
     let tocMobile = null;
-    // Not used for now
-    let h2Title = null;
 
     if (tocBorder == null) {
       // Check if it is a tech page by searching for an active h2 (class == content__selectorbox--item selected)
-      let techPage = document.querySelector(".content__selectorbox--item.selected");
+      let techPage = document.querySelector(
+        ".content__selectorbox--item.selected",
+      );
       if (techPage == null) {
         return;
-      } else {
-        // Title is the content of the div
-        h2Title = techPage.textContent;
       }
       // Gets div of id content and creates a new div as children
       content = document.getElementById("content");
@@ -66,7 +63,11 @@ export class TOC {
       tocBorder.appendChild(toc);
       // Set TOC y location just after #content__selector
       selector = document.getElementById("content__selector");
-      tocBorder.style.top = (selector.getBoundingClientRect().bottom + document.documentElement.scrollTop + 180) + "px";
+      tocBorder.style.top =
+        selector.getBoundingClientRect().bottom +
+        document.documentElement.scrollTop +
+        180 +
+        "px";
 
       // Also add an icon on the #section-container__div for mobile
       let tocIcon = document.createElement("span");
@@ -85,10 +86,10 @@ export class TOC {
       sectionContainer.appendChild(tocIconBox);
       // Add the toc to the box
       tocIconBox.appendChild(tocMobile);
-      this.helperObj.dragScrollElement(("#" + tocIconBox.id), 1);
-      this.helperObj.dragScrollElement(("#" + toc.id), 1);
+      this.helperObj.dragScrollElement("#" + tocIconBox.id, 1);
+      this.helperObj.dragScrollElement("#" + toc.id, 1);
       // Add an event listener to the icon
-      tocIcon.addEventListener("click", (event) => {
+      tocIcon.addEventListener("click", () => {
         let box = document.getElementById("content__tocicon--box");
         var boxWidth = 300;
         if (document.body.clientWidth >= 480) {
@@ -109,10 +110,10 @@ export class TOC {
       content = document.getElementById("content");
       toc = document.getElementById("content__toc");
       tocMobile = document.getElementById("content__tocmobile");
-      h2Title = document.querySelector(".content__selectorbox--item.selected").textContent;
     }
     // Set TOCborder size to content size - offset
-    tocBorder.style.height = "calc(100% - " + (selector.offsetTop + 150) + "px)";
+    tocBorder.style.height =
+      "calc(100% - " + (selector.offsetTop + 150) + "px)";
     // Add content to TOC
     let tocContent = "<p>ON THIS SECTION</p><hr>";
     toc.innerHTML = tocContent;
@@ -127,7 +128,7 @@ export class TOC {
         clientY: h3.getBoundingClientRect().top,
         isH3: true,
         obj: h3,
-        id: h3.id
+        id: h3.id,
       });
     }
     for (let h4 of h4s) {
@@ -136,7 +137,7 @@ export class TOC {
         clientY: h4.getBoundingClientRect().top,
         isH3: false,
         obj: h4,
-        id: h4.id
+        id: h4.id,
       });
     }
     // - Sort the objects by clientY
@@ -146,10 +147,24 @@ export class TOC {
     let tocLinks = "";
     for (let heading of this.headings) {
       let link = "";
-      if (!(heading.isH3)) {
-        link = '<div data-document="' + currentDocument + '" data-section="' + this.helperObj.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search content__toc--search-h4 button__redirect" style="display: block;';
+      if (!heading.isH3) {
+        link =
+          '<div data-document="' +
+          currentDocument +
+          '" data-section="' +
+          this.helperObj.currentSection +
+          '" data-redirect="#' +
+          heading.id +
+          '" class="content__toc--search content__toc--search-h4 button__redirect" style="display: block;';
       } else {
-        link = '<div data-document="' + currentDocument + '" data-section="' + this.helperObj.currentSection + '" data-redirect="#' + heading.id + '" class="content__toc--search button__redirect" style="display: block;';
+        link =
+          '<div data-document="' +
+          currentDocument +
+          '" data-section="' +
+          this.helperObj.currentSection +
+          '" data-redirect="#' +
+          heading.id +
+          '" class="content__toc--search button__redirect" style="display: block;';
       }
       link = link.concat('">' + heading.name);
       link = link.concat("</div>");
@@ -168,7 +183,11 @@ export class TOC {
     for (let i = 0; i < this.headings.length; i++) {
       if (this.headings[i].isH3) {
         // Highlight the new section if it makes part of 75% of the page (25% of the top) or if it within 150px
-        if (this.headings[i].obj.getBoundingClientRect().top <= Math.max((window.innerHeight * 0.25), 150) || (currentH3 == null)) {
+        if (
+          this.headings[i].obj.getBoundingClientRect().top <=
+            Math.max(window.innerHeight * 0.25, 150) ||
+          currentH3 == null
+        ) {
           currentH3 = this.headings[i];
           currentH3Index = i;
         } else {
@@ -180,11 +199,15 @@ export class TOC {
 
     // Add an active to the current h3 and remove active (if there are any) from other
     if (currentH3 != null) {
-      let currentActive = document.querySelectorAll(".content__toc--search.active");
+      let currentActive = document.querySelectorAll(
+        ".content__toc--search.active",
+      );
       for (let active of currentActive) {
         active.classList.remove("active");
       }
-      let currentH3Link = document.querySelectorAll('.content__toc--search[data-redirect="#' + currentH3.id + '"]');
+      let currentH3Link = document.querySelectorAll(
+        '.content__toc--search[data-redirect="#' + currentH3.id + '"]',
+      );
       for (let active of currentH3Link) {
         active.classList.add("active");
       }
@@ -192,22 +215,33 @@ export class TOC {
 
     // Hide SEARCH h4s (display: none) before and after the indexes and show (display:block) the ones between
     for (let i = 0; i < this.headings.length; i++) {
-      if (!(this.headings[i].isH3)) {
-        if ((i >= currentH3Index && i <= nextH3Index) || (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index) || (nextH3Index == 0 && currentH3Index == 0)) {
-          let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + this.headings[i].id + '"]');
+      if (!this.headings[i].isH3) {
+        if (
+          (i >= currentH3Index && i <= nextH3Index) ||
+          (nextH3Index == 0 && currentH3Index > 0 && i >= currentH3Index) ||
+          (nextH3Index == 0 && currentH3Index == 0)
+        ) {
+          let searchH4 = document.querySelectorAll(
+            '.content__toc--search[data-redirect="#' +
+              this.headings[i].id +
+              '"]',
+          );
           for (let search of searchH4) {
             search.style.display = "block";
             search.classList.add("active");
           }
         } else {
-          let searchH4 = document.querySelectorAll('.content__toc--search[data-redirect="#' + this.headings[i].id + '"]');
+          let searchH4 = document.querySelectorAll(
+            '.content__toc--search[data-redirect="#' +
+              this.headings[i].id +
+              '"]',
+          );
           for (let search of searchH4) {
             search.style.display = "none";
           }
         }
       }
     }
-
   }
 
   // Completely remove the TOC

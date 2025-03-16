@@ -38,8 +38,14 @@ export class Helper {
   logoInit() {
     // Add nav-bar events --> logo rotation
     this.titleElement = document.querySelector("#nav-bar__title");
-    this.titleElement.addEventListener("mouseenter", this.startRotateLogo.bind(this));
-    this.titleElement.addEventListener("mouseleave", this.stopRotateLogo.bind(this));
+    this.titleElement.addEventListener(
+      "mouseenter",
+      this.startRotateLogo.bind(this),
+    );
+    this.titleElement.addEventListener(
+      "mouseleave",
+      this.stopRotateLogo.bind(this),
+    );
   }
 
   addLogoVelocity() {
@@ -134,7 +140,8 @@ export class Helper {
   handleScroll(event) {
     event.preventDefault();
     //Get current scroll position
-    let scrollTotal = this.rootElement.scrollHeight - this.rootElement.clientHeight;
+    let scrollTotal =
+      this.rootElement.scrollHeight - this.rootElement.clientHeight;
     //Get TOC if it exists
     let toc = document.getElementById("content__selectorbox");
     let tocLocation = 0;
@@ -175,17 +182,19 @@ export class Helper {
     }
     //Scroll either to top of the page or to the selector smoothly
     window.requestAnimationFrame(() => {
-      let behavior = 'smooth';
-      if (navigator.userAgent.includes('Chrome')){
-        let pieces = navigator.userAgent.match(/Chrom(?:e|ium)\/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)/);
-        if (pieces.length >= 1){
+      let behavior = "smooth";
+      if (navigator.userAgent.includes("Chrome")) {
+        let pieces = navigator.userAgent.match(
+          /Chrom(?:e|ium)\/([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)/,
+        );
+        if (pieces.length >= 1) {
           // Chromes versions below 130 have a bug that will interefere with scrollTo and cause it to stop mid-way.
-          if (!(isNaN(pieces[1]))){
-            if ((Number(pieces[1]) < 130)){
-              behavior = 'auto';
+          if (!isNaN(pieces[1])) {
+            if (Number(pieces[1]) < 130) {
+              behavior = "auto";
             }
           } else {
-            behavior = 'auto';
+            behavior = "auto";
           }
         }
       }
@@ -228,7 +237,7 @@ export class Helper {
   // --- Drag function for h2s and TOC
   dragScrollElement(query, direction) {
     const sliderSelector = document.querySelector(query);
-    if (sliderSelector == null){
+    if (sliderSelector == null) {
       return;
     }
 
@@ -253,7 +262,9 @@ export class Helper {
     const moveX = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      if (!this.mouseDown) { return; }
+      if (!this.mouseDown) {
+        return;
+      }
       const x = e.pageX - sliderSelector.offsetLeft;
       const scroll = x - this.startX;
       if (isNaN(x)) {
@@ -268,7 +279,9 @@ export class Helper {
     const moveY = (e) => {
       e.preventDefault();
       e.stopPropagation();
-      if (!this.mouseDown) { return; }
+      if (!this.mouseDown) {
+        return;
+      }
       const y = e.pageY - sliderSelector.offsetTop;
       const scroll = y - this.startY;
       if (isNaN(y)) {
@@ -280,31 +293,31 @@ export class Helper {
       }
     };
 
-    const stopDragging = (event) => {
+    const stopDragging = () => {
       this.mouseDown = false;
     };
 
     // Add the event listeners
     if (direction == 1) {
-      sliderSelector.addEventListener('mousemove', moveY, false);
-      sliderSelector.addEventListener('mousedown', startDraggingY, false);
-      sliderSelector.addEventListener('mouseup', stopDragging, false);
-      sliderSelector.addEventListener('mouseleave', stopDragging, false);
+      sliderSelector.addEventListener("mousemove", moveY, false);
+      sliderSelector.addEventListener("mousedown", startDraggingY, false);
+      sliderSelector.addEventListener("mouseup", stopDragging, false);
+      sliderSelector.addEventListener("mouseleave", stopDragging, false);
 
       // For mobile
-      sliderSelector.addEventListener('touchmove', moveY, false);
-      sliderSelector.addEventListener('touchstart', startDraggingY, false);
-      sliderSelector.addEventListener('touchend', stopDragging, false);
+      sliderSelector.addEventListener("touchmove", moveY, false);
+      sliderSelector.addEventListener("touchstart", startDraggingY, false);
+      sliderSelector.addEventListener("touchend", stopDragging, false);
     } else {
-      sliderSelector.addEventListener('mousemove', moveX, false);
-      sliderSelector.addEventListener('mousedown', startDraggingX, false);
-      sliderSelector.addEventListener('mouseup', stopDragging, false);
-      sliderSelector.addEventListener('mouseleave', stopDragging, false);
+      sliderSelector.addEventListener("mousemove", moveX, false);
+      sliderSelector.addEventListener("mousedown", startDraggingX, false);
+      sliderSelector.addEventListener("mouseup", stopDragging, false);
+      sliderSelector.addEventListener("mouseleave", stopDragging, false);
 
       // For mobile
-      sliderSelector.addEventListener('touchmove', moveX, false);
-      sliderSelector.addEventListener('touchstart', startDraggingX, false);
-      sliderSelector.addEventListener('touchend', stopDragging, false);
+      sliderSelector.addEventListener("touchmove", moveX, false);
+      sliderSelector.addEventListener("touchstart", startDraggingX, false);
+      sliderSelector.addEventListener("touchend", stopDragging, false);
     }
   }
 }
