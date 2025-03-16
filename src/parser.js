@@ -103,6 +103,14 @@ export class Parser {
     });
   }
 
+  async asyncRead(file) {
+    let fileData = await this.loadFile(file);
+    if (fileData.length <= 1 || fileData == null) {
+      return "";
+    }
+    return fileData;
+  }
+
   // Parse a MD file with our custom rules
   async parseGFM(file) {
     //Read GFM file

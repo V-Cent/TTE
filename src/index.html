@@ -5,11 +5,14 @@
     <meta charset="utf-8" />
     <!-- To speedup LCP -->
     <!-- We preload everything that is needed for the viewable part of the home (footer won't appear in most cases) and also the script so page interactions works sooner-->
+    <link fetchpriority="high" rel="preload" href="media/showcase.webp" as="image" type="image/webp">
     <link fetchpriority="high" rel="preload" href="media/TTE22.svg" as="image" type="image/svg+xml">
     <link fetchpriority="high" rel="preload" href="media/TTEtext2.svg" as="image" type="image/svg+xml">
     <link fetchpriority="high" rel="preload" href="./styles/fonts/gsymbols.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
-    <link fetchpriority="high" rel="preload" href="./styles/fonts/gmontserrat.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
-    <link fetchpriority="high" rel="preload" href="./styles/fonts/gnunito.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
+    <link fetchpriority="high" rel="preload" href="./styles/fonts/gmulish.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
+    <link fetchpriority="high" rel="preload" href="./styles/fonts/gdosis.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
+    <link fetchpriority="high" rel="preload" href="./styles/fonts/gexpletus.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
+    <link fetchpriority="high" rel="preload" href="./styles/fonts/gexpletus700.woff2" as="font" type="font/woff2"  crossorigin="anonymous">
     <link fetchpriority="high" rel="preload" href="./styles/base.css" as="style" type="text/css">
     <link fetchpriority="high" rel="preload" href="./styles/navbar.css" as="style" type="text/css">
     <link fetchpriority="high" rel="preload" href="./styles/scroll.css" as="style" type="text/css">
@@ -111,79 +114,138 @@
           draggable="false"
           alt="TTE Logo."
         />
-        <img
-          fetchpriority="high"
-          src="media/TTEtext.webp"
-          srcset="media/TTEtext2.svg"
-          id="nav-bar__title__text"
-          draggable="false"
-          alt="Tales Tech Encyclopedia"
-        />
-        <!-- To help with spacing of the elements that make up the logo -->
-        <span class="nav-bar__helper"></span>
+        <!-- To help with spacing of the elements that make up the logo
+        <span class="nav-bar__helper"></span> -->
       </div>
 
-      <!-- To help with spacing of the elements that make up the rest of the nav-bar -->
-      <span class="nav-bar__helper"></span>
+      <!-- To help with spacing of the elements that make up the rest of the nav-bar 
+      <span class="nav-bar__helper"></span> -->
 
       <!-- Search bar -->
       <div id="nav-bar__search">
-        <span
-          tabindex="0"
-          class="material-symbols-rounded"
-          id="nav-bar__search--icon"
-        >
-          search
-        </span>
-      </div>
-
-      <!-- Game search -->
-      <!-- icons are made with: cwebp -size 1024 -af -f 20 -crop 17 28 66 66 TOVICON.webp -o TOVICONs3.webp -->
-      <div id="nav-bar__games">
-        <span
-          tabindex="0"
-          class="material-symbols-rounded"
-          id="nav-bar__games--icon"
-        >
-          joystick
-        </span>
+        <div id="nav-bar__searchbox" tabindex="0">
+            <span
+            tabindex="0"
+            class="material-symbols-rounded"
+            id="nav-bar__search--icon"
+          >
+            search
+          </span>
+          <span
+            tabindex="0"
+            class="material-symbols-rounded"
+            id="nav-bar__games--icon"
+          >
+            joystick
+          </span>
+          <input
+            type="text"
+            id="nav-bar__search--input"
+            placeholder="Search"
+            aria-label="Search"
+            tabindex="-1"
+          />
+        </div>
       </div>
     </div>
 
     <!-- Section name, sticky -->
     <div id="section-container">
-      <hr />
       <div id="section-container__div">
-        <ul>
-          <li id="section-container__text">HOME</li>
-        </ul>
-        <span
-          tabindex="0"
-          class="material-symbols-rounded"
-          id="section-container__toc"
-        >
-          book_2
-        </span>
       </div>
+    </div>
+
+    <div id="title-text">
+      <img
+        id="title-text__img"
+        src="media/TTEtexthor.webp"
+        srcset="media/TTEtexthor.svg"
+        alt="Tales Tech Encyclopedia"
+        draggable="false"
+        data-document="HOME"
+      />
     </div>
 
     <!-- Content will be injected here -->
     <div id="content">
-      UNDER CONSTRUCTION
+      <!-- THE FOLLOWING IS A COPY OF HOME.HMTL. Changes have to be done on both files. -->
+      <div id="content__home__mission">
+        <p>Clarifying mechanics behind your favorite "Tales of" games.</p>
+      </div>
+
+      <!-- Onboarding Text -->
+      <div id="content__home__onboarding">
+        <p>Use <span class="material-symbols-rounded" id="content__home__onboarding--icon" tabindex="0"> joystick </span> to select your game!</p>
+      </div>
+
+      <!-- Content Section -->
+      <h2 id="content__home__showcase-text">Showcase</h2>
+
+      <div class="content__home__showcase">
+        <div class="content__home__showcase-item">
+          <img src="media/showcase.webp">
+          <!-- Play Button -->
+          <span class="material-symbols-rounded content__home__showcase-item--play" tabindex="0" data-video="media/showcase.mp4">play_circle</span>
+          <!-- Explanation Box -->
+          <div class="content__home__showcase-item--explanation">
+            <p>Tales of Symphonia: </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Petrification Dance</span> </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Proxy Artes</span> </p>
+          </div>
+        </div>
+
+        <div class="content__home__showcase-item">
+          <img src="media/showcase.webp">
+          <!-- Play Button -->
+          <span class="material-symbols-rounded content__home__showcase-item--play" tabindex="0" data-video="media/showcase.mp4">play_circle</span>
+          <!-- Explanation Box -->
+          <div class="content__home__showcase-item--explanation">
+            <p>Tales of Symphonia: </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Petrification Dance</span> </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Proxy Artes</span> </p>
+          </div>
+        </div>
+
+        <div class="content__home__showcase-item">
+          <img src="media/showcase.webp">
+          <!-- Play Button -->
+          <span class="material-symbols-rounded content__home__showcase-item--play" tabindex="0" data-video="media/showcase.mp4">play_circle</span>
+          <!-- Explanation Box -->
+          <div class="content__home__showcase-item--explanation">
+            <p>Tales of Symphonia: </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Petrification Dance</span> </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tagst="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Proxy Artes</span> </p>
+          </div>
+        </div>
+
+        <div class="content__home__showcase-item">
+          <img src="media/showcase.webp">
+          <!-- Play Button -->
+          <span class="material-symbols-rounded content__home__showcase-item--play" tabindex="0" data-video="media/showcase.mp4">play_circle</span>
+          <!-- Explanation Box -->
+          <div class="content__home__showcase-item--explanation">
+            <p>Tales of Symphonia: </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Petrification Dance</span> </p>
+            <p>  ↪ <span class="tagging-computed content__redirect" data-tags="{'redirect' : '#version-differences'}" data-redirect="#version-differences" data-document="TODPS2" data-section="Tales of Destiny"><span class="material-symbols-rounded" style="margin-right: 5px;">link</span>Proxy Artes</span> </p>
+          </div>
+        </div>
+      </div>
+
+
     </div>
 
     <!-- Footer with helpful links -->
     <div id="footer-container">
       <hr />
       <div id="footer-container__reference">
-        <img
+        <!--<img
           src="media/TTEtexthor.webp"
           srcset="media/TTEtexthor.svg"
           id="footer-container__text"
           draggable="false"
           alt="Tales Tech Encyclopedia"
           loading="lazy"
-        />
+        /> -->
         <p>"Tales of Series" © Bandai Namco Games Inc.</p>
       </div>
 

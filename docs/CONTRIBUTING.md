@@ -18,6 +18,16 @@ You can either clone that fork using git or edit the pages using GitHub itself (
 
 To start a pull request, you can go to the Pull Requests page for the TTE project and start comparing your version to the current main branch of TTE. Fill in the template that is on the screen and you're done! A team member will review your changes, request modifications if needed, and merge them to TTE.
 
+### Writing Style
+
+The following is a suggestion of a writing style when contributing to tech pages:
+
+- Prefer short, declarative sentences with simple structure (cut up long sentences into two or more if needed).
+- Define every term and acronym before using them.
+- Avoid using colloquialisms (casual language or slang).
+- Avoid persuasive writing and imperative sentences. For example, on the segment: “You can only perform X once you reach 100 hits. To reach this threshold, use multi-hit attacks or artes.”, the second sentence is unnecessary. Another example: “Use normal attacks after every two artes to avoid X.” can be rewritten as “(Explain X.) A character’s normal attacks affect X, negating its effect if performed after Y.”
+- Have visual breaks every ~1 page scroll. This can be images, tables, videos, formulas (in block mode), and even lists.
+
 ### Github Discussions
 
 Another objective of TTE is working on techniques that have been already found, but lack a consistent way to perform. For that, we may have segments in tech segments with a TODO tag or we may use GitHub Discussions to track progress on each technique.

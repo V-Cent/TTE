@@ -52,16 +52,84 @@ export class Directives {
         });
       }
 
+      if (tagData.sections) {
+        // Sections tag is for article selection in tech pages
+        let systemActive = "checked";
+        let systemSpan = " <span>(LOADED)</span>";
+        let bossesActive = "";
+        let bossesSpan = "";
+        let charActive = "";
+        let charSpan = "";
+        if (tagData.article == "b"){
+          bossesActive = "checked";
+          bossesSpan = " <span>(LOADED)</span>";
+          systemActive = "";
+          systemSpan = "";
+          charActive = "";
+          charSpan = "";
+        } else if (tagData.article == "c"){
+          charActive = "checked";
+          charSpan = " <span>(LOADED)</span>";
+          bossesActive = "";
+          bossesSpan = "";
+          systemActive = "";
+          systemSpan = "";
+        }
+        let currentDocument = this.helperObj.currentDocument;
+        currentDocument = currentDocument.replace("-C", "");
+        currentDocument = currentDocument.replace("-B", "");
+        let sectionsHTML = `
+          <div id="content__sections">
+            <div class="content__sections--entry">
+              <div class="content__sections--input-label">
+                <input type="radio" id="systems" name="sections" value="systems" data-redirect="NONE" data-document="` + currentDocument + '" ' + systemActive +
+                ` />
+                <label for="systems">Systems` + systemSpan + `</label>
+              </div>
+              <p>Detailed information on the game's systems, techniques, and glitches.</p>
+            </div>
+            <div class="content__sections--entry">
+              <div class="content__sections--input-label">
+                <input type="radio" id="characters" name="sections" value="characters" data-redirect="NONE" data-document="` + currentDocument + '-C" ' + charActive +
+                ` />
+                <label for="characters">Characters` + charSpan + `</label>
+              </div>
+              <p>A breakdown of each character, such as notable arte properties, strategies, and character-specific techniques.</p>
+            </div>
+            <div class="content__sections--entry">
+              <div class="content__sections--input-label">
+                <input type="radio" id="bosses" name="sections" value="bosses" data-redirect="NONE" data-document="` + currentDocument + '-B" ' + bossesActive +
+                ` />
+                <label for="bosses">Bosses` + bossesSpan + `</label>
+              </div>
+              <p>A summary of each boss. Contains spoilers!</p>
+            </div>
+          </div>`;
+        let sectionsDiv = document.createElement("div");
+        sectionsDiv.innerHTML = sectionsHTML;
+        taggedElement.appendChild(sectionsDiv);
+
+        // Add click event listeners to each radio input
+        document.querySelectorAll('input[name="sections"]').forEach(input => {
+          this.helperObj.addPageChangeEvent(input);
+        });
+      }
+
       if (tagData.versions) {
         //If it has a version tag, add an icon with a tooltip which contains the value of the tag.
-        let versionText = "Versions: ";
+        let versionText = "Version: ";
         versionText = versionText.concat(tagData.versions);
         versionText = versionText.concat(".");
+        if (!(this.helperObj.versionMap.has(tagData.versions))){
+          this.helperObj.versionMap.set(tagData.versions, this.helperObj.colorList[this.helperObj.versionMap.size]);
+        }
         let versionTag = document.createElement("span");
         versionTag.className = "material-symbols-rounded";
         versionTag.style.marginRight = "15px";
         versionTag.style.cursor = "help";
         versionTag.textContent = "devices";
+        versionTag.style.color = "var(--" + this.helperObj.versionMap.get(tagData.versions) + ")";
+        versionTag.style.filter = "brightness(1.5)";
         taggedElement.appendChild(versionTag);
         versionTag.addEventListener("mouseover", () => {
           this.helperObj.loadTooltip(versionTag, versionText);
@@ -73,7 +141,7 @@ export class Directives {
 
       if (tagData.media) {
         // Media works for both videos and images
-        const isImage = tagData.media.includes(".webp") || tagData.media.includes(".png") || tagData.media.includes(".jpg");
+        const isImage = tagData.media.includes(".webp") || tagData.media.includes(".png") || tagData.media.includes(".jpg") || tagData.media.includes("&ii");
         const mediaType = isImage ? "img" : "video";
 
         // They both share a bunch of stuff but video has some extra options that need to be checked

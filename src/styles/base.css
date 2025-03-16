@@ -1,14 +1,47 @@
 /* CSS for base elements, headings and paragraphs. */
 
-/* TODO - CSS should have basic grays pre-set, and default text color/style. */
-/*
-Greys are:
-161618
-1c1c1efe  (very slight alpha)
-252529
+:root {
+  --gray-bg: #111111;
+  --gray-f1: #161616;
+  --gray-f2: #191919;
+  --gray-ac: #161616cc;
+  --gray-a5: #16161655;
+  --black-f1: #00000033;
+  --white-text: #fafafa;
+  --white-f1: #fafafacc;
+  --white-f2: #fafafa55;
+  --white-f3: #fafafa22;
+  --green: #58f15b;
+  --red: #e74a41;
+  --blue: #205aaa;
+  --yellow: #f8d959;
+  --pink: #fe796f;
+  --teal: #45c9c9;
+}
 
-All neutral on red green, with a slight blue hue.
-*/
+.green {
+  color: var(--green);
+}
+
+.red {
+  color: var(--red);
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.pink {
+  color: var(--pink);
+}
+
+.teal {
+  color: var(--teal);
+}
 
 /* Fonts are preloaded so hopefully they are ready by now */
 @font-face {
@@ -20,17 +53,33 @@ All neutral on red green, with a slight blue hue.
 }
 
 @font-face {
-  font-family: 'Montserrat';
+  font-family: 'Mulish';
   font-style: normal;
   font-display: swap;
-  src: url("../styles/fonts/gmontserrat.woff2") format('woff2');
+  src: url("../styles/fonts/gmulish.woff2") format('woff2');
 }
 
 @font-face {
-  font-family: 'Nunito';
+  font-family: 'Dosis';
   font-style: normal;
   font-display: swap;
-  src: url("../styles/fonts/gnunito.woff2") format('woff2');
+  src: url("../styles/fonts/gdosis.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Expletus Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: normal;
+  src: url("../styles/fonts/gexpletus.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'Expletus Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../styles/fonts/gexpletus700.woff2") format('woff2');
 }
 
 .material-symbols-rounded {
@@ -48,13 +97,14 @@ All neutral on red green, with a slight blue hue.
   -webkit-font-feature-settings: "liga";
   -moz-font-feature-settings: "liga";
   font-feature-settings: "liga";
+  user-select: none;
 }
 
 .material-symbols-rounded {
   border: none !important;
   border-width: 0px;
-  border-color: #161618;
-  color: rgba(255, 255, 255, 1);
+  border-color: var(--gray-bg);
+  color: var(--white-text);
   opacity: 80%;
   z-index: 8;
   font-family: 'Material Symbols Rounded' !important;
@@ -69,7 +119,6 @@ All neutral on red green, with a slight blue hue.
 
 html {
   overflow-y: scroll;
-  color: #ffffff;
   /* TODO - Pre-set here just to make things easier for now. Should be changed */
 }
 
@@ -80,7 +129,7 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #252529;
+  background-color: var(--gray-f2);
   border-radius: 10px;
   border: transparent;
 }
@@ -88,12 +137,27 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: #161618;
-  scrollbar-color: #252529 #161618;
+  background-color: var(--gray-bg);
+  scrollbar-color: var(--gray-f2) var(--gray-bg);
   scrollbar-width: thin;
   max-width: 100%;
   /* Overflow-x clip to keep document size normal on mobile while also not messing up section selection*/
   overflow-x: clip;
+  font-weight: 300;
+  font-size: 18px;
+  letter-spacing: 0.03em;
+  word-spacing: 0.03em;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+strong {
+  font-weight: bold;
 }
 
 video, p img {
@@ -109,48 +173,48 @@ video, p img {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  filter: drop-shadow(0 6px 6px var(--black-f1));
 }
 
 figcaption {
-  font-family: "Nunito", sans-serif;
+  font-family: "Dosis", sans-serif;
   text-align: center;
   font-size: 15px;
   text-decoration: underline;
   text-underline-offset: 6px;
+  text-indent: 0ch;
 }
 
 hr {
   border: none;
-  border-top: 1px double #ffffff;
-  color: #ffffff;
+  border-top: 1px double var(--white-text);
+  color: var(--white-text);
   overflow: visible;
   text-align: center;
 }
 
 h1 {
-  font-family: "Nunito", sans-serif;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: "Dosis", sans-serif;
+  color: var(--white-text);
   font-weight: 300;
-  font-size: 40px;
-  letter-spacing: 0.1em;
-  text-shadow: 1px 1px 1px #ffffff;
-  opacity: 95%;
+  font-size: 50px;
+  letter-spacing: 0.02em;
+  text-shadow: 1px 1px 1px var(--white-text);
   scroll-margin-top: 100px;
   padding-bottom: 0.1em;
-  border-bottom: 1px solid #252529;
+  margin-top: -40px;
+  border-bottom: 1px solid var(--gray-f2);
 }
 
 h2 {
-  font-family: "Nunito", sans-serif;
-  color: #ffffff;
+  font-family: "Dosis", sans-serif;
+  color: var(--white-text);
   font-weight: 600;
   font-size: 35px;
-  letter-spacing: 0.1em;
-  opacity: 85%;
+  letter-spacing: 0.02em;
   scroll-margin-top: 100px;
   padding-bottom: 0.1em;
-  border-bottom: 1px solid #252529;
+  border-bottom: 1px solid var(--gray-f2);
   margin-right: 15px;
   width: -moz-fit-content;
   width: fit-content;
@@ -162,17 +226,17 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Nunito", sans-serif;
-  color: #ffffff;
+  font-family: "Dosis", sans-serif;
+  color: var(--white-text);
   font-weight: 600;
   font-size: 25px;
-  opacity: 85%;
   margin-right: 15px;
   scroll-margin-top: 100px;
   width: -moz-fit-content;
   width: fit-content;
   margin-top: 0%;
   margin-bottom: 0%;
+  letter-spacing: 0.02em;
 }
 
 h4,
@@ -183,7 +247,7 @@ h6 {
 
 h3 {
   text-indent: 6ch;
-  font-size: 28px;
+  font-size: 26px;
 }
 
 /* Targers Symbols that are just after headings (~ symbol) */
@@ -194,7 +258,7 @@ h3 {
 
 h4 {
   text-decoration-thickness: 2px;
-  font-size: 26px;
+  font-size: 24px;
 }
 
 .content__h4 * h4 ~ .material-symbols-rounded {
@@ -203,56 +267,55 @@ h4 {
 }
 
 p {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+  font-family: "Mulish", sans-serif;
+  font-weight: 300;
   font-size: 18px;
-  max-width: 90ch;
-  text-indent: 2ch;
+  max-width: 100ch;
+  text-indent: 3ch;
   letter-spacing: 0.03em;
-  /* opacity: 75%; */
-  color: #ffffffcc;
+  word-spacing: 0.03em;
+  color: var(--white-text);
 }
 
 a:link {
-  color: #ffffffcc;
+  color: var(--white-f1);
 }
 
 a:visited {
-  color: #ffffffcc;
+  color: var(--white-f1);
 }
 
 a:hover {
-  background: #252529;
+  background: var(--gray-f2);
   -webkit-filter: brightness(1.25);
   filter: brightness(1.25);
 }
 
 a:active {
-  color: #ffffffcc;
+  color: var(--white-f1);
 }
 
 .button__redirect:link {
-  color: #ffffffcc;
+  color: var(--white-f1);
 }
 
 .button__redirect:visited {
-  color: #ffffffcc;
+  color: var(--white-f1);
 }
 
 .button__redirect:hover {
-  background: #252529;
+  background: var(--gray-f2);
   -webkit-filter: brightness(1.25);
   filter: brightness(1.25);
 }
 
 .button__redirect:active {
-  color: #ffffffcc;
+  color: var(--white-f1);
 }
 
 .spoiler {
-  color: #ffffff;
-  background-color: #ffffff;
-  opacity: 85%;
+  color: var(--white-text);
+  background-color: var(--white-text);
   cursor: pointer;
   transition-timing-function: ease-out;
   -webkit-transition: background 0.35s;
@@ -262,26 +325,3 @@ a:active {
   transition: background 0.35s;
 }
 
-.green {
-  color: #58f15b;
-}
-
-.red {
-  color: #e74a41;
-}
-
-.blue {
-  color: #205aaa;
-}
-
-.yellow {
-  color: #f8d959;
-}
-
-.pink {
-  color: #fe796f;
-}
-
-.teal {
-  color: #45c9c9;
-}

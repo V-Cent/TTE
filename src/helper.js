@@ -12,6 +12,8 @@ export class Helper {
     this.scrollTop = 0;
     this.scrollButton = null;
     this.rootElement = null;
+    this.colorList = ["yellow", "teal", "green", "pink", "red", "blue"];
+    this.versionMap = new Map();
     this.scrollToTop = this.scrollToTop.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.dragScrollElement = this.dragScrollElement.bind(this);
@@ -29,6 +31,7 @@ export class Helper {
     this.currentDocument = document;
     this.currentSection = section;
     this.inTechPage = inTechPage;
+    this.versionMap = new Map();
   }
 
   // --- Logo functions
@@ -167,7 +170,7 @@ export class Helper {
         offset = elemRect.top - bodyRect.top;
 
       if (offset > 0) {
-        tocLocation = offset - 100;
+        tocLocation = offset - 20;
       }
     }
     //Scroll either to top of the page or to the selector smoothly
@@ -225,6 +228,9 @@ export class Helper {
   // --- Drag function for h2s and TOC
   dragScrollElement(query, direction) {
     const sliderSelector = document.querySelector(query);
+    if (sliderSelector == null){
+      return;
+    }
 
     const startDraggingX = (e) => {
       this.mouseDown = true;
