@@ -1,8 +1,8 @@
 {
   "name": "tte",
-  "version": "0.18.3",
+  "version": "0.18.4",
   "description": "Tales Tech Encyclopedia",
-  "main": "src/documentParser.js",
+  "main": "src/main.js",
   "private": true,
   "license": "MIT",
   "nodemonConfig": {
