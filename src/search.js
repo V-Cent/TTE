@@ -268,6 +268,8 @@ export class Search {
             currentHeading.id !== "general-techniques" &&
             currentHeading.tagName !== "H2"
           ) {
+            // label is key.section removing "Tales of" and leading and trailing spaces
+            let label = key.section.replace("Tales of", "").trim();
             searchContents2 = "";
             searchContents2 = searchContents2.concat('<div data-document="');
             searchContents2 = searchContents2.concat(key.document);
@@ -282,7 +284,7 @@ export class Search {
             searchContents2 = searchContents2.concat(
               '"><span class="nav-bar__search--results--games material-symbols-rounded"> book_2 </span><b>',
             );
-            searchContents2 = searchContents2.concat(key.document);
+            searchContents2 = searchContents2.concat(label);
             searchContents2 = searchContents2.concat(
               "</b> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
             );
