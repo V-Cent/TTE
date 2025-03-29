@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.18.7",
+  "version": "0.18.8",
   "description": "Tales Tech Encyclopedia",
   "main": "src/main.js",
   "private": true,
