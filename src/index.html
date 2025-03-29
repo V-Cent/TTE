@@ -3,6 +3,7 @@
 <html id="page" lang="en">
   <head>
     <meta charset="utf-8" />
+    <base href="/" />
     <!-- To speedup LCP -->
     <!-- We preload everything that is needed for the viewable part of the home (footer won't appear in most cases) and also the script so page interactions works sooner-->
     <link
@@ -116,6 +117,34 @@
         opacity: 0;
       }
     </style>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script checks to see if a redirect is present in the query string,
+      // converts it back into the correct url and adds it to the
+      // browser's history using window.history.replaceState(...),
+      // which won't cause the browser to attempt to load the new url.
+      // When the single page app is loaded further down in this file,
+      // the correct url will be waiting in the browser's history for
+      // the single page app to route accordingly.
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
     <meta
       name="description"
       content="Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'."
@@ -274,7 +303,7 @@
 
       <div class="content__home__showcase">
         <div class="content__home__showcase-item">
-          <img src="media/showcase.webp" alt="Symphonia Showcase."/>
+          <img src="media/showcase.webp" alt="Symphonia Showcase." />
           <!-- Play Button -->
           <span
             class="material-symbols-rounded content__home__showcase-item--play"
@@ -319,7 +348,7 @@
         </div>
 
         <div class="content__home__showcase-item">
-          <img src="media/showcase.webp" alt="Symphonia Showcase."/>
+          <img src="media/showcase.webp" alt="Symphonia Showcase." />
           <!-- Play Button -->
           <span
             class="material-symbols-rounded content__home__showcase-item--play"
@@ -364,7 +393,7 @@
         </div>
 
         <div class="content__home__showcase-item">
-          <img src="media/showcase.webp" alt="Symphonia Showcase."/>
+          <img src="media/showcase.webp" alt="Symphonia Showcase." />
           <!-- Play Button -->
           <span
             class="material-symbols-rounded content__home__showcase-item--play"
@@ -409,7 +438,7 @@
         </div>
 
         <div class="content__home__showcase-item">
-          <img src="media/showcase.webp" alt="Symphonia Showcase."/>
+          <img src="media/showcase.webp" alt="Symphonia Showcase." />
           <!-- Play Button -->
           <span
             class="material-symbols-rounded content__home__showcase-item--play"
