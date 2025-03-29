@@ -237,7 +237,11 @@ export class Search {
       // H1s have different styling. Additionally, they should appear first in the list
       headings1.forEach(() => {
         searchContents1 = "";
-        searchContents1 = searchContents1.concat('<div data-document="');
+        searchContents1 = searchContents1.concat('<a href="/');
+        searchContents1 = searchContents1.concat(key.document);
+        searchContents1 = searchContents1.concat('" title="');
+        searchContents1 = searchContents1.concat(key.section);
+        searchContents1 = searchContents1.concat('" data-document="');
         searchContents1 = searchContents1.concat(key.document);
         searchContents1 = searchContents1.concat(
           '" class="nav-bar__search--results button__redirect" tabindex="0" data-section="',
@@ -247,7 +251,7 @@ export class Search {
           '" data-tag="game"><span class="nav-bar__search--results--games material-symbols-rounded"> sports_esports </span><b>',
         );
         searchContents1 = searchContents1.concat(key.section);
-        searchContents1 = searchContents1.concat("</b> </div>");
+        searchContents1 = searchContents1.concat("</b> </a>");
         searchContents1L.push(searchContents1);
       });
 
@@ -271,7 +275,11 @@ export class Search {
             // label is key.section removing "Tales of" and leading and trailing spaces
             let label = key.section.replace("Tales of", "").trim();
             searchContents2 = "";
-            searchContents2 = searchContents2.concat('<div data-document="');
+            searchContents2 = searchContents2.concat('<a href="/');
+            searchContents2 = searchContents2.concat(key.document);
+            searchContents2 = searchContents2.concat('" title="');
+            searchContents2 = searchContents2.concat(key.section);
+            searchContents2 = searchContents2.concat('" data-document="');
             searchContents2 = searchContents2.concat(key.document);
             searchContents2 = searchContents2.concat(
               '" class="nav-bar__search--results button__redirect" tabindex="0" data-section="',
@@ -307,11 +315,9 @@ export class Search {
     // Insert the HTML on the search bar
     searchResults.insertAdjacentHTML("beforeend", searchContents);
     searchContents = "";
-    document
-      .querySelectorAll("div.nav-bar__search--results")
-      .forEach((item) => {
-        this.addPageChangeEvent(item);
-      });
+    document.querySelectorAll("a.nav-bar__search--results").forEach((item) => {
+      this.addPageChangeEvent(item);
+    });
   }
 
   // --- Show all headings for a specific ID

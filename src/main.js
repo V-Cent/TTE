@@ -17,20 +17,40 @@ import { Helper } from "./helper.js";
 // Every page we need to load
 var parsedDocuments = new Map();
 // Add new documents here!!
-let fileList = [
-  { document: "./README", section: "README", dim: "N/A" },
-  { document: "./STYLING", section: "Doucment Syling", dim: "N/A" },
-  { document: "./CONTRIBUTING", section: "How to Contribute", dim: "N/A" },
-  { document: "TODPS2", section: "Tales of Destiny", dim: "2D" },
-  { document: "TODPS2-C", section: "Tales of Destiny Characters", dim: "2D" },
-  { document: "TODPS2-B", section: "Tales of Destiny Bosses", dim: "2D" },
-  { document: "TOL", section: "Tales of Legendia", dim: "2D" },
-  { document: "TOA", section: "Tales of Arise", dim: "3D" },
-  { document: "TOV", section: "Tales of Vesperia", dim: "3D" },
-  { document: "TOTA", section: "Tales of the Abyss", dim: "3D" },
-  { document: "TOX2", section: "Tales of Xillia 2", dim: "3D" },
-  { document: "TOZ", section: "Tales of Zestiria", dim: "3D" },
-  { document: "HOME", section: "HOME", dim: "N/A" },
+var fileList = [
+  { document: "./README", section: "README", dim: "N/A", ref: "readme" },
+  {
+    document: "./STYLING",
+    section: "Doucment Syling",
+    dim: "N/A",
+    ref: "styling",
+  },
+  {
+    document: "./CONTRIBUTING",
+    section: "How to Contribute",
+    dim: "N/A",
+    ref: "contributing",
+  },
+  { document: "TODPS2", section: "Tales of Destiny", dim: "2D", ref: "todps2" },
+  {
+    document: "TODPS2-C",
+    section: "Tales of Destiny Characters",
+    dim: "2D",
+    ref: "todps2-c",
+  },
+  {
+    document: "TODPS2-B",
+    section: "Tales of Destiny Bosses",
+    dim: "2D",
+    ref: "todps2-b",
+  },
+  { document: "TOL", section: "Tales of Legendia", dim: "2D", ref: "tol" },
+  { document: "TOA", section: "Tales of Arise", dim: "3D", ref: "toa" },
+  { document: "TOV", section: "Tales of Vesperia", dim: "3D", ref: "tov" },
+  { document: "TOTA", section: "Tales of the Abyss", dim: "3D", ref: "tota" },
+  { document: "TOX2", section: "Tales of Xillia 2", dim: "3D", ref: "tox2" },
+  { document: "TOZ", section: "Tales of Zestiria", dim: "3D", ref: "toz" },
+  { document: "HOME", section: "HOME", dim: "N/A", ref: "" },
 ];
 
 // --- Module Objects
@@ -60,7 +80,7 @@ var parsePromises = fileList.map((item) => {
   }
 });
 
-var currentDocument = null;
+var currentDocument = "HOME";
 var katexLoaded = false;
 
 // Check if DOM elements are ready, if yes, we can start running stuff
@@ -92,6 +112,62 @@ function pageInit() {
 
     helperObj.scrollInit();
     helperObj.logoInit();
+
+    // Setup History handlers
+    // Handle forward/back buttons
+    window.addEventListener("popstate", (event) => {
+      // If a state has been provided, we have a "simulated" page
+      // and we update the current page.
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.state) {
+        // Simulate the loading of the previous page
+        changeEventObj({ ...event.state, pushState: false });
+      } else {
+        // No state -- page is home
+        changeEventObj({ document: "HOME", section: "HOME", pushState: false });
+      }
+    });
+    // Handle base page URL (first view) -- in case the user wants to load a certain page from the get-go
+    let pathname = document.location.pathname;
+    // remove leading /
+    pathname = pathname.substring(1);
+    let ref = pathname;
+    // check if pathname has a redirect string (a /) and get its target
+    let splitPath = pathname.split("/");
+    let redirect = "";
+    if (splitPath.length > 1) {
+      redirect = splitPath[1];
+      ref = splitPath[0];
+    }
+
+    // Iterate over fileList and replace the initial history
+    for (let obj of fileList) {
+      if (obj.ref == ref) {
+        if (ref != "") {
+          if (redirect != "") {
+            changeEventObj({
+              ...obj,
+              redirect: "#" + redirect,
+              pushState: false,
+            });
+            window.history.replaceState(
+              JSON.parse(JSON.stringify({ ...obj, redirect: "#" + redirect })),
+              obj.section,
+              pathname,
+            );
+          } else {
+            changeEventObj({ ...obj, pushState: false });
+            window.history.replaceState(
+              JSON.parse(JSON.stringify(obj)),
+              obj.section,
+              pathname,
+            );
+          }
+        }
+        break;
+      }
+    }
   });
 }
 
@@ -158,17 +234,24 @@ export function addPageChangeEvent(item) {
   item.addEventListener("click", changeEvent);
 }
 
-// Function to make sure Katex is loaded before changing the page, then calls changeDocument
-//   the only data that is downloaded as the page is being loaded are images, videos, and Katex
+// Prevent redirections and propagations and calls the change event based on the dataset of the target
 function changeEvent(event) {
+  event.preventDefault();
+  event.stopPropagation();
   // remove focus from search bar
   let inputField = document.querySelector("#nav-bar__search--input");
   if (inputField != null) {
-    event.stopPropagation();
     document.activeElement.blur();
     inputField.blur();
   }
 
+  changeEventObj(event.currentTarget.dataset);
+}
+
+// Function to make sure Katex is loaded before changing the page, then calls changeDocument
+//   the only data that is downloaded as the page is being loaded are images, videos, and Katex
+// This is also the function called by the history API -- this way we don't need an event like changeEvent()
+function changeEventObj(dataset) {
   var parsedKatex = null;
 
   if (!katexLoaded) {
@@ -190,19 +273,17 @@ function changeEvent(event) {
       });
     });
 
-    const currentTarget = event.currentTarget;
-
     parsedKatex.then(() => {
       katexLoaded = true;
-      changeDocument(currentTarget);
+      changeDocument(dataset);
     });
   } else {
-    changeDocument(event.currentTarget);
+    changeDocument(dataset);
   }
 }
 
 // Function to handle changes to content
-function changeDocument(eventTarget) {
+function changeDocument(dataset) {
   // Get the content element to change the document presented on the page
   let contentText = document.getElementById("content");
 
@@ -210,92 +291,123 @@ function changeDocument(eventTarget) {
   searchObj.clearFunction();
   helperObj.addLogoVelocity();
 
-  if (eventTarget.dataset.document == "HOME") {
+  if (dataset.document == "HOME") {
     // Redirect to home page
-    toHome(contentText, eventTarget);
+    toHome(contentText, dataset);
     contentText.style.minHeight = "600px";
   } else {
-    if (eventTarget.dataset.document.includes("./")) {
+    if (dataset.document.includes("./")) {
       // Redirect to pages like the readme, document styling...
       contentText.style.minHeight = "600px";
-      toPage(contentText, eventTarget);
+      toPage(contentText, dataset);
     } else {
       //Event is a tech document, set the section as the game name and update the content
       contentText.style.minHeight = "100vh";
-      toTech(contentText, eventTarget);
+      toTech(contentText, dataset);
     }
   }
 }
 
 // --- Load Home Page
-function toHome(contentText, eventTarget) {
-  currentDocument = eventTarget.dataset.document;
-  tocObj.clearHeadings();
-  helperObj.updateStatus("HOME", "HOME", false);
-  tocObj.clearSectionTOC();
-  // Removes #content__tocicon if it exists
-  // load content from home.html fil and apply to contentText
-  let parsedPage = null;
+function toHome(contentText, dataset) {
+  let pastDocument = currentDocument;
+  currentDocument = dataset.document;
+  if (currentDocument != pastDocument) {
+    tocObj.clearHeadings();
+    helperObj.updateStatus("HOME", "HOME", false);
+    tocObj.clearSectionTOC();
+    // Removes #content__tocicon if it exists
+    // load content from home.html fil and apply to contentText
+    let parsedPage = null;
 
-  // Iterate over the entries in parsedDocuments to find the matching document
-  for (const [key, value] of parsedDocuments.entries()) {
-    if (key.document === "HOME") {
-      parsedPage = value;
-      break;
+    // Iterate over the entries in parsedDocuments to find the matching document
+    for (const [key, value] of parsedDocuments.entries()) {
+      if (key.document === "HOME") {
+        parsedPage = value;
+        break;
+      }
     }
-  }
 
-  contentText.innerHTML = parsedPage;
-  prepHome();
-  searchObj.initOnboardingIcon();
+    contentText.innerHTML = parsedPage;
+    // Set options for SEO
+    document.title = "Tales Tech Encyclopedia";
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        "Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.",
+      );
+
+    // Set history if this is not a pop (user did a back or forward on the page)
+    if (dataset.pushState == null) {
+      window.history.pushState(
+        JSON.parse(JSON.stringify(dataset)),
+        window.title,
+        "/",
+      );
+    }
+    prepHome();
+    searchObj.initOnboardingIcon();
+  }
 }
 
 // --- Load Generic Page
-function toPage(contentText, eventTarget) {
-  currentDocument = eventTarget.dataset.document;
-  tocObj.clearHeadings();
-  helperObj.updateStatus(
-    eventTarget.dataset.document,
-    eventTarget.dataset.section,
-    false,
-  );
-  tocObj.clearSectionTOC();
-  const documentKey = eventTarget.dataset.document;
-  let parsedPage = null;
+function toPage(contentText, dataset) {
+  let pastDocument = currentDocument;
+  currentDocument = dataset.document;
+  if (currentDocument != pastDocument) {
+    tocObj.clearHeadings();
+    helperObj.updateStatus(dataset.document, dataset.section, false);
+    tocObj.clearSectionTOC();
+    const documentKey = dataset.document;
+    let parsedPage = null;
 
-  // Iterate over the entries in parsedDocuments to find the matching document
-  for (const [key, value] of parsedDocuments.entries()) {
-    if (key.document === documentKey) {
-      parsedPage = value;
-      break;
+    // Iterate over the entries in parsedDocuments to find the matching document
+    for (const [key, value] of parsedDocuments.entries()) {
+      if (key.document === documentKey) {
+        parsedPage = value;
+        break;
+      }
     }
-  }
 
-  contentText.innerHTML = parsedPage;
-  // Update page & Clear active search results
-  updatePage();
-  document.querySelector("#nav-bar").scrollIntoView({
-    behavior: "smooth",
-  });
+    contentText.innerHTML = parsedPage;
+    // Update page & Clear active search results
+    updatePage();
+    // Set options for SEO
+    document.title = "Tales Tech Encyclopedia";
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        "Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.",
+      );
+    const url = "/" + currentDocument.toLowerCase();
+    // Set history if this is not a pop (user did a back or forward on the page)
+    if (dataset.pushState == null) {
+      window.history.pushState(
+        JSON.parse(JSON.stringify(dataset)),
+        window.title,
+        url,
+      );
+    }
+    document.querySelector("#nav-bar").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
 }
 
 // --- Load Tech Page
-function toTech(contentText, eventTarget) {
-  helperObj.updateStatus(
-    eventTarget.dataset.document,
-    eventTarget.dataset.section,
-    true,
-  );
+function toTech(contentText, dataset) {
+  helperObj.updateStatus(dataset.document, dataset.section, true);
   // Check if the page to load is the same one
   let pastDocument = currentDocument;
-  currentDocument = eventTarget.dataset.document;
-  let currentDataset = eventTarget.dataset;
+  currentDocument = dataset.document;
   if (currentDocument == pastDocument) {
     // If yes --> Just redirect
-    if (currentDataset.redirect != null) {
+    if (dataset.redirect != null) {
       //Event has a redirect location, collapse the headings if needed
-      searchObj.revealID(currentDataset.redirect.substring(1));
-      document.querySelector(currentDataset.redirect).scrollIntoView({
+      searchObj.revealID(dataset.redirect.substring(1));
+      document.querySelector(dataset.redirect).scrollIntoView({
         behavior: "smooth",
       });
     } else {
@@ -307,7 +419,7 @@ function toTech(contentText, eventTarget) {
   } else {
     tocObj.clearHeadings();
     tocObj.clearSectionTOC();
-    const documentKey = eventTarget.dataset.document;
+    const documentKey = dataset.document;
     let parsedPage = null;
 
     // Iterate over the entries in parsedDocuments to find the matching document
@@ -319,17 +431,40 @@ function toTech(contentText, eventTarget) {
     }
     contentText.style.visibility = "hidden";
     contentText.innerHTML = parsedPage;
+    // Set options for SEO
+    document.title = "TTE - " + dataset.section;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        "Tales Tech Encyclopedia (TTE) article on " + dataset.section + ".",
+      );
+    // URL is either currentDocument (e.g., /tov) or that + redirect (e.g., /tov/test-test)
+    const url =
+      "/" +
+      currentDocument.toLowerCase() +
+      (dataset.redirect && dataset.redirect !== "NONE"
+        ? "/" + dataset.redirect.substring(1)
+        : "");
+    // Set history if this is not a pop (user did a back or forward on the page)
+    if (dataset.pushState == null) {
+      window.history.pushState(
+        JSON.parse(JSON.stringify(dataset)),
+        window.title,
+        url,
+      );
+    }
     headingsObj.collapseHeadings(contentText);
     //Update page & Clear search results
     compileH2s();
     //updatePage(); compileH2s has an updatePage() call already.
-    if (currentDataset.redirect != null) {
-      if (currentDataset.redirect != "NONE") {
+    if (dataset.redirect != null) {
+      if (dataset.redirect != "NONE") {
         //Event has a redirect location, collapse the headings if needed
-        searchObj.revealID(currentDataset.redirect.substring(1));
+        searchObj.revealID(dataset.redirect.substring(1));
         // Set timeout to give time to page to update (it also looks nice)
         setTimeout(() => {
-          document.querySelector(currentDataset.redirect).scrollIntoView({
+          document.querySelector(dataset.redirect).scrollIntoView({
             behavior: "smooth",
           });
         }, 250);
@@ -353,6 +488,8 @@ export function updatePage() {
   });
   // Treat custom directives
   directivesObj.compileDirectives();
+  // Copy headings URL on click
+  headingsObj.shareHeadings();
 }
 
 // Adds functionality to the h2 section divider and opens the first one

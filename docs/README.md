@@ -30,3 +30,10 @@ Make sure to run *npm run build* after any modification of the files on src/. Ja
 **Nodemon** is also used as a project dependency to automatically watch file changes and build the project. To use it, run *npm run watch* on the root folder of the project. With this, any file change on src/ will automatically trigger a build.
 
 *npm install* should also be run after modifications to the package.json file (including version changes).
+
+Additionally, we have two commands for code linting and formatting:
+
+- npm run lint
+- npm run prettier
+
+These can be used before pushes/PRs to guarantee the changes come up clean in our github workflow.

@@ -422,4 +422,28 @@ export class Headings {
       }
     }
   }
+
+  // This iterates over all headings and adds a click event that copies them to your clipboard
+  shareHeadings() {
+    // Get game section
+    let pathname = document.location.pathname;
+    // remove leading /
+    pathname = pathname.substring(1);
+    // check if pathname has a redirect string (a /) and get its target
+    let splitPath = pathname.split("/");
+    if (splitPath.length > 1) {
+      pathname = splitPath[0];
+    }
+    var base_url = window.location.origin;
+
+    let headings = document.querySelectorAll("h3, h4");
+    for (let heading of headings) {
+      heading.style.cursor = "copy";
+      heading.addEventListener("click", function () {
+        navigator.clipboard.writeText(
+          base_url + "/" + pathname + "/" + heading.id,
+        );
+      });
+    }
+  }
 }
