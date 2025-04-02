@@ -563,8 +563,9 @@ blockquote p {
 
 #title-text img {
   cursor: pointer;
-  opacity: 0.85;
+  width: 250px;
   height: 24px;
+  opacity: 0.85;
 }
 
 /* Mission Section */

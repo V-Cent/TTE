@@ -80,7 +80,7 @@ var parsePromises = fileList.map((item) => {
   }
 });
 
-var currentDocument = "HOME";
+var currentDocument = null;
 var katexLoaded = false;
 
 // Check if DOM elements are ready, if yes, we can start running stuff
@@ -91,8 +91,6 @@ if (document.readyState === "loading") {
 }
 // --- Search and click redirections
 function pageInit() {
-  // add Showcase functionality
-  prepHome();
   // Add redirect links for title and footer
   document
     .querySelectorAll("div#nav-bar__title, p.footer-container__help--links")
@@ -144,26 +142,24 @@ function pageInit() {
     // Iterate over fileList and replace the initial history
     for (let obj of fileList) {
       if (obj.ref == ref) {
-        if (ref != "") {
-          if (redirect != "") {
-            changeEventObj({
-              ...obj,
-              redirect: "#" + redirect,
-              pushState: false,
-            });
-            window.history.replaceState(
-              JSON.parse(JSON.stringify({ ...obj, redirect: "#" + redirect })),
-              obj.section,
-              pathname,
-            );
-          } else {
-            changeEventObj({ ...obj, pushState: false });
-            window.history.replaceState(
-              JSON.parse(JSON.stringify(obj)),
-              obj.section,
-              pathname,
-            );
-          }
+        if (redirect != "") {
+          changeEventObj({
+            ...obj,
+            redirect: "#" + redirect,
+            pushState: false,
+          });
+          window.history.replaceState(
+            JSON.parse(JSON.stringify({ ...obj, redirect: "#" + redirect })),
+            obj.section,
+            pathname,
+          );
+        } else {
+          changeEventObj({ ...obj, pushState: false });
+          window.history.replaceState(
+            JSON.parse(JSON.stringify(obj)),
+            obj.section,
+            pathname,
+          );
         }
         break;
       }
