@@ -2,14 +2,6 @@
 
 This is currently a test page for the layout of tech documents.
 
-Quick intro.
-
-Introduce version list.
-
-Introduce sections.
-
-*:{'sections' : true}*
-
 ## Mechanics
 
 Table test:
@@ -43,7 +35,7 @@ TODO
 
 *:{'media' : 'media/todps2/snow.png', 'caption' : 'Test Caption 3'}*
 
-*:{'media' : 'media/TTE2.webp', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
+*:{'media' : 'media/todps2/snow.png', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Check item *:{'redirect' : '#redirect-target'} Redirect*, to see more. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 

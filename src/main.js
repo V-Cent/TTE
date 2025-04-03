@@ -34,13 +34,13 @@ var fileList = [
   { document: "TODPS2", section: "Tales of Destiny", dim: "2D", ref: "todps2" },
   {
     document: "TODPS2-C",
-    section: "Tales of Destiny Characters",
+    section: "Tales of Destiny",
     dim: "2D",
     ref: "todps2-c",
   },
   {
     document: "TODPS2-B",
-    section: "Tales of Destiny Bosses",
+    section: "Tales of Destiny",
     dim: "2D",
     ref: "todps2-b",
   },
@@ -93,7 +93,9 @@ if (document.readyState === "loading") {
 function pageInit() {
   // Add redirect links for title and footer
   document
-    .querySelectorAll("div#nav-bar__title, p.footer-container__help--links")
+    .querySelectorAll(
+      "div#nav-bar__title, p.footer-container__help--links, img#title-text__img",
+    )
     .forEach((item) => {
       addPageChangeEvent(item);
     });
@@ -167,57 +169,16 @@ function pageInit() {
   });
 }
 
-function prepHome() {
-  // function to add functionality to the home page -- called everytime it is loaded
-  document
-    .querySelectorAll("img#title-text__img, span.content__redirect")
-    .forEach((item) => {
-      addPageChangeEvent(item);
-    });
-  for (let elem of document.querySelectorAll(
-    ".content__home__showcase-item--play",
-  )) {
-    elem.addEventListener("click", function () {
-      if (event.currentTarget.innerHTML == "play_circle") {
-        event.currentTarget.innerHTML = "stop_circle";
-        // create child in parent element (so sibling of target), that is a video source
-        let video = document.createElement("video");
-        video.src = event.currentTarget.dataset.video;
-        video.className = "content__home__showcase-item--video";
-        video.autoplay = true;
-        video.controls = false;
-        video.muted = true;
-        video.loop = true;
-        event.currentTarget.parentElement.appendChild(video);
-        setTimeout(
-          (video) => {
-            video.style.opacity = 1;
-          },
-          50,
-          video,
-        );
-      } else {
-        // try and find the video element, set opacity to 0, and remove it after 2 seconds
-        let video = event.currentTarget.parentElement.querySelector(
-          ".content__home__showcase-item--video",
-        );
-        if (video != null) {
-          video.style.opacity = 0;
-          setTimeout(
-            ([element, video]) => {
-              video.remove();
-              element.innerHTML = "play_circle";
-            },
-            500,
-            [event.currentTarget, video],
-          );
-        } else {
-          event.currentTarget.innerHTML = "play_circle";
-        }
-      }
-    });
-  }
-}
+// --- Page flow:
+//     elements have the addPageChangeEvent on them, which when called will either load a
+//     tech page, the home page, or a standalone page (e.g., readme)
+//
+//     for tech pages the flow is changeEvent -> changeEventObj -> changeDocument -> toTech -> compileH2s -> updatePage
+//     for the homepage the flow is ... -> changeDocument -> toHome -> prepHome
+//     for standalone pages the flow is ... -> changeDocument -> toPage -> updatePage
+//
+//     changeEvent and changeEventObj are split because you can also call a page without an event, simply creating a pseudo-dataset object.
+//     this is currently done for routing.
 
 // --- Function for click events on redirects
 export function addPageChangeEvent(item) {
@@ -344,6 +305,56 @@ function toHome(contentText, dataset) {
     }
     prepHome();
     searchObj.initOnboardingIcon();
+  }
+}
+
+// --- Add functionality to the home page
+function prepHome() {
+  document.querySelectorAll("span.content__redirect").forEach((item) => {
+    addPageChangeEvent(item);
+  });
+  for (let elem of document.querySelectorAll(
+    ".content__home__showcase-item--play",
+  )) {
+    elem.addEventListener("click", function () {
+      if (event.currentTarget.innerHTML == "play_circle") {
+        event.currentTarget.innerHTML = "stop_circle";
+        // create child in parent element (so sibling of target), that is a video source
+        let video = document.createElement("video");
+        video.src = event.currentTarget.dataset.video;
+        video.className = "content__home__showcase-item--video";
+        video.autoplay = true;
+        video.controls = false;
+        video.muted = true;
+        video.loop = true;
+        event.currentTarget.parentElement.appendChild(video);
+        setTimeout(
+          (video) => {
+            video.style.opacity = 1;
+          },
+          50,
+          video,
+        );
+      } else {
+        // try and find the video element, set opacity to 0, and remove it after 2 seconds
+        let video = event.currentTarget.parentElement.querySelector(
+          ".content__home__showcase-item--video",
+        );
+        if (video != null) {
+          video.style.opacity = 0;
+          setTimeout(
+            ([element, video]) => {
+              video.remove();
+              element.innerHTML = "play_circle";
+            },
+            500,
+            [event.currentTarget, video],
+          );
+        } else {
+          event.currentTarget.innerHTML = "play_circle";
+        }
+      }
+    });
   }
 }
 
@@ -476,14 +487,14 @@ function toTech(contentText, dataset) {
 
 // --- Generic actions every time the page is updated
 export function updatePage() {
+  // Treat custom directives
+  directivesObj.compileDirectives();
   // Create TOC
   tocObj.createTOC(currentDocument);
   // Add redirect to TOC
   document.querySelectorAll(".content__toc--search").forEach((item) => {
     addPageChangeEvent(item);
   });
-  // Treat custom directives
-  directivesObj.compileDirectives();
   // Copy headings URL on click
   headingsObj.shareHeadings();
 }

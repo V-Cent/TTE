@@ -78,6 +78,7 @@ export class Directives {
             systemSpan = "";
           }
           let currentDocument = this.helperObj.currentDocument;
+          let currentSection = this.helperObj.currentSection;
           currentDocument = currentDocument.replace("-C", "");
           currentDocument = currentDocument.replace("-B", "");
           let sectionsHTML =
@@ -87,7 +88,9 @@ export class Directives {
               <div class="content__sections--input-label">
                 <input type="radio" id="systems" name="sections" value="systems" data-redirect="NONE" data-document="` +
             currentDocument +
-            '" ' +
+            `" data-section="` +
+            currentSection +
+            `" ` +
             systemActive +
             ` />
                 <label for="systems">Systems` +
@@ -100,7 +103,9 @@ export class Directives {
               <div class="content__sections--input-label">
                 <input type="radio" id="characters" name="sections" value="characters" data-redirect="NONE" data-document="` +
             currentDocument +
-            '-C" ' +
+            '-C" data-section="' +
+            currentSection +
+            `" ` +
             charActive +
             ` />
                 <label for="characters">Characters` +
@@ -113,7 +118,9 @@ export class Directives {
               <div class="content__sections--input-label">
                 <input type="radio" id="bosses" name="sections" value="bosses" data-redirect="NONE" data-document="` +
             currentDocument +
-            '-B" ' +
+            '-B" data-section="' +
+            currentSection +
+            `" ` +
             bossesActive +
             ` />
                 <label for="bosses">Bosses` +
@@ -205,6 +212,7 @@ export class Directives {
             mediaTag.style.outline = "none";
             mediaTag.style.borderRadius = "14px";
             mediaTag.src = src;
+            mediaTag.alt = "";
             mediaHolder.appendChild(mediaTag);
 
             // \xa0 is a non-breaking space character, just to make the underline look better

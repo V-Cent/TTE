@@ -63,11 +63,7 @@ export class TOC {
       tocBorder.appendChild(toc);
       // Set TOC y location just after #content__selector
       selector = document.getElementById("content__selector");
-      tocBorder.style.top =
-        selector.getBoundingClientRect().bottom +
-        document.documentElement.scrollTop +
-        180 +
-        "px";
+      tocBorder.style.top = selector.offsetTop + content.offsetTop + 10 + "px";
 
       // Also add an icon on the #section-container__div for mobile
       let tocIcon = document.createElement("span");
