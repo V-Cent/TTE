@@ -6,11 +6,11 @@ Project started 12th of April 2021.
 
 ## Project
 
-TTE is a simple static website. Game articles are formatted as human-readable Markdown pages. This was done to help with maintainability and simplifies the contribution process because it does not require any knowledge of HTML or CSS.
+TTE is a static website. Game articles are formatted as human-readable Markdown pages. This was done to help with maintainability and simplifies the contribution process because it does not require any knowledge of HTML or CSS.
 
-The project currently uses only basic web technologies and javascript. We use **esbuild** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files.
+The project currently uses HTML/Typescript/CSS. We use **esbuild** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files.
 
-Pull Requests for Front-End or other improvements are welcome! Just follow the guidelines from the "How to Contribute" page (in the footer of the website) and keep the site static and fast.
+Pull Requests for Front-End or other improvements are welcome! Just follow the guidelines from the "How to Contribute" page (in the footer of the website).
 
 ## Building
 
@@ -25,7 +25,7 @@ For testing, you can clone/download the repository with git/github and run the f
 
 After that, you can open a web server on your local host to test the page. This is required to avoid CORS errors. The HTML file you should serve is the one located on docs/. If you install the Web Dev packages on Visual Studio you can easily test the page by the "Go Live" button at the bottom bar. Other users can use different methods such as using [Python](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server).
 
-Make sure to run *npm run build* after any modification of the files on src/. Javascript/CSS/HTML files on docs/ should not be modified.
+Make sure to run *npm run build* after any modification of the files on src/. HTML/Javascript/CSS files on docs/ should not be modified.
 
 **Nodemon** is also used as a project dependency to automatically watch file changes and build the project. To use it, run *npm run watch* on the root folder of the project. With this, any file change on src/ will automatically trigger a build.
 

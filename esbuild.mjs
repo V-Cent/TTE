@@ -1,7 +1,7 @@
 import * as esbuild from "esbuild";
 
 await esbuild.build({
-  entryPoints: ["src/main.js", "src/katex.min.js"],
+  entryPoints: ["src/main.ts", "src/katex.min.js"],
   bundle: true,
   minify: true,
   sourcemap: true,

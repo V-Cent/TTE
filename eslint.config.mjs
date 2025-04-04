@@ -1,10 +1,26 @@
 import globals from "globals";
-import pluginJs from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier/flat";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
-  { languageOptions: { globals: globals.browser } },
-  pluginJs.configs.recommended,
+  {
+    files: ["**/*.js", "**/*.ts"],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+      globals: globals.browser,
+    },
+    plugins: {
+      "@typescript-eslint": tseslint,
+    },
+    rules: {
+      ...tseslint.configs.recommended.rules,
+      "no-constant-condition": ["error", { "checkLoops": "allExceptWhileTrue" }]
+    },
+  },
   eslintConfigPrettier,
 ];
