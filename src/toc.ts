@@ -1,6 +1,6 @@
 // ---------
 // toc.js is the table of content functionality for tech pages
-//   there are two parts, the one that appears on the side, and another which is in the section-container (helps with mobile)
+//   there are two modes, a side view on desktop and another inside an icon for mobile
 
 import { Helper } from "./helper.ts";
 
@@ -44,8 +44,7 @@ export class TOC {
   //      this, however, requires a strict styling format for the markdown file
   createTOC(currentDocument: string): void {
     // Check if tocborder already exists
-    let tocBorder: HTMLElement | null =
-      document.getElementById("content__tocborder");
+    let tocBorder: HTMLElement | null = document.getElementById("content__tocborder");
     let selector: HTMLElement | null = null;
     let content: HTMLElement | null = null;
     let toc: HTMLElement | null = null;
@@ -89,9 +88,8 @@ export class TOC {
       tocIcon.innerHTML = "menu_book";
       tocIcon.style.display = "none";
 
-      const sectionContainer: HTMLElement | null = document.getElementById(
-        "section-container__div",
-      );
+      const sectionContainer: HTMLElement | null =
+        document.getElementById("section-container__div");
       if (!sectionContainer) return; // Ensure sectionContainer exists
 
       sectionContainer.appendChild(tocIcon);
@@ -110,9 +108,7 @@ export class TOC {
 
       // Add an event listener to the icon
       tocIcon.addEventListener("click", () => {
-        const box: HTMLElement | null = document.getElementById(
-          "content__tocicon--box",
-        );
+        const box: HTMLElement | null = document.getElementById("content__tocicon--box");
         if (!box) return; // Ensure box exists
 
         const boxWidth: number = document.body.clientWidth >= 480 ? 360 : 300;
@@ -123,9 +119,7 @@ export class TOC {
       });
 
       tocIconBox.addEventListener("focusout", (event: FocusEvent) => {
-        const box: HTMLElement | null = document.getElementById(
-          "content__tocicon--box",
-        );
+        const box: HTMLElement | null = document.getElementById("content__tocicon--box");
         if (!box) return; // Ensure box exists
 
         event.stopPropagation();
@@ -150,12 +144,8 @@ export class TOC {
 
     // Scan headings (h3s and h4s) on #content__currenth2
     this.headings = [];
-    const h3s: NodeListOf<HTMLHeadingElement> = document.querySelectorAll(
-      "#content__currenth2 h3",
-    );
-    const h4s: NodeListOf<HTMLHeadingElement> = document.querySelectorAll(
-      "#content__currenth2 h4",
-    );
+    const h3s: NodeListOf<HTMLHeadingElement> = document.querySelectorAll("#content__currenth2 h3");
+    const h4s: NodeListOf<HTMLHeadingElement> = document.querySelectorAll("#content__currenth2 h4");
 
     for (const h3 of h3s) {
       this.headings.push({
@@ -226,16 +216,12 @@ export class TOC {
       const currentActive: NodeListOf<HTMLElement> = document.querySelectorAll(
         ".content__toc--search.active",
       );
-      currentActive.forEach((active: HTMLElement) =>
-        active.classList.remove("active"),
-      );
+      currentActive.forEach((active: HTMLElement) => active.classList.remove("active"));
 
       const currentH3Links: NodeListOf<HTMLElement> = document.querySelectorAll(
         `.content__toc--search[data-redirect="#${currentH3.id}"]`,
       );
-      currentH3Links.forEach((link: HTMLElement) =>
-        link.classList.add("active"),
-      );
+      currentH3Links.forEach((link: HTMLElement) => link.classList.add("active"));
     }
 
     // Hide SEARCH h4s (display: none) before and after the indexes and show (display:block) the ones between
@@ -266,15 +252,12 @@ export class TOC {
 
   // --- Completely remove the TOC
   clearSectionTOC(): void {
-    const tocIcon: HTMLElement | null =
-      document.getElementById("content__tocicon");
+    const tocIcon: HTMLElement | null = document.getElementById("content__tocicon");
     if (tocIcon !== null) {
       tocIcon.remove();
     }
 
-    const tocBox: HTMLElement | null = document.getElementById(
-      "content__tocicon--box",
-    );
+    const tocBox: HTMLElement | null = document.getElementById("content__tocicon--box");
     if (tocBox !== null) {
       tocBox.remove();
     }

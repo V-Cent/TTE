@@ -3,12 +3,35 @@
 //   main creates an instance of it which can be used for various things
 //   a better alternative than sessionStorage and can also save live objects
 
-interface FileEntry {
+export interface FileEntry {
   document: string;
   section: string;
   dim: string;
   ref: string;
 }
+
+export interface h2Data {
+  id: string;
+  name: string;
+  content: string;
+  color: string;
+}
+
+export interface TagData {
+  sections?: boolean;
+  article?: string;
+  versions?: string;
+  todo?: boolean;
+  media?: string;
+  forcedmedia?: boolean;
+  caption?: string;
+  redirect?: string;
+  document?: string;
+  section?: string;
+  reference?: boolean;
+}
+
+export type colors = "yellow" | "pink" | "teal" | "green" | "red" | "lavender" | "blue";
 
 export class Helper {
   private mouseDown: boolean;
@@ -28,11 +51,10 @@ export class Helper {
   inTechPage: boolean;
   addPageChangeEvent: (element: HTMLElement) => void;
   fileList: FileEntry[];
+  colorCollection: Record<colors, string>;
+  h2Collection: h2Data[];
 
-  constructor(
-    addPageChangeEvent: (element: HTMLElement) => void,
-    fileList: FileEntry[],
-  ) {
+  constructor(addPageChangeEvent: (element: HTMLElement) => void, fileList: FileEntry[]) {
     this.mouseDown = false;
     this.startX = 0;
     this.scrollLeft = 0;
@@ -50,6 +72,8 @@ export class Helper {
     this.inTechPage = false;
     this.addPageChangeEvent = addPageChangeEvent;
     this.fileList = fileList;
+    this.colorCollection = {} as Record<colors, string>;
+    this.h2Collection = [];
   }
 
   // --- Update global values
@@ -63,20 +87,14 @@ export class Helper {
   // --- Logo functions
   logoInit(): void {
     // Add nav-bar events --> logo rotation
-    const titleElement: HTMLElement | null =
-      document.querySelector("#nav-bar__title");
+    const titleElement: HTMLElement | null = document.querySelector("#nav-bar__title");
     if (titleElement) {
-      titleElement.addEventListener(
-        "mouseenter",
-        this.startRotateLogo.bind(this),
-      );
-      titleElement.addEventListener(
-        "mouseleave",
-        this.stopRotateLogo.bind(this),
-      );
+      titleElement.addEventListener("mouseenter", this.startRotateLogo.bind(this));
+      titleElement.addEventListener("mouseleave", this.stopRotateLogo.bind(this));
     }
   }
 
+  // --- Add vel on page change
   addLogoVelocity(): void {
     // When clicking on any game, rotate the logo a bit
     if (!this.rotateFlag && this.leaveCounter === 0) {
@@ -89,6 +107,7 @@ export class Helper {
     this.leaveCounter = 200;
   }
 
+  // --- Rotate on mouseover
   startRotateLogo(): void {
     // On mouseover, start animation
     if (!this.rotateFlag && this.leaveCounter === 0) {
@@ -100,16 +119,16 @@ export class Helper {
     }
   }
 
+  // --- Stop rotation on mouseleave
   stopRotateLogo(): void {
     // On mouseleave, change flag so rotateLogo() makes the logo slow down
     this.rotateFlag = false;
   }
 
+  // --- Animation rotate function
   rotateLogo(): void {
     // Get logo style properties
-    const logo: HTMLElement | null = document.querySelector(
-      "#nav-bar__title__logo",
-    );
+    const logo: HTMLElement | null = document.querySelector("#nav-bar__title__logo");
     if (!logo) return; // Ensure the logo element exists
 
     const st: CSSStyleDeclaration = getComputedStyle(logo, null);
@@ -165,9 +184,7 @@ export class Helper {
   // --- Scroll functions
   scrollInit(): void {
     // Add scroll button events (icon that appears when you pass ToC)
-    this.scrollButton = document.querySelector(
-      "#scroll__button--to-top",
-    ) as HTMLElement | null;
+    this.scrollButton = document.querySelector("#scroll__button--to-top");
     this.rootElement = document.documentElement;
 
     if (this.scrollButton) {
@@ -183,13 +200,10 @@ export class Helper {
     event.preventDefault();
 
     // Get current scroll position
-    const scrollTotal: number =
-      this.rootElement!.scrollHeight - this.rootElement!.clientHeight;
+    const scrollTotal: number = this.rootElement!.scrollHeight - this.rootElement!.clientHeight;
 
     // Get TOC if it exists
-    const toc: HTMLElement | null = document.getElementById(
-      "content__selectorbox",
-    );
+    const toc: HTMLElement | null = document.getElementById("content__selectorbox");
     let tocLocation: number = 0;
 
     if (toc) {
@@ -216,9 +230,7 @@ export class Helper {
   // --- Scroll to top of the page or the H2 selection
   scrollToTop(): void {
     // Get content selector if it exists
-    const toc: HTMLElement | null = document.getElementById(
-      "content__selectorbox",
-    );
+    const toc: HTMLElement | null = document.getElementById("content__selectorbox");
     let tocLocation: number = 0;
 
     if (toc !== null) {
@@ -242,12 +254,7 @@ export class Helper {
         );
 
         // && is sequential
-        if (
-          pieces &&
-          pieces.length >= 1 &&
-          !isNaN(Number(pieces[1])) &&
-          Number(pieces[1]) < 130
-        ) {
+        if (pieces && pieces.length >= 1 && !isNaN(Number(pieces[1])) && Number(pieces[1]) < 130) {
           behavior = "auto";
         }
       }
@@ -260,6 +267,7 @@ export class Helper {
   }
 
   // --- Tooltip functions
+  //      load on hover
   loadTooltip(tooltip: HTMLElement | null, tooltipText: string): void {
     // Create tooltip element
     const base: HTMLElement = document.createElement("tooltip");
@@ -274,9 +282,7 @@ export class Helper {
     base.appendChild(tip);
 
     // Remove existing tooltip if needed
-    const existingTooltip: HTMLElement | null = document.getElementsByTagName(
-      "tooltip",
-    )[0] as HTMLElement | null;
+    const existingTooltip: Element | null = document.getElementsByTagName("tooltip")[0];
     if (existingTooltip) {
       existingTooltip.remove();
     }
@@ -288,11 +294,10 @@ export class Helper {
     document.body.appendChild(base);
   }
 
+  // --- Delete first found tooltip after not hovering the tooltip area
   unloadTooltip(): void {
     // Remove existing tooltip
-    const existingTooltip: HTMLElement | null = document.getElementsByTagName(
-      "tooltip",
-    )[0] as HTMLElement | null;
+    const existingTooltip: Element | null = document.getElementsByTagName("tooltip")[0];
     if (existingTooltip) {
       existingTooltip.remove();
     }
@@ -300,11 +305,14 @@ export class Helper {
 
   // --- Drag function for h2s and TOC
   dragScrollElement(query: string, direction: number): void {
+    // This is a generic function that you can use to drag a div horizontally or vertically
+    // Gets the Element from the query
     const sliderSelector: HTMLElement | null = document.querySelector(query);
     if (sliderSelector === null) {
       return;
     }
 
+    // Define mouse/touch start event functions
     const startDraggingX = (e: MouseEvent | TouchEvent): void => {
       this.mouseDown = true;
       this.startX =
@@ -323,6 +331,7 @@ export class Helper {
       this.scrollTop = sliderSelector.scrollTop;
     };
 
+    // Define the mouse/touch drag event functions
     const moveX = (e: MouseEvent | TouchEvent): void => {
       e.preventDefault();
       e.stopPropagation();
@@ -351,11 +360,12 @@ export class Helper {
       sliderSelector.scrollTop = this.scrollTop - scroll;
     };
 
+    // Stops movement
     const stopDragging = (): void => {
       this.mouseDown = false;
     };
 
-    // Add the event listeners
+    // Add the event listeners -- 1 is for vertical, 0 is for horizontal
     if (direction === 1) {
       sliderSelector.addEventListener("mousemove", moveY, false);
       sliderSelector.addEventListener("mousedown", startDraggingY, false);

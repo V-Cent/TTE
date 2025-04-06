@@ -1,7 +1,7 @@
 {
   "name": "tte",
-  "version": "0.19.1",
-  "description": "Tales Tech Encyclopedia",
+  "version": "0.19.2",
+  "description": "Tales Tech Encyclopaedia",
   "main": "src/main.js",
   "private": true,
   "license": "MIT",
@@ -12,7 +12,7 @@
     "ext": "js,html,css"
   },
   "scripts": {
-    "watch": "nodemon --watch \"src/\" --exec \"npm run build\"",
+    "watch": "nodemon --watch \"src/\" --ext \"ts,json,js,css,html\" --exec \"npm run build\"",
     "build": "rimraf docs/scripts docs/styles && node esbuild.mjs && minify-html --output docs/home.html --keep-closing-tags --minify-css src/home.html && minify-html --output docs/index.html --keep-closing-tags --minify-css src/index.html && copy-folder src/styles/fonts docs/styles/fonts --summary",
     "lint": "npx eslint src/**/*.ts --ignore-pattern src/katex.min.js",
     "prettier": "npx prettier --write src/"
@@ -24,7 +24,6 @@
     "esbuild-plugin-alias": "^0.2.1",
     "esbuild-plugin-ignore": "^1.1.1",
     "katex": "^0.16.11",
-    "nodemon": "^3.1.4",
     "remarkable": "^2.0.1",
     "rimraf": "^6.0.1"
   },
@@ -37,7 +36,9 @@
     "eslint-plugin-n": "^17.17.0",
     "eslint-plugin-promise": "^7.2.1",
     "globals": "^16.0.0",
+    "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.29.0"
   }

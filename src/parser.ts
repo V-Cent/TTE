@@ -9,9 +9,7 @@ export class Parser {
   private md: Remarkable;
   private openEmRenderer: Remarkable.Rule<EmOpenToken, string> | undefined;
   private closeEmRenderer: Remarkable.Rule<EmCloseToken, string> | undefined;
-  private closeHeadingRenderer:
-    | Remarkable.Rule<HeadingCloseToken, string>
-    | undefined;
+  private closeHeadingRenderer: Remarkable.Rule<HeadingCloseToken, string> | undefined;
   private injectedHeading: boolean;
   private injectedEm: boolean;
   private tagMap: Record<string, string>;
@@ -44,19 +42,14 @@ export class Parser {
     this.updateRules();
   }
 
-  private isTextToken(
-    token: Remarkable.TagToken,
-  ): token is Remarkable.BlockContentToken {
+  private isTextToken(token: Remarkable.TagToken): token is Remarkable.BlockContentToken {
     return "content" in token;
   }
 
-  // For custom directives --> capture when the markdown has a special call either :{ in a heading or *:{ in text
+  // --- For custom directives --> capture when the markdown has a special call either :{ in a heading or *:{ in text
   updateRules(): void {
     // Define new handlers for text
-    this.md.renderer.rules.heading_open = (
-      tokens: Remarkable.TagToken[],
-      idx: number,
-    ): string => {
+    this.md.renderer.rules.heading_open = (tokens: Remarkable.TagToken[], idx: number): string => {
       const nextToken: Remarkable.TagToken = tokens[idx + 1];
 
       // Ensure the next token exists, is a TextToken, and has a defined content property
@@ -102,12 +95,7 @@ export class Parser {
     ): string => {
       if (this.injectedHeading) {
         this.injectedHeading = false;
-        const headingEnd: string = this.closeHeadingRenderer!(
-          tokens,
-          idx,
-          options,
-          env,
-        );
+        const headingEnd: string = this.closeHeadingRenderer!(tokens, idx, options, env);
         // Change new line position or styling will mess up
         return `${headingEnd.concat("</span>").replace(/\n/g, " ")}\n`;
       } else {
@@ -132,10 +120,10 @@ export class Parser {
     this.parseKatex();
   }
 
-  // Load a text file on a relative path
+  // --- Load a text file on a relative path
   async loadFile(filePath: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
+      const xhr: XMLHttpRequest = new XMLHttpRequest();
       xhr.open("GET", filePath, true);
 
       xhr.onload = () => {
@@ -160,6 +148,7 @@ export class Parser {
     });
   }
 
+  // --- Get data from a loaded file (with extension)
   async asyncRead(file: string): Promise<string> {
     const fileData: string = await this.loadFile(file);
 
@@ -171,7 +160,7 @@ export class Parser {
     return fileData;
   }
 
-  // Parse a MD file with our custom rules
+  // --- Get data from a loaded file and parse it (markdown, no need for .md)
   async parseGFM(file: string): Promise<string> {
     // Read GFM file
     const fileData: string = await this.loadFile(`${file}.md`);
@@ -186,7 +175,8 @@ export class Parser {
     return content;
   }
 
-  // Custom directive handler for text. For this we can use the default one if we're not in a custom directive
+  // --- Custom directive handler for text. For this we can use the default one if we're not in a custom directive
+  //      the two next functions parse any custom directive and defines them as a JSON object
   parseTags(
     tokens: Remarkable.TagToken[],
     idx: number,
@@ -210,19 +200,15 @@ export class Parser {
         return `<span class="${this.tagMap[tagToken]}">`;
       } else {
         // Use the fallback renderer if the content does not start with ":"
-        return fallback
-          ? fallback(tokens as Remarkable.EmOpenToken[], idx, options, env)
-          : "";
+        return fallback ? fallback(tokens as Remarkable.EmOpenToken[], idx, options, env) : "";
       }
     }
 
     // Use the fallback renderer if the next token is not a text token
-    return fallback
-      ? fallback(tokens as Remarkable.EmOpenToken[], idx, options, env)
-      : "";
+    return fallback ? fallback(tokens as Remarkable.EmOpenToken[], idx, options, env) : "";
   }
 
-  // Custom directives use JSON-style data for options
+  // --- Custom directives use JSON-style data for options
   parseJsonTag(tokens: Remarkable.TagToken[], idx: number): string {
     // Ensure the next token exists and is a TextToken
     const nextToken: Remarkable.TagToken | undefined = tokens[idx + 1];
@@ -244,24 +230,19 @@ export class Parser {
     nextToken.content = nextToken.content.slice(endingIndex + 2);
 
     // Inline segments don't change if you only change their content
-    if (
-      nextToken.type === "inline" &&
-      nextToken.children &&
-      nextToken.children[0]
-    ) {
+    if (nextToken.type === "inline" && nextToken.children && nextToken.children[0]) {
       const childToken: Remarkable.BlockContentToken = nextToken.children[0];
       childToken.content = nextToken.content;
     }
 
-    const classOp: string =
-      tokens[idx].type === "em_open" ? "tagging-text" : "tagging";
+    const classOp: string = tokens[idx].type === "em_open" ? "tagging-text" : "tagging";
 
     return `<span class="${classOp}" data-tags="${jsonTag}">`;
   }
 
-  // Based on the "remarkable-katex" package: https://github.com/bradhowes/remarkable-katex
-  //   This modification doesn't load the katex module, since it is only needed when a new page is being shown
-  //   Instead, Katex is treated as any other tags. This saves about 300kb on page load.
+  // --- Based on the "remarkable-katex" package: https://github.com/bradhowes/remarkable-katex
+  //      This modification doesn't load the katex module, since it is only needed when a new page is being shown
+  //      Instead, Katex is treated as any other tags. This saves about 300kb on page load.
   parseKatex(): void {
     const backslash: string = "\\";
     const delimiter: string = "$";
@@ -352,10 +333,7 @@ export class Parser {
     /**
      * Look for '$' or '$$' spans in Markdown text. Based off of the 'fenced' parser in remarkable.
      */
-    const parseInlineKatex = (
-      state: Remarkable.StateInline,
-      silent: boolean,
-    ): boolean => {
+    const parseInlineKatex = (state: Remarkable.StateInline, silent: boolean): boolean => {
       const start: number = state.pos;
       const max: number = state.posMax;
       let pos: number = start;
@@ -380,15 +358,9 @@ export class Parser {
       let escapedDepth: number = 0;
       while (pos < max) {
         const char: string = state.src.charAt(pos);
-        if (
-          char === "{" &&
-          (pos === 0 || state.src.charAt(pos - 1) !== backslash)
-        ) {
+        if (char === "{" && (pos === 0 || state.src.charAt(pos - 1) !== backslash)) {
           escapedDepth++;
-        } else if (
-          char === "}" &&
-          (pos === 0 || state.src.charAt(pos - 1) !== backslash)
-        ) {
+        } else if (char === "}" && (pos === 0 || state.src.charAt(pos - 1) !== backslash)) {
           escapedDepth--;
           if (escapedDepth < 0) {
             return false;

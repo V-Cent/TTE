@@ -299,6 +299,7 @@
   border: 1px solid var(--white-f3);
   border-radius: 4px;
   position: relative;
+  cursor: pointer;
 }
 
 .content__sections--input-label input:checked {
@@ -326,6 +327,7 @@
   text-indent: 0ch;
   vertical-align: center;
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .content__sections--input-label label span {
@@ -364,7 +366,7 @@
 
 .content__h2 {
   position: relative;
-  margin-top: 20px;
+  margin-top: 6px;
   margin-bottom: 20px;
 }
 
@@ -376,6 +378,7 @@
   max-width: 100ch;
   letter-spacing: 0.03em;
   word-spacing: 0.03em;
+  min-height: 300px;
 }
 
 blockquote p {
@@ -554,7 +557,7 @@ blockquote p {
 }
 
 #title-text {
-  width: 250px;
+  width: 260px;
   height: 400px;
   top: 62px;
   position: absolute;
@@ -563,8 +566,8 @@ blockquote p {
 
 #title-text img {
   cursor: pointer;
-  width: 250px;
-  height: 24px;
+  width: 260px;
+  height: 31px;
   opacity: 0.85;
 }
 

@@ -23,7 +23,7 @@ For testing, you can clone/download the repository with git/github and run the f
 
 *npm install* will install all required dependencies and create a node_modules folder on the repository. By running *npm run build*, source files from the src/ folder will be packaged and overwrite the ones at docs/scripts/.
 
-After that, you can open a web server on your local host to test the page. This is required to avoid CORS errors. The HTML file you should serve is the one located on docs/. If you install the Web Dev packages on Visual Studio you can easily test the page by the "Go Live" button at the bottom bar. Other users can use different methods such as using [Python](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server).
+After that, you can open a web server on your local host to test the page. This is required to avoid CORS errors. The HTML file you should serve is the one located on docs/. If you install the "Live Server" package on Visual Studio you can easily test the page by the "Go Live" button at the bottom bar. Other users can use different methods such as using [Python](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server).
 
 Make sure to run *npm run build* after any modification of the files on src/. HTML/Javascript/CSS files on docs/ should not be modified.
 
@@ -36,4 +36,4 @@ Additionally, we have two commands for code linting and formatting:
 - npm run lint
 - npm run prettier
 
-These can be used before pushes/PRs to guarantee the changes come up clean in our github workflow.
+These can be used before pushes/PRs, in addition to the command "tsc" to check typescript, to guarantee the changes come up clean in our github workflow.

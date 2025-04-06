@@ -6,24 +6,17 @@
 //   handles load order
 // Additionally, the current available game list is kept here in the fileList.
 //   update fileList to add a new tech page!
+// TODO: this will be done automatically in the future and search results will be cached
 
 import { Parser } from "./parser.ts";
 import { Search } from "./search.ts";
 import { TOC } from "./toc.ts";
 import { Headings } from "./headings.ts";
 import { Directives } from "./directives.ts";
-import { Helper } from "./helper.ts";
+import { Helper, FileEntry, h2Data } from "./helper.ts";
 
 // Every page we need to load
 const parsedDocuments: Map<FileEntry, string> = new Map();
-
-// Define the structure of fileList entries
-interface FileEntry {
-  document: string;
-  section: string;
-  dim: string;
-  ref: string;
-}
 
 // Add new documents here!!
 const fileList: FileEntry[] = [
@@ -73,20 +66,20 @@ const parserObj: Parser = new Parser();
 // Create an array of promises for parsing each document
 const parsePromises: Promise<void>[] = fileList.map(async (item) => {
   if (item.document.includes("./")) {
-    const page = await parserObj.parseGFM(item.document);
+    const page: string = await parserObj.parseGFM(item.document);
     parsedDocuments.set(item, page);
   } else if (item.document === "HOME") {
-    const page_1 = await parserObj.asyncRead("./home.html");
+    const page_1: string = await parserObj.asyncRead("./home.html");
     parsedDocuments.set(item, page_1);
   } else {
-    const page_2 = await parserObj.parseGFM(
-      `./tech/${item.document.toLowerCase()}`,
-    );
+    const page_2: string = await parserObj.parseGFM(`./tech/${item.document.toLowerCase()}`);
     parsedDocuments.set(item, page_2);
   }
 });
 
+// currentDocument is the ID ('document' token from FileEntry) for the current page
 let currentDocument: string = "";
+// Locks certain functionalities if katex is not loaded yet
 let katexLoaded: boolean = false;
 
 // Check if DOM elements are ready, if yes, we can start running stuff
@@ -111,7 +104,7 @@ function pageInit(): void {
   // `initSearchIcons()` also already adds page change events to search results
   // Wait for all parsing promises to complete
   Promise.all(parsePromises).then(() => {
-    searchObj = new Search(parsedDocuments, addPageChangeEvent);
+    searchObj = new Search(parsedDocuments, addPageChangeEvent, helperObj);
     searchObj.initSearchIcons();
     searchObj.initOnboardingIcon();
 
@@ -168,11 +161,7 @@ function pageInit(): void {
             redirect: `#${redirect}`,
             pushState: false,
           } as unknown as DOMStringMap);
-          window.history.replaceState(
-            { ...obj, redirect: `#${redirect}` },
-            obj.section,
-            pathname,
-          );
+          window.history.replaceState({ ...obj, redirect: `#${redirect}` }, obj.section, pathname);
         }
         break;
       }
@@ -194,9 +183,7 @@ function pageInit(): void {
 // --- Function for click events on redirects
 export function addPageChangeEvent(item: HTMLElement): void {
   // Remove the previous event if one exists. This is a bandaid fix for the fillSearch function.
-  const inputField: HTMLInputElement | null = document.querySelector(
-    "#nav-bar__search--input",
-  );
+  const inputField: HTMLInputElement | null = document.querySelector("#nav-bar__search--input");
   if (inputField !== null) {
     inputField.blur();
   }
@@ -205,28 +192,29 @@ export function addPageChangeEvent(item: HTMLElement): void {
   item.addEventListener("click", changeEvent);
 }
 
-// Prevent redirections and propagations and calls the change event based on the dataset of the target
+// --- Prevent redirections and propagations and calls the change event based on the dataset of the target
 function changeEvent(event: Event): void {
   event.preventDefault();
   event.stopPropagation();
 
   // Remove focus from the search bar
-  const inputField: HTMLInputElement | null = document.querySelector(
-    "#nav-bar__search--input",
-  );
+  const inputField: HTMLInputElement | null = document.querySelector("#nav-bar__search--input");
   if (inputField !== null) {
     (document.activeElement as HTMLElement)?.blur();
     inputField.blur();
   }
 
   // Call the changeEventObj function with the dataset of the current target
-  const target: HTMLElement = event.currentTarget as HTMLElement;
+  const target: EventTarget | null = event.currentTarget;
+  if (!target || !(target instanceof HTMLElement)) {
+    return;
+  }
   changeEventObj(target.dataset);
 }
 
-// Function to make sure Katex is loaded before changing the page, then calls changeDocument
-//   the only data that is downloaded as the page is being loaded are images, videos, and Katex
-// This is also the function called by the history API -- this way we don't need an event like changeEvent()
+// --- Function to make sure Katex is loaded before changing the page, then calls changeDocument
+//      the only data that is downloaded as the page is being loaded are images, videos, and Katex
+//      This is also the function called by the history API -- this way we don't need an event like changeEvent()
 function changeEventObj(dataset: DOMStringMap): void {
   let parsedKatex: Promise<string> | null = null;
 
@@ -238,10 +226,7 @@ function changeEventObj(dataset: DOMStringMap): void {
       import("./katex.min.js").then(
         (module: {
           default: {
-            renderToString: (
-              input: string,
-              options?: Record<string, unknown>,
-            ) => string;
+            renderToString: (input: string, options?: Record<string, unknown>) => string;
           };
         }) => {
           directivesObj.setKatex(module.default);
@@ -268,7 +253,7 @@ function changeEventObj(dataset: DOMStringMap): void {
   }
 }
 
-// Function to handle changes to content
+// --- Function to handle changes to content
 function changeDocument(dataset: DOMStringMap): void {
   // Get the content element to change the document presented on the page
   const contentText: HTMLElement | null = document.getElementById("content");
@@ -324,24 +309,20 @@ function toHome(contentText: HTMLElement, dataset: DOMStringMap): void {
   }
 
   // Set options for SEO
-  document.title = "Tales Tech Encyclopedia";
+  document.title = "Tales Tech Encyclopaedia";
   const metaDescription: HTMLMetaElement | null = document.querySelector(
     'meta[name="description"]',
   );
   if (metaDescription) {
     metaDescription.setAttribute(
       "content",
-      "Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.",
+      "Tales Tech Encyclopaedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.",
     );
   }
 
   // Set history if this is not a pop (user did a back or forward on the page)
   if (dataset.pushState == null) {
-    window.history.pushState(
-      JSON.parse(JSON.stringify(dataset)),
-      document.title,
-      "/",
-    );
+    window.history.pushState(JSON.parse(JSON.stringify(dataset)), document.title, "/");
   }
 
   prepHome();
@@ -351,55 +332,54 @@ function toHome(contentText: HTMLElement, dataset: DOMStringMap): void {
 // --- Add functionality to the home page
 function prepHome(): void {
   // Add page change events to all redirect elements
-  document
-    .querySelectorAll<HTMLElement>("span.content__redirect")
-    .forEach((item) => {
-      addPageChangeEvent(item);
-    });
+  document.querySelectorAll<HTMLElement>("span.content__redirect").forEach((item) => {
+    addPageChangeEvent(item);
+  });
 
   // Add functionality to showcase items
-  document
-    .querySelectorAll<HTMLElement>(".content__home__showcase-item--play")
-    .forEach((elem) => {
-      elem.addEventListener("click", (event: Event) => {
-        const target: HTMLElement = event.currentTarget as HTMLElement;
+  document.querySelectorAll<HTMLElement>(".content__home__showcase-item--play").forEach((elem) => {
+    elem.addEventListener("click", (event: Event) => {
+      const target: EventTarget | null = event.currentTarget;
+      if (!target || !(target instanceof HTMLElement)) {
+        return;
+      }
 
-        if (target.innerHTML === "play_circle") {
-          target.innerHTML = "stop_circle";
+      if (target.innerHTML === "play_circle") {
+        target.innerHTML = "stop_circle";
 
-          // Create a video element as a sibling of the target
-          const video: HTMLVideoElement = document.createElement("video");
-          video.src = target.dataset.video || "";
-          video.className = "content__home__showcase-item--video";
-          video.autoplay = true;
-          video.controls = false;
-          video.muted = true;
-          video.loop = true;
+        // Create a video element as a sibling of the target
+        const video: HTMLVideoElement = document.createElement("video");
+        video.src = target.dataset.video || "";
+        video.className = "content__home__showcase-item--video";
+        video.autoplay = true;
+        video.controls = false;
+        video.muted = true;
+        video.loop = true;
 
-          target.parentElement?.appendChild(video);
+        target.parentElement?.appendChild(video);
 
-          setTimeout(() => {
-            video.style.opacity = "1";
-          }, 50);
-          return;
-        }
-        // Find the video element, fade it out, and remove it
-        const video: HTMLVideoElement | null | undefined =
-          target.parentElement?.querySelector<HTMLVideoElement>(
-            ".content__home__showcase-item--video",
-          );
+        setTimeout(() => {
+          video.style.opacity = "1";
+        }, 50);
+        return;
+      }
+      // Find the video element, fade it out, and remove it
+      const video: HTMLVideoElement | null | undefined =
+        target.parentElement?.querySelector<HTMLVideoElement>(
+          ".content__home__showcase-item--video",
+        );
 
-        if (video) {
-          video.style.opacity = "0";
-          setTimeout(() => {
-            video.remove();
-            target.innerHTML = "play_circle";
-          }, 500);
-        } else {
+      if (video) {
+        video.style.opacity = "0";
+        setTimeout(() => {
+          video.remove();
           target.innerHTML = "play_circle";
-        }
-      });
+        }, 500);
+      } else {
+        target.innerHTML = "play_circle";
+      }
     });
+  });
 }
 
 // --- Load Generic Page
@@ -433,14 +413,14 @@ function toPage(contentText: HTMLElement, dataset: DOMStringMap): void {
   updatePage();
 
   // Set options for SEO
-  document.title = "Tales Tech Encyclopedia";
+  document.title = "Tales Tech Encyclopaedia";
   const metaDescription: HTMLMetaElement | null = document.querySelector(
     'meta[name="description"]',
   );
   if (metaDescription) {
     metaDescription.setAttribute(
       "content",
-      "Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.",
+      "Tales Tech Encyclopaedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'.",
     );
   }
 
@@ -448,11 +428,7 @@ function toPage(contentText: HTMLElement, dataset: DOMStringMap): void {
 
   // Set history if this is not a pop (user did a back or forward on the page)
   if (dataset.pushState == null) {
-    window.history.pushState(
-      JSON.parse(JSON.stringify(dataset)),
-      document.title,
-      url,
-    );
+    window.history.pushState(JSON.parse(JSON.stringify(dataset)), document.title, url);
   }
 
   const navBar: HTMLElement | null = document.querySelector("#nav-bar");
@@ -515,24 +491,18 @@ function toTech(contentText: HTMLElement, dataset: DOMStringMap): void {
   if (metaDescription) {
     metaDescription.setAttribute(
       "content",
-      `Tales Tech Encyclopedia (TTE) article on ${dataset.section || ""}.`,
+      `Tales Tech Encyclopaedia (TTE) article on ${dataset.section || ""}.`,
     );
   }
 
   // URL is either currentDocument (e.g., /tov) or that + redirect (e.g., /tov/test-test)
   const url: string =
     `/${currentDocument?.toLowerCase() || ""}` +
-    (dataset.redirect && dataset.redirect !== "NONE"
-      ? `/${dataset.redirect.substring(1)}`
-      : "");
+    (dataset.redirect && dataset.redirect !== "NONE" ? `/${dataset.redirect.substring(1)}` : "");
 
   // Set history if this is not a pop (user did a back or forward on the page)
   if (dataset.pushState == null) {
-    window.history.pushState(
-      JSON.parse(JSON.stringify(dataset)),
-      document.title,
-      url,
-    );
+    window.history.pushState(JSON.parse(JSON.stringify(dataset)), document.title, url);
   }
 
   headingsObj.collapseHeadings(contentText);
@@ -569,30 +539,28 @@ export function updatePage(): void {
   tocObj?.createTOC(currentDocument);
 
   // Add redirect to TOC
-  document
-    .querySelectorAll<HTMLElement>(".content__toc--search")
-    .forEach((item: HTMLElement) => {
-      addPageChangeEvent(item);
-    });
+  document.querySelectorAll<HTMLElement>(".content__toc--search").forEach((item: HTMLElement) => {
+    addPageChangeEvent(item);
+  });
 
   // Copy headings URL on click
   headingsObj.shareHeadings();
 }
 
-// Adds functionality to the h2 section divider and opens the first one
+// --- Adds functionality to the h2 section divider and opens the first one
 function compileH2s(): void {
   // Add events to selector tab
   document
     .querySelectorAll<HTMLElement>(".content__selectorbox--item")
     .forEach((selectorBox: HTMLElement) => {
       // Set the highlight color from the dataset
-      selectorBox.style.setProperty(
-        "--highlight-color",
-        selectorBox.dataset.highlight || "",
-      );
+      selectorBox.style.setProperty("--highlight-color", selectorBox.dataset.highlight || "");
 
       selectorBox.addEventListener("click", (event: Event) => {
-        const target: HTMLElement = event.currentTarget as HTMLElement;
+        const target: EventTarget | null = event.currentTarget;
+        if (!target || !(target instanceof HTMLElement)) {
+          return;
+        }
 
         // Iterate over every selectorbox--item and remove the selected status from other elements
         document
@@ -606,20 +574,14 @@ function compileH2s(): void {
 
         // Replace content_currenth2 with data from h2Collection[x][3]
         // Select the h2Collection based on the current selectorBox.dataset.open
-        const currentCollection: [string, string, string | [string, string]][] =
-          headingsObj
-            .returnH2Collection()
-            .filter(
-              (h2: [string, string, string | [string, string]]) =>
-                h2[0] === target.dataset.open,
-            );
+        const currentCollection: h2Data[] = helperObj.h2Collection.filter(
+          (h2: h2Data) => h2.id === target.dataset.open,
+        );
 
-        const contentCurrentH2: HTMLElement | null =
-          document.getElementById("content__currenth2");
+        const contentCurrentH2: HTMLElement | null = document.getElementById("content__currenth2");
         if (contentCurrentH2 && currentCollection.length > 0) {
-          const content = currentCollection[0][2];
-          contentCurrentH2.innerHTML =
-            typeof content === "string" ? content : content.join(" ");
+          const content: string = currentCollection[0].content;
+          contentCurrentH2.innerHTML = content;
         }
 
         // Add click events for the buttons
@@ -635,7 +597,8 @@ function compileH2s(): void {
     });
 
   // Opens the first H2
-  const firstSelectorBox: HTMLElement | undefined =
-    document.querySelectorAll<HTMLElement>(".content__selectorbox--item")[0];
+  const firstSelectorBox: HTMLElement | undefined = document.querySelectorAll<HTMLElement>(
+    ".content__selectorbox--item",
+  )[0];
   firstSelectorBox?.click();
 }

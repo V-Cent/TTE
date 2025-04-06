@@ -35,8 +35,7 @@
   transform: rotate(0deg);
   vertical-align: middle;
   z-index: 2;
-  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(28deg) brightness(100%)
-    contrast(87%);
+  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(28deg) brightness(100%) contrast(87%);
 }
 
 #nav-bar__title__text {

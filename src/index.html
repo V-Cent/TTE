@@ -23,7 +23,7 @@
     <link
       fetchpriority="high"
       rel="preload"
-      href="media/TTEtext2.webp"
+      href="media/TTEtext.webp"
       as="image"
       type="image/webp"
     />
@@ -67,13 +67,7 @@
       type="font/woff2"
       crossorigin="anonymous"
     />
-    <link
-      fetchpriority="high"
-      rel="preload"
-      href="./styles/base.css"
-      as="style"
-      type="text/css"
-    />
+    <link fetchpriority="high" rel="preload" href="./styles/base.css" as="style" type="text/css" />
     <link
       fetchpriority="high"
       rel="preload"
@@ -96,12 +90,7 @@
       as="script"
       crossorigin="anonymous"
     />
-    <script
-      async="1"
-      src="./scripts/main.js"
-      type="module"
-      crossorigin="anonymous"
-    ></script>
+    <script async="1" src="./scripts/main.js" type="module" crossorigin="anonymous"></script>
 
     <!-- To prevent flash of unstyled content -->
     <style>
@@ -119,14 +108,11 @@
     </style>
     <meta
       name="description"
-      content="Tales Tech Encyclopedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'."
+      content="Tales Tech Encyclopaedia (TTE), is a project that aims to document techniques and mechanics on the games of the 'Tales of Series'."
     />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1 user-scalable=1"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=1" />
     <meta name="robots" content="index,follow" />
-    <title>Tales Tech Encyclopedia</title>
+    <title>Tales Tech Encyclopaedia</title>
 
     <link
       href="./styles/base.css"
@@ -164,23 +150,9 @@
       onload="this.media='all'; this.onload = null"
     />
     <!-- Fav-icon for page title -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="./media/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./media/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="./media/favicon-16x16.png"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="./media/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./media/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./media/favicon-16x16.png" />
   </head>
   <body>
     <div id="nav-bar">
@@ -201,18 +173,10 @@
       <!-- Search bar -->
       <div id="nav-bar__search">
         <div id="nav-bar__searchbox" tabindex="0">
-          <span
-            tabindex="0"
-            class="material-symbols-rounded"
-            id="nav-bar__search--icon"
-          >
+          <span tabindex="0" class="material-symbols-rounded" id="nav-bar__search--icon">
             search
           </span>
-          <span
-            tabindex="0"
-            class="material-symbols-rounded"
-            id="nav-bar__games--icon"
-          >
+          <span tabindex="0" class="material-symbols-rounded" id="nav-bar__games--icon">
             joystick
           </span>
           <input
@@ -234,8 +198,8 @@
     <div id="title-text">
       <img
         id="title-text__img"
-        src="media/TTEtext2.webp"
-        alt="Tales Tech Encyclopedia"
+        src="media/TTEtext.webp"
+        alt="Tales Tech Encyclopaedia"
         draggable="false"
         data-document="HOME"
       />
@@ -248,23 +212,11 @@
     <div id="footer-container">
       <hr />
       <div id="footer-container__reference">
-        <!--<img
-          src="media/TTEtexthor.webp"
-          srcset="media/TTEtexthor.svg"
-          id="footer-container__text"
-          draggable="false"
-          alt="Tales Tech Encyclopedia"
-          loading="lazy"
-        /> -->
         <p>"Tales of Series" © Bandai Namco Games Inc.</p>
       </div>
 
       <div id="footer-container__help">
-        <p
-          class="footer-container__help--links"
-          data-document="./README"
-          data-section="README"
-        >
+        <p class="footer-container__help--links" data-document="./README" data-section="README">
           README
         </p>
         <p

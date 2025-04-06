@@ -1,69 +1,68 @@
 // ---------
 // search.js controls the search actions and redirects
 
+import { Helper, h2Data } from "./helper.js";
+
 export class Search {
   private navLock: boolean;
   private currentActiveSearch: string | null;
-  private techPages: Map<
-    { document: string; section: string; dim: string; ref: string },
-    string
-  >;
+  private techPages: Map<{ document: string; section: string; dim: string; ref: string }, string>;
   private addPageChangeEvent: (element: HTMLElement) => void;
+  private helperObj: Helper;
 
   constructor(
-    techPages: Map<
-      { document: string; section: string; dim: string; ref: string },
-      string
-    >,
+    techPages: Map<{ document: string; section: string; dim: string; ref: string }, string>,
     addPageChangeEvent: (element: HTMLElement) => void,
+    helperObj: Helper,
   ) {
+    // Blocks other forms of search when one is active
     this.navLock = false;
     this.currentActiveSearch = null;
     this.techPages = techPages;
     this.addPageChangeEvent = addPageChangeEvent;
     this.searchBoxListener = this.searchBoxListener.bind(this);
+    this.helperObj = helperObj;
   }
 
-  // Init nav-bar
+  // --- Init nav-bar
   initSearchIcons(): void {
-    const search: HTMLElement | null = document.querySelector(
-      "#nav-bar__searchbox",
-    );
+    // Setup search
+    const search: HTMLElement | null = document.querySelector("#nav-bar__searchbox");
     if (!search) {
       return; // Exit if the search element is not found
     }
 
     search.addEventListener("click", this.searchBoxListener);
 
-    const input: HTMLInputElement | null = document.querySelector(
-      "#nav-bar__search--input",
-    );
+    // Add filtering when the user types something
+    const input: HTMLInputElement | null = document.querySelector("#nav-bar__search--input");
     if (input) {
       input.addEventListener("keyup", this.filterFunction.bind(this));
       input.addEventListener("focusin", this.filterFunction.bind(this));
     }
 
     // Dynamically add the `targetParam` property to the `search` element
+    // TODO: This is currently only ever search, if games are gone kept as in this functionality can be removed
     (search as HTMLElement & { targetParam: string }).targetParam = "search";
 
-    const games: HTMLElement | null = document.querySelector(
-      "#nav-bar__games--icon",
-    );
+    const games: HTMLElement | null = document.querySelector("#nav-bar__games--icon");
     if (games) {
       games.addEventListener("click", this.gamesFunction.bind(this));
     }
 
-    // Search has an input field which has a filter function when you type
-    // If you focus out of the pop-ups for both icons, they will disappear
-    //   things are cleared and CSS controls the animation
+    // Clears search when you focusout (click out of the search input, use tab ...)
     search.addEventListener("focusout", (event: FocusEvent) => {
-      const searchField: HTMLElement | null =
-        document.querySelector("#nav-bar__search");
+      const searchField: HTMLElement | null = document.querySelector("#nav-bar__search");
       if (!searchField) {
         return;
       }
       event.stopPropagation();
-      if (!searchField.contains(event.relatedTarget as Node)) {
+
+      if (!(event.relatedTarget instanceof Node)) {
+        return;
+      }
+
+      if (!searchField.contains(event.relatedTarget)) {
         this.clearFunction();
       }
     });
@@ -72,6 +71,7 @@ export class Search {
     this.fillSearch();
   }
 
+  // --- Homepage icon works the same way as the one inside the search box
   initOnboardingIcon(): void {
     const onboardingIcon: HTMLElement | null = document.querySelector(
       "#content__home__onboarding--icon",
@@ -83,33 +83,37 @@ export class Search {
     onboardingIcon.addEventListener("click", this.gamesFunction.bind(this));
   }
 
-  // Click event for the icons
+  // --- Click event for the search field
   searchBoxListener(event: Event): void {
     if (this.navLock) {
       return;
     }
 
-    const target = event.currentTarget as HTMLElement & {
+    // Get element and its type (games or search)
+    const target: EventTarget | null = event.currentTarget;
+    if (!target || !(target instanceof HTMLElement)) {
+      return;
+    }
+    const targetElem: HTMLElement & {
       targetParam?: string;
-    };
-    const type: string | undefined = target.targetParam;
+    } = target;
+    const type: string | undefined = targetElem.targetParam;
 
     if (!type) {
       return; // Exit if targetParam is not defined
     }
 
+    // Define the search type and init functionality
     this.currentActiveSearch = type;
     this.injectSearchBox("#nav-bar__search");
 
-    const searchCount: HTMLElement | null = document.querySelector(
-      ".nav-bar__search--results",
-    );
+    const searchCount: HTMLElement | null = document.querySelector(".nav-bar__search--results");
     if (searchCount === null) {
       this.fillSearch();
     }
   }
 
-  // Makes the box for games or search appear
+  // --- Makes the box for games or search appear
   injectSearchBox(id: string): void {
     if (this.navLock) {
       return;
@@ -125,8 +129,7 @@ export class Search {
     const inputName: string = `${id}--input`;
 
     const base: HTMLElement | null = document.querySelector(baseName);
-    const inputField: HTMLInputElement | null =
-      document.querySelector(inputName);
+    const inputField: HTMLInputElement | null = document.querySelector(inputName);
 
     if (!base) {
       return; // Exit if the base element is not found
@@ -153,12 +156,10 @@ export class Search {
     }
   }
 
-  // Clear everthing and then show the icon again
+  // --- Clear everthing from results
   clearFunction(): void {
     // Function to hide all computed links
-    const searchBox: HTMLElement | null = document.querySelector(
-      "#nav-bar__searchbox",
-    );
+    const searchBox: HTMLElement | null = document.querySelector("#nav-bar__searchbox");
     if (!searchBox) {
       return; // Exit if the search box element is not found
     }
@@ -171,12 +172,13 @@ export class Search {
     const links: HTMLCollectionOf<Element> =
       referenceBox.getElementsByClassName("button__redirect");
     for (const link of links) {
-      (link as HTMLElement).style.display = "none";
+      if (!(link instanceof HTMLElement)) {
+        continue;
+      }
+      link.style.display = "none";
     }
 
-    const hrElement: HTMLElement | null = document.querySelector(
-      `${referenceId}--hr`,
-    );
+    const hrElement: HTMLElement | null = document.querySelector(`${referenceId}--hr`);
     if (hrElement) {
       hrElement.style.display = "none";
     }
@@ -184,18 +186,17 @@ export class Search {
     this.navLock = false;
   }
 
-  // Filter up to 6 options when you type something in search
+  // --- Filter up to 12 options when you type something in search
   filterFunction(): void {
     const idReference: string = "#nav-bar__search";
 
+    // TODO: games is currently dummy code
     if (this.currentActiveSearch === "games") {
       return;
     }
 
     // Gets the value from the user input, set each word into an array
-    const input: HTMLInputElement | null = document.querySelector(
-      `${idReference}--input`,
-    );
+    const input: HTMLInputElement | null = document.querySelector(`${idReference}--input`);
     if (!input) {
       return; // Exit if the input element is not found
     }
@@ -204,19 +205,19 @@ export class Search {
     const filterArray: string[] = filter.split(" ");
 
     // Gets the element of the container and all current computed links
-    const searchBox: HTMLElement | null = document.querySelector(
-      `${idReference}box`,
-    );
+    const searchBox: HTMLElement | null = document.querySelector(`${idReference}box`);
     if (!searchBox) {
       return; // Exit if the search box element is not found
     }
 
-    const links: HTMLCollectionOf<Element> =
-      searchBox.getElementsByClassName("button__redirect");
+    const links: HTMLCollectionOf<Element> = searchBox.getElementsByClassName("button__redirect");
     let searchCounter: number = 0;
 
     for (const linkElement of links) {
-      const link = linkElement as HTMLElement;
+      const link: Element = linkElement;
+      if (!(link instanceof HTMLElement)) {
+        continue; // Exit if link is not an HTMLElement
+      }
 
       // For each link, test if the user input makes part of its text value (ignoring empty inputs)
       // Hide any link that does not have any relation to the current input
@@ -233,6 +234,8 @@ export class Search {
       }
 
       if (containFlag) {
+        // Hardcoded 'Tales of', 'T', 'TO' check
+        //  these bypass the 12 item limit
         if ("TALES OF".includes(filter) || filter === "T" || filter === "TO") {
           if (link.dataset.tag === "game") {
             link.style.display = "block";
@@ -240,58 +243,50 @@ export class Search {
           continue;
         }
 
-        // Hard limit of 12 options on screen
-        link.style.display =
-          searchCounter < 12 || link.dataset.tag === "game" ? "block" : "none";
+        // Tech entry -- Hard limit of 12 options on screen
+        link.style.display = searchCounter < 12 || link.dataset.tag === "game" ? "block" : "none";
         searchCounter++;
       } else {
         link.style.display = "none";
       }
     }
 
-    const hrElement: HTMLElement | null = document.querySelector(
-      `${idReference}--hr`,
-    );
+    // Separater between search results and input field
+    const hrElement: HTMLElement | null = document.querySelector(`${idReference}--hr`);
     if (hrElement) {
+      // If there is at least one tech entry or a hardcoded test, show the HR
       hrElement.style.display =
-        (searchCounter > 0 ||
-          "TALES OF".includes(filter) ||
-          filter === "T" ||
-          filter === "TO") &&
+        (searchCounter > 0 || "TALES OF".includes(filter) || filter === "T" || filter === "TO") &&
         filter.length > 0
           ? "block"
           : "none";
     }
   }
 
-  // Perform a pre-define search for games
+  // --- Perform a pre-define search for games
   gamesFunction(): void {
     // Game search now uses the normal search menu and just fills it with "Tales of"
-    const searchBox: HTMLElement | null = document.querySelector(
-      "#nav-bar__searchbox",
-    );
+    const searchBox: HTMLElement | null = document.querySelector("#nav-bar__searchbox");
     if (!searchBox) {
       return; // Exit if the search box element is not found
     }
 
-    const links: HTMLCollectionOf<Element> =
-      searchBox.getElementsByClassName("button__redirect");
+    const links: HTMLCollectionOf<Element> = searchBox.getElementsByClassName("button__redirect");
     for (const link of links) {
-      (link as HTMLElement).style.display = "none";
+      if (!(link instanceof HTMLElement)) {
+        continue;
+      }
+      link.style.display = "none";
     }
 
-    const hrElement: HTMLElement | null = document.querySelector(
-      "#nav-bar__search--hr",
-    );
+    const hrElement: HTMLElement | null = document.querySelector("#nav-bar__search--hr");
     if (hrElement) {
       hrElement.style.display = "none";
     }
 
     this.navLock = false;
 
-    const inputField: HTMLInputElement | null = document.querySelector(
-      "#nav-bar__search--input",
-    );
+    const inputField: HTMLInputElement | null = document.querySelector("#nav-bar__search--input");
     if (!inputField) {
       return; // Exit if the input field is not found
     }
@@ -303,14 +298,13 @@ export class Search {
     inputField.focus();
   }
 
-  // Fill search results based on loaded games
+  // --- Fill search results based on loaded games
   fillSearch(): void {
+    // TODO: This will be cached in the future
     // Get all items on the tab bar
     const searchContents1L: string[] = [];
     const searchContents2L: string[] = [];
-    const searchResults: HTMLElement | null = document.querySelector(
-      "#nav-bar__searchbox",
-    );
+    const searchResults: HTMLElement | null = document.querySelector("#nav-bar__searchbox");
 
     if (!searchResults) {
       return; // Exit if the search results container is not found
@@ -324,11 +318,7 @@ export class Search {
 
     // Tech pages are created by the parser. main saves that and uses it to create the search object
     for (const [key, techDocument] of this.techPages.entries()) {
-      if (
-        key.dim === "N/A" ||
-        key.document.includes("-C") ||
-        key.document.includes("-B")
-      ) {
+      if (key.dim === "N/A" || key.document.includes("-C") || key.document.includes("-B")) {
         continue; // Skip items with dim as "N/A" (like readme)
       }
 
@@ -339,8 +329,7 @@ export class Search {
       const doc: Document = parser.parseFromString(techDocument, "text/html");
 
       // Get all h1 elements in the order they appear in the document
-      const headings1: NodeListOf<HTMLHeadingElement> =
-        doc.querySelectorAll("h1");
+      const headings1: NodeListOf<HTMLHeadingElement> = doc.querySelectorAll("h1");
 
       // H1s have different styling. Additionally, they should appear first in the list
       headings1.forEach(() => {
@@ -359,8 +348,7 @@ export class Search {
         searchContents1L.push(searchContent1);
       });
 
-      const headings2: NodeListOf<HTMLHeadingElement> =
-        doc.querySelectorAll("h1, h2, h3, h4");
+      const headings2: NodeListOf<HTMLHeadingElement> = doc.querySelectorAll("h1, h2, h3, h4");
 
       // Process each heading in the order they appear
       let currentH2: string | null = null;
@@ -413,7 +401,10 @@ export class Search {
 
     // Add event listeners to all search result links
     document.querySelectorAll("a.nav-bar__search--results").forEach((item) => {
-      this.addPageChangeEvent(item as HTMLElement);
+      if (!(item instanceof HTMLElement)) {
+        return; // Exit if item is not an HTMLElement
+      }
+      this.addPageChangeEvent(item);
     });
   }
 
@@ -423,19 +414,16 @@ export class Search {
     let targetHeading: HTMLElement | null = document.getElementById(id);
     if (!targetHeading) {
       // Target hidden within an h2 section -- first we need to open it
-      // Get h2 section from session storage
-      const h2Collection: Array<[string, string, string]> | null = JSON.parse(
-        sessionStorage.getItem("h2Collection") || "null",
-      );
+      // Get h2 section from helperObj
+      const h2Collection: h2Data[] = this.helperObj.h2Collection;
       if (!h2Collection) {
         return; // Exit if h2Collection is not found
       }
-      console.log(h2Collection);
 
       let h2Section: number = 0;
-      for (let x = 0; x < h2Collection.length; x++) {
-        if (h2Collection[x][2].includes(`id="${id}"`)) {
-          h2Section = x;
+      for (const collection of h2Collection) {
+        if (collection.content.includes(`id="${id}"`)) {
+          h2Section = h2Collection.indexOf(collection);
           break;
         }
       }
@@ -466,16 +454,15 @@ export class Search {
       targetHeading.parentNode instanceof HTMLElement &&
       targetHeading.parentNode.className.includes("content__")
     ) {
-      const firstChild = targetHeading.parentNode
-        .firstElementChild as HTMLElement | null;
-      if (firstChild?.dataset.open) {
+      const firstChild: Element | null = targetHeading.parentNode.firstElementChild;
+
+      if (firstChild instanceof HTMLElement && firstChild?.dataset.open) {
         hiddenItems = firstChild.dataset.open.split(" ");
         success = true;
       }
     } else if (targetHeading.parentNode?.parentNode instanceof HTMLElement) {
-      const firstChild = targetHeading.parentNode.parentNode
-        .firstElementChild as HTMLElement | null;
-      if (firstChild?.dataset.open) {
+      const firstChild: Element | null = targetHeading.parentNode.parentNode.firstElementChild;
+      if (firstChild instanceof HTMLElement && firstChild?.dataset.open) {
         hiddenItems = firstChild.dataset.open.split(" ");
         success = true;
       }
@@ -484,11 +471,13 @@ export class Search {
     if (success && hiddenItems) {
       // Iterates over all related classes needed to reveal a specific heading
       hiddenItems.forEach((item: string) => {
-        const targetList: HTMLCollectionOf<Element> =
-          document.getElementsByClassName(item);
+        const targetList: HTMLCollectionOf<Element> = document.getElementsByClassName(item);
         // Get all objects that are possibly hidden
         for (const target of targetList) {
-          const targetElement = target as HTMLElement;
+          const targetElement: Element = target;
+          if (!(targetElement instanceof HTMLElement)) {
+            continue;
+          }
           if (targetElement.hidden) {
             targetElement.hidden = false;
             // Change the button depending on the current state
@@ -496,16 +485,14 @@ export class Search {
               targetElement.parentNode instanceof HTMLElement &&
               targetElement.parentNode.className.includes("content__")
             ) {
-              const firstChild = targetElement.parentNode.firstElementChild
-                ?.firstChild as HTMLElement | null;
+              const firstChild: Element | undefined =
+                targetElement.parentNode.firstElementChild?.children[0];
               if (firstChild && firstChild.innerHTML === "expand_circle_down") {
                 firstChild.innerHTML = "expand_circle_up";
               }
-            } else if (
-              targetElement.parentNode?.parentNode instanceof HTMLElement
-            ) {
-              const firstChild = targetElement.parentNode.parentNode
-                .firstElementChild?.firstChild as HTMLElement | null;
+            } else if (targetElement.parentNode?.parentNode instanceof HTMLElement) {
+              const firstChild: Element | undefined =
+                targetElement.parentNode.parentNode.firstElementChild?.children[0];
               if (firstChild && firstChild.innerHTML === "expand_circle_down") {
                 firstChild.innerHTML = "expand_circle_up";
               }
