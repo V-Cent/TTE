@@ -14,7 +14,6 @@ export class Directives {
     this.compileDirectives = this.compileDirectives.bind(this);
     this.sortTables = this.sortTables.bind(this);
     this.treatSpoilers = this.treatSpoilers.bind(this);
-    this.styleImages = this.styleImages.bind(this);
     this.compileTags = this.compileTags.bind(this);
 
     this.helperObj = helperObj;
@@ -55,6 +54,8 @@ export class Directives {
           mediaTag = document.createElement("img");
           // For SEO. This could take data from something else in the future.
           mediaTag.alt = "";
+          mediaTag.loading = "lazy";
+          mediaTag.classList.add("content__figure");
         } else {
           mediaTag = document.createElement("video");
           mediaTag.preload = "metadata";
@@ -323,7 +324,6 @@ export class Directives {
     this.compileTags();
     this.sortTables();
     this.treatSpoilers();
-    this.styleImages();
   }
 
   // --- Tables is not a custom directives but a native one. We style them here anyways
@@ -396,22 +396,6 @@ export class Directives {
         }
         target.style.background = "transparent";
       });
-    });
-  }
-
-  // --- Add class to images to be styled by CSS (content.css)
-  styleImages(): void {
-    const imageList: HTMLCollectionOf<HTMLImageElement> = document.getElementsByTagName("img");
-    const contentElement: HTMLElement | null = document.getElementById("content");
-
-    if (!contentElement) {
-      return;
-    }
-
-    Array.from(imageList).forEach((image: HTMLImageElement) => {
-      if (contentElement.contains(image)) {
-        image.classList.add("content__figure");
-      }
     });
   }
 }

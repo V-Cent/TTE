@@ -67,18 +67,10 @@
       type="font/woff2"
       crossorigin="anonymous"
     />
-    <link fetchpriority="high" rel="preload" href="./styles/base.css" as="style" type="text/css" />
     <link
       fetchpriority="high"
       rel="preload"
-      href="./styles/navbar.css"
-      as="style"
-      type="text/css"
-    />
-    <link
-      fetchpriority="high"
-      rel="preload"
-      href="./styles/scroll.css"
+      href="./styles/bundle.css"
       as="style"
       type="text/css"
     />
@@ -86,11 +78,11 @@
     <link
       fetchpriority="high"
       rel="modulepreload"
-      href="./scripts/main.js"
+      href="./scripts/main.mjs"
       as="script"
       crossorigin="anonymous"
     />
-    <script async="1" src="./scripts/main.js" type="module" crossorigin="anonymous"></script>
+    <script async="1" src="./scripts/main.mjs" type="module" crossorigin="anonymous"></script>
 
     <!-- To prevent flash of unstyled content -->
     <style>
@@ -115,39 +107,11 @@
     <title>Tales Tech Encyclopaedia</title>
 
     <link
-      href="./styles/base.css"
+      href="./styles/bundle.css"
       rel="preload"
       type="text/css"
       as="style"
       onload="this.rel='stylesheet'"
-    />
-    <link
-      href="./styles/navbar.css"
-      rel="preload"
-      type="text/css"
-      as="style"
-      onload="this.rel='stylesheet'"
-    />
-    <link
-      href="./styles/scroll.css"
-      rel="preload"
-      type="text/css"
-      as="style"
-      onload="this.rel='stylesheet'"
-    />
-    <link
-      href="./styles/content.css"
-      rel="stylesheet"
-      type="text/css"
-      media="print"
-      onload="this.media='all'; this.onload = null"
-    />
-    <link
-      href="./styles/elements.css"
-      rel="stylesheet"
-      type="text/css"
-      media="print"
-      onload="this.media='all'; this.onload = null"
     />
     <!-- Fav-icon for page title -->
     <link rel="apple-touch-icon" sizes="180x180" href="./media/apple-touch-icon.png" />

@@ -8,7 +8,7 @@ Project started 12th of April 2021.
 
 TTE is a static website. Game articles are formatted as human-readable Markdown pages. This was done to help with maintainability and simplifies the contribution process because it does not require any knowledge of HTML or CSS.
 
-The project currently uses HTML/Typescript/CSS. We use **esbuild** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files.
+The project currently uses HTML/Typescript/CSS. We use **tsdown** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files.
 
 Pull Requests for Front-End or other improvements are welcome! Just follow the guidelines from the "How to Contribute" page (in the footer of the website).
 
@@ -19,21 +19,22 @@ First, [install npm](https://www.npmjs.com/get-npm) on your machine.
 For testing, you can clone/download the repository with git/github and run the following command on the root folder of the project:
 
 - npm install
-- npm run build
 
-*npm install* will install all required dependencies and create a node_modules folder on the repository. By running *npm run build*, source files from the src/ folder will be packaged and overwrite the ones at docs/scripts/.
+*npm install* will install all required dependencies and create a node_modules folder on the repository.
 
-After that, you can open a web server on your local host to test the page. This is required to avoid CORS errors. The HTML file you should serve is the one located on docs/. If you install the "Live Server" package on Visual Studio you can easily test the page by the "Go Live" button at the bottom bar. Other users can use different methods such as using [Python](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/set_up_a_local_testing_server).
+To test the website, the best way is to create a live server on your local machine by running the following command:
 
-Make sure to run *npm run build* after any modification of the files on src/. HTML/Javascript/CSS files on docs/ should not be modified.
+- npm run watch
 
-**Nodemon** is also used as a project dependency to automatically watch file changes and build the project. To use it, run *npm run watch* on the root folder of the project. With this, any file change on src/ will automatically trigger a build.
+*npm run watch*, will build the project and open a test version of the website on your default browser. This command will also watch for changes in the source files and automatically rebuild the project when a change is detected.
 
-*npm install* should also be run after modifications to the package.json file (including version changes).
+For contributing, the following commands should be run before pushing or creating a pull request:
 
-Additionally, we have two commands for code linting and formatting:
-
+- tsc
 - npm run lint
 - npm run prettier
+- npm run build
 
-These can be used before pushes/PRs, in addition to the command "tsc" to check typescript, to guarantee the changes come up clean in our github workflow.
+These will check for typescript errors, lint the code, format the code, and build the project for production. These can all be run together with the command **npm run release**.
+
+*npm install* should also be run after modifications to the package.json file (including version changes).
