@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "target": "ES6",
+      "target": "ES2023",
       "module": "NodeNext",
       "strict": true,
       "esModuleInterop": true,
@@ -11,10 +11,11 @@
       "allowImportingTsExtensions": true,
       "moduleResolution": "nodenext",
       "allowJs": true, // for katex
-      "checkJs": false // for katex
+      "checkJs": false, // for katex
     },
     "include": [
-      "./src/**/*.ts"
+      "./src/**/*.ts",
+      "eslint.config.mjs"
     ],
     "exclude": [
       "node_modules",

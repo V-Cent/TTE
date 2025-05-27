@@ -383,6 +383,7 @@
 
 blockquote p {
   text-indent: 0ch !important;
+  display: inline;
 }
 
 .content__h3 {
@@ -696,8 +697,8 @@ blockquote p {
   color: var(--white-text);
   cursor: pointer;
   background: var(--gray-a5);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-radius: 50px;
   font-size: 50px !important;
   transition: all 0.2s ease-in-out;
@@ -718,8 +719,8 @@ blockquote p {
   top: 0px;
   left: 0px;
   background: var(--gray-a5);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 2px solid var(--white-f1);
   border-radius: 8px;
   padding: 8px;
@@ -748,178 +749,178 @@ blockquote p {
 }
 
 @media screen and (min-width: 0px) and (max-width: 1024px) {
-  figcaption {
+  body .content__figure-caption {
     font-size: 13px;
     text-underline-offset: 3px;
   }
-  #content {
+  body #content {
     padding-left: 15px;
     padding-right: 15px;
     margin: 0px;
   }
-  #content-homepage {
+  body #content-homepage {
     margin-left: 0px;
     width: 100%;
   }
-  #section-container {
+  body #section-container {
     padding-left: 18px;
     padding-right: 18px;
   }
-  #footer-container {
+  body #footer-container {
     padding-left: 18px;
     padding-right: 18px;
   }
-  #content__tocborder {
+  body #content__tocborder {
     display: none;
   }
-  #content__tocicon {
+  body #content__tocicon {
     /* Overrides hardcoded display:none when in Desktop mode */
     display: block !important;
   }
-  p,
+  body p,
   body,
-  table,
-  ul {
+  body table,
+  body ul {
     font-size: 15px;
   }
-  h1 {
+  body h1 {
     font-size: 25px;
   }
-  h2 {
+  body h2 {
     font-size: 20px;
   }
-  h3,
-  h4 {
+  body h3,
+  body h4 {
     font-size: 18px;
   }
-  #nav-bar__searchbox,
-  #nav-bar__search {
+  body #nav-bar__searchbox,
+  body #nav-bar__search {
     width: 280px;
     max-width: 280px;
   }
-  .content__collapse .material-symbols-rounded {
+  body .content__collapse .material-symbols-rounded {
     position: absolute;
     font-size: 26px;
     top: -3px;
   }
-  .content__sections--input-label input,
-  .content__sections--input-label label {
+  body .content__sections--input-label input,
+  body .content__sections--input-label label {
     font-size: 20px;
   }
-  .content__sections--input-label input:checked::after {
+  body .content__sections--input-label input:checked::after {
     font-size: 18px;
     top: -2px;
     left: 4px;
   }
-  .content__sections--input-label label span {
+  body .content__sections--input-label label span {
     font-size: 12px;
   }
-  .content__sections--entry p {
+  body .content__sections--entry p {
     font-size: 14px;
   }
-  #content__home__mission,
-  #content__home__onboarding {
+  body #content__home__mission,
+  body #content__home__onboarding {
     left: 0%;
   }
-  .content__home__showcase {
+  body .content__home__showcase {
     margin-left: 0%;
   }
 }
 
 @media screen and (orientation: portrait) {
-  figcaption {
+  body .content__figure-caption {
     font-size: 13px;
-    text-underline-offset: 4px;
+    text-underline-offset: 3px;
   }
-  #content {
+  body #content {
     padding-left: 15px;
     padding-right: 15px;
     margin: 0px;
   }
-  #content-homepage {
-    margin: 0px;
+  body #content-homepage {
+    margin-left: 0px;
     width: 100%;
   }
-  #section-container {
+  body #section-container {
     padding-left: 18px;
     padding-right: 18px;
   }
-  #footer-container {
+  body #footer-container {
     padding-left: 18px;
     padding-right: 18px;
   }
-  #content__tocborder {
+  body #content__tocborder {
     display: none;
   }
-  #content__tocicon {
+  body #content__tocicon {
     /* Overrides hardcoded display:none when in Desktop mode */
     display: block !important;
   }
-  p,
+  body p,
   body,
-  table,
-  ul {
+  body table,
+  body ul {
     font-size: 15px;
   }
-  h1 {
+  body h1 {
     font-size: 25px;
   }
-  h2 {
+  body h2 {
     font-size: 20px;
   }
-  h3,
-  h4 {
+  body h3,
+  body h4 {
     font-size: 18px;
   }
-  #nav-bar__searchbox,
-  #nav-bar__search {
+  body #nav-bar__searchbox,
+  body #nav-bar__search {
     width: 280px;
     max-width: 280px;
   }
-  .content__collapse .material-symbols-rounded {
+  body .content__collapse .material-symbols-rounded {
     position: absolute;
     font-size: 26px;
-    top: -4px;
+    top: -3px;
   }
-  .content__sections--input-label input,
-  .content__sections--input-label label {
+  body .content__sections--input-label input,
+  body .content__sections--input-label label {
     font-size: 20px;
   }
-  .content__sections--input-label input:checked::after {
+  body .content__sections--input-label input:checked::after {
     font-size: 18px;
     top: -2px;
     left: 4px;
   }
-  .content__sections--input-label label span {
+  body .content__sections--input-label label span {
     font-size: 12px;
   }
-  .content__sections--entry p {
+  body .content__sections--entry p {
     font-size: 14px;
   }
-  #content__home__mission,
-  #content__home__onboarding {
+  body #content__home__mission,
+  body #content__home__onboarding {
     left: 0%;
   }
-  .content__home__showcase {
+  body .content__home__showcase {
     margin-left: 0%;
   }
 }
 
 @media screen and (min-width: 1025px) {
-  #content__tocicon--box {
+  body #content__tocicon--box {
     visibility: hidden;
   }
 }
 
 @media screen and (max-width: 660px) {
-  #title-text {
+  body #title-text {
     visibility: hidden;
   }
-  .content__home__showcase,
-  #content__home__showcase-text {
+  body .content__home__showcase,
+  body #content__home__showcase-text {
     display: none;
   }
-  #content__home__mission p {
+  body #content__home__mission p {
     font-size: 40px;
   }
 }

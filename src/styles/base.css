@@ -185,13 +185,19 @@ p img {
   filter: drop-shadow(0 6px 6px var(--black-f1));
 }
 
-figcaption {
+.content__figure-caption {
   font-family: "Dosis", sans-serif;
   text-align: center;
   font-size: 15px;
   text-decoration: underline;
   text-underline-offset: 6px;
   text-indent: 0ch;
+  color: var(--white-text);
+  font-weight: 300;
+  word-spacing: 0.03em;
+  letter-spacing: 0.03em;
+  white-space: pre;
+  max-width: 100%;
 }
 
 hr {

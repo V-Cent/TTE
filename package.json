@@ -1,30 +1,34 @@
 {
   "name": "tte",
-  "version": "0.19.4",
+  "version": "0.20.2",
   "description": "Tales Tech Encyclopaedia",
-  "main": "src/main.js",
+  "main": "src/main.ts",
   "private": true,
   "license": "MIT",
   "nodemonConfig": {
     "ignore": [
       "docs/"
     ],
-    "ext": "js,html,css"
+    "ext": "ts,html,css"
   },
   "scripts": {
+    "cache": "tsdown --config cache.config.ts && node cache/cache.mjs",
     "build": "tsdown --no-clean --config build.config.ts",
     "watch": "tsdown --no-clean --sourcemap --config watch.config.ts --watch ./src",
     "lint": "npx eslint src/**/*.ts --ignore-pattern src/katex.min.js",
     "prettier": "npx prettier --write src/",
-    "release" : "tsc && npm run lint && npm run prettier && npm run build"
+    "release": "tsc && npm run lint && npm run prettier && npm run cache && npm run build"
   },
   "dependencies": {
+    "jsdom": "^26.1.0",
     "katex": "^0.16.11",
     "remarkable": "^2.0.1"
   },
   "devDependencies": {
     "@minify-html/node": "^0.15.0",
+    "@types/jsdom": "^21.1.7",
     "@types/katex": "^0.16.7",
+    "@types/node": "^22.15.23",
     "@types/remarkable": "^2.0.8",
     "browserslist": "^4.24.5",
     "esbuild": "^0.25.2",

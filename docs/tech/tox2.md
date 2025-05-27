@@ -98,7 +98,7 @@ When you use a non-elemental multi-hit arte, or a projectile such as Demon Fang 
 
 For Ludger specifically, his weapon swap mechanic serves the same purpose and can be used to alter the elements of (Double) Demon Fang and Pow Hammer without the use of a menu.
 
-## Character Specific Tech/Arte Info
+## Character Specific Arte Info
 
 ### Ludger
 
