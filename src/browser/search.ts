@@ -135,11 +135,9 @@ export class Search {
   // --- Handle focus out event for search box
   private handleSearchBoxFocusOut(focusEvent: FocusEvent): void {
     const searchFieldElement: HTMLElement | null = document.querySelector("#nav-bar__search");
-    console.log("focusing out");
     if (!searchFieldElement) {
       return;
     }
-    console.log("focusing out");
 
     focusEvent.stopPropagation();
 

@@ -7,6 +7,19 @@
 import { Parser } from "./parser";
 import { Helper, h2Data, colors, TagData, colorList, colorCollection, FileEntry } from "./helper";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { basicSetup, EditorView } from "codemirror";
+import { markdown } from "@codemirror/lang-markdown";
+import { indentWithTab } from "@codemirror/commands";
+import { keymap } from "@codemirror/view";
+import {
+  CompletionContext,
+  CompletionResult,
+  Completion,
+  autocompletion,
+} from "@codemirror/autocomplete";
+
 interface SearchResultItem {
   html: string;
   type: "game" | "tech";
@@ -29,6 +42,104 @@ export class Compiler {
 
   private readonly taggedElementsSelector: string = ".tagging, .tagging-text";
   private readonly katexElementsSelector: string = ".tagging-katex";
+
+  private editor: EditorView | null = null;
+
+  private directiveCompletions: readonly Completion[] = [
+    // Media completions (highest boost - top priority)
+    {
+      label: "[[Media:]]",
+      displayLabel: "Media: Basic",
+      type: "function",
+      apply: "[[Media:<link>]]",
+      info: "Embed image or video",
+      boost: 10,
+    },
+    {
+      label: "[[!Media:]]",
+      displayLabel: "Media: Hidden",
+      type: "function",
+      apply: "[[!Media:<link>]]",
+      info: "Media behind clickable icon",
+      boost: 9,
+    },
+    {
+      label: "[[Media:|]]",
+      displayLabel: "Media: With Caption",
+      type: "function",
+      apply: "[[Media:<link>|Caption here.]]",
+      info: "Media with descriptive text",
+      boost: 8,
+    },
+    {
+      label: "[[!Media:|]]",
+      displayLabel: "Media: Hidden + Caption",
+      type: "function",
+      apply: "[[!Media:<link>|Caption here.]]",
+      info: "Hidden media with caption",
+      boost: 7,
+    },
+
+    // Redirect completions (medium boost)
+    {
+      label: "[[x]]",
+      displayLabel: "Redirect: Reference",
+      type: "function",
+      apply: "[[x]]",
+      info: "Link to References section",
+      boost: 6,
+    },
+    {
+      label: "[[Heading]]",
+      displayLabel: "Redirect: Same Page",
+      type: "function",
+      apply: "[[Heading Name]]",
+      info: "Link to heading in current page",
+      boost: 5,
+    },
+    {
+      label: "[[|]]",
+      displayLabel: "Redirect: Custom Text",
+      type: "function",
+      apply: "[[Heading Name|Custom link text]]",
+      info: "Custom text for redirect link",
+      boost: 4,
+    },
+    {
+      label: "[[{}]]",
+      displayLabel: "Redirect: Cross-Page",
+      type: "function",
+      apply: "[[{DOCUMENT}Heading Name]]",
+      info: "Link to other document heading",
+      boost: 3,
+    },
+    {
+      label: "[[{}|]]",
+      displayLabel: "Redirect: Cross-Page + Text",
+      type: "function",
+      apply: "[[{DOCUMENT}Heading Name|Custom link text]]",
+      info: "Cross-page link with custom text",
+      boost: 2,
+    },
+
+    // Version and todo completion (lower boost)
+    {
+      label: "{{}}",
+      displayLabel: "Version: Content Tag",
+      type: "function",
+      apply: "{{Version Name}}",
+      info: "Version-specific content marker",
+      boost: 1,
+    },
+    {
+      label: "{{!}}",
+      displayLabel: "TODO: Work in Progress",
+      type: "function",
+      apply: "{{!}}",
+      info: "Mark section as work in progress",
+      boost: 0,
+    },
+  ];
 
   constructor(isRunningInBrowser: boolean = true, parserObj: Parser, helperObj: Helper) {
     this.parserObj = parserObj;
@@ -61,6 +172,59 @@ export class Compiler {
   // --- Set KaTeX renderer for math rendering
   setKatex(katexRenderer: { renderToString: (input: string) => string }): void {
     this.katexRenderer = katexRenderer;
+  }
+
+  // --- Parse markdown content and process directives (used by edit)
+  async parseText(
+    markdowntext: string,
+    currentDocumentName?: string,
+    currentSectionName?: string,
+    isTechDocument: boolean = true,
+  ): Promise<string> {
+    this.versionColorMap.clear();
+    const parsedHtmlContent: string = await this.parserObj.parseText(markdowntext);
+
+    let documentContext: Document;
+
+    // Create a pseudo page to apply DOM operations on
+    if (this.isRunningInBrowser) {
+      const domParser: DOMParser = new DOMParser();
+      documentContext = domParser.parseFromString(
+        "<!DOCTYPE html><html><head></head><body></body></html>",
+        "text/html",
+      );
+    } else {
+      documentContext = document;
+    }
+
+    const contentContainer: HTMLDivElement = documentContext.createElement("div");
+    contentContainer.innerHTML = parsedHtmlContent;
+    contentContainer.id = "content";
+
+    const processingElement: HTMLElement = contentContainer;
+
+    // Custom directives are only basic elements that have a class on them.
+    //  This functions transforms them into new HTML blocks.
+    //  Functionality is only set on the BROWSER. The compiler only controls HTML transformations.
+
+    await this.processCustomDirectives(
+      processingElement,
+      documentContext,
+      currentDocumentName,
+      currentSectionName,
+    );
+
+    // Tech pages separate each 2nd heading into a new page/article
+    if (isTechDocument) {
+      await this.generateHeadingStructure(
+        processingElement,
+        documentContext,
+        currentDocumentName,
+        currentSectionName,
+      );
+    }
+
+    return processingElement.innerHTML;
   }
 
   // --- Parse markdown content and process directives
@@ -201,90 +365,129 @@ export class Compiler {
     currentDocumentName?: string,
     currentSectionName?: string,
   ): void {
-    // Removes things like -C or -B from the document name
+    // Get the content div (grandparent)
+    const contentDivElement: HTMLElement | null | undefined =
+      targetElement.parentElement?.parentElement;
+    if (!contentDivElement || contentDivElement.id !== "content") return;
+
+    // Find the h1 element (first child)
+    const h1Element: ChildNode | null = contentDivElement.firstChild;
+    if (!h1Element) return;
+
+    const articleOptionsConfig: {
+      key: string;
+      label: string;
+      icon: string;
+      suffix: string;
+    }[] = [
+      { key: "systems", label: "Systems", icon: "settings", suffix: "" },
+      { key: "characters", label: "Characters", icon: "group", suffix: "-C" },
+      { key: "bosses", label: "Bosses", icon: "swords", suffix: "-B" },
+    ] as const;
+
+    // Determine active option based on tagData.article or default to first
+    let activeOptionIndex: number = 0;
+    if (tagData.article === "c") activeOptionIndex = 1;
+    else if (tagData.article === "b") activeOptionIndex = 2;
+
+    const activeArticleOption: {
+      key: string;
+      label: string;
+      icon: string;
+      suffix: string;
+    } = articleOptionsConfig[activeOptionIndex];
     const baseDocumentName: string = (currentDocumentName ?? "").replace(
       this.gameDocumentRegex,
       "",
     );
-    const sectionName: string = currentSectionName ?? "";
 
-    const sectionConfigs: Map<string, { checked: string; loaded: string; description: string }> =
-      new Map([
-        [
-          "systems",
-          {
-            checked: "",
-            loaded: "",
-            description: "Detailed information on the game's systems, techniques, and glitches.",
-          },
-        ],
-        [
-          "characters",
-          {
-            checked: "",
-            loaded: "",
-            description:
-              "A breakdown of each character, such as notable arte properties, strategies, and character-specific techniques.",
-          },
-        ],
-        [
-          "bosses",
-          { checked: "", loaded: "", description: "A summary of each boss. Contains spoilers!" },
-        ],
-      ]);
+    // Create the dropdown container
+    const dropdownContainerElement: HTMLDivElement = documentContext.createElement("div");
+    dropdownContainerElement.className = "content__article-selector";
+    dropdownContainerElement.dataset.active = activeArticleOption.key;
 
-    const defaultSection: string = "systems";
-    let activeSection: string = defaultSection;
+    const dropdownButtonElement: HTMLButtonElement = documentContext.createElement("button");
+    dropdownButtonElement.className = "content__article-selector--button";
+    dropdownButtonElement.type = "button";
 
-    switch (tagData.article) {
-      case "b":
-        activeSection = "bosses";
-        break;
-      case "c":
-        activeSection = "characters";
-        break;
-      default:
-        activeSection = "systems";
-    }
+    const buttonIconElement: HTMLSpanElement = documentContext.createElement("span");
+    buttonIconElement.className = "material-symbols-rounded";
+    buttonIconElement.textContent = activeArticleOption.icon;
 
-    // Set the active section
-    for (const [sectionKey, config] of sectionConfigs) {
-      if (sectionKey === activeSection) {
-        config.checked = "checked";
-        config.loaded = " <span>(LOADED)</span>";
+    const buttonLabelElement: HTMLSpanElement = documentContext.createElement("span");
+    buttonLabelElement.className = "content__article-selector--label";
+    buttonLabelElement.textContent = activeArticleOption.label;
+
+    const buttonChevronElement: HTMLSpanElement = documentContext.createElement("span");
+    buttonChevronElement.className = "material-symbols-rounded content__article-selector--chevron";
+    buttonChevronElement.textContent = "arrow_drop_down";
+
+    dropdownButtonElement.appendChild(buttonIconElement);
+    dropdownButtonElement.appendChild(buttonLabelElement);
+    dropdownButtonElement.appendChild(buttonChevronElement);
+
+    const dropdownMenuElement: HTMLDivElement = documentContext.createElement("div");
+    dropdownMenuElement.className = "content__article-selector--menu";
+
+    // Create menu items for each article option
+    for (const [optionIndex, articleOption] of articleOptionsConfig.entries()) {
+      const menuItemElement: HTMLDivElement = documentContext.createElement("div");
+      menuItemElement.className = "content__article-selector--item";
+
+      if (optionIndex === activeOptionIndex) {
+        menuItemElement.classList.add("active");
       }
+
+      // Set data attributes for functionality
+      Object.assign(menuItemElement.dataset, {
+        option: articleOption.key,
+        document: baseDocumentName + articleOption.suffix,
+        section: currentSectionName ?? "",
+      });
+
+      const itemIconElement: HTMLSpanElement = documentContext.createElement("span");
+      itemIconElement.className = "material-symbols-rounded";
+      itemIconElement.textContent = articleOption.icon;
+
+      const itemLabelElement: HTMLSpanElement = documentContext.createElement("span");
+      itemLabelElement.textContent = articleOption.label;
+
+      menuItemElement.appendChild(itemIconElement);
+      menuItemElement.appendChild(itemLabelElement);
+      dropdownMenuElement.appendChild(menuItemElement);
     }
 
-    // From each map entry, create a div
-    const sectionEntries: string[] = Array.from(sectionConfigs.entries()).map(
-      ([sectionKey, config]: [
-        string,
-        { checked: string; loaded: string; description: string },
-      ]) => {
-        const documentSuffix: string =
-          sectionKey === "systems" ? "" : sectionKey === "characters" ? "-C" : "-B";
-        return `
-                <div class="content__sections--entry">
-                    <div class="content__sections--input-label">
-                        <input type="radio" id="${sectionKey}" name="sections" value="${sectionKey}" 
-                               data-redirect="NONE" data-document="${baseDocumentName}${documentSuffix}" 
-                               data-section="${sectionName}" ${config.checked} />
-                        <label for="${sectionKey}">${sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1)}${config.loaded}</label>
-                    </div>
-                    <p>${config.description}</p>
-                </div>`;
-      },
-    );
+    // Add separator
+    const separatorElement: HTMLDivElement = documentContext.createElement("div");
+    separatorElement.className = "content__article-selector--separator";
+    dropdownMenuElement.appendChild(separatorElement);
 
-    // Join the entries and create the new section HTML
-    const sectionsHtml: string = `
-            <div id="content__sections">
-                ${sectionEntries.join("")}
-            </div>`;
+    // Add Edit option
+    const editItemElement: HTMLDivElement = documentContext.createElement("div");
+    editItemElement.className = "content__article-selector--item content__article-selector--edit";
 
-    const sectionsContainer: HTMLDivElement = documentContext.createElement("div");
-    sectionsContainer.innerHTML = sectionsHtml;
-    targetElement.appendChild(sectionsContainer);
+    Object.assign(editItemElement.dataset, {
+      option: "edit",
+      document: baseDocumentName,
+      section: currentSectionName ?? "",
+    });
+
+    const editIconElement: HTMLSpanElement = documentContext.createElement("span");
+    editIconElement.className = "material-symbols-rounded";
+    editIconElement.textContent = "edit_document";
+
+    const editLabelElement: HTMLSpanElement = documentContext.createElement("span");
+    editLabelElement.textContent = "Edit";
+
+    editItemElement.appendChild(editIconElement);
+    editItemElement.appendChild(editLabelElement);
+    dropdownMenuElement.appendChild(editItemElement);
+
+    dropdownContainerElement.appendChild(dropdownButtonElement);
+    dropdownContainerElement.appendChild(dropdownMenuElement);
+
+    // Insert after the h1 element
+    h1Element.parentNode?.insertBefore(dropdownContainerElement, h1Element.nextSibling);
   }
 
   // --- Create version indicator icon
@@ -524,7 +727,13 @@ export class Compiler {
 
     // Types of nodes are set as numbers. ELEMENT_NODE are nodes like <p> or <div> and have a type of 1
     //  this is just being safe if it changes in the (very far) future
-    const ELEMENT_NODE: number = documentContext.defaultView!.Node.ELEMENT_NODE;
+    let ELEMENT_NODE: number;
+    if (this.isRunningInBrowser) {
+      // Get from window instead of defaultView
+      ELEMENT_NODE = window.Node.ELEMENT_NODE;
+    } else {
+      ELEMENT_NODE = documentContext.defaultView!.Node.ELEMENT_NODE;
+    }
 
     for (const childNode of allChildNodes) {
       if (childNode.nodeType === ELEMENT_NODE) {
@@ -893,4 +1102,216 @@ export class Compiler {
   clearSearchResults(): void {
     this.searchResultsCollection.length = 0;
   }
+
+  private createCustomTheme() {
+    // Seems to be any? I guess since it's pretty much CSS code within JS
+    const customTheme: ReturnType<typeof EditorView.theme> = EditorView.theme(
+      {
+        "&": {
+          fontSize: "0.75rem",
+          lineHeight: "1.4",
+          fontFamily: '"Mulish", sans-serif',
+          color: "var(--white-text)",
+          backgroundColor: "var(--gray-bg)",
+          height: "100%",
+          width: "100%",
+        },
+        ".cm-content": {
+          padding: "16px",
+          minHeight: "100%",
+          caretColor: "var(--white-f1)",
+          fontFamily: '"Mulish", sans-serif',
+        },
+        ".cm-focused": {
+          outline: "none",
+        },
+        ".cm-editor": {
+          border: "2px solid var(--gray-bg)",
+          borderRadius: "6px",
+          backgroundColor: "var(--gray-bg)",
+          height: "600px",
+        },
+        ".cm-scroller": {
+          overflow: "auto",
+          scrollbarWidth: "thin",
+          scrollbarColor: "var(--gray-f2) var(--gray-bg)",
+        },
+        ".cm-activeLine": {
+          backgroundColor: "var(--gray-a5)",
+        },
+        ".cm-selectionLayer": {
+          backgroundColor: "#074",
+        },
+        ".cm-focused .cm-cursor": {
+          borderLeftColor: "var(--white-f1)",
+          borderLeftWidth: "2px",
+        },
+        ".cm-focused .cm-selectionBackground": {
+          backgroundColor: "var(--pink)",
+        },
+        ".cm-selectionBackground": {
+          backgroundColor: "var(--pink)",
+        },
+        "::selection": {
+          backgroundColor: "var(--pink)",
+        },
+        "&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection":
+          {
+            backgroundColor: "var(--white-f3)",
+          },
+        ".cm-gutters": {
+          backgroundColor: "var(--gray-f1)",
+          color: "var(--white-f2)",
+          border: "none",
+          borderRight: "1px solid var(--gray-ac)",
+        },
+        ".cm-gutterElement": {
+          padding: "0 6px",
+          fontSize: "0.7rem",
+        },
+        ".cm-activeLineGutter": {
+          backgroundColor: "var(--gray-f2)",
+          color: "var(--white-f1)",
+        },
+        ".cm-line": {
+          padding: "0 2px",
+        },
+        ".cm-matchingBracket": {
+          backgroundColor: "var(--gray-f2)",
+          outline: "1px solid var(--white-f3)",
+        },
+        ".cm-nonmatchingBracket": {
+          backgroundColor: "var(--red)",
+          color: "var(--white-text)",
+        },
+        ".cm-searchMatch": {
+          backgroundColor: "var(--yellow)",
+          color: "var(--gray-f1)",
+        },
+        ".cm-searchMatch.cm-searchMatch-selected": {
+          backgroundColor: "var(--pink)",
+          color: "var(--white-text)",
+        },
+        ".cm-tooltip-autocomplete": {
+          backgroundColor: "var(--gray-f1)",
+          border: "1px solid var(--gray-ac)",
+          borderRadius: "4px",
+          fontSize: "0.75rem",
+          fontFamily: '"Mulish", sans-serif',
+          scrollbarWidth: "thin",
+          scrollbarColor: "var(--gray-f2) var(--gray-f3)",
+        },
+        ".cm-tooltip-autocomplete > ul": {
+          backgroundColor: "var(--gray-f1)",
+          color: "var(--white-text)",
+          maxHeight: "200px",
+          scrollbarWidth: "thin",
+          scrollbarColor: "var(--gray-f2) var(--gray-f3)",
+        },
+        ".cm-tooltip-autocomplete > ul > li": {
+          padding: "4px 8px",
+          borderBottom: "1px solid var(--gray-ac)",
+        },
+        ".cm-tooltip-autocomplete > ul > li[aria-selected]": {
+          backgroundColor: "var(--gray-f2)",
+          color: "var(--white-f1)",
+        },
+        ".cm-completionLabel": {
+          color: "var(--white-text)",
+        },
+        ".cm-completionDetail": {
+          color: "var(--white-f2)",
+          fontSize: "0.7rem",
+        },
+        ".cm-completionInfo": {
+          backgroundColor: "var(--gray-f2)",
+          border: "1px solid var(--gray-ac)",
+          borderRadius: "4px",
+          color: "var(--white-f2)",
+          fontSize: "0.7rem",
+          padding: "4px 8px",
+        },
+      },
+      { dark: true },
+    );
+
+    return [customTheme];
+  }
+
+  // --- Markdown editor for element
+  async initializeEditor(content: string, parent: HTMLElement): Promise<void> {
+    // Can have code highlighting within markdown by setting the languages inside markdown()
+    const view: EditorView = new EditorView({
+      doc: content,
+      parent: parent,
+      spellcheck: true,
+      extensions: [
+        basicSetup,
+        keymap.of([indentWithTab]),
+        EditorView.contentAttributes.of({ spellcheck: "true" }),
+        markdown(),
+        autocompletion({ override: [this.markdownDirectiveCompletions] }),
+        EditorView.lineWrapping,
+        ...this.createCustomTheme(),
+      ],
+    });
+    this.editor = view;
+  }
+
+  async getEditorContent(): Promise<string> {
+    return this.editor ? this.editor.state.doc.toString() : "";
+  }
+
+  async updateEditorContent(content: string): Promise<void> {
+    if (this.editor) {
+      const transaction: IDBTransaction = this.editor.state.update({
+        changes: { from: 0, to: this.editor.state.doc.length, insert: content },
+      });
+      this.editor.dispatch(transaction);
+    }
+  }
+
+  // --- Main completion function for markdown directives
+  private markdownDirectiveCompletions = (context: CompletionContext): CompletionResult | null => {
+    // Check for explicit activation
+    if (context.explicit) {
+      return {
+        from: context.pos,
+        options: Array.from(this.directiveCompletions),
+        validFor: () => false, // Don't persist explicit completions
+      };
+    }
+
+    // Check for trigger characters
+    const beforeTrigger: { from: number; to: number; text: string } | null =
+      context.matchBefore(/[{[]/);
+    if (!beforeTrigger) return null;
+
+    const triggerChar: string = beforeTrigger.text;
+    let filteredCompletions: Completion[] = [];
+
+    if (triggerChar === "{") {
+      // Filter for curly brace completions
+      filteredCompletions = Array.from(
+        this.directiveCompletions.filter((completion: Completion) =>
+          completion.label.startsWith("{{"),
+        ),
+      );
+    } else if (triggerChar === "[") {
+      // Filter for square bracket completions
+      filteredCompletions = Array.from(
+        this.directiveCompletions.filter((completion: Completion) =>
+          completion.label.startsWith("[["),
+        ),
+      );
+    }
+
+    if (filteredCompletions.length === 0) return null;
+
+    return {
+      from: beforeTrigger.from,
+      options: filteredCompletions,
+      validFor: /^[{[]$/,
+    };
+  };
 }

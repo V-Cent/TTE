@@ -56,15 +56,25 @@
 /* While this is in the navbar file, it's applies globally to all tooltips */
 #nav-bar__tooltip {
   position: fixed;
-  background: var(--gray-f2);
-  font-size: 15px;
-  border-radius: 6px;
-  padding: 5px 5px;
+  background: var(--gray-f1);
+  border: 1px solid var(--white-f2);
+  font-size: 0.8rem;
+  border-radius: 8px;
+  padding: 6px 10px;
   color: var(--white-text);
-  font-family: "Mulish Alternates", sans-serif;
-  font-weight: 300;
-  opacity: 0.85;
+  font-family: "Mulish", sans-serif;
+  font-weight: 400;
+  opacity: 0.95;
   z-index: 13;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  transform: translateY(-2px);
+  line-height: 1.3;
+  letter-spacing: 0.01em;
 }
 
 /* Search styles */
@@ -79,6 +89,8 @@
   flex-grow: 1;
   margin-left: 22px;
   margin-right: 2%;
+
+  transition: transform 0.2s ease;
 
   float: right;
   vertical-align: middle;

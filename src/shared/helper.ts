@@ -44,6 +44,16 @@ export interface TagData {
   reference?: boolean;
 }
 
+export type PageType = "home" | "generic" | "tech";
+
+export interface PageRequest {
+  document: string;
+  section: string;
+  redirect?: string;
+  pageType: PageType;
+  isPopstate?: boolean;
+}
+
 // Centralized color definitions -- add on change values here and they will be reflected on the page
 
 export type colors = "yellow" | "pink" | "teal" | "green" | "red" | "lavender" | "blue";
@@ -89,6 +99,7 @@ export class Helper {
   currentSection: string | undefined;
   currentDocument: string | undefined;
   inTechPage: boolean;
+  inEdit: boolean;
   addPageChangeEvent: (element: HTMLElement) => void;
   fileList: FileEntry[];
   h2Collection: h2Data[];
@@ -116,6 +127,7 @@ export class Helper {
     this.currentSection = undefined;
     this.currentDocument = undefined;
     this.inTechPage = false;
+    this.inEdit = false;
     this.addPageChangeEvent = addPageChangeEvent;
     this.fileList = fileList;
     this.h2Collection = [];
@@ -304,6 +316,26 @@ export class Helper {
 
   // --- [TOOLTIP] - Tooltip display and management
 
+  // --- Setup tooltip on any element with text
+  setTooltip(tooltipTriggerElement: HTMLElement | null, tooltipText: string): void {
+    if (!tooltipTriggerElement || !tooltipText) return;
+    tooltipTriggerElement.addEventListener(
+      "mouseover",
+      (): void => {
+        this.loadTooltip(tooltipTriggerElement, tooltipText);
+      },
+      { passive: true },
+    );
+
+    tooltipTriggerElement.addEventListener(
+      "mouseleave",
+      (): void => {
+        this.unloadTooltip();
+      },
+      { passive: true },
+    );
+  }
+
   // --- Tooltip functions
   //      load on hover
   loadTooltip(tooltipTriggerElement: HTMLElement | null, tooltipText: string): void {
@@ -319,10 +351,19 @@ export class Helper {
 
     // Set tooltip location and add it to the page
     const triggerBoundingBox: DOMRect = tooltipTriggerElement.getBoundingClientRect();
-    Object.assign(tooltipElement.style, {
-      top: `${triggerBoundingBox.bottom - 10}px`,
-      left: `${triggerBoundingBox.right}px`,
-    });
+    // if tooltipTrigger is more than half to the left of the page, put the tooltip towards the right
+    // else towards the left
+    if (triggerBoundingBox.left < window.innerWidth / 2) {
+      Object.assign(tooltipElement.style, {
+        top: `${triggerBoundingBox.bottom - 10}px`,
+        left: `${triggerBoundingBox.right}px`,
+      });
+    } else {
+      Object.assign(tooltipElement.style, {
+        top: `${triggerBoundingBox.bottom - 10}px`,
+        right: `${window.innerWidth - triggerBoundingBox.left - 10}px`,
+      });
+    }
 
     document.body.appendChild(tooltipElement);
   }

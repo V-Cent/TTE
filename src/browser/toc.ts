@@ -21,7 +21,7 @@ export class TOC {
   // TODO define height for scroll
   private static readonly VIEWPORT_THRESHOLD_RATIO: number = 0.25;
   private static readonly MIN_THRESHOLD_PIXELS: number = 150;
-  private static readonly TOC_OFFSET_PIXELS: number = 10;
+  private static readonly TOC_OFFSET_PIXELS: number = -30;
   private static readonly MOBILE_TOC_WIDTH_BREAKPOINT: number = 480;
   private static readonly MOBILE_TOC_WIDTH_LARGE: number = 360;
   private static readonly MOBILE_TOC_WIDTH_SMALL: number = 300;
@@ -146,7 +146,16 @@ export class TOC {
     tocBorder.appendChild(toc);
 
     // Set TOC y location just after #content__selector
-    tocBorder.style.top = `${selector.offsetTop + content.offsetTop + TOC.TOC_OFFSET_PIXELS}px`;
+    if (this.helperObj.inEdit) {
+      // If in edit also take in consideration the size of the edit-content block
+      const editElem: HTMLElement | null = document.getElementById("edit-content");
+      if (editElem) {
+        // TODO this is asking for a bug to appear, but it seems to work for now
+        tocBorder.style.top = `${selector.offsetTop + content.offsetTop - editElem.clientHeight + TOC.TOC_OFFSET_PIXELS * 3}px`;
+      }
+    } else {
+      tocBorder.style.top = `${selector.offsetTop + content.offsetTop + TOC.TOC_OFFSET_PIXELS}px`;
+    }
 
     this.createMobileTOCElements();
     this.setupTOCEventListeners();

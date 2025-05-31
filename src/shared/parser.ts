@@ -229,10 +229,203 @@ export class Parser {
       return "";
     }
 
-    // TODO: quickly convert from new .MD format here
+    const convertedText: string = this.resolveDirectives(markdownFileData);
 
     // Render the Markdown content to HTML
-    return this.markdownObj.render(markdownFileData);
+    return this.markdownObj.render(convertedText);
+  }
+
+  // --- Directly parse input text
+  async parseText(markdownText: string): Promise<string> {
+    if (!markdownText || markdownText.length <= 1) {
+      return "";
+    }
+
+    const convertedText: string = this.resolveDirectives(markdownText);
+
+    // Render the Markdown content to HTML
+    return this.markdownObj.render(convertedText);
+  }
+
+  public resolveDirectives(inputText: string): string {
+    const lines: string[] = inputText.split("\n");
+
+    const sanitizeForId = (text: string): string => {
+      if (!text) return "";
+      return String(text).replace(/\s+/g, "-").toLowerCase();
+    };
+
+    return lines
+      .map((originalCurrentLine: string): string => {
+        // Remove trailing carriage return if present (from \r\n line endings)
+        const currentLine: string = originalCurrentLine.replace(/\r$/, "");
+
+        let processedLine: string = currentLine;
+        const placeholders: Map<string, string> = new Map<string, string>();
+        let placeholderId: number = 0;
+
+        // Temporarily replace escaped sequences to protect them
+        processedLine = processedLine.replace(
+          /\\(\[\[|]]|\{\{|\}\}|!!)/g,
+          (_match: string, escapedSequence: string): string => {
+            const placeholder: string = `__ESCAPED_DIRECTIVE_PLACEHOLDER_${placeholderId++}__`;
+            placeholders.set(placeholder, escapedSequence);
+            return placeholder;
+          },
+        );
+
+        // Process Heading Directives (NO emphasis)
+        const headingTodoVersionRegex: RegExp = /^(#{1,6})\s*\{\{(!|[^}]+)\}\}(.*)$/;
+        const lineAfterHeadingTodo: string = processedLine.replace(
+          headingTodoVersionRegex,
+          (
+            _match: string,
+            headingLevel: string,
+            directiveContent: string,
+            trailingText: string,
+          ): string => {
+            const directiveTextPart: string =
+              directiveContent === "!"
+                ? `:{ 'todo' : true }`
+                : `:{ 'versions' : '${String(directiveContent)}' }`;
+
+            let finalTrailingText: string = trailingText;
+            if (trailingText && !trailingText.startsWith(" ") && !trailingText.startsWith("\t")) {
+              finalTrailingText = " " + trailingText;
+            } else if (!trailingText) {
+              finalTrailingText = "";
+            }
+            return `${headingLevel} ${directiveTextPart.trimEnd()}${finalTrailingText}`;
+          },
+        );
+        // Only update processedLine if a change actually occurred.
+        // This prevents the general rule from running if the heading rule matched and transformed the line.
+        if (processedLine !== lineAfterHeadingTodo) {
+          processedLine = lineAfterHeadingTodo;
+        } else {
+          // Media
+          const headingMediaRegex: RegExp =
+            /^(#{1,6})\s*\[\[(!)?Media:([^|]*?)(?:\|([^\]]*))?\]\](.*)$/;
+          const lineAfterHeadingMedia: string = processedLine.replace(
+            headingMediaRegex,
+            (
+              _match: string,
+              headingLevel: string,
+              hiddenMarker: string | undefined,
+              mediaLink: string,
+              mediaCaption: string | undefined,
+              trailingText: string,
+            ): string => {
+              const parts: string[] = [];
+              parts.push(`'media' : '${mediaLink || ""}'`);
+              if (mediaCaption !== undefined) {
+                parts.push(`'caption' : '${String(mediaCaption)}'`);
+              }
+              if (hiddenMarker) {
+                parts.push(`'forcedmedia' : false`);
+              }
+              const directiveTextPart: string = `:{ ${parts.join(", ")} }`;
+
+              let separator: string = "";
+              if (
+                trailingText &&
+                !trailingText.startsWith(" ") &&
+                !trailingText.startsWith("\t") &&
+                !directiveTextPart.endsWith(" ")
+              ) {
+                separator = " ";
+              }
+              return `${headingLevel} ${directiveTextPart}${separator}${trailingText}`;
+            },
+          );
+          if (processedLine !== lineAfterHeadingMedia) {
+            processedLine = lineAfterHeadingMedia;
+          } else {
+            // Spoiler
+            processedLine = processedLine.replace(
+              /!!(.*?)!!/g,
+              (_match: string, content: string): string => `*:!${String(content)}*`,
+            );
+
+            // Version/Todo
+            const generalTodoVersionRegex: RegExp = /\{\{(!|[^}]+)\}\}/g;
+            processedLine = processedLine.replace(
+              generalTodoVersionRegex,
+              (_match: string, directiveContent: string): string => {
+                if (directiveContent === "!") {
+                  return `*:{'todo' : true}*`;
+                } else {
+                  return `*:{'versions' : '${String(directiveContent)}'}*`;
+                }
+              },
+            );
+
+            // Double Brackets
+            processedLine = processedLine.replace(
+              /\[\[([^\]]+?)\]\]/g,
+              (_match: string, contentStrInput: string): string => {
+                const contentStr: string = String(contentStrInput);
+                if (contentStr.trim() === "") {
+                  return _match;
+                }
+
+                if (/^\d+$/.test(contentStr)) {
+                  return `*{'reference' : true}${contentStr}*`;
+                }
+
+                const mediaMatch: RegExpMatchArray | null = contentStr.match(
+                  /^(!)?Media:([^|]*?)(?:\|(.*))?$/,
+                );
+                if (mediaMatch) {
+                  const isHidden: boolean = !!mediaMatch[1];
+                  const mediaLink: string = mediaMatch[2] || "";
+                  const mediaCaption: string | undefined = mediaMatch[3];
+                  const parts: string[] = [];
+                  parts.push(`'media' : '${mediaLink}'`);
+                  if (mediaCaption !== undefined) {
+                    parts.push(`'caption' : '${String(mediaCaption)}'`);
+                  }
+                  if (isHidden) {
+                    parts.push(`'forcedmedia' : false`);
+                  }
+                  return `*:{ ${parts.join(", ")} }*`;
+                }
+
+                const redirectMatch: RegExpMatchArray | null = contentStr.match(
+                  /^(?:\{([^}]+)\})?([^|]+?)(?:\|(.*))?$/,
+                );
+                if (redirectMatch) {
+                  const docName: string | undefined = redirectMatch[1];
+                  const linkTarget: string = redirectMatch[2];
+                  const displayText: string =
+                    redirectMatch[3] !== undefined ? String(redirectMatch[3]) : linkTarget;
+                  const sanitizedId: string = sanitizeForId(linkTarget);
+                  const parts: string[] = [];
+                  parts.push(`'redirect' : '#${sanitizedId}'`);
+                  if (docName) {
+                    parts.push(`'document' : '${String(docName)}'`);
+                  }
+                  return `*:{ ${parts.join(", ")} } ${displayText}*`;
+                }
+
+                return _match;
+              },
+            );
+          }
+        }
+
+        // Restore escaped sequences from placeholders
+        placeholders.forEach((originalSequence: string, placeholder: string) => {
+          const placeholderRegex: RegExp = new RegExp(
+            placeholder.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+            "g",
+          );
+          processedLine = processedLine.replace(placeholderRegex, originalSequence);
+        });
+
+        return processedLine;
+      })
+      .join("\n");
   }
 
   // --- Custom directive handler for text. For this we can use the default one if we're not in a custom directive

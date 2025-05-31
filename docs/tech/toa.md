@@ -112,19 +112,19 @@ In this section, we have a group of glitches and a small description on how to r
 
 ### Minor Battle Glitches
 
-#### :{'todo' : true} Artes getting stuck
+#### {{!}} Artes getting stuck
 
 Depending on your position, certain artes can get stuck on the enemy mesh slightly. This will result in your recovery taking longer and even enemies dropping from the combo. Can be mostly seem by using Air to Ground Moves while on top of an enemy.
 
 Rarely, the enemy can also be slightly stuck on top of a character. However, these occurrences are rare and won't prevent an enemy from attacking.
 
-#### :{'todo' : true} AI friendly-fire spells
+#### {{!}} AI friendly-fire spells
 
 If you manually tell the AI to cast a support spell on you and have him dodge an enemy attack, there is a chance that the AI will start casting an offensive spell right away and still keep its target on you.
 
 ### Out of Bounds and Sequence Breaks
 
-#### :{'versions' : 'PC'} Berg Volcano Early
+#### {{PC}} Berg Volcano Early
 
 This skip works best on higher framerates. Set your frame rate as unlimited and resolution scale to 50 to have framerates higher than 144.
 
@@ -175,7 +175,7 @@ During a combo, you can change characters and use the boost attack of the charac
 
 Every Boost Attack is also gives you invincibility frames while you're doing it. This invincibility can even be used on the frame that you are hit to negate the damage.
 
-This invincibility can be used to negate most boss mechanics, even *:!Ganavelt's Indigination, which can be seen [here](https://youtu.be/buqfQ0o5yaY); to avoid the down effect, simply have your character (or your party memebers) on auto]*.
+This invincibility can be used to negate most boss mechanics, even !!Ganavelt's Indigination, which can be seen [here](https://youtu.be/buqfQ0o5yaY); to avoid the down effect, simply have your character (or your party memebers) on auto!!.
 
 #### Boss Infinite Down Loop
 
@@ -195,11 +195,11 @@ If you wish to go into the air while keeping your reductions, you can either use
 
 More information can be found [here](https://gamefaqs.gamespot.com/boards/265989-tales-of-arise/79639361).
 
-#### :{'media' : 'media/toa/airAttackRecovery.mp4'} Quicker air-to-ground recovery
+#### [[Media:media/toa/airAttackRecovery.mp4]] Quicker air-to-ground recovery
 
 When doing a move from the air and landing, there is a period where you are not able to do any actions. To avoid this, simply do the move closer to the ground and try to do your action (such as a dodge). The action will come out on the ground instead, making your recovery faster.
 
-#### :{'todo' : true} Boss Boost Strike Early Kill
+#### {{!}} Boss Boost Strike Early Kill
 
 Also called the execution glitch. By delaying the boost strike prompt that happens when a boss hits 50% HP, you can activate it late and instantly kill the enemy. The input has to be done just before the prompt ends. You can buffer artes or normal attacks to have a better visual/audio cue to perform this technique, but the timing is still pretty strict.
 
@@ -233,11 +233,11 @@ You can find more information [here](https://www.youtube.com/watch?v=WHePG4uTlEI
 
 With an action pending (cancel AI mid-chain): while on manual or semi-auto, you can go into your artes menu, change from arte settings to arte list (R2/L2 or R/T/left click) and select any air arte. You character will then perform that arte the closest to the ground possible, something which cannot be done while on semi-auto or manual.
 
-*:{'media' : 'media/toa/aic.mp4'}*
+[[Media:media/toa/aic.mp4]]
 
 If you let your character be, it will also consume any pending action and return to neutral on its own (ignoring the control mode and any strategy). This can be unwanted, since the character can have multiple actions pending. To negate this effect, simply tap (or hold) any direction after the action you chose on the menu was performed. You can also use the menu again to perform any air or ground moves on that state.
 
-#### :{'media' : 'media/toa/bufferedcancel.mp4'} Buffered Attack Cancel
+#### [[Media:media/toa/bufferedcancel.mp4]] Buffered Attack Cancel
 
 By performing artes from the arte list, you can also cancel some attacks earlier, normally during the starting frames. To do this, you simply need to have an action buffered (for example, by tapping an arte button twice) and have no AI pending actions.
 

@@ -3,10 +3,13 @@
 //   this is after they are already treated as unique elements and get a tagging token
 //   we then change the original element here and show what is needed
 
-import { Helper, TagData } from "../shared/helper";
+import { Helper, TagData, PageRequest, FileEntry } from "../shared/helper";
+import { fileList } from "../shared/globals";
 
 export class Directives {
   private readonly helperObj: Helper;
+
+  private static readonly ARTICLE_SELECTOR_SELECTOR: string = ".content__article-selector";
 
   private static readonly TAGGING_COMPUTED_SELECTOR: string = ".tagging-computed";
   private static readonly VERSION_TRIGGER_SELECTOR: string = "[data-tte-version-trigger]";
@@ -15,11 +18,20 @@ export class Directives {
   private static readonly TABLE_HEADERS_SELECTOR: string = "th";
   private static readonly SPOILER_SELECTOR: string = ".spoiler";
 
-  constructor(helperObj: Helper) {
+  private handlePageChange: (request: PageRequest) => void;
+  private editPage: (page: PageRequest) => void;
+
+  constructor(
+    helperObj: Helper,
+    handlePageChange: (request: PageRequest) => void,
+    editPage: (page: PageRequest) => void,
+  ) {
     // Bind methods if needed
     this.compileDirectives = this.compileDirectives.bind(this);
     this.sortTables = this.sortTables.bind(this);
     this.treatSpoilers = this.treatSpoilers.bind(this);
+    this.handlePageChange = handlePageChange;
+    this.editPage = editPage;
 
     this.helperObj = helperObj;
   }
@@ -30,14 +42,33 @@ export class Directives {
       Directives.TAGGING_COMPUTED_SELECTOR,
     );
 
+    // Add this to compileEvents method after other event setups
+    const articleSelectors: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
+      Directives.ARTICLE_SELECTOR_SELECTOR,
+    );
+
+    // Add tooltip for article selector in menu mode
+    if (this.helperObj.inEdit) {
+      const articleSelectorBox: HTMLElement | null = document.querySelector<HTMLElement>(
+        "div.content__article-selector",
+      );
+      if (articleSelectorBox) {
+        this.helperObj.setTooltip(
+          articleSelectorBox,
+          "Article selection does not function on edit mode.",
+        );
+      }
+    }
+
+    for (const element of articleSelectors) {
+      const selectorElement: HTMLElement = element;
+      this.setupArticleSelectorEventListeners(selectorElement);
+    }
+
     for (const element of taggedElements) {
       const taggedElement: HTMLElement = element;
       const tagTextData: string = taggedElement.dataset.tags ?? "{}";
       const tagData: TagData = JSON.parse(tagTextData.replace(/'/g, '"'));
-
-      if (tagData.sections) {
-        this.setupSectionEventListeners(taggedElement);
-      }
 
       if (tagData.versions) {
         this.setupVersionEventListeners(taggedElement, tagData.versions);
@@ -52,19 +83,201 @@ export class Directives {
       }
 
       if (taggedElement.classList.contains("content__redirect")) {
-        this.helperObj.addPageChangeEvent(taggedElement);
+        // If data-tags document exists, and edit state is opened, do not add a redirect and instead add a tooltip
+        //  "This would have a redirect to: document - tag"
+        if (tagData.document && this.helperObj.inEdit) {
+          const redirectText: string = `Redirects to: ${tagData.document} - ${tagData.redirect}`;
+          this.helperObj.setTooltip(taggedElement, redirectText);
+        } else {
+          this.helperObj.addPageChangeEvent(taggedElement);
+        }
       }
     }
   }
 
-  // --- Setup event listeners for section radio buttons
-  private setupSectionEventListeners(taggedElement: HTMLElement): void {
-    const sectionInputs: NodeListOf<HTMLInputElement> =
-      taggedElement.querySelectorAll<HTMLInputElement>('input[name="sections"]');
+  // --- Setup event listeners for section dropdown menu
+  private setupArticleSelectorEventListeners(selectorElement: HTMLElement): void {
+    const buttonElement: HTMLButtonElement | null =
+      selectorElement.querySelector<HTMLButtonElement>(".content__article-selector--button");
+    const menuElement: HTMLElement | null = selectorElement.querySelector<HTMLElement>(
+      ".content__article-selector--menu",
+    );
+    const menuItemElements: NodeListOf<HTMLElement> = selectorElement.querySelectorAll<HTMLElement>(
+      ".content__article-selector--item",
+    );
 
-    for (const element of sectionInputs) {
-      const inputElement: HTMLInputElement = element;
-      this.helperObj.addPageChangeEvent(inputElement);
+    if (!buttonElement || !menuElement) return;
+
+    // Check if already initialized to prevent duplicate listeners
+    if (selectorElement.dataset.initialized === "true") return;
+
+    // Toggle dropdown on button click
+    buttonElement.addEventListener("click", (clickEvent: Event): void => {
+      clickEvent.stopPropagation();
+      clickEvent.preventDefault();
+      this.toggleArticleSelector(buttonElement, menuElement);
+    });
+
+    // Handle item selection for each menu item
+    for (const menuItemElement of menuItemElements) {
+      menuItemElement.addEventListener("click", (clickEvent: Event): void => {
+        clickEvent.stopPropagation();
+        clickEvent.preventDefault();
+        this.selectArticleSelectorItem(
+          selectorElement,
+          buttonElement,
+          menuElement,
+          menuItemElement,
+        );
+      });
+    }
+
+    // Close dropdown when clicking outside
+    const handleClickOutside = (clickEvent: Event): void => {
+      const targetElement: Node = clickEvent.target as Node;
+      if (!selectorElement.contains(targetElement)) {
+        this.closeArticleSelector(buttonElement, menuElement);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    // Close menu after some time if not selected
+    buttonElement.addEventListener("blur", (): void => {
+      setTimeout((): void => {
+        if (!selectorElement.contains(document.activeElement)) {
+          this.closeArticleSelector(buttonElement, menuElement);
+        }
+      }, 150);
+    });
+
+    selectorElement.dataset.initialized = "true";
+  }
+
+  // --- Toggle article selector dropdown state
+  private toggleArticleSelector(buttonElement: HTMLButtonElement, menuElement: HTMLElement): void {
+    const isCurrentlyOpen: boolean = menuElement.classList.contains("open");
+
+    if (isCurrentlyOpen) {
+      this.closeArticleSelector(buttonElement, menuElement);
+    } else {
+      this.openArticleSelector(buttonElement, menuElement);
+    }
+  }
+
+  // --- Open article selector dropdown
+  private openArticleSelector(buttonElement: HTMLButtonElement, menuElement: HTMLElement): void {
+    buttonElement.classList.add("open");
+    menuElement.classList.add("open");
+    buttonElement.setAttribute("aria-expanded", "true");
+  }
+
+  // --- Close article selector dropdown
+  private closeArticleSelector(buttonElement: HTMLButtonElement, menuElement: HTMLElement): void {
+    buttonElement.classList.remove("open");
+    menuElement.classList.remove("open");
+    buttonElement.setAttribute("aria-expanded", "false");
+  }
+
+  // --- Handle article selector item selection and navigation
+  private selectArticleSelectorItem(
+    selectorElement: HTMLElement,
+    buttonElement: HTMLButtonElement,
+    menuElement: HTMLElement,
+    selectedItemElement: HTMLElement,
+  ): void {
+    if (this.helperObj.inEdit) {
+      // If in edit mode, do not allow selection of items
+      this.closeArticleSelector(buttonElement, menuElement);
+      return;
+    }
+    // Handle edit option separately
+    if (selectedItemElement.classList.contains("content__article-selector--edit")) {
+      this.closeArticleSelector(buttonElement, menuElement);
+      this.editPage({
+        document: this.helperObj.currentDocument ?? "",
+        section: this.helperObj.currentSection ?? "",
+        pageType: "tech",
+      });
+      return;
+    }
+
+    this.updateActiveItemState(selectorElement, selectedItemElement);
+    this.updateButtonDisplay(buttonElement, selectedItemElement);
+
+    const selectedOptionKey: string | undefined = selectedItemElement.dataset.option;
+    if (selectedOptionKey) {
+      selectorElement.dataset.active = selectedOptionKey;
+    }
+
+    // Close dropdown after selection
+    this.closeArticleSelector(buttonElement, menuElement);
+
+    // Only change page if document exists
+    const selectedDocument: string | undefined = selectedItemElement.dataset.document;
+    if (!selectedDocument) return;
+    if (
+      !fileList.some((fileEntry: FileEntry): boolean => fileEntry.document === selectedDocument)
+    ) {
+      return;
+    }
+
+    // Navigate to selected document and section
+    const navigationRequest: PageRequest = {
+      document: selectedDocument ?? "",
+      section: selectedItemElement.dataset.section ?? "",
+      pageType: "tech",
+    };
+
+    this.handlePageChange(navigationRequest);
+  }
+
+  // --- Update active state for menu items
+  private updateActiveItemState(
+    selectorElement: HTMLElement,
+    selectedItemElement: HTMLElement,
+  ): void {
+    // Remove active class from all navigation items (excluding edit option)
+    const navigationItemElements: NodeListOf<HTMLElement> =
+      selectorElement.querySelectorAll<HTMLElement>(
+        ".content__article-selector--item:not(.content__article-selector--edit)",
+      );
+
+    for (const navigationItemElement of navigationItemElements) {
+      navigationItemElement.classList.remove("active");
+    }
+
+    // Add active class to newly selected item
+    selectedItemElement.classList.add("active");
+  }
+
+  // --- Update button display with selected item content
+  private updateButtonDisplay(
+    buttonElement: HTMLButtonElement,
+    selectedItemElement: HTMLElement,
+  ): void {
+    const selectedIconElement: HTMLElement | null = selectedItemElement.querySelector<HTMLElement>(
+      ".material-symbols-rounded",
+    );
+
+    // Extract label text, removing icon text content (group, swords, settings)
+    const selectedLabelText: string =
+      selectedItemElement.textContent?.trim().replace(/^(group|swords|settings)\s*/, "") ?? "";
+
+    const buttonIconElement: HTMLElement | null = buttonElement.querySelector<HTMLElement>(
+      ".material-symbols-rounded:not(.content__article-selector--chevron)",
+    );
+
+    if (buttonIconElement && selectedIconElement) {
+      buttonIconElement.textContent = selectedIconElement.textContent;
+    }
+
+    const buttonLabelElement: HTMLElement | null = buttonElement.querySelector<HTMLElement>(
+      ".content__article-selector--label",
+    );
+
+    if (buttonLabelElement) {
+      buttonLabelElement.textContent = selectedLabelText;
     }
   }
 
@@ -78,21 +291,7 @@ export class Directives {
 
     const versionText: string = `Version: ${versionString}.`;
 
-    versionTrigger.addEventListener(
-      "mouseover",
-      (): void => {
-        this.helperObj.loadTooltip(versionTrigger, versionText);
-      },
-      { passive: true },
-    );
-
-    versionTrigger.addEventListener(
-      "mouseleave",
-      (): void => {
-        this.helperObj.unloadTooltip();
-      },
-      { passive: true },
-    );
+    this.helperObj.setTooltip(versionTrigger, versionText);
   }
 
   // --- Setup event listeners for todo tooltips
@@ -105,21 +304,7 @@ export class Directives {
 
     const todoText: string = "This section needs work, is not confirmed or needs testing.";
 
-    todoTrigger.addEventListener(
-      "mouseover",
-      (): void => {
-        this.helperObj.loadTooltip(todoTrigger, todoText);
-      },
-      { passive: true },
-    );
-
-    todoTrigger.addEventListener(
-      "mouseleave",
-      (): void => {
-        this.helperObj.unloadTooltip();
-      },
-      { passive: true },
-    );
+    this.helperObj.setTooltip(todoTrigger, todoText);
   }
 
   // --- Setup event listeners for media icons

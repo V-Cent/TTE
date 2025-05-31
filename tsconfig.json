@@ -15,7 +15,10 @@
     },
     "include": [
       "./src/**/*.ts",
-      "eslint.config.mjs"
+      "eslint.config.mjs",
+      "build.config.ts",
+      "cache.config.ts",
+      "watch.config.ts"
     ],
     "exclude": [
       "node_modules",

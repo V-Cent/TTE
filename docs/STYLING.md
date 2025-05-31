@@ -10,7 +10,7 @@ Here we will discuss how to use GFM for the TTE project and how to format pages 
 
 ## Text
 
-Text in GFM does not need any special formatting. The only specific rule is that line breaks are only considered when at least one line is blank between paragraphs. While you can also create a new line by having the previous line in two spaces, this is not recommended. Not only will it break styling in TTE, but it will also make certain syntaxes fail.
+Text in GFM does not need any special formatting. The only specific rule is that line breaks are only considered when at least one line is blank between paragraphs. While you can also create a new line by having the previous line end with two spaces, this is not recommended. Not only will it break styling in TTE, but it will also make certain syntaxes fail.
 
 Feel free to use new lines sparingly to make the text easier to read. They should also be used when you want to use a special effect such as spoiler tags, colored text, or tagging.
 
@@ -28,7 +28,7 @@ Headings can be defined by starting the line with a hashtag (#). In TTE we use t
 
 Headings can be used freely, but try to use the same categories as other pages.
 
-Heading should not have any special characters such as colons, quotes, or exclamation marks (only dashes are allowed). They should also not be used inside quote blocks or have the same name as another heading in the current file.
+Headings should not have any special characters such as colons, quotes, or exclamation marks (only dashes are allowed). They should also not be used inside quote blocks or have the same name as another heading in the current file.
 
 ### Ordered and Unordered Lists
 
@@ -44,7 +44,7 @@ An unordered list can be created by starting the lines with a hyphen. Here is an
 
 ### Links
 
-Links in markdown can be attributed to any word by encapsulating the word in brackets and the link in parentheses. The link has to follow the closing bracket of the word. Heres is an [example](http://example.com/).
+Links in markdown can be attributed to any word by encapsulating the word in brackets and the link in parentheses. The link has to follow the closing bracket of the word. Here is an [example](http://example.com/).
 
 ### Tables
 
@@ -57,7 +57,7 @@ Tables are part of the GFM syntax and can be created like the example below:
 | foo  | 10106  | qrstuv |
 | bar  | 45   | lmno |
 
-They use pipes/vertical bars to define the columns. New lines in the document defined new lines in the table. Hyphens can be used to separate the table heading from the table data. Trailing colons are optional and define the alignment of further elements in the table (left right or center). Here is an example of a delimiter row:
+They use pipes/vertical bars to define the columns. New lines in the document become new lines in the table. Hyphens can be used to separate the table heading from the table data. Trailing colons are optional and define the alignment of further elements in the table (left, right, or center). Here is an example of a delimiter row:
 
 | :- | :-: | --: | :- | -: |
 
@@ -87,76 +87,67 @@ $$
 
 ### Extended Syntax
 
-These allow us to tag any paragraph or heading with objects that are not usually able to be inserted by text.
+TTE also has an extended syntax separate from Markdown. This syntax is used to define new "directives" -- special tags to add new functionality to a manuscript. The following directives are available:
 
-The syntax works by either using an emphasis symbol (*) or heading symbol (#) followed by a colon (:) and the name of the effect. Emphasis symbols should be used for text and be closed by another emphasis symbol. Header Symbol should only be used for headers and are closed by a new line. Only use underscores or tildes for text decoration when using the extended syntax.
+> **Colored Text**
+
+The colored text syntax works by either using an emphasis symbol (*) or heading symbol (#) followed by a colon (:) and the name of the effect.
 
 The list of available parameters is as follows:
 
-- :! — *:! Spoiler Tag.*
 - :r — *:r Red* Text.
 - :g — *:g Green* Text.
 - :b — *:b Blue* Text.
 - :y — *:y Yellow* Text.
 - :p — *:p Pink* Text.
 - :t — *:t Teal* Text.
-- :{ — Start of a custom directive.
 
-Custom directives are tags to modify the behavior of pages. They are JSON objects that are injected as the parent of the current text.
-Here is a simple example of a custom directive: {'versions' : 'TTE'}
+> **Spoiler**
 
-By using the emphasis symbol, you can even use them without text to insert something in a line (for example, a video). For example, the custom direction above, when inserted in an empty line, becomes this:
+Used to hide content that may contain spoilers. The content is hidden by default and can be revealed by clicking. Create spoiler text by surrounding content with double exclamation marks: \!\!spoiler content\!\!. Do not use spaces between the exclamation marks and the text.
 
-*:{'versions' : 'TTE'}*
-
-Most custom directives also work with headings. In these cases, the first colon should also have one space before it. An example: ### :{ 'versions' : 'TTE', 'todo' : true} Heading3.
-
-For emphasis, you can also group a block of text within it, to tag a specific portion of your paragraph:
-
-*:{'versions' : 'TTE', 'todo' : true} This is a test!*
-
-Parameters should always be encapsulated in braces. The name of each parameter is set between single quotes ('); the same should be done for text values.
-
-The following is a list of custom directives:
+**Example**: \!\!Spoiler\!\! becomes: !!Spoiler!!.
 
 > **TODO**
 
-Signifies something is being worked on or tested. It has a simple tooltip when hovered. When used, it will create an icon after the text content. Options for this directive are:
+Signifies something is being worked on or tested. It is made up of an icon that, when hovered, shows a tooltip informing the reader that the section is under construction. Create a TODO marker by using double curly braces with an exclamation mark: \{\{!\}\}. TODO icons look better at the end of lines, without any characters after them.
 
-- 'todo' : true (if true, enables this directive)
+These icons can also be used in headings. In this case, they should be placed just after the heading symbols (e.g., \#\#\# \{\{!\}\} Heading). This will render the icon automatically at the end of the heading.
 
-Example: This is a TODO. *:{'todo' : true}*
+**Example**: A TODO block can be inserted into text like this \{\{!\}\} and it renders as this: {{!}}
 
 > **Versions**
 
-Shows a version-specific icon alongside the text. It has a simple tooltip when hovered. Options for this directive are:
+Shows a version-specific icon alongside the text. It has a simple tooltip when hovered. Create version tags by using double curly braces around the version name. Like TODO icons, they look better at the end of lines and can also be used in headings. The syntax is \{\{version\}\}.
 
-- 'version' : 'text' (text will be shown as a tooltip)
+Versions of the same name will maintain the same color throughout the game article.
 
-Example: This is a version icon. *:{'versions' : 'SNES'}*
+**Example**: The \{\{SNES\}\} syntax will result in: {{SNES}}
 
 > **Media**
 
-Directive for images or videos. Should only be added in the middle of text or for fourth headings (####). They can be forced in the page, or hidden within an icon that needs to be clicked. Options for this directive are:
+Directive for images or videos. They can be forced to display in the page, or hidden within an icon that needs to be clicked. Create media by using double square brackets with the Media prefix: \[\[Media:url\]\]. Add a pipe and caption text for captions: \[\[Media:url|caption\]\]. And prefix with an exclamation mark to hide the media behind a clickable icon: \[\[!Media:url\]\]. You can also combine hidden media with captions: \[\[!Media:url|caption\]\]
 
-- 'media' : 'url' (url of video or image)
-- 'forcedmedia' : false (optional; default is true; if false, the media is hidden in a button)
-- 'caption' : 'text' (optional; text will be added as a caption)
+If not hidden, a media element should be placed on its own line. This will create an large embedded element with the image/video and the caption, if used. If hidden, it should be placed at the end of a line, similarly to the TODO and version icons. Additionally, the media can be used in headings, where it will be rendered at the end of the heading in case of hidden media, or just after it if not.
 
-Example: This is an example video. *:{'media' : 'media/todps2/push.mp4', 'forcedmedia' : false, 'caption' : 'Example caption.' }*
+**Example**: The following syntax: \[\[!Media:media/todps2/push.mp4|Example caption.\]\] is a hidden media.
+It will render the following icon: [[!Media:media/todps2/push.mp4|Example caption.]]
 
 > **Redirect**
 
-Allows you to create a link to a heading of a tech page. Requires you to provide the link to the specific heading by using the following syntax:  #name-of-the-heading. This can only be used in text, not for headings. Options for this directive are:
+Allows you to create a link to a heading of a tech page or create numbered references.
 
-- 'redirect' : '#link' (id of heading)
-- 'document' : 'text' (optional; use to redirect to different game pages; must be the acronym of the game title)
+For numbered references, use double square brackets around a number: \[\[1\]\]. These will redirect to the "References" section of the current article.
 
-Example: This is an example redirect (will bring you to the Tales of Destiny PS2 page). *:{'redirect' : '#stagger-techniques', 'document' : 'TODPS2'} Stagger Techniques*
+For internal page links, use double square brackets around the heading name: \[\[Manual Cancel\]\]. The heading name should be the same as one used in the page.
 
-Additionally, you can also create redirects for references. When doing this, using the 'redirect' or 'document' options are not needed. Use the text content to signify the number of the reference, like for example this {'reference' : true}1* (the first emphasis symbol was removed to show this in raw text).
+For custom display text, add a pipe and the text you want to show: \[\[Manual Cancel|cancel\]\]
 
-- 'reference' : true (if true, the icon will be omitted and the link will go to the references tab)
+For cross-page links, use curly braces with the document acronym before the heading name: \[\[{TOV}Manual Cancel\]\]. You can also combine this with custom display text: \[\[{TOV}Manual Cancel|cancel\]\]
+
+Due to the way redirections are styled, they can be used with no issues in the middle of a paragraph.
+
+**Example**: The syntax \[\[{TODPS2}Stagger Techniques|TODPS2 Redirect\]\] will redirect you to the Stagger Techniques entry in the TODPS2 article. It renders down to this: [[{TODPS2}Stagger Techniques|TODPS2 Redirect]]. A paragraph can continue as normal after it.
 
 ## Default Format for a Tech Page
 
@@ -166,11 +157,11 @@ Every tech page starts with a heading (#) of the game name followed by a list of
 
 The second heading (##) is used for category definitions. While you can create categories as you see fit, the following is the default format:
 
-- "Mechanics": This category is used for general game mechanics that are mostly explained in-game. It should be a general overview of the battle system. *:r __Mandatory.__*
-- "Techniques": This category is used for techniques and glitches that are related to the battle system. *:r __Mandatory.__*
-- "Glitches": This category is used for glitches that are not related to the battle system (such as exploration). *:r __Mandatory.__*
-- "Misc": This category is used for any other information that does not fit in the previous categories. Minor techniques that don't affect the game as much (for example, an animation breaking) should also be placed here. When in doubt, check the Misc category of other pages. Version differences can also be placed here.
-- "References": References for the current page. *:r __Mandatory.__*
+- **"Mechanics"**: This category is used for general game mechanics that are mostly explained in-game. It should be a general overview of the battle system. *:r __Mandatory.__*
+- **"Techniques"**: This category is used for techniques and glitches that are related to the battle system. *:r __Mandatory.__*
+- **"Glitches"**: This category is used for glitches that are not related to the battle system (such as exploration). *:r __Mandatory.__*
+- **"Misc"**: This category is used for any other information that does not fit in the previous categories. Minor techniques that don't affect the game as much (for example, an animation breaking) should also be placed here. When in doubt, check the Misc category of other pages. Version differences can also be placed here.
+- **"References"**: References for the current page. *:r __Mandatory.__*
 
 As a general tip, use images, videos, tables, and formulas as much as you can to break the page flow and make things easier to read. A full view (1 screen on desktop and 2 screens on mobile) with only text can be tiring to read and can cause users to skip ahead.
 

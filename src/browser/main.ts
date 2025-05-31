@@ -9,20 +9,10 @@ import { Search } from "./search";
 import { TOC } from "./toc";
 import { Headings } from "./headings";
 import { Directives } from "./directives";
-import { Helper, h2Data } from "../shared/helper";
+import { Helper, h2Data, PageRequest, PageType } from "../shared/helper";
 import { fileList, FileEntry } from "../shared/globals";
 
 // --- CONSTANTS AND CONFIGURATION
-
-type PageType = "home" | "generic" | "tech";
-
-interface PageRequest {
-  document: string;
-  section: string;
-  redirect?: string;
-  pageType: PageType;
-  isPopstate?: boolean;
-}
 
 interface PageSelectors {
   readonly CONTENT: string;
@@ -89,7 +79,7 @@ const moduleObjects: {
 };
 
 moduleObjects.headings = new Headings(moduleObjects.helper);
-moduleObjects.directives = new Directives(moduleObjects.helper);
+moduleObjects.directives = new Directives(moduleObjects.helper, handlePageChange, editPage);
 moduleObjects.search = new Search(addPageChangeEvent, moduleObjects.helper);
 moduleObjects.toc = new TOC(moduleObjects.helper);
 
@@ -202,7 +192,7 @@ function handleInitialRoute(): void {
 // --- PAGE CHANGE EVENT SYSTEM
 
 // --- Base event for page change. This is used by other modules.
-export function addPageChangeEvent(item: HTMLElement): void {
+function addPageChangeEvent(item: HTMLElement): void {
   clearSearchFocus();
   item.removeEventListener("click", handlePageChangeEvent);
   item.addEventListener("click", handlePageChangeEvent);
@@ -333,13 +323,20 @@ function getFilePath(request: PageRequest): string {
 function processPage(request: PageRequest): void {
   // Check if same document BEFORE updating currentDocument
   const isSameDocument: boolean = appState.currentDocument === request.document;
-
   // Handle tech page redirects for same document
-  if (isSameDocument && request.pageType === "tech" && request.redirect) {
+  if (
+    isSameDocument &&
+    request.pageType === "tech" &&
+    request.redirect &&
+    request.redirect !== "NONE"
+  ) {
     handleTechPageRedirect(request);
     updateHistory(request);
     return;
   }
+
+  // Clear edit block if it is open
+  clearEditBlock();
 
   // Update currentDocument after the check
   appState.currentDocument = request.document;
@@ -400,7 +397,7 @@ function updateSEO(request: PageRequest): void {
 // --- Updates the browser history with the new request
 function updateHistory(request: PageRequest): void {
   if (request.isPopstate) return;
-
+  if (moduleObjects.helper.inEdit) return;
   const url: string = buildURL(request);
   window.history.pushState(request, document.title, url);
 }
@@ -424,7 +421,10 @@ function buildURL(request: PageRequest): string {
 // --- Sets up common functionality for the page based on the request
 function setupPageFunctionality(request: PageRequest): void {
   // Common functionality for all pages
-  moduleObjects.directives.compileDirectives();
+  if (request.pageType === "home" || request.pageType === "generic") {
+    moduleObjects.directives.compileDirectives();
+  }
+
   moduleObjects.toc.createTOC(appState.currentDocument);
   setupTOCRedirects();
   moduleObjects.headings.shareHeadings();
@@ -639,4 +639,360 @@ function openFirstH2Section(): void {
     SELECTORS.SELECTOR_ITEM,
   );
   firstSelectorBox?.click();
+}
+
+// --- EDIT PAGE FUNCTIONALITY
+
+// Cached compiler instance to avoid re-importing
+// --> markdown.mjs is a pre-build package created with a different build process that merges all edit functionality into one
+//     due to this, I've decided to just ignore these imports for now to not have complicated path configurations
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+let cachedCompilerInstance: import("./markdown.mjs").Compiler | null = null;
+
+async function editPage(pageRequest: PageRequest): Promise<void> {
+  try {
+    // Dynamically import compiler if not already cached
+    if (!cachedCompilerInstance) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const markdownModule: typeof import("./markdown.mjs") = await import("./markdown.mjs");
+      cachedCompilerInstance = await markdownModule.initializeCompiler(moduleObjects.helper);
+    }
+
+    moduleObjects.helper.inEdit = true;
+
+    // Get and clear content div
+    const contentElement: HTMLElement | null = document.querySelector<HTMLElement>(
+      SELECTORS.CONTENT,
+    );
+    if (contentElement) {
+      contentElement.innerHTML = "";
+    }
+
+    // Get the edit content container
+    const editContentElement: HTMLElement | null = document.getElementById("edit-content");
+    if (!editContentElement) {
+      console.error("Edit content container not found");
+      return;
+    }
+
+    // Show edit content and clear previous content
+    editContentElement.style.display = "block";
+    editContentElement.innerHTML = "";
+    const markdownFilePath: string = getMarkdownFilePath(pageRequest);
+    const markdownContent: string = await moduleObjects.helper.asyncRead(markdownFilePath);
+
+    // Create edit interface
+    const editFormElement: HTMLFormElement = document.createElement("form");
+    editFormElement.className = "edit-content__form";
+    editFormElement.innerHTML = `
+      <div class="edit-content__header">
+        <div class="edit-content__title">
+          <span class="material-symbols-rounded">edit_document</span>
+          EDIT: ${pageRequest.section.toUpperCase()}
+        </div>
+        <p class="edit-content__subtitle">DOCUMENT: ${pageRequest.document.toUpperCase()} (${pageRequest.pageType.toUpperCase()})</p>
+      </div>
+
+      <div class="edit-content__main">
+        <div class="edit-content__form-section">
+          <div class="edit-content__credentials">
+            <div class="edit-content__field-group">
+              <label for="edit-content__username" class="edit-content__label">USERNAME</label>
+              <input type="text" id="edit-content__username" class="edit-content__input" placeholder="Enter your username" required autocomplete="username">
+            </div>
+            <div class="edit-content__field-group">
+              <label for="edit-content__password" class="edit-content__label">PASSWORD</label>
+              <input type="password" id="edit-content__password" class="edit-content__input" placeholder="Enter your password" required autocomplete="current-password">
+            </div>
+          </div>
+
+          <div class="edit-content__acknowledgment">
+            <div class="edit-content__checkbox-container">
+              <input type="checkbox" id="edit-content__ownership" class="edit-content__checkbox" required>
+              <label for="edit-content__ownership" class="edit-content__checkbox-label">
+                I have properly cited external sources used in my changes.
+              </label>
+            </div>
+          </div>
+
+          <div class="edit-content__actions">
+            <button type="button" class="edit-content__button edit-content__button--cancel">
+              <span class="material-symbols-rounded">cancel</span>
+              CANCEL
+            </button>
+            <button type="button" class="edit-content__button edit-content__button--refresh">
+              <span class="material-symbols-rounded">refresh</span>
+              RENDER PAGE
+            </button>
+            <button type="submit" class="edit-content__button edit-content__button--submit" disabled>
+              <span class="material-symbols-rounded">webhook</span>
+              REQUEST CHANGES
+            </button>
+          </div>
+        </div>
+
+        <div class="edit-content__editor-container">
+          <div class="edit-content__editor-header">
+            <label for="edit-content__textarea" class="edit-content__content-label">
+              MARKDOWN CONTENT
+              <span class="edit-content__content-info">Edit content below. Changes will be reviewed before publishing.</span>
+            </label>
+            <div class="edit-content__file-actions">
+              <button type="button" class="edit-content__file-button" data-action="download">
+                <span class="material-symbols-rounded">file_save</span>
+              </button>
+              <button type="button" class="edit-content__file-button" data-action="upload">
+                <span class="material-symbols-rounded">upload_file</span>
+              </button>
+            </div>
+          </div>
+          <div id="edit-content__textarea" class="editor edit-content__textarea"></div>
+        </div>
+      </div>
+    `;
+
+    // Add event listeners
+    setupEditEventListeners(editFormElement, pageRequest);
+    editContentElement.appendChild(editFormElement);
+    const textareaElement: HTMLTextAreaElement | null =
+      document.querySelector<HTMLTextAreaElement>("#edit-content__textarea");
+    if (textareaElement) {
+      cachedCompilerInstance.initializeEditor(markdownContent, textareaElement);
+    }
+    editRefreshAction();
+  } catch (error: unknown) {
+    console.error("Failed to load edit page:", error);
+    const editContentElement: HTMLElement | null = document.getElementById("edit-content");
+    if (editContentElement) {
+      editContentElement.style.display = "block";
+      editContentElement.innerHTML = `
+        <div class="edit-content__error">
+          <span class="material-symbols-rounded">error</span>
+          <p>Failed to load edit interface. Please try again.</p>
+        </div>
+      `;
+    }
+  }
+}
+
+// --- Setup all edit form event listeners
+function setupEditEventListeners(formElement: HTMLFormElement, pageRequest: PageRequest): void {
+  const submitButtonElement: HTMLButtonElement | null =
+    formElement.querySelector<HTMLButtonElement>(".edit-content__button--submit");
+  const checkboxElement: HTMLInputElement | null = formElement.querySelector<HTMLInputElement>(
+    "#edit-content__ownership",
+  );
+
+  // Form submission
+  formElement.addEventListener("submit", (submitEvent: Event): void => {
+    submitEvent.preventDefault();
+    if (checkboxElement?.checked) {
+      handleEditSubmission(pageRequest);
+    }
+  });
+
+  // Checkbox change - enable/disable submit button
+  checkboxElement?.addEventListener("change", (): void => {
+    if (submitButtonElement) {
+      submitButtonElement.disabled = !checkboxElement.checked;
+    }
+  });
+
+  // Cancel button
+  const cancelButtonElement: HTMLButtonElement | null =
+    formElement.querySelector<HTMLButtonElement>(".edit-content__button--cancel");
+  cancelButtonElement?.addEventListener("click", (): void => {
+    clearEditBlock();
+    // Dummy page request
+    const pageRequest: PageRequest = {
+      document: appState.currentDocument,
+      section: appState.currentDocument,
+      redirect: "NONE",
+      pageType: determinePageType(appState.currentDocument),
+      isPopstate: false,
+    };
+    // use change page function from main
+    handlePageChange(pageRequest);
+  });
+
+  // Refresh button
+  const refreshButtonElement: HTMLButtonElement | null =
+    formElement.querySelector<HTMLButtonElement>(".edit-content__button--refresh");
+  refreshButtonElement?.addEventListener("click", (): void => {
+    editRefreshAction();
+    // Scroll to #content (first h1 has better vertical alignment)
+    const contentElement: HTMLElement | null = document.querySelector<HTMLElement>("h1");
+    if (contentElement) {
+      contentElement.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
+  // File action buttons
+  const fileButtonElements: NodeListOf<HTMLButtonElement> =
+    formElement.querySelectorAll<HTMLButtonElement>(".edit-content__file-button");
+  for (const fileButtonElement of fileButtonElements) {
+    // Setup click handlers
+    fileButtonElement.addEventListener("click", (): void => {
+      const actionType: string | undefined = fileButtonElement.dataset.action;
+      if (actionType === "download") {
+        handleFileDownload();
+      } else if (actionType === "upload") {
+        handleFileUpload();
+      }
+    });
+
+    // Setup custom tooltip functionality
+    const tooltipText: string =
+      fileButtonElement.dataset.action === "download"
+        ? "Download markdown file"
+        : "Upload markdown file";
+
+    moduleObjects.helper.setTooltip(fileButtonElement, tooltipText);
+  }
+}
+
+// --- Get markdown file path based on page request
+function getMarkdownFilePath(pageRequest: PageRequest): string {
+  switch (pageRequest.pageType) {
+    case "home":
+      return `${pageRequest.document.toLowerCase()}.md`;
+    case "generic":
+      return `${pageRequest.document}.md`;
+    case "tech":
+      return `tech/${pageRequest.document.toLowerCase()}.md`;
+    default:
+      return `tech/${pageRequest.document.toLowerCase()}.md`;
+  }
+}
+
+// --- Handle edit form submission (placeholder for now)
+function handleEditSubmission(pageRequest: PageRequest): void {
+  console.log("Edit submission for:", pageRequest);
+  // console log the editable field
+  const textareaElement: HTMLTextAreaElement | null =
+    document.querySelector<HTMLTextAreaElement>("#edit-content__textarea");
+  if (textareaElement) {
+    console.log("Editable content:", textareaElement.value);
+    // pass through compiler and console log again
+    console.log(
+      "Compiled content:",
+      cachedCompilerInstance?.parseText(textareaElement.value) || "No compiler available",
+    );
+  }
+  // TODO
+}
+
+async function editRefreshAction(): Promise<void> {
+  const textContent: string = (await cachedCompilerInstance?.getEditorContent()) || "";
+  const compiledContent: string =
+    (await cachedCompilerInstance?.parseText(
+      textContent,
+      moduleObjects.helper.currentDocument,
+      moduleObjects.helper.currentSection,
+      true,
+    )) || "";
+  // Create dummy PageRequest based on current document
+  const pageRequest: PageRequest = {
+    document: moduleObjects.helper.currentDocument ?? appState.currentDocument,
+    section: moduleObjects.helper.currentSection ?? "",
+    redirect: "NONE",
+    pageType: determinePageType(appState.currentDocument),
+    isPopstate: false,
+  };
+  // Update content block
+  const contentElement: HTMLElement | null = document.querySelector<HTMLElement>(SELECTORS.CONTENT);
+  if (!contentElement) return;
+  contentElement.style.minHeight =
+    pageRequest.pageType === "tech" ? PAGE_CONFIG.MIN_HEIGHT_TECH : PAGE_CONFIG.MIN_HEIGHT_STANDARD;
+
+  if (pageRequest.pageType === "tech") {
+    contentElement.style.visibility = "hidden";
+  }
+  contentElement.innerHTML = compiledContent;
+
+  // Clear previous state
+  moduleObjects.toc.clearHeadings();
+  moduleObjects.toc.clearSectionTOC();
+
+  // Setup H2 collection for tech pages
+  if (pageRequest.pageType === "tech") {
+    setupH2Collection();
+  }
+
+  setupPageFunctionality(pageRequest);
+}
+
+// --- Handle file download
+async function handleFileDownload(): Promise<void> {
+  const textContent: string = (await cachedCompilerInstance?.getEditorContent()) || "";
+
+  const filename: string = `${moduleObjects.helper.currentDocument || "document"}.md`;
+
+  // Create blob with markdown content
+  const blob: Blob = new Blob([textContent], { type: "text/markdown;charset=utf-8" });
+
+  // Create download link
+  const downloadLink: HTMLAnchorElement = document.createElement("a");
+  downloadLink.style.display = "none";
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = filename;
+
+  // Trigger download
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+
+  // Clean up object URL
+  URL.revokeObjectURL(downloadLink.href);
+}
+
+// --- Handle file upload
+function handleFileUpload(): void {
+  // Create file input element
+  const fileInput: HTMLInputElement = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".md,.txt,.markdown";
+  fileInput.style.display = "none";
+
+  // Handle file selection
+  fileInput.addEventListener("change", (event: Event): void => {
+    const target: EventTarget | null = event.target;
+    if (!(target instanceof HTMLInputElement) || !target.files || target.files.length === 0) {
+      return;
+    }
+
+    const file: File = target.files[0];
+
+    // Read file content
+    const reader: FileReader = new FileReader();
+
+    reader.onload = (loadEvent: ProgressEvent<FileReader>): void => {
+      const result: string | ArrayBuffer | null = loadEvent.target?.result || null;
+      cachedCompilerInstance?.updateEditorContent(result as string);
+    };
+
+    reader.onerror = (): void => {
+      console.error("Error reading file");
+    };
+
+    reader.readAsText(file, "utf-8");
+
+    // Clean up
+    document.body.removeChild(fileInput);
+  });
+
+  // Trigger file dialog
+  document.body.appendChild(fileInput);
+  fileInput.click();
+}
+
+function clearEditBlock(): void {
+  const editContentElement: HTMLElement | null = document.getElementById("edit-content");
+  moduleObjects.helper.inEdit = false;
+  if (editContentElement) {
+    editContentElement.style.display = "none";
+    editContentElement.innerHTML = "";
+  }
 }

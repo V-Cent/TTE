@@ -3,9 +3,11 @@ import { minify as swcMinify } from 'rollup-plugin-swc3';
 import fs from 'fs/promises';
 import path from 'path';
 import { minify as minifyHtml } from '@minify-html/node';
-import { transform, browserslistToTargets, bundle, TransformResult } from 'lightningcss';
+import { transform, browserslistToTargets, bundle, TransformResult, Targets } from 'lightningcss';
 import browserslist from 'browserslist';
 import livereload from 'rollup-plugin-livereload';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import serve from 'rollup-plugin-serve';
 
 const ANSI: Record<string, string> = { RESET: '\x1b[0m', BRIGHT: '\x1b[1m', DIM: '\x1b[2m', RED: '\x1b[31m', GREEN: '\x1b[32m', YELLOW: '\x1b[33m', CYAN: '\x1b[36m' } as const;
@@ -34,7 +36,7 @@ const BUILD_CONFIG: {
   HTML_FILES: { src: string; dest: string }[];
   CSS_FILES: { src: string; dest: string; useBundle: boolean }[];
   ENABLE_SOURCEMAPS: boolean;
-  BROWSERSLIST_TARGETS: any;
+  BROWSERSLIST_TARGETS: Targets;
 } = {
   PATHS_TO_CLEAN: ['docs/scripts', 'docs/styles', 'docs/home.html', 'docs/index.html'],
   HTML_FILES: [{ src: 'src/index.html', dest: 'docs/index.html' }, { src: 'src/home.html', dest: 'docs/home.html' }],
@@ -45,19 +47,10 @@ const BUILD_CONFIG: {
 
 export default [
   defineConfig({
-    entry: ['src/katex.min.js'],
-    platform: 'browser',
-    outDir: 'docs/scripts',
-    noExternal: ['remarkable'],
-    external: ['node:path', 'node:fs', 'node:os'],
-    plugins: [
-      swcMinify({ module: true, mangle: {}, compress: {} }),
-    ],
-  }),
-  defineConfig({
     entry: ['src/browser/main.ts'],
     platform: 'browser',
     outDir: 'docs/scripts',
+    external: ['./markdown.mjs'],
     plugins: [
       customBuildStepsPlugin(),
       swcMinify({ module: true, mangle: {}, compress: {} }),
@@ -74,6 +67,20 @@ export default [
         delay: 200,
       }),],
   }),
+  defineConfig({
+    entry: ['src/browser/markdown.ts'],
+    platform: 'browser',
+    outDir: 'docs/scripts',
+    noExternal: ['remarkable', 'codemirror', '@codemirror/lang-markdown', '@codemirror/autocomplete'],
+    external: ['node:path', 'node:fs', 'node:os', 'JSDOM', 'node:fs/promises'],
+    plugins: [
+      swcMinify({
+        module: true,
+        mangle: {},
+        compress: {},
+      }),
+    ]
+  }),
 ];
 
 // --- Custom build
@@ -85,8 +92,8 @@ async function getFileSize(filePath: string): Promise<number> {
 async function ensureDir(dirPath: string): Promise<void> {
   try {
     await fs.access(dirPath);
-  } catch (error: any) {
-    if (error.code === 'ENOENT') await fs.mkdir(dirPath, { recursive: true });
+  } catch (error) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') await fs.mkdir(dirPath, { recursive: true });
     else throw error;
   }
 }
@@ -178,8 +185,8 @@ async function copyFonts(): Promise<{ count: number; totalSize: number; time: nu
       await fs.copyFile(srcPath, destPath);
       totalSize += fileSize; copiedCount++;
     }));
-  } catch (error: any) {
-    if (error.code === 'ENOENT' && error.path === fontsSourceDir) {
+  } catch (error) {
+    if (error instanceof Error && 'code' in error && error.code === 'ENOENT') {
       console.log(`${ANSI.YELLOW}Fonts source directory not found, skipping.${ANSI.RESET}`);
     } else {
       console.error(`${ANSI.RED}Error copying fonts:${ANSI.RESET}`, error);
