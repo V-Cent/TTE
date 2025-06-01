@@ -884,7 +884,7 @@ async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
     // hash password with web-crypto api
     const hashedPasswordHex: string = await sha256(password);
     try {
-      const response: Response = await fetch("https://tteworker.vcentok.workers.dev//pr", {
+      const response: Response = await fetch("https://tteworker.vcentok.workers.dev/pr", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -902,7 +902,6 @@ async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
       console.error("Error sending POST request:", error);
     }
   }
-  // TODO
 }
 
 async function sha256(message: string): Promise<string> {
