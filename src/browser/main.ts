@@ -874,7 +874,6 @@ async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
     document.querySelector<HTMLTextAreaElement>("#edit-content__textarea");
   if (textareaElement) {
     const textContent: string = (await cachedCompilerInstance.getEditorContent()) || "";
-    console.log("Editable Content:", textContent);
     const usernameElement: HTMLInputElement | null =
       document.querySelector<HTMLInputElement>("#edit-content__username");
     const passwordElement: HTMLInputElement | null =
