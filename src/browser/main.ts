@@ -868,20 +868,54 @@ function getMarkdownFilePath(pageRequest: PageRequest): string {
 }
 
 // --- Handle edit form submission (placeholder for now)
-function handleEditSubmission(pageRequest: PageRequest): void {
-  console.log("Edit submission for:", pageRequest);
+async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
   // console log the editable field
   const textareaElement: HTMLTextAreaElement | null =
     document.querySelector<HTMLTextAreaElement>("#edit-content__textarea");
   if (textareaElement) {
-    console.log("Editable content:", textareaElement.value);
-    // pass through compiler and console log again
-    console.log(
-      "Compiled content:",
-      cachedCompilerInstance?.parseText(textareaElement.value) || "No compiler available",
-    );
+    const textContent: string = (await cachedCompilerInstance.getEditorContent()) || "";
+    console.log("Editable Content:", textContent);
+    const usernameElement: HTMLInputElement | null =
+      document.querySelector<HTMLInputElement>("#edit-content__username");
+    const passwordElement: HTMLInputElement | null =
+      document.querySelector<HTMLInputElement>("#edit-content__password");
+    const username: string = usernameElement?.value.trim() || "";
+    const password: string = passwordElement?.value.trim() || "";
+    const pageName: string = pageRequest.document.toLowerCase();
+    // hash password with web-crypto api
+    const hashedPasswordHex: string = await sha256(password);
+    try {
+      const response: Response = await fetch("https://tteworker.vcentok.workers.dev//pr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: hashedPasswordHex,
+          document: pageName,
+          content: textContent,
+        }),
+      });
+      const result = await response.json();
+      console.log("API Response:", result);
+    } catch (error) {
+      console.error("Error sending POST request:", error);
+    }
   }
   // TODO
+}
+
+async function sha256(message: string): Promise<string> {
+  // encode as UTF-8
+  const msgBuffer = new TextEncoder().encode(message);
+  // hash the message
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+  // convert ArrayBuffer to Array of bytes
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  // convert bytes to hex string
+  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  return hashHex;
 }
 
 async function editRefreshAction(): Promise<void> {
