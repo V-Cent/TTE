@@ -10,6 +10,8 @@ Tales of Legendia is a game. *:{'reference' : true} 1*
 
 Edited by live edit. {{!}}
 
+Edit by live edit in deployed page. {{!}}
+
 ## Mechanics
 
 Table test:
