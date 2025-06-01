@@ -1,5 +1,7 @@
 # Webpage build run
 name: Generate a build and push to another branch
+permissions:
+  contents: write
 
 on:
   push:
