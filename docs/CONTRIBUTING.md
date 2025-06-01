@@ -18,6 +18,8 @@ You can either clone that fork using git or edit the pages using GitHub itself (
 
 To start a pull request, you can go to the Pull Requests page for the TTE project and start comparing your version to the current main branch of TTE. Fill in the template that is on the screen and you're done! A team member will review your changes, request modifications if needed, and merge them to TTE.
 
+New pages can be added by creating a new markdown file in the `docs/tech` folder. The file `src/shared/globals.ts` should also be updated to include the page in the build process.
+
 ### Writing Style
 
 The following is a suggestion of a writing style when contributing to tech pages:

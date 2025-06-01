@@ -1,6 +1,12 @@
 # Tales of Legendia
 
+*:{'sections' : true}*
+
 This is currently a test page for the layout of tech documents.
+
+[[references|Redirect]]
+
+Tales of Legendia is a game. *:{'reference' : true} 1*
 
 ## Mechanics
 
@@ -33,13 +39,15 @@ TODO
 
 #### Hello here3
 
-*:{'media' : 'media/todps2/snow.png', 'caption' : 'Test Caption 3'}*
+[[Media:media/todps2/snow.png|Test Caption 3]]
 
-*:{'media' : 'media/todps2/snow.png', 'caption' : 'Test Caption 4', 'forcedmedia' : false}*
+[[!Media:media/todps2/snow.png|Test Caption 4]]
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Check item *:{'redirect' : '#redirect-target'} Redirect*, to see more. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+[[!Media:media/todps2/snow.png|Test Caption 5]]
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. For air to ground cancel in Tales of Vesperia check *:{'redirect' : '#air-to-ground-cancel', 'document' : 'TOV'} AtGC*. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Check item [[redirect target|Redirect]], to see more. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. For air to ground cancel in Tales of Vesperia check [[{TOV}air to ground cancel|AtGC]]. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 - [] AA
 - [x] aa
@@ -51,30 +59,30 @@ aa
 
 
 
-*:{'redirect' : '#references'} Redirect*
+[[references|Redirect]]
 
 
 Tales of Legendia is a game. *:{'reference' : true} 1* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-### :{'versions' : 'A'} Test Versions
+### {{A}} Test Versions
 
-#### :{'versions' : 'B'} Test Versions 2
+#### {{B}} Test Versions 2
 
-#### :{'versions' : 'A'} Test Versions 2
+#### {{A}} Test Versions 2
 
-#### :{'versions' : 'B'} Test Versions 2
+#### {{B}} Test Versions 2
 
-#### :{'versions' : 'C'} Test Versions 2
+#### {{C}} Test Versions 2
 
 ## Glitches
 
 ### Out of Bounds and Sequence Breaks
 
-#### :{'media' : 'media/todps2/caveQueen.mp4', 'forcedmedia' : false, 'caption' : 'Test Caption.'} Skip Cave Queen
+#### [[!Media:media/todps2/caveQueen.mp4|Test Caption.]] Skip Cave Queen
 
 By walking on the side of a ledge on the screen that the Cave Queen boss battle starts, you can skip it and get to Moreau town faster. You can buy some items there and talk to NPCs, but you still need to beat Cave Queen to continue the story. More information [here](https://www.youtube.com/watch?v=kzvcOjRu81o).
 
-*:{'media' : 'media/todps2/caveQueen.mp4', 'caption' : 'Test Caption 2.'}*
+[[Media:media/todps2/caveQueen.mp4|Test Caption 2.]]
 
 By walking on the side of a ledge on the screen that the Cave Queen boss battle starts, you can skip it and get to Moreau town faster. You can buy some items there and talk to NPCs, but you still need to beat Cave Queen to continue the story. More information [here](https://www.youtube.com/watch?v=kzvcOjRu81o).
 
@@ -90,15 +98,15 @@ By walking on the side of a ledge on the screen that the Cave Queen boss battle 
 
 Test
 
-### :{'versions' : 'A'} Test Versions
+### {{A}} Test Versions
 
-#### :{'versions' : 'B'} Test Versions 2
+#### {{B}} Test Versions 2
 
-#### :{'versions' : 'A'} Test Versions 2
+#### {{A}} Test Versions 2
 
-#### :{'versions' : 'B'} Test Versions 2
+#### {{B}} Test Versions 2
 
-#### :{'versions' : 'C'} Test Versions 2
+#### {{C}} Test Versions 2
 
 ## Techniques
 

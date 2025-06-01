@@ -1,13 +1,13 @@
-# Tales of Destiny for the PlayStation 2
-
-This page covers the PS2 remake of Tales of Destiny (テイルズ オブ デスティニー). The versions covered in this page are listed below; version-specific information will be marked by colored icons. Details on version differences can be found *:{'redirect' : '#version-differences'} here*.
-
-- *:{'versions' : 'Vanilla'}***Vanilla**: Original PS2 version; released on November 30, 2006 in Japan.
-- *:{'versions' : 'DC'}***DC**: Director's Cut — PS2 version with additional content; released on January 31, 2008 in Japan.
-
-Use the selection menu below to choose the article you wish to view.
+# Tales of Destiny PS2
 
 *:{'sections' : true}*
+
+This page covers the PS2 remake of Tales of Destiny (テイルズ オブ デスティニー). The versions covered in this page are listed below; version-specific information will be marked by colored icons. Details on version differences can be found [[version differences|here]].
+
+- {{Vanilla}}**Vanilla**: Original PS2 version; released on November 30, 2006 in Japan.
+- {{DC}}**DC**: Director's Cut — PS2 version with additional content; released on January 31, 2008 in Japan.
+
+Use the dropdown menu on the top of the page to choose the article you wish to view.
 
 ## Mechanics
 
@@ -31,7 +31,7 @@ Secondary:
 - **Concentration (集中)** → Increase Critical hit chance.
 - **Accuracy (命中)** → Decreases enemy blast gain rate and breaks through Evasion.
 
-*:{'media' : 'media/todps2/stats.png', 'caption' : 'The status menu in-game. Primary parameters are in gold and secondary in purple.'}*
+[[Media:media/todps2/stats.png|The status menu in-game. Primary parameters are in gold and secondary in purple.]]
 
 Parameters can be increased by equipment and by using herbs. Every primary parameter is increased at every level up. This growth is defined by the following formula: $\frac{\alpha * \beta}{Phy.Atk + Phy.Def + Mag.Atk + Mag.Def}$, $\alpha$ being the primary parameter being increased and $\beta$ being the growth rate for that character. Keep in mind that herbs, equipment, and jewels also affect the values in the formula. Therefore, changing your equipment before leveling up can affect your character's growth. For example, increasing Physical Attack as much as possible and decreasing the other stats (such as removing armors) will make so that you will have a higher Physical Attack gain than normal. A table with the growth rate for each character is shown below:
 
@@ -71,11 +71,11 @@ While primary parameters are straightforward, secondary ones can have multiple e
 
 **Stamina** is the most basic one, which is the parameter that defines your maximum number of health points (HP). This is set by the following expression: $Stamina * 6$.
 
-**Evasion** is a defensive parameter that affects two mechanics. First, it increases the chance your character will automatically guard against attacks (if not in a *:{'redirect' : '#battle'} chain*). For enemies, instead of guarding those attacks will hit aa *:{'redirect' : '#guarding'} iron stance*. The second effect is that evasion decreases the chance for that character to receive critical hits.
+**Evasion** is a defensive parameter that affects two mechanics. First, it increases the chance your character will automatically guard against attacks (if not in a [[battle|chain]]). For enemies, instead of guarding those attacks will hit aa [[guarding|iron stance]]. The second effect is that evasion decreases the chance for that character to receive critical hits.
 
-**Accuracy** is a parameter that counter-acts evasion. Increasing accuracy decreases the chances that an attack is evaded. Additionally, accuracy also affects how much *:{'redirect' : '#battle'} blast* the enemy gains for your every attack. Your actual accuracy value changes constantly during the fight depending on your actions, which will be shown in the following sub-sections.
+**Accuracy** is a parameter that counter-acts evasion. Increasing accuracy decreases the chances that an attack is evaded. Additionally, accuracy also affects how much [[battle|blast]] the enemy gains for your every attack. Your actual accuracy value changes constantly during the fight depending on your actions, which will be shown in the following sub-sections.
 
-**Concentration** is an offensive parameter that increases the chance of performing a critical hit. Critical hits deal increased damage, restore 2 CC, can stun or apply status effects, restore your lost accuracy by 10%, and reduce enemy blast by 5%. Keep in mind that criticals have an internal cooldown before they can be done again. The formula that controls critical hits is as follows: $\frac{Conc.^2 * \alpha}{Eva.^2} * 100%$, $\alpha$ being a multiplier specific to the attack and Eva. the evasion value from the opposing entity. How much more damage critical hits do depends on the difficulty, which is shown in the table below:
+**Concentration** is an offensive parameter that increases the chance of performing a critical hit. Critical hits deal increased damage, restore 2 CC, can stun or apply status effects, restore your lost accuracy by 10%, and reduce enemy blast by 5%. Keep in mind that criticals have an internal cooldown before they can be done again. The formula that controls critical hits is as follows: $\frac{Conc.^2 * \alpha}{Eva.^2} * 100\%$, $\alpha$ being a multiplier specific to the attack and Eva. the evasion value from the opposing entity. How much more damage critical hits do depends on the difficulty, which is shown in the table below:
 
 | Difficulty | Multiplier |
 | :-------- | :----------: |
@@ -88,23 +88,23 @@ While primary parameters are straightforward, secondary ones can have multiple e
 
 ### Swordian
 
-Certain characters have access to Swordians. These are weapons that can grow based on the user's level, unlocking useful skills. This is controlled by the number of swordian device points, which you gain every time you level up, following the formula: $\lceil \frac{level}{10} + 1\rceil$. Swordian device points can also be gained by defeating certain bosses in the Hard difficulty or higher. There is also a *:{'redirect' : '#infinite-swordian-points'} glitch* that can be performed to increase points in the arena.
+Certain characters have access to Swordians. These are weapons that can grow based on the user's level, unlocking useful skills. This is controlled by the number of swordian device points, which you gain every time you level up, following the formula: $\lceil \frac{level}{10} + 1\rceil$. Swordian device points can also be gained by defeating certain bosses in the Hard difficulty or higher. There is also a [[infinite swordian points|glitch]] that can be performed to increase points in the arena.
 
 With enough points, you can set active skills in the swordian menu. Each skill costs a set amount of points. After fighting a certain number of battles with a skill set, it can be mastered, reducing the number of points required to set it by 20%.
 
-*:{'media' : 'media/todps2/swordian.png', 'caption' : 'The swordian menu in-game. The star denotes a mastered skill.'}*
+[[Media:media/todps2/swordian.png|The swordian menu in-game. The star denotes a mastered skill.]]
 
 ### Re-rise
 
 For armor, jewels, and characters that do not use swordians, upgrading equipment is done through the re-rise system. By using lenses, which are dropped from monsters, you can create and upgrade various items. Once an item has been upgraded, it cannot be rolled back. To be able to re-rise certain pieces of equipment, you may need to increase your party level, which is the average level between all party members. There is no level requirement for using different types of lenses.
 
-*:{'media' : 'media/todps2/rerise.png', 'caption' : 'The re-rise menu in-game.'}*
+[[Media:media/todps2/rerise.png|The re-rise menu in-game.]]
 
 ### Battle
 
 Actions in battle are based on the chain capacity (_CC_) system. If you have enough CC, you can perform any action freely. CC is divided into minimum and maximum CC. You begin each fight with your minimum CC value and, by doing *chains*, you increase your current maximum CC by 1. This happens until you reach your character's maximum CC value; if you do any actions after that, your current maximum CC goes down to your current CC value or your minimum CC (the highest one). In any occasion, CC recovers naturally when not in a chain, at a rate of 1 CC for every 4 frames.
 
-*:{'media' : 'media/todps2/cc.png', 'caption' : 'The battle arena. In the picture, the first character has a minimum CC of 8 and a maximum of 16.'}*
+[[Media:media/todps2/cc.png|The battle arena. In the picture, the first character has a minimum CC of 8 and a maximum of 16.]]
 
 Doing offensive or movement actions starts a _chain_. This can affect a myriad of things, from techniques to casting time. CC will not recover naturally while in a chain. A chain will be extended by doing any other action while in one, and will only end once your character goes into a neutral stance. Once you hit 0 CC, any action that would require CC to perform will fail (even if you have bonuses that decrease that action's cost to 0), making you end your chain. If you have more than 0 CC but try to perform an arte that requires more than your current amount, a normal attack will happen instead.
 
@@ -139,13 +139,13 @@ When an enemy activates evasion, or when they're doing certain attacks, they gai
 
 You can walk left or right with the D-Pad. Double pressing a direction or using the left stick will allow you to run, which enables you to pass through enemies. Certain enemies can push you back when you try to pass through them by blocking. You can also do the same against enemies who try to run behind you.
 
-*:{'media' : 'media/todps2/guardPush.mp4'}*
+[[Media:media/todps2/guardPush.mp4]]
 
 By holding guard and pressing forward you will do an aiming dash. This will make your character dash towards the enemy, and go into the air if needed. By pressing backward instead, you will backstep. This will make your character take a step back to evade enemies' attacks. Backsteps and aiming steps do not have invincibility and cost 1CC (without NG+ options). While backsteps can be done indefinitely, aiming dashes from the ground cannot be done successively without a different action in between. Additionally, if you are in a chain, you are limited to one aiming dash unless you do a backstep, touch the ground from landing, or if you are in the air. Aiming dashes and backsteps should always be done based on the direction your character is facing. This is important if you're running away from an enemy or if you jump over them. If you're running away from the enemy while on the ground, your backstep will instead make you stop and face the enemy. Therefore, if you wish to backstep while running away, you have the hold guard and press towards the enemy to stop and face the enemy, then hold guard and press away from the enemy to backstep.
 
 If an enemy knocks you up into the air, pressing square just as you touch the ground will perform a backstep instead of getting knocked down. This only works for attacks that launch you high enough up in the air. Attacks with a hard knockdown are unable to be recovered (your character will lay down again before getting up).
 
-Holding guard and pressing up will make you jump. This can also be done by just holding up on the left stick when in manual mode. Jumping can be used to evade enemy attacks and to cancel actions. Running before jumping will also conserve your momentum. Each jump costs 1 CC and can be done twice in succession. Doing artes, normal attacks, or touching the ground will reset this limit. After a certain height, no actions other than jumps and aiming dashes are allowed. This is due to the player character being too close to the physical ceiling of the map. Touching the physical ceiling of the maps allows you to perform *:{'redirect' : '#air-walking'} air walking*.
+Holding guard and pressing up will make you jump. This can also be done by just holding up on the left stick when in manual mode. Jumping can be used to evade enemy attacks and to cancel actions. Running before jumping will also conserve your momentum. Each jump costs 1 CC and can be done twice in succession. Doing artes, normal attacks, or touching the ground will reset this limit. After a certain height, no actions other than jumps and aiming dashes are allowed. This is due to the player character being too close to the physical ceiling of the map. Touching the physical ceiling of the maps allows you to perform [[air walking]].
 
 #### Artes and Spells
 
@@ -182,7 +182,7 @@ Once you have a full blast gauge, you can use a Blast Caliber by pressing or hol
 
 If your character is being continuously staggered by the enemy (more than one hit/arte) and you have 1 complete blast gauge, press L1 (just before or during a hit) to perform a Damage Break. Damage Break takes 500 Blast Points (half a gauge), gives you invincibility for 60 frames, and, on the DC version, restores your HP by 10%. This is similar to the effect that enemies have when they reach 100% blast (minus the healing). Most enemies can only do a damage break when on the ground, while the player and some specific enemies can also do it in the air.
 
-*:{'media' : 'media/todps2/damageBreak.mp4'}*
+[[Media:media/todps2/damageBreak.mp4]]
 
 #### Control Modes
 
@@ -194,15 +194,15 @@ On auto, the default control mode for your party members, the character will act
 
 #### Stagger
 
-The player and enemies may be in various states during battle. The most common of these is the staggered state. If an attack hits, the enemy is staggered and is allowed to be combo'ed. An attack can also launch its target into the air, which will cause a slight bounce when they touch the ground. Other than the vertical launch, aerial combos and launch attacks do not have any special effects on stagger time. During a combo chain (a chain where you've previously hit the enemy), attacks cause an initial burst ( *chain stagger extension*) of stagger on startup to allow further attacks to connect better. This is around 12 frames for normal attacks and around 14 frames for artes (though some artes can have 20+ frames of chain stagger). Combo'ed enemies can only drop out of combos by running out of stagger, using a *:{'redirect' : '#blast-use'} damage break*, or by boss-specific mechanics. Combos also increase experience points. After 100 hits, the launch power of attacks becomes slightly random to make infinite combos harder.
+The player and enemies may be in various states during battle. The most common of these is the staggered state. If an attack hits, the enemy is staggered and is allowed to be combo'ed. An attack can also launch its target into the air, which will cause a slight bounce when they touch the ground. Other than the vertical launch, aerial combos and launch attacks do not have any special effects on stagger time. During a combo chain (a chain where you've previously hit the enemy), attacks cause an initial burst ( *chain stagger extension*) of stagger on startup to allow further attacks to connect better. This is around 12 frames for normal attacks and around 14 frames for artes (though some artes can have 20+ frames of chain stagger). Combo'ed enemies can only drop out of combos by running out of stagger, using a [[blast use|damage break]], or by boss-specific mechanics. Combos also increase experience points. After 100 hits, the launch power of attacks becomes slightly random to make infinite combos harder.
 
-Some attacks can also also cause a knockdown. This is a state where the character is knocked into the ground and does not receive any additional stagger other than from a chain stagger extension. They will also iron stance through attacks if hit when at 10 stagger or below. A knockdown can also be caused by hitting an enemy from high enough from the ground and letting them fall. The knockdown effect, if applied on the air, can be overwritten by another status (such as a normal stagger) if it is applied before the enemy touches the ground. Some specific attacks can also cause a hard knockdown. This is the same as the normal knockdown but will not cause a bounce if done from the air. When on the ground, enemies can only take so much stagger before instantly going into a knockdown state. This happens when a chain stagger extension or *:{'redirect' : '#stagger-storage'} similar mechanic* makes the stagger value reach 50 frames.
+Some attacks can also also cause a knockdown. This is a state where the character is knocked into the ground and does not receive any additional stagger other than from a chain stagger extension. They will also iron stance through attacks if hit when at 10 stagger or below. A knockdown can also be caused by hitting an enemy from high enough from the ground and letting them fall. The knockdown effect, if applied on the air, can be overwritten by another status (such as a normal stagger) if it is applied before the enemy touches the ground. Some specific attacks can also cause a hard knockdown. This is the same as the normal knockdown but will not cause a bounce if done from the air. When on the ground, enemies can only take so much stagger before instantly going into a knockdown state. This happens when a chain stagger extension or [[stagger storage|similar mechanic]] makes the stagger value reach 50 frames.
 
 To continue combo'ing from a knockdown, some attacks have the off-the-ground (OTG, also called restand) property. This will cause the enemy to get back up from the knockdown state. Another unique property is the freeze effect, which will make enemies not be able to be pushed around (both in ground and air) and they will stay still during the stagger time of the attack that caused it. A freeze attack that stuns will be extended. The momentum of that attack will also be applied once the effect ends.
 
 Some enemies cannot get knocked down. While this doesn't affect stagger time directly, they still gain the knockdown effects (and thus won't gain stagger from connecting attacks) if they would be knockdown due to high stagger (>50 frames). This can make enemies feel like they're resisting stagger when in fact they're being treated as knockdown'ed. While there are no visual cues to this effect, doing an OTG attack will also clear the knockdown effect as it would do normally.
 
-*:{'media' : 'media/todps2/staggerKnock.mp4', 'caption' : 'Example of an enemy that normally cannot get knocked-down, but does due to high stagger.'}*
+[[Media:media/todps2/staggerKnock.mp4|Example of an enemy that normally cannot get knocked-down, but does due to high stagger.]]
 
 #### Status Ailments and Stun
 
@@ -231,17 +231,17 @@ This section contains a discussion on useful battle techniques that can be used 
 
 ### General Techniques
 
-#### :{'media' : 'media/todps2/healR.mp4'} Arte Redirection
+#### [[Media:media/todps2/healR.mp4]] Arte Redirection
 
 When canceling a healing spell with a guard, you will still have your target at party members. This allows you to use artes without facing the enemy. Arte redirection only applies for the first arte in a chain and gets canceled when you cast another spell or perform a Blast Caliber.
 
-#### :{'media' : 'media/todps2/castRedct.mp4'} Semi-auto Casting Reduction
+#### [[Media:media/todps2/castRedct.mp4]] Semi-auto Casting Reduction
 
-Cancelling spells in semi-auto still maintains your chain reduction. By canceling low-CC spells, you can max out your casting reduction in a shorter span of time than casting them fully. For 8 CC (canceling 4 2CC artes) you can get an almost instant 80% reduction on your next cast. You still need to fully cast the spell you buffered in semi-auto to perform a different spell. With *:{'redirect' : '#sb-storage'} SB Storage* you can also perform this technique mid-combo or make use of the reduction without casting the buffered spell.
+Cancelling spells in semi-auto still maintains your chain reduction. By canceling low-CC spells, you can max out your casting reduction in a shorter span of time than casting them fully. For 8 CC (canceling 4 2CC artes) you can get an almost instant 80% reduction on your next cast. You still need to fully cast the spell you buffered in semi-auto to perform a different spell. With [[SB Storage]] you can also perform this technique mid-combo or make use of the reduction without casting the buffered spell.
 
 #### Weakness Carryover
 
-Weakness combos are based on the *:{'redirect' : '#battle'} _chain_* system. This means that, if you start a weakness combo, that weakness will persist only until you end your current chain. For example, ending your chain after a weakness combo and then doing a resisted hit (while the combo counter is still up) will change that combo to a resisted one.
+Weakness combos are based on the [[battle|_chain_]] system. This means that, if you start a weakness combo, that weakness will persist only until you end your current chain. For example, ending your chain after a weakness combo and then doing a resisted hit (while the combo counter is still up) will change that combo to a resisted one.
 
 To bypass this system, you can use the lingering hitboxes of artes and spells to carry over the weakness effect to a new chain. As such, performing a spell the enemy is weak against, ending your chain, and then continuing the combo as that spell hits the enemy will maintain the weakness combo even if you do not hit any weakness element with your current chain.
 
@@ -255,21 +255,21 @@ The first normal attack of any _chain_ has different properties than other ones.
 
 You can use the property of the first normal attack to quickly cross the battlefield by performing a **glide**. To do this, use your first normal attack after an aiming dash that goes into the air.
 
-*:{'media' : 'media/todps2/gliding.mp4'}*
+[[Media:media/todps2/gliding.mp4]]
 
 The velocity of your glide depends on the distance and angle your character has with the enemy. Additionally, you can perform a glide even if you've already used your first normal attack if the enemy is positioned above you. You can preserve your current momentum by extending your glide with jumps. Aditionally, you may still use normal attacks to reset your jumps if you're going towards the enemy. Doing normal attacks when going away from the enemy, or doing normal attacks with an angle towards the enemy will stop your glide instead.
 
 Chelsea air normals have different properties due to being a bow shot. This makes her unable to do glides.
 
-#### :{'media' : 'media/todps2/airWalking.mp4'} Air Walking
+#### [[Media:media/todps2/airWalking.mp4]] Air Walking
 
 The edges of the battle arena cancel any momentum when touched. For the left and right bounds, this enables you to instantly change direction after touching the wall, without needing to do another jump. The ceiling of the battle arena also has an interesting effect. When in the air, reaching the ceiling will reset your vertical momentum but also reset your jump limit. This enables you to stay mid-air by continuously jumping. By releasing the guard button (if you have it pressed), you can change your direction in midair by slightly tilting the left stick when jumping.
 
-#### :{'media' : 'media/todps2/slowFall.mp4', 'forcedmedia' : false} Slow Falling
+#### [[!Media:media/todps2/slowFall.mp4]] Slow Falling
 
 Floaty normal attacks (as in, the second+ normal attack in a chain), can also be utilized to perform unique actions. By doing a normal attack just as the momentum is changing from upwards to downwards, you will able to stall mid-air. Depending on your timing, your character will fall slowly instead. Some artes can also present similar effects.
 
-#### :{'media' : 'media/todps2/hitboxes.mp4'} Moving Hit-Boxes
+#### [[Media:media/todps2/hitboxes.mp4]] Moving Hit-Boxes
 
 Performing an aiming-dash or backstep a few frames after an attack can move its hitbox. This behavior heavily depends on the attack used.
 
@@ -287,13 +287,13 @@ Casting a spell just as an enemy hits you negates the damage you would take. Thi
 
 Similarly, the spell release animation also has invulnerability frames. It is longer than the spell cast invulnerability and can be more easily used by holding the spell down and releasing it before a hit.
 
-*:{'media' : 'media/todps2/spellBlock.mp4'}*
+[[Media:media/todps2/spellBlock.mp4]]
 
-#### :{'media' : 'media/todps2/push.mp4'} Push
+#### [[Media:media/todps2/push.mp4]] Push
 
 When an enemy attack requires melee distance to perform, you can aiming dash just as the attack is about to come out (just when the enemy finishes walking or running, but before the attack comes out) to push the enemy away. The distance pushed depends on the distance you had between the enemy before doing the aiming dash.
 
-#### :{'media' : 'media/todps2/baitReset.mp4'} Bait Reset
+#### [[Media:media/todps2/baitReset.mp4]] Bait Reset
 
 If you stagger an enemy on the same frame they would start an attack, they will store that action and perform it as soon as they're out of stagger. You can more easily do this by properly spacing yourself as the enemy walks or runs towards you. Most of the time, at this point the enemy's aggression timer is at 0, meaning they will start an action as soon as they get close enough.
 
@@ -316,7 +316,7 @@ Having a faster landing recovery can also be useful to reset the properties of y
 
 Another recovery that can be beneficial to cancel is the release of spells. These usually take 72 frames to start recovering CC, but can be canceled earlier. By chaining the spell with another and then instantly canceling it, you can reduce the recovery to 42 frames (+5 CC). You can also use an aiming dash or backstep if you have only 1 CC left since those still recover faster than waiting for the spell release animation.
 
-#### :{'versions' : 'Vanilla'} CC Recovery Glitch
+#### {{Vanilla}} CC Recovery Glitch
 
 Another way to increase your maximum CC is to manipulate the end of a chain. Just as a chain is ending, mash the block button. This will cause your CC to rise much more than it was supposed to, possibly even to the max. Only works in Manual Mode. *:{'reference' : true} 2*
 
@@ -324,11 +324,11 @@ Another way to increase your maximum CC is to manipulate the end of a chain. Jus
 
 Pressing the artes and the normal attack button on the same frame can cause some interesting effects. Since the game thinks you're doing a normal attack (which registers before your arte), every arte you do will not have the accuracy penalty that is applied for repeated artes. This is called an Attack Cancel (AC). Due to how it works, ACs can be used for various effects, which will be shown in the next subsections.
 
-#### :{'media' : 'media/todps2/followUp.mp4'} Follow-up Negation
+#### [[Media:media/todps2/followUp.mp4]] Follow-up Negation
 
 An AC can be used to ignore follow-up artes or other mechanics that require 2 moves to be used in succession. For example, Leon can use Demon Fang twice in a row if the second one is AC'ed.
 
-#### :{'media' : 'media/todps2/magicDash.mp4', 'forcedmedia' : false} Magic Landing Dash
+#### [[!Media:media/todps2/magicDash.mp4]] Magic Landing Dash
 
 When landing, if you do an Attack Cancelled Spell, you will get a small momentum forward (like most normal attacks have). Works mid-chain.
 
@@ -338,7 +338,7 @@ When casting an AC'ed Spell, there will be no restriction on casting time when d
 
 ### Stagger Manipulation
 
-#### :{'media' : 'media/todps2/staggerStorage.mp4'} Stagger Storage
+#### [[Media:media/todps2/staggerStorage.mp4]] Stagger Storage
 
 By doing any offensive arte and **dropping** the chain (as in, not continuing the combo) you get an additional 20 frames of stagger stored on your next aiming dash. Doing an aiming dash/backstep/charge/landing (from a jump) before using the stored stagger negates the effect. Jumps and other artes can be done safely without consuming the stored effect.
 
@@ -358,7 +358,7 @@ The three key points to that behavior are the **buffered action**, the **forced 
 
 This is called a Spatial-buffer cancel (SB Cancel). The cancel can even mess up your momentum and your character's state (such as color).
 
-*:{'media' : 'media/todps2/sbCancel.mp4'}*
+[[Media:media/todps2/sbCancel.mp4]]
 
 There are other important points to SB Canceling:
 
@@ -368,25 +368,25 @@ There are other important points to SB Canceling:
 - You can also buffer an action without a _forced neutral animation_, however, this must be done frame perfectly (pausing or using the targeting menu can help).
 - If your _forced action_ is AC'ed or if the _buffered action_ is an AC'ed arte, the _buffered action_ will be the same as a normal attack.
 
-#### :{'media' : 'media/todps2/sbShortHop.mp4'} Short-hop actions
+#### [[Media:media/todps2/sbShortHop.mp4]] Short-hop actions
 
 If you backstep while you have a _buffered action_, you can activate it while being extremely close to the ground. This can easily be done by making your _forced action_ a backstep. The only confirmed example for this is doing short-hop normals, since they do not require spatial properties.
 
 You may also use the backstep after your _forced action_, if your _buffered action_ was not consumed.
 
-#### :{'media' : 'media/todps2/spellSb.mp4'} Spell SB Cancel
+#### [[Media:media/todps2/spellSb.mp4]] Spell SB Cancel
 
 SB canceling spells (i. e. using shortcut spells with another action buffered) can be a good option select since it can make an arte come out before the spell has finished casting, making so that you don't get punished in situations you normally would be. It can also be used to completely negate the spell release frames, regaining control faster. Additionally, if casting a spell on semi-auto, changing your control mode to manual will still have that spell buffered, which can help with SB Storage.
 
 Finally, if the spell ends in the air and if the _buffered action_ is air-enabled, the moment your character leaves the ground the animation will be canceled and the air action will come out.
 
-*:{'media' : 'media/todps2/demonLanceCancel.mp4'} For example, Leon can use Dragon Swarm just after the jump from Demon Lance, making the lance follow Leon while Dragon Swarm is in effect.*
+[[Media:media/todps2/demonLanceCancel.mp4]]
 
 #### SB storage
 
 By changing to Manual during the _forced neutral animation_ (or during casting for spells and 1 frame after pressing the artes button for screen-wide artes), the _buffered action_ will be saved in memory but will not be consumed. Once you return to semi-auto (even mid-chain), the _buffered action_ will still be available to use. Since you can have much more accurate movements in manual mode, it is possible to set up a specific position and then change to semi-auto, automatically canceling your action due to the spatial properties of the technique.
 
-*:{'media' : 'media/todps2/sbBuffer.mp4'}*
+[[Media:media/todps2/sbBuffer.mp4]]
 
 The same rules apply once you return to semi-auto mode (normals, air actions...). This can be used to properly cancel attacks with air-enabled spells.
 
@@ -400,7 +400,7 @@ Spells in this game work in a certain way. First, when starting to cast a spell,
 
 This takes into consideration the following aspects: the characteristics of the effect/spell currently on screen, if the spell was already loaded in memory (requires you to start the casting animation at any point during the battle -- it is not required that you complete the cast), and if that effect was generated normally or due to another transition glitch. If done correctly, you can create a spell that is not correctly handled by the game, allowing further glitchy effects. There are two known ways to create a "stale" effect to perform the transition glith: using the Fearful Flare spell and the Surviving Hollin Blast Caliber.
 
-#### :{'media' : 'media/todps2/transitionFearful.mp4'} Fearful Flare
+#### [[Media:media/todps2/transitionFearful.mp4]] Fearful Flare
 
 The last fireball from the Fearful Flare spell has a stale animation that can be abused by a transition glitch. First, load the spell you want to perform in the place of the last fireball in memory by casting it (can be canceled by guarding, just starting the chant works). This spell will be loaded in memory until the end of the battle. Then, cast Fearful Flare and start casting your loaded spell just as the last fireball (fifth hit) of Fearful Flare is on screen. You do not need to finish casting the spell for the glitch to work. Based on the spell loaded (some may result in no effects or just graphical artifacts), a glitchy animation will play out. If the spell does damage, that damage will also use the same multiplier as Fearful Flare.
 
@@ -410,7 +410,7 @@ While only Stahn and Phillia have access to Fearful Flare, other characters can 
 
 The last laser of Surviving Hollin also has a stale animation. The principle behind it works the same way as the Fearful Flare variation. Load a spell, do Surviving Hollin, then cast the loaded spell just as the final laser is on-screen. This results in different effects from the fireball from Fearful Flare.
 
-*:{'media' : 'media/todps2/transition.mp4'}*
+[[Media:media/todps2/transition.mp4]]
 
 In the video, the final laser is canceled by Dark Hole. This creates a persistent graphical artifact that can be used to perform other transitions easily. At this point, every animation not tied to a character can be manipulated by a Transition Glitch, enabling further effects not tied to Fearful Flare or Survivin Hollin. An animation is then canceled to Holy Lance which is quickly canceled into Explode, glitching the background and creating multiple instances of it. This is then canceled to Piko Piko Hammer, Stone Wall, and Indignation.
 
@@ -422,7 +422,7 @@ This section contains a discussion on useful glitches and exploits that can be u
 
 ### Out-of-Bounds and Sequence Breaks
 
-#### :{'media' : 'media/todps2/caveQueen.mp4'} Skip Cave Queen
+#### [[Media:media/todps2/caveQueen.mp4]] Skip Cave Queen
 
 By walking on the side of a ledge on the screen where the Cave Queen boss battle starts, you can skip it and get to Moreau earlier than intended. You can buy some items there and talk to NPCs, but you still need to beat Cave Queen to continue the story. You can also get a dagger for Leon early. *:{'reference' : true} 3*
 
@@ -430,7 +430,7 @@ By walking on the side of a ledge on the screen where the Cave Queen boss battle
 
 You can trigger encounters from the Phandaria region, which has enemies around level 34 normally encountered at the end of Arc 1, by going to the place in the following picture:
 
-*:{'media' : 'media/todps2/Snow.png'}*
+[[Media:media/todps2/Snow.png]]
 
 You can use this spot to farm levels or lenses, especially while on NG+. Ideally, you'd fight a group that contains a bear and perform 2 (or possibly 3) sets of Universal BCs against it for tons of experience, enough to get you to level 50+.
 
@@ -440,7 +440,7 @@ Available since the beginning in Leon's Side and once Leon joins the party in St
 
 #### Infinite Gald and EX points
 
-*:{'media' : 'media/todps2/gald.mp4'}*
+[[Media:media/todps2/gald.mp4]]
 
 Go into a shop and buy something (x1). After that, add one of one item (D-Pad right) then click buy on another item (circle). Doing a cancel (X) will then cause an underflow, after this, you can do R-STICK left to "buy" the minimum possible, thus, gaining infinite gald or ex points. Using this when selling will cause you to lose all your money (and the items) instead. *:{'reference' : true} 4*
 
@@ -472,11 +472,11 @@ Holding X and Square will automatically skip text. It  Also possible to be perf
 
 ### Minor Combat Glitches
 
-#### :{'versions' : 'Vanilla'} Elemental Damage Glitch
+#### {{Vanilla}} Elemental Damage Glitch
 
 In the vanilla version, elemental physical attacks (artes with the flaming sword symbol) will check against the enemy's defense and **your character's magic defense**.
 
-#### :{'media' : 'media/todps2/microDash.mp4', 'forcedmedia' : false} Micro-Dash
+#### [[!Media:media/todps2/microDash.mp4]] Micro-Dash
 
 If you start moving left or right but use an arte at the same time, you will get a small momentum forward. Moving back produces the most distance, but it is still very small. Also works with spells. The same happens when landing from the air (depending on your momentum).
 

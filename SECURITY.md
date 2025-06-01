@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-This website was tested on the latest versions of Firefox and Google Chrome (Chromium). For Chrome, certain features may only work on versions 130 or above. Testing for Safari is still underway. 
+This website was tested on the latest versions of Firefox and Google Chrome (Chromium). For Chrome, certain features may only work on versions 130 or above. Testing for Safari is still underway.
 
 | Version | Browser            |
 | ------- | ------------------ |

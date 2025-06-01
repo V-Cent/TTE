@@ -1,26 +1,33 @@
-import globals from "globals";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
+// @ts-check
 
-export default [
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
+
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  eslintConfigPrettier,
   {
-    files: ["**/*.js", "**/*.ts"],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
+        projectService: true,
       },
-      globals: globals.browser,
-    },
-    plugins: {
-      "@typescript-eslint": tseslint,
     },
     rules: {
-      ...tseslint.configs.recommended.rules,
-      "no-constant-condition": ["error", { "checkLoops": "allExceptWhileTrue" }]
+      "no-constant-condition": ["error", { "checkLoops": "allExceptWhileTrue" }],
+      "@typescript-eslint/typedef": ["warn",
+        { /** C++ is still better. */
+          arrayDestructuring: true,
+          arrowParameter: true,
+          memberVariableDeclaration: true,
+          objectDestructuring: true,
+          parameter: true,
+          propertyDeclaration: true,
+          variableDeclaration: true,
+          variableDeclarationIgnoreFunction: true,
+        }],
+      "@typescript-eslint/no-require-imports": "off",
     },
   },
-  eslintConfigPrettier,
-];
+);
