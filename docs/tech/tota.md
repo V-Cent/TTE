@@ -1,11 +1,11 @@
 # Tales of the Abyss
 
+*:{'sections' : true}*
+
 [TODO]
+
+Use the dropdown menu on the top of the page to choose the article you wish to view.
 
 ## Mechanics
 
-TEST
-
-## NEW
-
-New compiled H2 section.
+[TODO]

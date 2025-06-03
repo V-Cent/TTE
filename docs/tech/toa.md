@@ -1,8 +1,12 @@
 # Tales of Arise
 
-[Tales of Arise](https://aselia.fandom.com/wiki/Tales_of_Arise) (テイルズ オブ アライズ Teiruzu obu Araizu) was released internationally on September 9, 2021 for the PS4, PS5, XBox One, Xbox Series X/S and PC.
+*:{'sections' : true}*
 
-## Base Mechanics
+Tales of Arise (テイルズ オブ アライズ Teiruzu obu Araizu) was released internationally on September 9, 2021 for the PS4, PS5, XBox One, Xbox Series X/S and PC.
+
+Use the dropdown menu on the top of the page to choose the article you wish to view.
+
+## Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
 

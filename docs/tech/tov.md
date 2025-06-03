@@ -1,13 +1,17 @@
 # Tales of Vesperia
 
-[Tales of Vesperia](https://aselia.fandom.com/wiki/Tales_of_Vesperia) (テイルズ オブ ヴェスペリア Teiruzu obu Vesuperia) was originally released in Japan on August 7, 2008 for the Xbox 360 (later releasing on North America and Europe). It was also released on Japan for the PS3 in September 17, 2009. Recently, an international version was released called Tales of Vesperia: Definitive Edition, which is based on the previous Japan-only PS3 version.
+*:{'sections' : true}*
+
+Tales of Vesperia (テイルズ オブ ヴェスペリア Teiruzu obu Vesuperia) was originally released in Japan on August 7, 2008 for the Xbox 360 (later releasing on North America and Europe). It was also released on Japan for the PS3 in September 17, 2009. Recently, an international version was released called Tales of Vesperia: Definitive Edition, which is based on the previous Japan-only PS3 version.
 
 Versions:
 
 - Original Xbox (_Vanilla_), released August 7, 2008 in Japan; August 26, 2008 in NA; June 26, 2009 in Europe.
 - Port (_PS3_), released September 17, 2009 in Japan. Remastered January 11, 2019 as the Definitive Edition.
 
-## Base Mechanics
+Use the dropdown menu on the top of the page to choose the article you wish to view.
+
+## Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
 

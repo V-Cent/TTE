@@ -1,6 +1,6 @@
-# Tales of Graces
+# Tales of Arise
 
-*:{'sections' : true}*
+*:{'sections' : true, 'article' : 'b'}*
 
 [TODO]
 

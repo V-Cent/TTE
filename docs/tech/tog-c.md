@@ -1,6 +1,6 @@
 # Tales of Graces
 
-*:{'sections' : true}*
+*:{'sections' : true, 'article' : 'c'}*
 
 [TODO]
 

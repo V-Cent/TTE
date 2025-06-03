@@ -1,8 +1,12 @@
 # Tales of Xillia 2
 
-[Tales of Xillia 2](https://aselia.fandom.com/wiki/Tales_of_Xillia_2) (テイルズ オブ エクシリア ２ Teiruzu obu Ekushiria Tsu) was released in Japan on November 1, 2012 for the PS3 (later releasing on North America and Europe).
+*:{'sections' : true}*
 
-## Base Mechanics
+Tales of Xillia 2 (テイルズ オブ エクシリア ２ Teiruzu obu Ekushiria Tsu) was released in Japan on November 1, 2012 for the PS3 (later releasing on North America and Europe).
+
+Use the dropdown menu on the top of the page to choose the article you wish to view.
+
+## Mechanics
 
 Here will be displayed a simple description of the base mechanics of the game. Most of these are already explained during gameplay, but may have some effects that were only found out during experimentation.
 

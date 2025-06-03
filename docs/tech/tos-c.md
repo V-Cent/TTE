@@ -1,6 +1,6 @@
-# Tales of Graces
+# Tales of Symphonia
 
-*:{'sections' : true}*
+*:{'sections' : true, 'article' : 'c'}*
 
 [TODO]
 

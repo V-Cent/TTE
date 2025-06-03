@@ -1,6 +1,6 @@
-# Tales of Graces
+# Tales of Xillia 2
 
-*:{'sections' : true}*
+*:{'sections' : true, 'article' : 'c'}*
 
 [TODO]
 

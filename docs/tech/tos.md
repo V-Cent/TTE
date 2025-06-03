@@ -1,4 +1,4 @@
-# Tales of Graces
+# Tales of Symphonia
 
 *:{'sections' : true}*
 
