@@ -147,7 +147,7 @@ For cross-page links, use curly braces with the document acronym before the head
 
 Due to the way redirections are styled, they can be used with no issues in the middle of a paragraph.
 
-**Example**: The syntax \[\[{TODPS2}Stagger Techniques|TODPS2 Redirect\]\] will redirect you to the Stagger Techniques entry in the TODPS2 article. It renders down to this: [[{TODPS2}Stagger Techniques|TODPS2 Redirect]]. A paragraph can continue as normal after it.
+**Example**: The syntax \[\[{TODPS2}Stagger Manipulation|TODPS2 Redirect\]\] will redirect you to the Stagger Manipulation entry in the TODPS2 article. It renders down to this: [[{TODPS2}Stagger Manipulation|TODPS2 Redirect]]. A paragraph can continue as normal after it.
 
 ## Default Format for a Tech Page
 

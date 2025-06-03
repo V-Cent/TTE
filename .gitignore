@@ -1,3 +1,21 @@
+### BUILD files ###
+/cache/
+
+# compiled scripts (tsdown → .mjs, plus any maps)
+/docs/scripts/**/*.mjs
+/docs/scripts/**/*.map
+
+# compiled CSS + optional maps
+/docs/styles/**/*.css
+/docs/styles/**/*.map
+
+# fonts
+/docs/styles/fonts/*
+
+# minified HTML pages
+/docs/*.html
+/docs/tech/*.html
+
 ### Eclipse files ###
 .metadata
 bin/
