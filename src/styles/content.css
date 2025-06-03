@@ -1252,6 +1252,55 @@ blockquote p {
   background: transparent !important;
 }
 
+.edit-content__response {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.edit-content__response:not(:empty) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.edit-content__response.success {
+  background: rgba(88, 241, 91, 0.1);
+  border: 1px solid rgba(88, 241, 91, 0.3);
+  color: var(--green);
+}
+
+.edit-content__response.error {
+  background: rgba(231, 74, 65, 0.1);
+  border: 1px solid rgba(231, 74, 65, 0.3);
+  color: var(--red);
+}
+
+.edit-content__response a {
+  color: var(--green);
+  text-decoration: underline;
+  font-weight: 400;
+}
+
+.edit-content__response a:hover {
+  color: var(--white-text);
+  background: rgba(88, 241, 91, 0.2);
+  text-decoration: none;
+}
+
+.edit-content__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media screen and (orientation: portrait), screen and (min-width: 0px) and (max-width: 1024px) {
   h1 {
     max-width: calc(100% - 160px);

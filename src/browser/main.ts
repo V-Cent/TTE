@@ -95,6 +95,8 @@ const appState: {
   pageContent: "",
 };
 
+let editSubmissionLock: boolean = false;
+
 // --- ENTRY POINT
 
 if (document.readyState === "loading") {
@@ -867,41 +869,210 @@ function getMarkdownFilePath(pageRequest: PageRequest): string {
   }
 }
 
-// --- Handle edit form submission (placeholder for now)
+// --- Handle edit form submission
 async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
-  // console log the editable field
+  // Early return if submission is already locked
+  if (editSubmissionLock) {
+    return;
+  }
+
+  // Lock the submission to prevent multiple concurrent requests
+  editSubmissionLock = true;
+
+  const submitButtonElement: HTMLButtonElement | null = document.querySelector<HTMLButtonElement>(
+    ".edit-content__button--submit",
+  );
   const textareaElement: HTMLTextAreaElement | null =
     document.querySelector<HTMLTextAreaElement>("#edit-content__textarea");
-  if (textareaElement) {
-    const textContent: string = (await cachedCompilerInstance.getEditorContent()) || "";
-    const usernameElement: HTMLInputElement | null =
-      document.querySelector<HTMLInputElement>("#edit-content__username");
-    const passwordElement: HTMLInputElement | null =
-      document.querySelector<HTMLInputElement>("#edit-content__password");
-    const username: string = usernameElement?.value.trim() || "";
-    const password: string = passwordElement?.value.trim() || "";
-    const pageName: string = pageRequest.document.toLowerCase();
-    // hash password with web-crypto api
-    const hashedPasswordHex: string = await sha256(password);
-    try {
-      const response: Response = await fetch("https://tteworker.vcentok.workers.dev/pr", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: hashedPasswordHex,
-          document: pageName,
-          content: textContent,
-        }),
+  const usernameElement: HTMLInputElement | null =
+    document.querySelector<HTMLInputElement>("#edit-content__username");
+  const passwordElement: HTMLInputElement | null =
+    document.querySelector<HTMLInputElement>("#edit-content__password");
+
+  // Update button state to show loading
+  if (submitButtonElement) {
+    Object.assign(submitButtonElement, {
+      disabled: true,
+      innerHTML: `
+        <span class="material-symbols-rounded">hourglass_empty</span>
+        SUBMITTING...
+      `,
+    });
+  }
+  clearResponseMessage();
+
+  if (!textareaElement) {
+    // Unlock if textarea not found
+    editSubmissionLock = false;
+    if (submitButtonElement) {
+      Object.assign(submitButtonElement, {
+        disabled: false,
+        innerHTML: `
+          <span class="material-symbols-rounded">webhook</span>
+          REQUEST CHANGES
+        `,
       });
-      // Type of result is {message:string, url? : string, prNumber: number}
-      const result: { message: string; url?: string; prNumber?: number } = await response.json();
-      console.log("API Response:", result);
-    } catch (error) {
-      console.error("Error sending POST request:", error);
     }
+    return;
+  }
+
+  try {
+    const rawUsername: string = usernameElement?.value.trim() ?? "";
+    const password: string = passwordElement?.value.trim() ?? "";
+
+    if (rawUsername.startsWith("+")) {
+      const cleanUsername: string = rawUsername.substring(1);
+      const hashedPasswordHex: string = await sha256(password);
+      await handleUserCreation(cleanUsername, hashedPasswordHex);
+      return;
+    }
+
+    // Pull Request
+    const textContent: string = (await cachedCompilerInstance.getEditorContent()) || "";
+    const username: string = rawUsername;
+    const pageName: string = pageRequest.document.toLowerCase();
+
+    // Hash password with web-crypto API
+    const hashedPasswordHex: string = await sha256(password);
+
+    const response: Response = await fetch("https://tteworker.vcentok.workers.dev/pr", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password: hashedPasswordHex,
+        document: pageName,
+        content: textContent,
+      }),
+    });
+
+    const result: { message: string; url?: string; prNumber?: number } = await response.json();
+
+    // Display response message to user
+    showResponseMessage(result);
+  } catch (error: unknown) {
+    console.error("Error sending POST request:", error);
+    showResponseMessage({ message: "Server error!" });
+  } finally {
+    // Always unlock submission and restore button state
+    editSubmissionLock = false;
+    if (submitButtonElement) {
+      Object.assign(submitButtonElement, {
+        disabled: false,
+        innerHTML: `
+          <span class="material-symbols-rounded">webhook</span>
+          REQUEST CHANGES
+        `,
+      });
+    }
+  }
+}
+
+// --- Handles user creation
+async function handleUserCreation(username: string, hashedPassword: string): Promise<void> {
+  const response: Response = await fetch("https://tteworker.vcentok.workers.dev/createuser", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      password: hashedPassword,
+    }),
+  });
+  const result: { message: string } = await response.json();
+
+  // Show response message
+  showResponseMessage(result);
+}
+
+// --- Displays response message to user based on API result
+function showResponseMessage(result: { message: string; url?: string; prNumber?: number }): void {
+  // Find existing response container or create new one
+  let responseContainerElement: HTMLElement | null =
+    document.querySelector(".edit-content__response");
+
+  if (!responseContainerElement) {
+    responseContainerElement = document.createElement("div");
+    responseContainerElement.className = "edit-content__response";
+
+    // Insert after the actions section
+    const actionsSectionElement: HTMLElement | null =
+      document.querySelector(".edit-content__actions");
+    actionsSectionElement?.parentNode?.insertBefore(
+      responseContainerElement,
+      actionsSectionElement.nextSibling,
+    );
+  }
+
+  // Clear previous content
+  responseContainerElement.innerHTML = "";
+
+  const { messageHtml, messageClass }: { messageHtml: string; messageClass: string } =
+    determineResponseContent(result);
+
+  responseContainerElement.className = `edit-content__response ${messageClass}`;
+  responseContainerElement.innerHTML = messageHtml;
+}
+
+// --- Determines the appropriate content and styling for response message
+function determineResponseContent(result: { message: string; url?: string; prNumber?: number }): {
+  messageHtml: string;
+  messageClass: string;
+} {
+  const { message, url, prNumber }: { message: string; url?: string; prNumber?: number } = result;
+
+  // Handle user creation responses
+  if (message === "Username already exists") {
+    return {
+      messageHtml: "Username already exists.",
+      messageClass: "error",
+    };
+  }
+
+  if (message === "User created successfully") {
+    return {
+      messageHtml: "User created successfully.",
+      messageClass: "success",
+    };
+  }
+
+  if (message === "Error creating user") {
+    return {
+      messageHtml: "Error creating user.",
+      messageClass: "error",
+    };
+  }
+
+  // Handle pull request responses
+  if (message === "Invalid username or password") {
+    return {
+      messageHtml: "Invalid username or password.",
+      messageClass: "error",
+    };
+  }
+
+  if (message === "Pull Request created successfully!" && prNumber && url) {
+    return {
+      messageHtml: `Contribution received! Follow it on <a href="${url}" target="_blank" rel="noopener noreferrer">PR${prNumber}</a>.`,
+      messageClass: "success",
+    };
+  }
+
+  return {
+    messageHtml: "Server error!",
+    messageClass: "error",
+  };
+}
+
+// Clear response messages
+function clearResponseMessage(): void {
+  const responseContainer: HTMLElement | null = document.querySelector(".edit-content__response");
+  if (responseContainer) {
+    responseContainer.innerHTML = "";
+    responseContainer.className = "edit-content__response";
   }
 }
 
@@ -919,6 +1090,7 @@ async function sha256(message: string): Promise<string> {
 
 async function editRefreshAction(): Promise<void> {
   const textContent: string = (await cachedCompilerInstance?.getEditorContent()) || "";
+  clearResponseMessage();
   const compiledContent: string =
     (await cachedCompilerInstance?.parseText(
       textContent,
