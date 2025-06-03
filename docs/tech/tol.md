@@ -8,7 +8,7 @@ This is currently a test page for the layout of tech documents.
 
 Tales of Legendia is a game. *:{'reference' : true} 1*
 
-Edited by live edit. {{!}}
+Edited by live edit. 2. {{!}} 
 
 ## Mechanics
 
