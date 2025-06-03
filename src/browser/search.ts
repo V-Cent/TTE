@@ -347,7 +347,10 @@ export class Search {
 
     try {
       // Dynamic import - only loads when needed
+      //  this is built by workflow. tsc should believe it is there.
       const { cachedSearchResultsHTML }: { cachedSearchResultsHTML: string } = await import(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore-start
         "../../cache/searchHTML.js"
       );
 
