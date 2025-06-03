@@ -6,6 +6,8 @@
 
 Use the dropdown menu on the top of the page to choose the article you wish to view.
 
+Changed with updated live-edit.
+
 ## Mechanics
 
 [TODO]
