@@ -14,7 +14,7 @@ Edited by live edit. {{!}}
 
 Table test:
 
-[[<Media:media/todps2/snow.png|Test Caption 2]]
+[[<Media:media/todps2/stats.png|Test Caption 2]]
 
 | Character |  Growth Rate |
 | :-------- | :----------: |
