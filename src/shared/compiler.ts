@@ -53,15 +53,31 @@ export class Compiler {
       type: "function",
       apply: "[[Media:<link>]]",
       info: "Embed image or video",
-      boost: 10,
+      boost: 11,
     },
     {
       label: "[[!Media:]]",
       displayLabel: "Media: Hidden",
       type: "function",
       apply: "[[!Media:<link>]]",
+      info: "Media to the left of text",
+      boost: 13,
+    },
+    {
+      label: "[[<Media:]]",
+      displayLabel: "Media: Float Left",
+      type: "function",
+      apply: "[[<Media:<link>]]",
       info: "Media behind clickable icon",
-      boost: 9,
+      boost: 12,
+    },
+    {
+      label: "[[>Media:]]",
+      displayLabel: "Media: Float Right",
+      type: "function",
+      apply: "[[>Media:<link>]]",
+      info: "Media to the right of text",
+      boost: 11,
     },
     {
       label: "[[Media:|]]",
@@ -69,7 +85,7 @@ export class Compiler {
       type: "function",
       apply: "[[Media:<link>|Caption here.]]",
       info: "Media with descriptive text",
-      boost: 8,
+      boost: 10,
     },
     {
       label: "[[!Media:|]]",
@@ -77,6 +93,22 @@ export class Compiler {
       type: "function",
       apply: "[[!Media:<link>|Caption here.]]",
       info: "Hidden media with caption",
+      boost: 9,
+    },
+    {
+      label: "[[<Media:|]]",
+      displayLabel: "Media: Float Left + Caption",
+      type: "function",
+      apply: "[[<Media:<link>|Caption here.]]",
+      info: "Float left with caption",
+      boost: 8,
+    },
+    {
+      label: "[[>Media:|]]",
+      displayLabel: "Media: Float Right + Caption",
+      type: "function",
+      apply: "[[>Media:<link>|Caption here.]]",
+      info: "Float right with caption",
       boost: 7,
     },
 
@@ -558,12 +590,24 @@ export class Compiler {
     const isImageFile: boolean = this.imageFileRegex.test(tagData.media);
     const mediaElementType: "img" | "video" = isImageFile ? "img" : "video";
 
-    if (tagData.forcedmedia === false) {
+    if (tagData.float || tagData.forcedmedia !== false) {
+      // Block media
+      const mediaContainer: HTMLElement = this.helperObj.createMediaElement(
+        documentContext,
+        mediaElementType,
+        tagData.media,
+        640,
+        480,
+        tagData.caption,
+        tagData.float,
+      );
+      targetElement.parentNode?.insertBefore(mediaContainer, targetElement.nextSibling);
+    } else {
+      // Hidden media
       const mediaIconElement: HTMLSpanElement = documentContext.createElement("span");
       mediaIconElement.className = "material-symbols-rounded";
       mediaIconElement.textContent = mediaElementType === "img" ? "imagesmode" : "play_circle";
 
-      // Add all info from directive to a dataset to be used later
       Object.assign(mediaIconElement.dataset, {
         tteMediaIcon: "",
         mediaSrc: tagData.media,
@@ -577,16 +621,6 @@ export class Compiler {
       });
 
       targetElement.appendChild(mediaIconElement);
-    } else {
-      const mediaContainer: HTMLElement = this.helperObj.createMediaElement(
-        documentContext,
-        mediaElementType,
-        tagData.media,
-        640,
-        480,
-        tagData.caption,
-      );
-      targetElement.parentNode?.insertBefore(mediaContainer, targetElement.nextSibling);
     }
   }
 

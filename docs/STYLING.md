@@ -6,7 +6,7 @@ Markdown is a lightweight markup language that was chosen to keep track of game-
 
 The format of Markdown used is a subset of GFM (GitHub Flavored Markdown). Thus, you can also have an idea of how the page looks by looking at the markdown file while in Github. Most of the original Markdown syntax also works on GFM and multiple guides are available online for both.
 
-Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format throughout the site. To help in understanding this document, open the raw version of this file (located in docs/STYLING.md) and follow along with the examples.
+Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format throughout the site. To practice the syntax or prototype your pages, you can use the edit functionality in TTE, which is located in the dropdown menu on the top right corner of an article.
 
 ## Text
 
@@ -133,6 +133,8 @@ If not hidden, a media element should be placed on its own line. This will creat
 **Example**: The following syntax: \[\[!Media:media/todps2/push.mp4|Example caption.\]\] is a hidden media.
 It will render the following icon: [[!Media:media/todps2/push.mp4|Example caption.]]
 
+A final option for non-hidden media is floating options. These make the media aligned to the left or right of the page, allowing text to flow around it. To do this, use the following syntax: \[\[\<Media:url\]\] for floating left, and \[\[\>Media:url\]\] for floating right. You can also add captions to these images by using the same caption syntax. When using floating media, make sure to test the page on different widths to ensure the text flows correctly around it. Floating media is automatically disabled on devices with a small width (such as mobile).
+
 > **Redirect**
 
 Allows you to create a link to a heading of a tech page or create numbered references.
@@ -148,6 +150,8 @@ For cross-page links, use curly braces with the document acronym before the head
 Due to the way redirections are styled, they can be used with no issues in the middle of a paragraph.
 
 **Example**: The syntax \[\[{TODPS2}Stagger Manipulation|TODPS2 Redirect\]\] will redirect you to the Stagger Manipulation entry in the TODPS2 article. It renders down to this: [[{TODPS2}Stagger Manipulation|TODPS2 Redirect]]. A paragraph can continue as normal after it.
+
+Redirects are automatically disabled when using edit mode (to prevent accidentally losing your changes).
 
 ## Default Format for a Tech Page
 

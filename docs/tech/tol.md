@@ -14,6 +14,8 @@ Edited by live edit. {{!}}
 
 Table test:
 
+[[<Media:media/todps2/snow.png|Test Caption 2]]
+
 | Character |  Growth Rate |
 | :-------- | :----------: |
 | Kongman   | 15.00        |

@@ -374,20 +374,27 @@ export class Parser {
                 }
 
                 const mediaMatch: RegExpMatchArray | null = contentStr.match(
-                  /^(!)?Media:([^|]*?)(?:\|(.*))?$/,
+                  /^(!)?([<>])?Media:([^|]*?)(?:\|(.*))?$/,
                 );
                 if (mediaMatch) {
-                  const isHidden: boolean = !!mediaMatch[1];
-                  const mediaLink: string = mediaMatch[2] || "";
-                  const mediaCaption: string | undefined = mediaMatch[3];
+                  const isHiddenByExclamation: boolean = !!mediaMatch[1];
+                  const floatMarker: string | undefined = mediaMatch[2];
+                  const mediaLink: string = mediaMatch[3] || "";
+                  const mediaCaption: string | undefined = mediaMatch[4];
                   const parts: string[] = [];
                   parts.push(`'media' : '${mediaLink}'`);
+
                   if (mediaCaption !== undefined) {
                     parts.push(`'caption' : '${String(mediaCaption)}'`);
                   }
-                  if (isHidden) {
+
+                  // Can either be floating or be hidden. Not both.
+                  if (floatMarker) {
+                    parts.push(`'float' : '${floatMarker === "<" ? "left" : "right"}'`);
+                  } else if (isHiddenByExclamation) {
                     parts.push(`'forcedmedia' : false`);
                   }
+
                   return `*:{ ${parts.join(", ")} }*`;
                 }
 

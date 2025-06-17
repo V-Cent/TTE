@@ -42,6 +42,7 @@ export interface TagData {
   document?: string;
   section?: string;
   reference?: boolean;
+  float?: "left" | "right";
 }
 
 export type PageType = "home" | "generic" | "tech";
@@ -478,13 +479,23 @@ export class Helper {
     mediaWidth: number,
     mediaHeight: number,
     mediaCaption?: string,
+    floatDirection?: "left" | "right",
   ): HTMLElement {
     // Keep in mind that very few elements can be inside a paragraph block without it auto closing itself!
     const mediaContainer: HTMLElement = documentContext.createElement("p");
-    Object.assign(mediaContainer.style, {
-      opacity: "1",
-      textAlign: "center",
-    });
+    if (floatDirection) {
+      mediaContainer.classList.add(
+        floatDirection === "left" ? "content__figure--float-left" : "content__figure--float-right",
+      );
+      Object.assign(mediaContainer.style, {
+        opacity: "1",
+      });
+    } else {
+      Object.assign(mediaContainer.style, {
+        opacity: "1",
+        textAlign: "center",
+      });
+    }
 
     let mediaElement: HTMLImageElement | HTMLVideoElement;
     if (mediaType === "img") {
@@ -511,20 +522,25 @@ export class Helper {
       mediaElement.appendChild(videoSource);
     }
 
-    Object.assign(mediaElement, {
-      draggable: false,
-      width: mediaWidth,
-      height: mediaHeight,
-    });
+    // Apply general draggable attribute
+    Object.assign(mediaElement, { draggable: false });
 
-    Object.assign(mediaElement.style, {
-      order: "2",
-      width: "80%",
-      height: "auto",
-      maxWidth: "640px",
-      outline: "none",
-      borderRadius: "14px",
-    });
+    if (floatDirection) {
+      // Hardcoded CSS for floating elements
+      Object.assign(mediaElement.style, {
+        width: "100%",
+        height: "auto",
+        outline: "none",
+        borderRadius: "8px",
+      });
+    } else {
+      // Apply width/height attributes and styles for non-floated (centered) media
+      Object.assign(mediaElement, {
+        width: mediaWidth,
+        height: mediaHeight,
+      });
+      mediaElement.classList.add("content__figure");
+    }
 
     mediaContainer.appendChild(mediaElement);
 

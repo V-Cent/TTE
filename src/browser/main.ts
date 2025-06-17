@@ -719,6 +719,19 @@ async function editPage(pageRequest: PageRequest): Promise<void> {
             </div>
           </div>
 
+          <div class="edit-content__advanced-options-wrapper">
+            <button type="button" class="edit-content__advanced-toggle">
+              ADVANCED OPTIONS
+              <span class="material-symbols-rounded chevron">expand_circle_down</span>
+            </button>
+          </div>
+          <div class="edit-content__advanced-content">
+            <div class="edit-content__field-group">
+              <label for="edit-content__pr-message" class="edit-content__label">PULL REQUEST MESSAGE (OPTIONAL)</label>
+              <textarea id="edit-content__pr-message" class="edit-content__input edit-content__pr-message-input" placeholder="Add a message for your pull request..."></textarea>
+            </div>
+          </div>
+
           <div class="edit-content__actions">
             <button type="button" class="edit-content__button edit-content__button--cancel">
               <span class="material-symbols-rounded">cancel</span>
@@ -853,6 +866,18 @@ function setupEditEventListeners(formElement: HTMLFormElement, pageRequest: Page
 
     moduleObjects.helper.setTooltip(fileButtonElement, tooltipText);
   }
+
+  // Advanced options toggle
+  const advancedToggleElement: HTMLButtonElement | null =
+    formElement.querySelector<HTMLButtonElement>(".edit-content__advanced-toggle");
+  const advancedContentElement: HTMLElement | null = formElement.querySelector<HTMLElement>(
+    ".edit-content__advanced-content",
+  );
+
+  advancedToggleElement?.addEventListener("click", (): void => {
+    advancedToggleElement.classList.toggle("open");
+    advancedContentElement?.classList.toggle("open");
+  });
 }
 
 // --- Get markdown file path based on page request
@@ -888,6 +913,9 @@ async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
     document.querySelector<HTMLInputElement>("#edit-content__username");
   const passwordElement: HTMLInputElement | null =
     document.querySelector<HTMLInputElement>("#edit-content__password");
+  const prMessageElement: HTMLTextAreaElement | null = document.querySelector<HTMLTextAreaElement>(
+    "#edit-content__pr-message",
+  );
 
   // Update button state to show loading
   if (submitButtonElement) {
@@ -931,6 +959,7 @@ async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
     const textContent: string = (await cachedCompilerInstance.getEditorContent()) || "";
     const username: string = rawUsername;
     const pageName: string = pageRequest.document.toLowerCase();
+    const prMessage: string = prMessageElement?.value.trim() ?? "";
 
     // Hash password with web-crypto API
     const hashedPasswordHex: string = await sha256(password);
@@ -945,6 +974,7 @@ async function handleEditSubmission(pageRequest: PageRequest): Promise<void> {
         password: hashedPasswordHex,
         document: pageName,
         content: textContent,
+        prMessage: prMessage,
       }),
     });
 

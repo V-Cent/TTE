@@ -173,7 +173,7 @@
 #content__tocicon--box {
   /*Minphonewidthis320px.*/
   display: grid;
-  max-height: 600px;
+  max-height: calc(100vh - 70px);
   width: 280px;
   cursor: default;
   position: absolute;
@@ -355,10 +355,48 @@ blockquote p {
 
 .content__figure {
   position: relative;
-  max-width: 90%;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  order: 2;
+  width: 80%;
+  height: auto;
+  max-width: 640px;
+  min-width: 480px;
+  outline: none;
+  border-radius: 14px;
+}
+
+.content__figure--float-left {
+  float: left;
+  width: 45%;
+  margin-right: 1.5em;
+  margin-bottom: 10px;
+}
+
+.content__figure--float-right {
+  float: right;
+  width: 45%;
+  margin-left: 1.5em;
+  margin-bottom: 10px;
+}
+
+.content__figure--float-left img,
+.content__figure--float-left video,
+.content__figure--float-right img,
+.content__figure--float-right video {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  border-radius: 8px;
+  display: block;
+}
+
+.content__figure--float-left .content__figure-caption,
+.content__figure--float-right .content__figure-caption {
+  display: block;
+  text-align: center;
+  margin-top: 5px;
 }
 
 #footer-container {
@@ -1161,6 +1199,104 @@ blockquote p {
 .edit-content__error .material-symbols-rounded {
   font-size: 1.5rem;
 }
+.edit-content__advanced-options-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit-content__advanced-toggle {
+  font-family: "Dosis", sans-serif;
+  background: transparent;
+  border: none;
+  color: var(--white-f1);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  padding: 6px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  outline: none;
+  border-radius: 12px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.edit-content__advanced-toggle:hover {
+  color: var(--white-text);
+  background-color: var(--gray-f2);
+}
+
+.edit-content__advanced-toggle .chevron {
+  font-size: 1.2rem;
+  color: var(--white-f1);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.edit-content__advanced-toggle:hover .chevron {
+  color: var(--white-text);
+}
+
+.edit-content__advanced-toggle.open .chevron {
+  transform: rotate(180deg);
+}
+
+.edit-content__advanced-content {
+  display: none;
+  padding: 0px 16px 16px 16px;
+  background: var(--gray-f1);
+  border: 1px solid var(--gray-ac);
+  border-radius: 6px;
+}
+
+.edit-content__advanced-content.open {
+  display: block;
+}
+
+.edit-content__pr-message-input {
+  min-height: 80px;
+  resize: vertical;
+  font-family: "Mulish", sans-serif;
+  padding: 10px 12px;
+  background: var(--gray-f2);
+  border: 1px solid var(--gray-ac);
+  border-radius: 6px;
+  color: var(--white-text);
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-bg) var(--gray-f2);
+}
+
+.edit-content__pr-message-input::-webkit-scrollbar {
+  width: 9px;
+}
+
+.edit-content__pr-message-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.edit-content__pr-message-input::-webkit-scrollbar-thumb {
+  background-color: var(--gray-bg);
+  border-radius: 10px;
+  border: 2px solid var(--gray-bg);
+}
+
+.edit-content__pr-message-input:focus {
+  outline: none;
+  border-color: var(--white-f2);
+}
+
+.edit-content__pr-message-input::placeholder {
+  color: var(--white-f2);
+}
 
 /* Flex local optimizations */
 @media screen and (max-width: 1200px) {
@@ -1338,6 +1474,36 @@ blockquote p {
     width: 18px;
     font-size: 18px;
   }
+
+  body p .content__figure {
+    width: 100%;
+    max-width: 480px;
+    min-width: 0px;
+  }
+
+  body .content__figure--float-left,
+  body .content__figure--float-right {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  body .content__figure--float-left img,
+  body .content__figure--float-left video,
+  body .content__figure--float-right img,
+  body .content__figure--float-right video {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    min-width: 0px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px !important;
+  }
+
   body .content__figure-caption {
     font-size: 13px;
     text-underline-offset: 3px;
