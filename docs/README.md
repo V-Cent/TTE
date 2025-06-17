@@ -8,7 +8,7 @@ Project started 12th of April 2021.
 
 TTE is a static website. Game articles are formatted as human-readable Markdown pages. This was done to help with maintainability and simplifies the contribution process because it does not require any knowledge of HTML or CSS.
 
-The project currently uses HTML/Typescript/CSS. We use **tsdown** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files.
+The project currently uses HTML/Typescript/CSS. We use **tsdown** for bundling, and you can see instructions on how to build it yourself in the section below. We also use **remarkable** to parse markdown files. For live editing markdown files, we use **CodeMirror**.
 
 Pull Requests for Front-End or other improvements are welcome! Just follow the guidelines from the "How to Contribute" page (in the footer of the website).
 
@@ -33,8 +33,9 @@ For contributing, the following commands should be run before pushing or creatin
 - tsc
 - npm run lint
 - npm run prettier
+- npm run cache
 - npm run build
 
-These will check for typescript errors, lint the code, format the code, and build the project for production. These can all be run together with the command **npm run release**.
+These will check for typescript errors, lint the code, format the code, and build the project for production. The cache command also compile the markdown pages (if changed) into their html formats. These can all be run together with the command **npm run release**.
 
 *npm install* should also be run after modifications to the package.json file (including version changes).
