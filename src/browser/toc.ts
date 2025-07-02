@@ -13,7 +13,7 @@ interface Heading {
 }
 
 export class TOC {
-  private headings: Heading[];
+  private readonly headings: Heading[];
   private ticking: boolean;
   private readonly helperObj: Helper;
 
@@ -323,7 +323,7 @@ export class TOC {
       const heading: Heading = this.headings[i];
       if (!heading.isH3) continue;
 
-      // Highlight the new section if it makes part of 25% of the page or within 150px
+      // Highlight the new section if it makes part of 25% of the page or within 150 px
       const headingTop: number = heading.obj.getBoundingClientRect().top;
       const threshold: number = Math.max(
         window.innerHeight * TOC.VIEWPORT_THRESHOLD_RATIO,

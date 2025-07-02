@@ -18,7 +18,8 @@
       "eslint.config.mjs",
       "build.config.ts",
       "cache.config.ts",
-      "watch.config.ts"
+      "watch.config.ts",
+      "build-utils.ts"
     ],
     "exclude": [
       "node_modules",

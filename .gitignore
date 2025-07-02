@@ -145,3 +145,6 @@ wheels/
 .venv
 venv/
 ENV/
+
+# jetbrains
+.idea/

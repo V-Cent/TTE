@@ -3,7 +3,7 @@
 //   this is after they are already treated as unique elements and get a tagging token
 //   we then change the original element here and show what is needed
 
-import { Helper, TagData, PageRequest, FileEntry } from "../shared/helper";
+import { FileEntry, Helper, PageRequest, TagData } from "../shared/helper";
 import { fileList } from "../shared/globals";
 
 export class Directives {
@@ -18,8 +18,8 @@ export class Directives {
   private static readonly TABLE_HEADERS_SELECTOR: string = "th";
   private static readonly SPOILER_SELECTOR: string = ".spoiler";
 
-  private handlePageChange: (request: PageRequest) => void;
-  private editPage: (page: PageRequest) => void;
+  private readonly handlePageChange: (request: PageRequest) => void;
+  private readonly editPage: (page: PageRequest) => void;
 
   constructor(
     helperObj: Helper,
@@ -61,8 +61,7 @@ export class Directives {
     }
 
     for (const element of articleSelectors) {
-      const selectorElement: HTMLElement = element;
-      this.setupArticleSelectorEventListeners(selectorElement);
+      this.setupArticleSelectorEventListeners(element);
     }
 
     for (const element of taggedElements) {
@@ -438,8 +437,7 @@ export class Directives {
     );
 
     for (const element of sortedRows) {
-      const sortedRow: HTMLTableRowElement = element;
-      tableBody.appendChild(sortedRow);
+      tableBody.appendChild(element);
     }
 
     // Update the sort direction
@@ -453,9 +451,7 @@ export class Directives {
     );
 
     for (const element of spoilerElements) {
-      const spoilerElement: HTMLElement = element;
-
-      spoilerElement.addEventListener(
+      element.addEventListener(
         "click",
         (clickEvent: Event): void => {
           const targetElement: EventTarget | null = clickEvent.currentTarget;

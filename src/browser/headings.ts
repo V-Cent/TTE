@@ -195,22 +195,25 @@ export class Headings {
 
       if (targetElement.hidden) {
         targetElement.hidden = false;
-        this.updateExpandIcon(currentTarget, "expand_circle_up");
+        this.updateExpandIcon(currentTarget);
       } else if (isFirstTag) {
         // Only hide if the click target is the current heading level and is currently not hidden
         targetElement.hidden = true;
-        this.updateExpandIcon(currentTarget, "expand_circle_down");
+        this.updateExpandIcon(currentTarget);
       }
     }
   }
 
   // --- Helper method to update expand icon
-  private updateExpandIcon(currentTarget: HTMLElement, iconText: string): void {
+  private updateExpandIcon(currentTarget: HTMLElement): void {
     const firstChild: Element | null = currentTarget.children[0];
 
-    if (firstChild?.innerHTML !== iconText) {
-      if (firstChild) {
-        firstChild.innerHTML = iconText;
+    if (firstChild instanceof HTMLElement) {
+      // Toggle rotation class based on current state
+      if (firstChild.classList.contains("rotated")) {
+        firstChild.classList.remove("rotated");
+      } else {
+        firstChild.classList.add("rotated");
       }
     }
   }

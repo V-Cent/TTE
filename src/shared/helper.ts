@@ -43,6 +43,7 @@ export interface TagData {
   section?: string;
   reference?: boolean;
   float?: "left" | "right";
+  aside?: "note" | "caution" | "error";
 }
 
 export type PageType = "home" | "generic" | "tech";

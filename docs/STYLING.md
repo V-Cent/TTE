@@ -6,7 +6,7 @@ Markdown is a lightweight markup language that was chosen to keep track of game-
 
 The format of Markdown used is a subset of GFM (GitHub Flavored Markdown). Thus, you can also have an idea of how the page looks by looking at the markdown file while in Github. Most of the original Markdown syntax also works on GFM and multiple guides are available online for both.
 
-Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format throughout the site. To practice the syntax or prototype your pages, you can use the edit functionality in TTE, which is located in the dropdown menu on the top right corner of an article.
+Here we will discuss how to use GFM for the TTE project and how to format pages to keep the same format throughout the site. To practice the syntax or prototype your pages, you can use the edit functionality in TTE, which is located in the dropdown menu on the top right corner of an article. The editor in TTE also supports auto completions and commands (using the CTRL + SPACE shortcut) to help you in using TTE's extended syntax.
 
 ## Text
 
@@ -152,6 +152,22 @@ Due to the way redirections are styled, they can be used with no issues in the m
 **Example**: The syntax \[\[{TODPS2}Stagger Manipulation|TODPS2 Redirect\]\] will redirect you to the Stagger Manipulation entry in the TODPS2 article. It renders down to this: [[{TODPS2}Stagger Manipulation|TODPS2 Redirect]]. A paragraph can continue as normal after it.
 
 Redirects are automatically disabled when using edit mode (to prevent accidentally losing your changes).
+
+> **Asides**
+
+Asides are blocks of text that should be used to provide additional information on a topic. Asides should be placed on their own line. There are three different types of asides:
+
+- Note: Should be used to provide complementary information to the topic being discussed. It follows the syntax \:\: Content. \:\:
+- Important: Should be used to clarify exceptions or important information that may not be clear on a first read. It follows the syntax \:\- Content. \-\:
+- Danger: Should be used to warn the reader about something that may cause issues when performed (such as softlocks and loss of data). It follows the syntax \:\! Content. \!\:
+
+**Examples**:
+
+:: This is a note. ::
+
+:- This is an important note. -:
+
+:! This is a danger note. !:
 
 ## Default Format for a Tech Page
 

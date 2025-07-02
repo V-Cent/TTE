@@ -9,8 +9,8 @@ import { Search } from "./search";
 import { TOC } from "./toc";
 import { Headings } from "./headings";
 import { Directives } from "./directives";
-import { Helper, h2Data, PageRequest, PageType } from "../shared/helper";
-import { fileList, FileEntry } from "../shared/globals";
+import { h2Data, Helper, PageRequest, PageType } from "../shared/helper";
+import { FileEntry, fileList } from "../shared/globals";
 
 // --- CONSTANTS AND CONFIGURATION
 
@@ -149,7 +149,7 @@ function setupHistoryHandling(): void {
       ? { ...event.state, isPopstate: true }
       : { document: "HOME", section: "HOME", pageType: "home", isPopstate: true };
 
-    handlePageChange(pageRequest);
+    handlePageChange(pageRequest).then();
   });
 }
 
@@ -161,7 +161,7 @@ function handleInitialRoute(): void {
   if (!pathname) {
     const homeRequest: PageRequest = createPageRequest({ document: "HOME", section: "HOME" });
     homeRequest.isPopstate = true;
-    handlePageChange(homeRequest);
+    handlePageChange(homeRequest).then();
     return;
   }
 
@@ -182,12 +182,12 @@ function handleInitialRoute(): void {
 
     const pageRequest: PageRequest = createPageRequest(requestData);
     pageRequest.isPopstate = true;
-    handlePageChange(pageRequest);
+    handlePageChange(pageRequest).then();
     window.history.replaceState(pageRequest, matchingEntry.section, pathname);
   } else {
     // Invalid path, redirect to home
     const homeRequest: PageRequest = createPageRequest({ document: "HOME", section: "HOME" });
-    handlePageChange(homeRequest);
+    handlePageChange(homeRequest).then();
   }
 }
 
@@ -211,7 +211,7 @@ function handlePageChangeEvent(event: Event): void {
   if (!(target instanceof HTMLElement)) return;
 
   const pageRequest: PageRequest = createPageRequest(target.dataset);
-  handlePageChange(pageRequest);
+  handlePageChange(pageRequest).then();
 }
 
 // --- Clears focus from search input field
@@ -750,10 +750,10 @@ async function editPage(pageRequest: PageRequest): Promise<void> {
 
         <div class="edit-content__editor-container">
           <div class="edit-content__editor-header">
-            <label for="edit-content__textarea" class="edit-content__content-label">
+            <div class="edit-content__content-label">
               MARKDOWN CONTENT
               <span class="edit-content__content-info">Edit content below. Changes will be reviewed before publishing.</span>
-            </label>
+            </div>
             <div class="edit-content__file-actions">
               <button type="button" class="edit-content__file-button" data-action="download">
                 <span class="material-symbols-rounded">file_save</span>
@@ -774,9 +774,9 @@ async function editPage(pageRequest: PageRequest): Promise<void> {
     const textareaElement: HTMLTextAreaElement | null =
       document.querySelector<HTMLTextAreaElement>("#edit-content__textarea");
     if (textareaElement) {
-      cachedCompilerInstance.initializeEditor(markdownContent, textareaElement);
+      await cachedCompilerInstance.initializeEditor(markdownContent, textareaElement);
     }
-    editRefreshAction();
+    editRefreshAction().then();
   } catch (error: unknown) {
     console.error("Failed to load edit page:", error);
     const editContentElement: HTMLElement | null = document.getElementById("edit-content");
@@ -804,7 +804,7 @@ function setupEditEventListeners(formElement: HTMLFormElement, pageRequest: Page
   formElement.addEventListener("submit", (submitEvent: Event): void => {
     submitEvent.preventDefault();
     if (checkboxElement?.checked) {
-      handleEditSubmission(pageRequest);
+      handleEditSubmission(pageRequest).then();
     }
   });
 
@@ -829,14 +829,14 @@ function setupEditEventListeners(formElement: HTMLFormElement, pageRequest: Page
       isPopstate: false,
     };
     // use change page function from main
-    handlePageChange(pageRequest);
+    handlePageChange(pageRequest).then();
   });
 
   // Refresh button
   const refreshButtonElement: HTMLButtonElement | null =
     formElement.querySelector<HTMLButtonElement>(".edit-content__button--refresh");
   refreshButtonElement?.addEventListener("click", (): void => {
-    editRefreshAction();
+    editRefreshAction().then();
     // Scroll to #content (first h1 has better vertical alignment)
     const contentElement: HTMLElement | null = document.querySelector<HTMLElement>("h1");
     if (contentElement) {
@@ -852,7 +852,7 @@ function setupEditEventListeners(formElement: HTMLFormElement, pageRequest: Page
     fileButtonElement.addEventListener("click", (): void => {
       const actionType: string | undefined = fileButtonElement.dataset.action;
       if (actionType === "download") {
-        handleFileDownload();
+        handleFileDownload().then();
       } else if (actionType === "upload") {
         handleFileUpload();
       }
@@ -1114,8 +1114,7 @@ async function sha256(message: string): Promise<string> {
   // convert ArrayBuffer to Array of bytes
   const hashArray: number[] = Array.from(new Uint8Array(hashBuffer));
   // convert bytes to hex string
-  const hashHex: string = hashArray.map((b: number) => b.toString(16).padStart(2, "0")).join("");
-  return hashHex;
+  return hashArray.map((b: number) => b.toString(16).padStart(2, "0")).join("");
 }
 
 async function editRefreshAction(): Promise<void> {

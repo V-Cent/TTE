@@ -12,6 +12,7 @@ interface FileLoadError {
 }
 
 export class Parser {
+  // Remarkable obj to convert markdown to HTML
   private readonly markdownObj: Remarkable;
   private readonly openEmRenderer: Remarkable.Rule<EmOpenToken, string> | undefined;
   private readonly closeEmRenderer: Remarkable.Rule<EmCloseToken, string> | undefined;
@@ -247,8 +248,20 @@ export class Parser {
     return this.markdownObj.render(convertedText);
   }
 
+  // --- Input pre-processing to support more wiki-like commands
   public resolveDirectives(inputText: string): string {
+    // All commands are defined line by line.
     const lines: string[] = inputText.split("\n");
+
+    // List of commands treated by this function:
+    // - TODOs: {{!}}
+    // - Versioning: {{<version name>}}
+    // - Media: [[Media:...]]
+    // - Spoilers: !!<text>!!
+    // - Asides: ::<text>::, :-<text>-:, :!<text>!:
+    // - Redirects: [[<document name>|<display text>]]
+    // - References: [[<number>]]
+    // A subset of these commands can also be used in headings.
 
     const sanitizeForId = (text: string): string => {
       if (!text) return "";
@@ -258,9 +271,8 @@ export class Parser {
     return lines
       .map((originalCurrentLine: string): string => {
         // Remove trailing carriage return if present (from \r\n line endings)
-        const currentLine: string = originalCurrentLine.replace(/\r$/, "");
 
-        let processedLine: string = currentLine;
+        let processedLine: string = originalCurrentLine.replace(/\r$/, "");
         const placeholders: Map<string, string> = new Map<string, string>();
         let placeholderId: number = 0;
 
@@ -357,6 +369,27 @@ export class Parser {
                 } else {
                   return `*:{'versions' : '${String(directiveContent)}'}*`;
                 }
+              },
+            );
+
+            // Asides
+            const asideRegex: RegExp = /^:([:!-])\s*(.*?)\s*\1:$/;
+            processedLine = processedLine.replace(
+              asideRegex,
+              (_match: string, typeChar: string, text: string): string => {
+                let asideType: string = "";
+                switch (typeChar) {
+                  case ":":
+                    asideType = "note";
+                    break;
+                  case "-":
+                    asideType = "caution";
+                    break;
+                  case "!":
+                    asideType = "error";
+                    break;
+                }
+                return `*:{'aside': '${asideType}'} ${text}*`;
               },
             );
 
@@ -513,7 +546,7 @@ export class Parser {
 
   // --- Based on the "remarkable-katex" package: https://github.com/bradhowes/remarkable-katex
   //      This modification doesn't load the katex module, since it is only needed when a new page is being shown
-  //      Instead, Katex is treated as any other tags. This saves about 300kb on page load.
+  //      Instead, Katex is treated as any other tags. This saves about 300 kb on page load.
   private setupKatexParsing(): void {
     const backslashCharacter: string = "\\";
     const dollarDelimiter: string = "$";

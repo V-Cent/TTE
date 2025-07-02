@@ -1,23 +1,23 @@
 // ---------
-// compiler.js is used for live editing of markdown files and compiling the resulting html
-//   the idea behind this is to make every static DOM operation be available as a script and in the browser
+// compiler.js is used for live editing of Markdown files and compiling the resulting HTML
+//   the idea behind this is to make every static DOM operation be available as a script, and in the browser
 //   this also includes compiling search results that will be inserted into the nav-bar later
-//   the live document flow will be thus compile --> setup event handlers
+//   the live document flow will be thus compiled --> setup event handlers
 
 import { Parser } from "./parser";
-import { Helper, h2Data, colors, TagData, colorList, colorCollection, FileEntry } from "./helper";
+import { colorCollection, colorList, colors, FileEntry, h2Data, Helper, TagData } from "./helper";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { basicSetup, EditorView } from "codemirror";
-import { markdown } from "@codemirror/lang-markdown";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { indentWithTab } from "@codemirror/commands";
 import { keymap } from "@codemirror/view";
 import {
+  autocompletion,
+  Completion,
   CompletionContext,
   CompletionResult,
-  Completion,
-  autocompletion,
 } from "@codemirror/autocomplete";
 
 interface SearchResultItem {
@@ -35,7 +35,7 @@ export class Compiler {
   private katexRenderer: { renderToString: (input: string) => string } | null;
   private versionColorMap: Map<string, string>;
   private readonly isRunningInBrowser: boolean;
-  private searchResultsCollection: SearchResultItem[];
+  private readonly searchResultsCollection: SearchResultItem[];
 
   private readonly imageFileRegex: RegExp = /\.(webp|png|jpg|jpeg|gif)$|&ii$/;
   private readonly gameDocumentRegex: RegExp = /-[CB]$/;
@@ -154,14 +154,40 @@ export class Compiler {
       boost: 2,
     },
 
-    // Version and todo completion (lower boost)
+    // Asides, Version, todo completion (lower boost), spoilers
+
+    {
+      label: ":: Content ::",
+      displayLabel: "Aside: Info block",
+      type: "function",
+      apply: ":: Content here. ::",
+      info: "Complementary information block",
+      boost: 1,
+    },
+    {
+      label: ":- Content -:",
+      displayLabel: "Aside: Warning block",
+      type: "function",
+      apply: ":- Content here. -:",
+      info: "Necessary warning block",
+      boost: 0,
+    },
+    {
+      label: ":! Content !:",
+      displayLabel: "Aside: Danger block",
+      type: "function",
+      apply: ":! Content here. !:",
+      info: "Dangerous action block",
+      boost: -1,
+    },
+
     {
       label: "{{}}",
       displayLabel: "Version: Content Tag",
       type: "function",
       apply: "{{Version Name}}",
       info: "Version-specific content marker",
-      boost: 1,
+      boost: -2,
     },
     {
       label: "{{!}}",
@@ -169,7 +195,16 @@ export class Compiler {
       type: "function",
       apply: "{{!}}",
       info: "Mark section as work in progress",
-      boost: 0,
+      boost: -3,
+    },
+
+    {
+      label: "!! Content !!",
+      displayLabel: "Spoiler Text",
+      type: "function",
+      apply: "!! Content here. !!",
+      info: "Inline spoiler text segment",
+      boost: -4,
     },
   ];
 
@@ -186,13 +221,13 @@ export class Compiler {
     }
   }
 
-  // --- Setup JSDOM environment for Node.js
-  //      with this, window and document are acessible on node
+  // --- Set up JSDOM environment for Node.js
+  //      with this, window and document are accessible on node
   private setupJSDOM(): void {
     type JSDOMType = typeof import("jsdom").JSDOM;
     const { JSDOM }: { JSDOM: JSDOMType } = require("jsdom");
     const domInstance: import("jsdom").JSDOM = new JSDOM(
-      "<!DOCTYPE html><html><body></body></html>",
+      "<!DOCTYPE html><html lang=''><body></body></html>",
     );
 
     if (typeof globalThis !== "undefined") {
@@ -213,50 +248,13 @@ export class Compiler {
     currentSectionName?: string,
     isTechDocument: boolean = true,
   ): Promise<string> {
-    this.versionColorMap.clear();
     const parsedHtmlContent: string = await this.parserObj.parseText(markdowntext);
-
-    let documentContext: Document;
-
-    // Create a pseudo page to apply DOM operations on
-    if (this.isRunningInBrowser) {
-      const domParser: DOMParser = new DOMParser();
-      documentContext = domParser.parseFromString(
-        "<!DOCTYPE html><html><head></head><body></body></html>",
-        "text/html",
-      );
-    } else {
-      documentContext = document;
-    }
-
-    const contentContainer: HTMLDivElement = documentContext.createElement("div");
-    contentContainer.innerHTML = parsedHtmlContent;
-    contentContainer.id = "content";
-
-    const processingElement: HTMLElement = contentContainer;
-
-    // Custom directives are only basic elements that have a class on them.
-    //  This functions transforms them into new HTML blocks.
-    //  Functionality is only set on the BROWSER. The compiler only controls HTML transformations.
-
-    await this.processCustomDirectives(
-      processingElement,
-      documentContext,
+    return this.processHtmlContent(
+      parsedHtmlContent,
       currentDocumentName,
       currentSectionName,
+      isTechDocument,
     );
-
-    // Tech pages separate each 2nd heading into a new page/article
-    if (isTechDocument) {
-      await this.generateHeadingStructure(
-        processingElement,
-        documentContext,
-        currentDocumentName,
-        currentSectionName,
-      );
-    }
-
-    return processingElement.innerHTML;
   }
 
   // --- Parse markdown content and process directives
@@ -266,8 +264,23 @@ export class Compiler {
     currentSectionName?: string,
     isTechDocument: boolean = true,
   ): Promise<string> {
-    this.versionColorMap.clear();
     const parsedHtmlContent: string = await this.parserObj.parseGFM(markdownFilePath);
+    return this.processHtmlContent(
+      parsedHtmlContent,
+      currentDocumentName,
+      currentSectionName,
+      isTechDocument,
+    );
+  }
+
+  // --- Common processing logic for HTML content
+  private async processHtmlContent(
+    parsedHtmlContent: string,
+    currentDocumentName?: string,
+    currentSectionName?: string,
+    isTechDocument: boolean = true,
+  ): Promise<string> {
+    this.versionColorMap.clear();
 
     let documentContext: Document;
 
@@ -275,7 +288,7 @@ export class Compiler {
     if (this.isRunningInBrowser) {
       const domParser: DOMParser = new DOMParser();
       documentContext = domParser.parseFromString(
-        "<!DOCTYPE html><html><head></head><body></body></html>",
+        "<!DOCTYPE html><html lang=''><head></head><body></body></html>",
         "text/html",
       );
     } else {
@@ -372,6 +385,10 @@ export class Compiler {
 
       if (parsedTagData.reference) {
         this.createReferenceRedirect(taggedElement, currentDocumentName, currentSectionName);
+      }
+
+      if (parsedTagData.aside) {
+        this.createAsideElement(taggedElement, documentContext, parsedTagData);
       }
     }
 
@@ -676,6 +693,60 @@ export class Compiler {
     if (currentSectionName) {
       targetElement.dataset.section = currentSectionName;
     }
+  }
+
+  // --- Create aside element
+  private createAsideElement(
+    taggedElement: HTMLElement,
+    documentContext: Document,
+    parsedTagData: TagData,
+  ): void {
+    const asideType: "note" | "caution" | "error" | undefined = parsedTagData.aside;
+    if (!asideType) return;
+
+    const blockContainer: HTMLElement | null = taggedElement.parentElement;
+    if (!blockContainer) return;
+
+    const content: string = taggedElement.innerHTML.trim();
+
+    const asideContainer: HTMLDivElement = documentContext.createElement("div");
+    asideContainer.classList.add("content__aside", `content__aside--${asideType}`);
+
+    const asideHeading: HTMLDivElement = documentContext.createElement("div");
+    asideHeading.classList.add("content__aside-heading");
+
+    const icon: HTMLSpanElement = documentContext.createElement("span");
+    icon.classList.add("material-symbols-rounded");
+
+    const title: HTMLSpanElement = documentContext.createElement("span");
+    title.classList.add("content__aside-title");
+
+    switch (asideType) {
+      case "note":
+        icon.textContent = "error";
+        title.textContent = "Note";
+        break;
+      case "caution":
+        icon.textContent = "emergency_home";
+        title.textContent = "Important";
+        break;
+      case "error":
+        icon.textContent = "report";
+        title.textContent = "Danger";
+        break;
+    }
+
+    asideHeading.appendChild(icon);
+    asideHeading.appendChild(title);
+
+    const asideContent: HTMLDivElement = documentContext.createElement("div");
+    asideContent.classList.add("content__aside-content");
+    asideContent.innerHTML = content;
+
+    asideContainer.appendChild(asideHeading);
+    asideContainer.appendChild(asideContent);
+
+    blockContainer.parentNode?.replaceChild(asideContainer, blockContainer);
   }
 
   // --- Generate structured heading layout and search results
@@ -1275,21 +1346,27 @@ export class Compiler {
   // --- Markdown editor for element
   async initializeEditor(content: string, parent: HTMLElement): Promise<void> {
     // Can have code highlighting within markdown by setting the languages inside markdown()
-    const view: EditorView = new EditorView({
+
+    this.editor = new EditorView({
       doc: content,
       parent: parent,
       spellcheck: true,
+
       extensions: [
         basicSetup,
         keymap.of([indentWithTab]),
         EditorView.contentAttributes.of({ spellcheck: "true" }),
+        markdownLanguage.data.of({
+          closeBrackets: {
+            brackets: ["(", "'", '"'],
+          },
+        }),
         markdown(),
         autocompletion({ override: [this.markdownDirectiveCompletions] }),
         EditorView.lineWrapping,
         ...this.createCustomTheme(),
       ],
     });
-    this.editor = view;
   }
 
   async getEditorContent(): Promise<string> {
@@ -1318,7 +1395,8 @@ export class Compiler {
 
     // Check for trigger characters
     const beforeTrigger: { from: number; to: number; text: string } | null =
-      context.matchBefore(/[{[]/);
+      context.matchBefore(/[{[:!]/);
+
     if (!beforeTrigger) return null;
 
     const triggerChar: string = beforeTrigger.text;
@@ -1336,6 +1414,20 @@ export class Compiler {
       filteredCompletions = Array.from(
         this.directiveCompletions.filter((completion: Completion) =>
           completion.label.startsWith("[["),
+        ),
+      );
+    } else if (triggerChar === "!") {
+      // Filter for exclamation mark completions
+      filteredCompletions = Array.from(
+        this.directiveCompletions.filter((completion: Completion) =>
+          completion.label.startsWith("!"),
+        ),
+      );
+    } else if (triggerChar === ":") {
+      // Filter for colon completions
+      filteredCompletions = Array.from(
+        this.directiveCompletions.filter((completion: Completion) =>
+          completion.label.startsWith(":"),
         ),
       );
     }

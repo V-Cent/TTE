@@ -42,6 +42,87 @@
   filter: brightness(1.05);
 }
 
+/* Based on Starlight - Astro asides! */
+.content__aside {
+  display: block;
+  padding-left: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-left-style: solid;
+  border-left-width: 6px;
+  clear: both;
+}
+
+.content__aside--note {
+  /* Creates a color slightly brighter than the base ones, then makes it a lot more transparent.*/
+  background-color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--blue) 75%, var(--white-text)) 7%,
+    transparent
+  );
+  border-left-color: var(--blue);
+}
+
+.content__aside--caution {
+  background-color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--yellow) 75%, var(--white-text)) 7%,
+    transparent
+  );
+  border-left-color: var(--yellow);
+}
+
+.content__aside--error {
+  background-color: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--red) 75%, var(--white-text)) 7%,
+    transparent
+  );
+  border-left-color: var(--red);
+}
+
+.content__aside-heading {
+  display: flex;
+  align-items: center;
+  font-family: "Dosis", sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+.content__aside--note .content__aside-heading,
+.content__aside--note .content__aside-heading .material-symbols-rounded {
+  color: color-mix(in srgb, var(--blue), var(--white-text) 70%);
+}
+
+.content__aside--caution .content__aside-heading,
+.content__aside--caution .content__aside-heading .material-symbols-rounded {
+  color: color-mix(in srgb, var(--yellow), var(--white-text) 70%);
+}
+
+.content__aside--error .content__aside-heading,
+.content__aside--error .content__aside-heading .material-symbols-rounded {
+  color: color-mix(in srgb, var(--red), var(--white-text) 70%);
+}
+
+.content__aside-heading .material-symbols-rounded {
+  margin-right: 8px;
+  font-size: 24px;
+}
+
+.content__aside-content {
+  font-family: "Mulish", sans-serif;
+  color: var(--white-f1);
+  line-height: 1.6;
+}
+
+.content__aside-content p {
+  margin-top: 0;
+  text-indent: 0;
+}
+
 #content__tocicon {
   margin-left: auto;
   margin-right: 12px;
@@ -350,7 +431,12 @@ blockquote p {
 
 .content__collapse .material-symbols-rounded {
   font-size: 30px;
-  padding-top: 2px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.content__collapse .material-symbols-rounded.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease-in-out;
 }
 
 .content__figure {
@@ -775,7 +861,7 @@ blockquote p {
 
 .content__article-selector--chevron {
   font-size: 20px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease-in-out;
   width: 20px;
   flex-shrink: 0;
 }
@@ -1230,10 +1316,10 @@ blockquote p {
 }
 
 .edit-content__advanced-toggle .chevron {
-  font-size: 1.2rem;
+  font-size: 22px;
   color: var(--white-f1);
   transition:
-    transform 0.2s ease,
+    transform 0.2s ease-in-out,
     color 0.2s ease;
 }
 
@@ -1473,6 +1559,24 @@ blockquote p {
   .content__article-selector--item .material-symbols-rounded {
     width: 18px;
     font-size: 18px;
+  }
+
+  body .content__aside {
+    padding-left: 12px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  body .content__aside-heading {
+    font-size: 1em;
+  }
+  body .content__aside-heading .material-symbols-rounded {
+    font-size: 22px;
+  }
+  body .content__aside-content {
+    font-size: 16px;
   }
 
   body p .content__figure {

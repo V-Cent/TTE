@@ -1,16 +1,10 @@
 {
   "name": "tte",
-  "version": "0.20.9",
+  "version": "0.20.11",
   "description": "Tales Tech Encyclopaedia",
   "main": "src/main.ts",
   "private": true,
   "license": "MIT",
-  "nodemonConfig": {
-    "ignore": [
-      "docs/"
-    ],
-    "ext": "ts,html,css"
-  },
   "scripts": {
     "cache": "tsdown --config cache.config.ts && node cache/cache.mjs",
     "build": "tsdown --no-clean --config build.config.ts",
@@ -20,6 +14,7 @@
     "release": "tsc && npm run lint && npm run prettier && npm run cache && npm run build"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^6.18.6",
     "@codemirror/lang-markdown": "^6.3.2",
     "codemirror": "^6.0.1",
     "jsdom": "^26.1.0",

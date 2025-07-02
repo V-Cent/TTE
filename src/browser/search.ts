@@ -1,7 +1,7 @@
 // ---------
 // search.js controls the search actions and redirects
 
-import { Helper, h2Data } from "../shared/helper.js";
+import { h2Data, Helper } from "../shared/helper.js";
 
 export class Search {
   private isNavigationLocked: boolean;
@@ -151,12 +151,12 @@ export class Search {
 
   // --- Handle input keyup events
   private handleInputKeyUp(): void {
-    this.filterSearchResults();
+    this.filterSearchResults().then();
   }
 
   // --- Handle input focus in events
   private handleInputFocusIn(): void {
-    this.filterSearchResults();
+    this.filterSearchResults().then();
   }
 
   // --- Clear everything from results
@@ -308,18 +308,7 @@ export class Search {
       return; // Exit if the search box element is not found
     }
 
-    const linkElements: HTMLElement[] = Array.from(
-      searchBoxElement.getElementsByClassName("button__redirect"),
-    ).filter((element: Element): element is HTMLElement => element instanceof HTMLElement);
-
-    for (const linkElement of linkElements) {
-      linkElement.style.display = "none";
-    }
-
-    const horizontalRuleElement: HTMLElement | null = document.querySelector(this.searchHrSelector);
-    if (horizontalRuleElement) {
-      horizontalRuleElement.style.display = "none";
-    }
+    this.clearSearchResults();
 
     this.isNavigationLocked = false;
 
@@ -330,8 +319,7 @@ export class Search {
       return; // Exit if the input field is not found
     }
 
-    const gameFilterText: string = "Tales of";
-    inputFieldElement.value = gameFilterText;
+    inputFieldElement.value = "Tales of";
     inputFieldElement.focus();
   }
 
@@ -486,8 +474,11 @@ export class Search {
     };
 
     const expandIconElement: Element | null = getExpandIcon(targetElement);
-    if (expandIconElement?.innerHTML === "expand_circle_down") {
-      expandIconElement.innerHTML = "expand_circle_up";
+    if (expandIconElement instanceof HTMLElement) {
+      // Add rotation class when revealing content
+      if (expandIconElement.classList.contains("rotated")) {
+        expandIconElement.classList.remove("rotated");
+      }
     }
   }
 }
