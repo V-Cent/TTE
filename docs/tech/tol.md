@@ -14,6 +14,8 @@ Edited by live edit. {{!}}
 
 Table test:
 
+:: This is a note. ::
+
 [[<Media:media/todps2/snow.png|Test Caption 2]]
 
 | Character |  Growth Rate |
@@ -36,6 +38,10 @@ Block equation:
 $$
 \binom{n}{k} = \frac{n!}{k!(n-k)!}
 $$
+
+:- Warning! Warning! -:
+
+:! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. !:
 
 ### Stats
 
