@@ -417,12 +417,12 @@ class CacheBuilder {
     // Using simplegit to fetch the latest commits
     //   run from npm on root folder to be sure
     const git: SimpleGit = simpleGit();
+    await git.fetch("origin", "main", ["--depth=50"]);
+
     const log: LogResult<DefaultLogFields & CommitLog> = await git.log<
       DefaultLogFields & CommitLog
-    >({
-      maxCount: 50,
-      "--stat": null,
-    });
+    >(["origin/main", "--max-count=50", "--stat"]);
+
     const commits: readonly (DefaultLogFields & CommitLog & ListLogLine)[] = log.all;
 
     const documentRefs: Map<string, FileEntry> = new Map(
