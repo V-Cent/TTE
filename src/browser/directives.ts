@@ -366,7 +366,7 @@ export class Directives {
     this.treatSpoilers();
   }
 
-  // --- Tables is not a custom directives but a native one. We style them here anyways
+  // --- Tables is not a custom directives but a native one. We style them here anyway
   sortTables(): void {
     // Iterate over all table headers
     const tableHeaders: NodeListOf<HTMLTableCellElement> =

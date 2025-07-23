@@ -1,6 +1,6 @@
 {
   "name": "tte",
-  "version": "0.20.11",
+  "version": "0.21.2",
   "description": "Tales Tech Encyclopaedia",
   "main": "src/main.ts",
   "private": true,
@@ -19,7 +19,8 @@
     "codemirror": "^6.0.1",
     "jsdom": "^26.1.0",
     "katex": "^0.16.11",
-    "remarkable": "^2.0.1"
+    "remarkable": "^2.0.1",
+    "simple-git": "^3.28.0"
   },
   "devDependencies": {
     "@minify-html/node": "^0.15.0",

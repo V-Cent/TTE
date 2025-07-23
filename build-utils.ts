@@ -45,10 +45,9 @@ export interface BuildConfig {
 }
 
 export const createBuildConfig = (enableSourcemaps: boolean): BuildConfig => ({
-  PATHS_TO_CLEAN: ['docs/scripts', 'docs/styles', 'docs/home.html', 'docs/index.html'],
+  PATHS_TO_CLEAN: ['docs/scripts', 'docs/styles', 'docs/index.html'],
   HTML_FILES: [
-    { src: 'src/index.html', dest: 'docs/index.html' },
-    { src: 'src/home.html', dest: 'docs/home.html' }
+    { src: 'src/index.html', dest: 'docs/index.html' }
   ],
   CSS_FILES: [
     { src: 'src/styles/base.css', dest: 'bundle.css', useBundle: true },

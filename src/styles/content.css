@@ -682,7 +682,7 @@ blockquote p {
   background-color: var(--gray-f2);
 }
 
-#content__home__showcase-text {
+.content__home__showcase-text {
   width: 70%;
 }
 
@@ -798,6 +798,373 @@ blockquote p {
   background: var(--gray-ac);
   filter: drop-shadow(0 0 4px var(--white-f3));
   transform: scale(1.05);
+}
+
+/* Latest Changes */
+.content__latest-changes {
+  margin-top: 3rem;
+}
+
+.content__latest-changes .content__home__showcase-text {
+  margin-bottom: 24px;
+}
+
+.content__latest-changes__timeline-group {
+  position: relative;
+}
+
+.content__latest-changes__timeline-row {
+  display: flex;
+  gap: 12px;
+}
+
+.content__latest-changes__timeline-marker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 28px;
+}
+
+.content__latest-changes__timeline-marker-container .content__latest-changes__timeline-marker-icon {
+  font-size: 20px;
+  color: var(--white-f2);
+  opacity: 0.9;
+  padding-top: 6px;
+}
+
+.content__latest-changes__timeline-marker-line {
+  width: 1px;
+  background-color: color-mix(in srgb, var(--white-f3) 70%, transparent);
+  flex-grow: 1;
+}
+
+.content__latest-changes__timeline-content {
+  padding-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.content__latest-changes__timeline-month {
+  font-family: "Dosis", sans-serif;
+  font-size: 0.9em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  color: var(--white-text);
+}
+
+.content__latest-changes__commit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--white-f3);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: fit-content;
+}
+
+.content__latest-changes__commit-item {
+  padding: 10px 12px;
+  transition: background-color 0.2s ease;
+  width: 60vw;
+}
+
+.content__latest-changes__commit-item:hover {
+  background-color: var(--gray-ac);
+}
+
+.content__latest-changes__commit-item:not(:last-child) {
+  border-bottom: 1px solid var(--white-f3);
+}
+
+.content__latest-changes__commit-content-wrapper {
+  min-width: 0;
+}
+
+.content__latest-changes__commit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.content__latest-changes__commit-title-link {
+  color: var(--white-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95em;
+  line-height: 1.4;
+  background-color: transparent;
+}
+
+.content__latest-changes__commit-title-link:hover {
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+.content__latest-changes__commit-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.content__latest-changes__commit-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.75em;
+  color: var(--white-f1);
+  opacity: 0.6;
+  min-width: 0;
+}
+
+.content__latest-changes__commit-author {
+  font-weight: 600;
+  color: var(--white-f1);
+}
+
+.content__latest-changes__commit-separator {
+  opacity: 0.5;
+}
+
+.content__latest-changes__commit-stats {
+  font-family: "Dosis", monospace;
+  font-size: 0.75em;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.content__latest-changes__commit-stats-additions {
+  color: color-mix(in srgb, var(--green) 75%, var(--white-text));
+  opacity: 0.9;
+}
+
+.content__latest-changes__commit-stats-deletions {
+  color: color-mix(in srgb, var(--red) 75%, var(--white-text));
+  opacity: 0.9;
+  margin-left: 8px;
+}
+
+.content__latest-changes__commit-changes-link {
+  font-family: "Dosis", monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85em;
+  font-weight: 500;
+  color: var(--white-f1);
+  opacity: 0.8;
+  cursor: pointer;
+  text-decoration: none;
+  outline: 0;
+  flex-shrink: 0;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.content__latest-changes__commit-changes-link:hover {
+  text-decoration: none;
+}
+
+.content__latest-changes__commit-changes-link .material-symbols-rounded {
+  font-size: 16px;
+}
+
+.content__latest-changes__commit-changes-link-text {
+  display: inline-block;
+}
+
+.content__latest-changes__commit-changes-link:hover
+  .content__latest-changes__commit-changes-link-text {
+  text-decoration: underline;
+}
+
+.content__latest-changes__timeline-group.hidden,
+.content__latest-changes__commit-item.hidden {
+  display: none;
+}
+
+.content__toc--search-h4.active {
+  opacity: 1;
+}
+
+#content__latest-changes__show-more,
+#content__games-section__show-more {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  left: -14%;
+}
+
+/* Games Section */
+.content__games-section-wrapper {
+  width: 100vw;
+  margin-left: -14%;
+}
+
+.content__games-section {
+  width: 82%;
+  margin: 40px auto;
+}
+
+.content__games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 70px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.content__games__game-card {
+  transition: border 0.2s ease-in-out;
+  background-color: var(--gray-f1);
+  border: 1px solid var(--gray-f2);
+  border-radius: 4px;
+  width: min-content;
+}
+
+.content__games__game-card:hover {
+  border: 1px solid var(--white-f3);
+}
+
+.content__games__game-card.hidden {
+  display: none;
+}
+
+.content__games__game-card__duo {
+  display: flex;
+  align-items: flex-start;
+  width: calc(100% - 35px);
+  position: relative;
+  padding-top: 20px;
+}
+
+.content__games__game-card__art {
+  flex-shrink: 0;
+  width: 300px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  left: -35px;
+  object-fit: cover;
+  border-radius: 4px;
+  outline: 1px solid var(--gray-f2);
+  filter: blur(0.4px);
+}
+
+.content__games__game-card__details {
+  position: relative;
+  left: -22px;
+  margin-right: -10px;
+}
+
+.content__games__game-card__metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.content__games__game-card__meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.content__games__game-card__meta-item .material-symbols-rounded {
+  font-size: 24px;
+  color: var(--white-a7);
+  flex-shrink: 0;
+}
+
+.content__games__game-card__meta-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.content__games__game-card__meta-description {
+  font-family: "Dosis", sans-serif;
+  font-size: 13px;
+  color: var(--white-a7);
+  line-height: 1;
+}
+
+.content__games__game-card__meta-value {
+  font-family: "Mulish", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--white-f1);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.content__games__game-card__platform-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.content__games__game-card__ {
+  display: block;
+}
+
+.content__games__game-card__title {
+  font-family: "Expletus Sans", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  text-indent: 0;
+  margin: 15px 0 5px;
+  padding-left: 20px;
+}
+
+.content__games__game-card__description {
+  font-size: 15px;
+  color: var(--white-a7);
+  text-indent: 0;
+  padding-right: 20px;
+  margin-top: 0px;
+  padding-right: 20px;
+  text-align: right;
+}
+
+.content__games__game-card__article-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.content__games__game-card__article-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: calc(100% - 40px);
+
+  padding-top: 9px;
+  padding-bottom: 9px;
+  background-color: var(--gray-f2);
+  color: var(--white-text);
+  border: 1px solid var(--white-f3);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Dosis", sans-serif;
+  font-size: 16px;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.content__games__game-card__article-item:hover {
+  background-color: var(--gray-ac);
+  border-color: var(--white-f1);
+}
+
+#content__games-section__show-more {
+  margin-top: 40px;
 }
 
 /* Article Selector Dropdown */
@@ -1666,8 +2033,75 @@ blockquote p {
   body #content__home__onboarding {
     left: 0%;
   }
+  body #content__home__mission p {
+    font-size: 40px;
+  }
   body .content__home__showcase {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  body .content__latest-changes__commit-item {
+    width: 70vw;
+  }
+  body #content__latest-changes__show-more,
+  body #content__games-section__show-more {
+    left: 0%;
+  }
+  body .content__games-section-wrapper {
     margin-left: 0%;
+    width: 100%;
+  }
+
+  body .content__games-section {
+    width: 100%;
+  }
+  body .content__games__game-card__duo {
+    width: calc(100% - 25px);
+    padding-top: 18px;
+  }
+
+  body .content__games__game-card__art {
+    width: 220px;
+    aspect-ratio: 1 / 1;
+    left: -25px;
+  }
+
+  body .content__games__game-card__details {
+    left: -15px;
+  }
+
+  body .content__games__game-card__meta-item .material-symbols-rounded {
+    font-size: 20px;
+  }
+
+  body .content__games__game-card__meta-description {
+    font-size: 10px;
+  }
+
+  body .content__games__game-card__meta-value {
+    font-size: 12px;
+  }
+
+  body .content__games__game-card__title {
+    font-size: 18px;
+    margin: 12px 0 5px;
+    padding-left: 10px;
+  }
+
+  body .content__games__game-card__description {
+    font-size: 12px;
+    padding-right: 10px;
+  }
+
+  body .content__games__game-card__article-item {
+    width: calc(100% - 20px);
+
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+  }
+  body .content__games__game-card__article-item material-symbols-rounded {
+    font-size: 20px;
   }
 }
 
@@ -1681,12 +2115,8 @@ blockquote p {
   body #title-text {
     visibility: hidden;
   }
-  body .content__home__showcase,
-  body #content__home__showcase-text {
-    display: none;
-  }
   body #content__home__mission p {
-    font-size: 40px;
+    font-size: 30px;
   }
 }
 

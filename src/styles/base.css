@@ -16,6 +16,7 @@
   --white-f1: #fafafacc;
   --white-f2: #fafafa55;
   --white-f3: #fafafa22;
+  --white-a7: #fafafa77;
   --green: #58f15b;
   --red: #e74a41;
   --blue: #205aaa;
@@ -339,4 +340,26 @@ a:active {
   -ms-transition: background 0.35s;
   -o-transition: background 0.35s;
   transition: background 0.35s;
+}
+
+.button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 25px;
+  background-color: var(--gray-f2);
+  color: var(--white-text);
+  border: 1px solid var(--white-f3);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Dosis", sans-serif;
+  font-size: 16px;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--gray-ac);
+  border-color: var(--white-f1);
 }

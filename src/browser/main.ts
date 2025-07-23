@@ -28,6 +28,8 @@ interface PageSelectors {
   readonly CONTENT_REDIRECT: string;
   readonly SHOWCASE_PLAY: string;
   readonly SHOWCASE_VIDEO: string;
+  readonly HOME_UPDATED: string;
+  readonly HOME_GAMES: string;
 }
 
 interface PageConfiguration {
@@ -52,6 +54,8 @@ const SELECTORS: PageSelectors = {
   CONTENT_REDIRECT: "span.content__redirect",
   SHOWCASE_PLAY: ".content__home__showcase-item--play",
   SHOWCASE_VIDEO: ".content__home__showcase-item--video",
+  HOME_UPDATED: ".content__latest-changes__commit-changes-link",
+  HOME_GAMES: ".content__games__game-card__article-item",
 } as const;
 
 const PAGE_CONFIG: PageConfiguration = {
@@ -495,7 +499,7 @@ function scrollToNavigation(): void {
 // --- After loading the home page, add change events just like it is done for the shell
 function setupHomeRedirectElements(): void {
   const redirectElements: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
-    SELECTORS.CONTENT_REDIRECT,
+    `${SELECTORS.CONTENT_REDIRECT}, ${SELECTORS.HOME_UPDATED}, ${SELECTORS.HOME_GAMES}`,
   );
   for (const element of redirectElements) {
     addPageChangeEvent(element);
@@ -510,6 +514,51 @@ function setupHomeShowcaseElements(): void {
   for (const element of showcaseElements) {
     element.addEventListener("click", handleShowcaseClick);
   }
+  // "Show More" buttons for homepage
+  const seeMoreButton: HTMLElement | null = document.getElementById(
+    "content__latest-changes__show-more",
+  );
+  if (!seeMoreButton) return;
+
+  seeMoreButton.addEventListener("click", () => {
+    const hiddenItems: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
+      ".content__latest-changes__commit-item.hidden",
+    );
+    const itemsToShow: HTMLElement[] = Array.from(hiddenItems).slice(0, 10);
+
+    itemsToShow.forEach((item: HTMLElement) => {
+      item.classList.remove("hidden");
+
+      const parentGroup: Element | null = item.closest(".content__latest-changes__timeline-group");
+      if (parentGroup && parentGroup.classList.contains("hidden")) {
+        parentGroup.classList.remove("hidden");
+      }
+    });
+
+    if (document.querySelectorAll(".content__latest-changes__commit-item.hidden").length === 0) {
+      seeMoreButton.style.display = "none";
+    }
+  });
+
+  const seeMoreGames: HTMLElement | null = document.getElementById(
+    "content__games-section__show-more",
+  );
+  if (!seeMoreGames) return;
+
+  seeMoreGames.addEventListener("click", () => {
+    const hiddenItems: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
+      ".content__games__game-card.hidden",
+    );
+    const itemsToShow: HTMLElement[] = Array.from(hiddenItems).slice(0, 3);
+
+    itemsToShow.forEach((item: HTMLElement) => {
+      item.classList.remove("hidden");
+    });
+
+    if (document.querySelectorAll(".content__games__game-card.hidden").length === 0) {
+      seeMoreGames.style.display = "none";
+    }
+  });
 }
 
 // --- Make video appear or not based on showcase click

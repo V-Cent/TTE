@@ -10,6 +10,20 @@ import * as path from "path";
 import { fileList, FileEntry } from "../shared/globals";
 import { minify as minifyHtml } from "@minify-html/node";
 import { Stats } from "fs";
+import { simpleGit, SimpleGit, DefaultLogFields, LogResult, ListLogLine } from "simple-git";
+
+interface CommitLog extends DefaultLogFields {
+  diff?: {
+    insertions: number;
+    deletions: number;
+    files: {
+      file: string;
+      changes: number;
+      insertions: number;
+      deletions: number;
+    }[];
+  };
+}
 
 // ANSI color codes for console styling
 const COLORS: {
@@ -59,6 +73,7 @@ class CacheBuilder {
   // Paths
   private readonly cacheDirectoryPath: string = "cache";
   private readonly docsDirectoryPath: string = "docs";
+  private readonly srcDirectoryPath: string = "src";
   private readonly techSubdirectoryPath: string = "docs/tech";
 
   // For printing
@@ -254,7 +269,7 @@ class CacheBuilder {
 
     // Process all files concurrently for better performance
     const processingPromises: Promise<ProcessingResult>[] = fileList.map((fileEntry: FileEntry) =>
-      this.processFile(fileEntry),
+      fileEntry.document === "HOME" ? this.buildHomePage() : this.processFile(fileEntry),
     );
 
     const results: ProcessingResult[] = await Promise.all(processingPromises);
@@ -309,6 +324,270 @@ class CacheBuilder {
       totalCompressionRatio,
       totalBuildTime,
     });
+  }
+
+  // --- Build the "Games" section for the homepage
+  private async buildGamesSection(): Promise<string> {
+    // Get only base game articles (all have an initialRelease field)
+    const gameEntries: FileEntry[] = fileList.filter(
+      (entry: FileEntry): entry is FileEntry & { initialRelease: number } => !!entry.initialRelease,
+    );
+
+    // How many will initially appear in the homepage
+    const initialVisibleCount: number = 3;
+    let cardIndex: number = 0;
+
+    let gamesHtml: string = '<h2 class="content__home__showcase-text">Games</h2>';
+    gamesHtml += '<div class="content__games-section-wrapper">';
+    gamesHtml += '<section class="content__games-section">';
+    gamesHtml += '<div class="content__games-grid">';
+
+    for (const game of gameEntries) {
+      const isHidden: boolean = cardIndex >= initialVisibleCount;
+      // Platforms is various items that are displayed one on each line (on desktop view)
+      const platformHtml: string = (game.platform ?? [])
+        .map((p: string) => `<span class="content__games__game-card__">${p}</span>`)
+        .join("");
+
+      gamesHtml += `
+            <div class="content__games__game-card${isHidden ? " hidden" : ""}">
+                <div class="content__games__game-card__duo">
+                    <img class="content__games__game-card__art" src="media/home/${game.ref}.webp" alt="${game.section} Art" ${isHidden ? ' loading="lazy"' : ""}>
+                    <div class="content__games__game-card__details">
+                        <div class="content__games__game-card__metadata">
+                            <div class="content__games__game-card__meta-item">
+                                <span class="material-symbols-rounded">event</span>
+                                <div class="content__games__game-card__meta-text">
+                                    <span class="content__games__game-card__meta-description">Release</span>
+                                    <span class="content__games__game-card__meta-value">${game.initialRelease}</span>
+                                </div>
+                            </div>
+                            <div class="content__games__game-card__meta-item">
+                                <span class="material-symbols-rounded">swords</span>
+                                <div class="content__games__game-card__meta-text">
+                                    <span class="content__games__game-card__meta-description">Combat</span>
+                                    <span class="content__games__game-card__meta-value">${game.dim}</span>
+                                </div>
+                            </div>
+                            <div class="content__games__game-card__meta-item">
+                                <span class="material-symbols-rounded">videogame_asset</span>
+                                <div class="content__games__game-card__meta-text">
+                                    <span class="content__games__game-card__meta-description">Platforms</span>
+                                    <div class="content__games__game-card__meta-value content__games__game-card__platform-list">${platformHtml}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="content__games__game-card__title">${game.section}</p>
+                <p class="content__games__game-card__description">${game.description}</p>
+                <div class="content__games__game-card__article-list">
+                    <div class="content__games__game-card__article-item" data-document="${game.document}" data-section="${game.section}">
+                      <span class="material-symbols-rounded">settings</span>
+                      <span class="content__games__game-card__article-item--label">Systems</span>
+                    </div>
+                    <div class="content__games__game-card__article-item" data-document="${game.document}-C" data-section="${game.section}">
+                      <span class="material-symbols-rounded">group</span>
+                      <span class="content__games__game-card__article-item--label">Characters</span>
+                    </div>
+                    <div class="content__games__game-card__article-item" data-document="${game.document}-B" data-section="${game.section}">
+                      <span class="material-symbols-rounded">swords</span>
+                      <span class="content__games__game-card__article-item--label">Bosses</span>
+                    </div>
+                </div> 
+            </div>`;
+      cardIndex++;
+    }
+
+    gamesHtml += "</div>"; // Close .content__games-grid
+    gamesHtml += "</section>"; // Close .content__games-section
+    gamesHtml += "</div>"; // Close .content__games-section-wrapper
+    if (gameEntries.length > initialVisibleCount) {
+      gamesHtml +=
+        '<button id="content__games-section__show-more" class="button">Show More</button>';
+    }
+
+    return gamesHtml;
+  }
+
+  // --- Build the "Latest Changes" section from Git history
+  private async buildLatestChangesSection(): Promise<string> {
+    // How many commits to show initially
+    const initialCommitLimit: number = 8;
+    // Using simplegit to fetch the latest commits
+    //   run from npm on root folder to be sure
+    const git: SimpleGit = simpleGit();
+    const log: LogResult<DefaultLogFields & CommitLog> = await git.log<
+      DefaultLogFields & CommitLog
+    >({
+      maxCount: 50,
+      "--stat": null,
+    });
+    const commits: readonly (DefaultLogFields & CommitLog & ListLogLine)[] = log.all;
+
+    const documentRefs: Map<string, FileEntry> = new Map(
+      fileList.map((entry: FileEntry) => [entry.ref.toUpperCase(), entry]),
+    );
+
+    // Split by month like Github
+    const commitsByMonth: Map<string, (DefaultLogFields & CommitLog)[]> = new Map();
+    for (const commit of commits) {
+      const monthYear: string = new Date(commit.date).toLocaleString("en-US", {
+        month: "long",
+        year: "numeric",
+      });
+      if (!commitsByMonth.has(monthYear)) {
+        commitsByMonth.set(monthYear, []);
+      }
+      commitsByMonth.get(monthYear)!.push(commit);
+    }
+
+    let latestChangesHtml: string = '<section class="content__latest-changes">';
+    latestChangesHtml += '<h2 class="content__home__showcase-text">Latest Changes</h2>';
+
+    let commitCounter: number = 0;
+    let monthIndex: number = 0;
+    const totalMonths: number = commitsByMonth.size;
+
+    for (const [monthYear, monthCommits] of commitsByMonth.entries()) {
+      const isLastMonthGroup: boolean = monthIndex === totalMonths - 1;
+      const isGroupInitiallyHidden: boolean = commitCounter >= initialCommitLimit;
+
+      latestChangesHtml += `<div class="content__latest-changes__timeline-group${isGroupInitiallyHidden ? " hidden" : ""}">`;
+
+      latestChangesHtml += `<div class="content__latest-changes__timeline-row">`;
+      latestChangesHtml += `
+        <div class="content__latest-changes__timeline-marker-container">
+          <div class="content__latest-changes__timeline-marker-icon material-symbols-rounded">commit</div>
+          ${!isLastMonthGroup ? '<div class="content__latest-changes__timeline-marker-line"></div>' : ""}
+        </div>`;
+
+      latestChangesHtml += `<div class="content__latest-changes__timeline-content">`;
+      latestChangesHtml += `<div class="content__latest-changes__timeline-month">${monthYear}</div>`;
+      latestChangesHtml += `<ul class="content__latest-changes__commit-list">`;
+
+      for (const commit of monthCommits) {
+        let { message, author_name: author }: DefaultLogFields & CommitLog = commit;
+        const { date, hash, diff }: DefaultLogFields & CommitLog = commit;
+
+        const isCommitHidden: boolean = commitCounter >= initialCommitLimit;
+        commitCounter++;
+
+        // Extract author from message if following the presets:
+        //   "{title} by author" or "{title} -- author"
+        // These are currently the way they are generated by live edits. If changing there, add the style here too
+        const authorRegex: RegExp = / (?:by|--) (.*)$/;
+        const authorMatch: RegExpMatchArray | null = message.match(authorRegex);
+        if (authorMatch?.[1]) {
+          author = authorMatch[1].trim();
+          message = message.replace(authorRegex, "").trim();
+        }
+
+        const docTagRegex: RegExp = /\[([A-Z0-9-]+)]/;
+        const docTagMatch: RegExpMatchArray | null = message.match(docTagRegex);
+        let pageRedirectHtml: string = "";
+        if (docTagMatch?.[1] && documentRefs.has(docTagMatch[1])) {
+          const fileEntry: FileEntry = documentRefs.get(docTagMatch[1])!;
+          pageRedirectHtml = `
+            <span class="content__latest-changes__commit-changes-link" data-document="${fileEntry.document}" data-section="${fileEntry.section}">
+              <span class="material-symbols-rounded">link</span>
+              <span class="content__latest-changes__commit-changes-link-text">See changes</span>
+            </span>`;
+        }
+
+        // URL to see on Github
+        //   change if switching to an organization
+        const commitUrl: string = `https://github.com/V-Cent/TTE/commit/${hash}`;
+        const formattedDate: string = new Date(date).toLocaleString("en-US", {
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          timeZone: "UTC",
+          timeZoneName: "short",
+        });
+
+        const insertions: number = diff?.insertions ?? 0;
+        const deletions: number = diff?.deletions ?? 0;
+        const diffHtml: string =
+          insertions > 0 || deletions > 0
+            ? `
+            <span class="content__latest-changes__commit-stats">
+              <span class="content__latest-changes__commit-stats-additions">+${insertions}</span>
+              <span class="content__latest-changes__commit-stats-deletions">-${deletions}</span>
+            </span>`
+            : "";
+
+        latestChangesHtml += `
+          <li class="content__latest-changes__commit-item${isCommitHidden ? " hidden" : ""}">
+            <div class="content__latest-changes__commit-content-wrapper">
+              <div class="content__latest-changes__commit-header">
+                <a href="${commitUrl}" target="_blank" rel="noopener noreferrer" class="content__latest-changes__commit-title-link">${message}</a>
+                ${pageRedirectHtml}
+              </div>
+              <div class="content__latest-changes__commit-details">
+                <div class="content__latest-changes__commit-meta">
+                  <span class="content__latest-changes__commit-author">${author}</span>
+                  <span class="content__latest-changes__commit-separator">•</span>
+                  <span class="content__latest-changes__commit-date">${formattedDate}</span>
+                </div>
+                ${diffHtml}
+              </div>
+            </div>
+          </li>`;
+      }
+
+      latestChangesHtml += `</ul></div></div></div>`;
+      monthIndex++;
+    }
+
+    latestChangesHtml += "</section>";
+    if (commits.length > initialCommitLimit) {
+      latestChangesHtml +=
+        '<button id="content__latest-changes__show-more" class="button">Show More</button>';
+    }
+    return latestChangesHtml;
+  }
+
+  // --- Build the final homepage by combining the template with generated sections
+  private async buildHomePage(): Promise<ProcessingResult> {
+    const sourcePath: string = path.join(this.srcDirectoryPath, "home.html");
+    const outputPath: string = path.join(this.docsDirectoryPath, "home.html");
+
+    try {
+      const homeTemplate: string = await fs.readFile(sourcePath, "utf8");
+      const gamesSectionHtml: string = await this.buildGamesSection();
+      const latestChangesHtml: string = await this.buildLatestChangesSection();
+
+      const finalHtml: string = homeTemplate + gamesSectionHtml + latestChangesHtml;
+      const htmlSize: number = Buffer.byteLength(finalHtml, "utf8");
+
+      const minifiedHtml: Buffer = minifyHtml(Buffer.from(finalHtml), {
+        minify_css: true,
+        minify_js: true,
+      });
+      const minifiedSize: number = minifiedHtml.length;
+      await fs.writeFile(outputPath, minifiedHtml);
+
+      return {
+        fileName: "HOME",
+        markdownSize: 0,
+        htmlSize,
+        minifiedSize,
+        success: true,
+      };
+    } catch (error: unknown) {
+      const errorMessage: string = error instanceof Error ? error.message : "Unknown error";
+      return {
+        fileName: "HOME",
+        markdownSize: 0,
+        htmlSize: 0,
+        minifiedSize: 0,
+        success: false,
+        errorMessage,
+      };
+    }
   }
 
   // --- Categorize processing results for summary statistics
