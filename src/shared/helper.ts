@@ -161,12 +161,12 @@ export class Helper {
   addLogoVelocity(): void {
     // When clicking on any game, rotate the logo a bit
     if (!this.rotateFlag && this.leaveCounter === 0) {
-      this.currentVelocity = 4;
+      this.currentVelocity = 4.7;
       this.leaveCounter = 200;
       requestAnimationFrame(this.rotateLogo.bind(this));
       return;
     }
-    this.currentVelocity = 4;
+    this.currentVelocity = 4.7;
     this.leaveCounter = 200;
   }
 
@@ -194,9 +194,11 @@ export class Helper {
     if (!this.logoElement) return;
 
     const computedStyle: CSSStyleDeclaration = getComputedStyle(this.logoElement);
-    const transformProperty: string = computedStyle.getPropertyValue("transform");
+    let transformProperty: string = computedStyle.getPropertyValue("transform");
 
-    if (transformProperty === "none") return;
+    if (transformProperty === "none") {
+      transformProperty = "matrix(1, 0, 0, 1, 0, 0)";
+    }
 
     const transformValues: string[] = transformProperty.split("(")[1].split(")")[0].split(",");
     const matrixA: number = parseFloat(transformValues[0]);
@@ -482,79 +484,145 @@ export class Helper {
     mediaCaption?: string,
     floatDirection?: "left" | "right",
   ): HTMLElement {
-    // Keep in mind that very few elements can be inside a paragraph block without it auto closing itself!
-    const mediaContainer: HTMLElement = documentContext.createElement("p");
-    if (floatDirection) {
-      mediaContainer.classList.add(
+    const mediaContainerElement: HTMLElement = documentContext.createElement("p");
+    const isFloating: boolean = Boolean(floatDirection);
+
+    if (isFloating) {
+      mediaContainerElement.classList.add(
         floatDirection === "left" ? "content__figure--float-left" : "content__figure--float-right",
       );
-      Object.assign(mediaContainer.style, {
-        opacity: "1",
-      });
+      Object.assign<HTMLElement["style"], Partial<CSSStyleDeclaration>>(
+        mediaContainerElement.style,
+        {
+          opacity: "1",
+        },
+      );
     } else {
-      Object.assign(mediaContainer.style, {
-        opacity: "1",
-        textAlign: "center",
-      });
+      Object.assign<HTMLElement["style"], Partial<CSSStyleDeclaration>>(
+        mediaContainerElement.style,
+        {
+          opacity: "1",
+          textAlign: "center",
+        },
+      );
     }
 
-    let mediaElement: HTMLImageElement | HTMLVideoElement;
+    // extract a YouTube video id if URL matches patterns
+    const extractYouTubeVideoId = (rawUrl: string): string | null => {
+      try {
+        const parsedUrl: URL = new URL(rawUrl, "https://dummy.invalid");
+        const normalizedHost: string = parsedUrl.hostname.replace(/^www\./, "");
+        if (
+          normalizedHost === "youtube.com" ||
+          normalizedHost === "m.youtube.com" ||
+          normalizedHost === "youtube-nocookie.com"
+        ) {
+          const watchId: string | null = parsedUrl.searchParams.get("v");
+          if (watchId) return watchId;
+
+          const embedMatch: RegExpMatchArray | null =
+            parsedUrl.pathname.match(/\/embed\/([^/?#]+)/);
+          if (embedMatch?.[1]) return embedMatch[1];
+
+          const shortsMatch: RegExpMatchArray | null =
+            parsedUrl.pathname.match(/\/shorts\/([^/?#]+)/);
+          if (shortsMatch?.[1]) return shortsMatch[1];
+        }
+        if (normalizedHost === "youtu.be") {
+          const pathId: string = parsedUrl.pathname.replace(/^\/+/, "").split("/")[0];
+          return pathId || null;
+        }
+      } catch {
+        // Ignore invalid URL
+      }
+      return null;
+    };
+
+    let mediaElement: HTMLImageElement | HTMLVideoElement | HTMLElement;
+
     if (mediaType === "img") {
-      mediaElement = documentContext.createElement("img");
-      Object.assign(mediaElement, {
+      const imageElement: HTMLImageElement = documentContext.createElement("img");
+      Object.assign(imageElement, {
         alt: mediaCaption ?? "",
         loading: "lazy",
         src: mediaSrc,
       });
+      mediaElement = imageElement;
     } else {
-      mediaElement = documentContext.createElement("video");
-      Object.assign(mediaElement, {
-        preload: "metadata",
-        controls: true,
-        muted: true,
-        loop: true,
-      });
+      const youtubeId: string | null = extractYouTubeVideoId(mediaSrc);
+      if (youtubeId) {
+        const iframeElement: HTMLElement = documentContext.createElement("iframe");
+        const embedUrl: string = `https://www.youtube.com/embed/${youtubeId}?rel=0`;
+        Object.assign(iframeElement, {
+          src: embedUrl,
+          loading: "lazy",
+          title: mediaCaption ?? "YouTube video",
+        });
+        iframeElement.setAttribute("frameborder", "0");
+        iframeElement.setAttribute(
+          "allow",
+          "accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+        );
+        iframeElement.setAttribute("allowfullscreen", "true");
+        mediaElement = iframeElement;
+      } else {
+        const videoElement: HTMLVideoElement = documentContext.createElement("video");
+        Object.assign(videoElement, {
+          preload: "metadata",
+          controls: true,
+          muted: true,
+          loop: true,
+        });
 
-      const videoSource: HTMLSourceElement = documentContext.createElement("source");
-      Object.assign(videoSource, {
-        src: mediaSrc,
-        type: "video/mp4",
-      });
-      mediaElement.appendChild(videoSource);
+        const sourceElement: HTMLSourceElement = documentContext.createElement("source");
+        Object.assign(sourceElement, {
+          src: mediaSrc,
+          type: "video/mp4",
+        });
+        videoElement.appendChild(sourceElement);
+        mediaElement = videoElement;
+      }
     }
 
-    // Apply general draggable attribute
     Object.assign(mediaElement, { draggable: false });
 
-    if (floatDirection) {
-      // Hardcoded CSS for floating elements
-      Object.assign(mediaElement.style, {
+    if (isFloating) {
+      Object.assign<HTMLElement["style"], Partial<CSSStyleDeclaration>>(mediaElement.style, {
         width: "100%",
         height: "auto",
         outline: "none",
         borderRadius: "8px",
+        aspectRatio: mediaWidth && mediaHeight ? `${mediaWidth} / ${mediaHeight}` : "16 / 9",
       });
     } else {
-      // Apply width/height attributes and styles for non-floated (centered) media
-      Object.assign(mediaElement, {
-        width: mediaWidth,
-        height: mediaHeight,
-      });
+      if (mediaElement.tagName === "IFRAME") {
+        mediaElement.setAttribute("width", String(mediaWidth));
+        mediaElement.setAttribute("height", String(mediaHeight));
+        mediaElement.style.outline = "none";
+        mediaElement.style.borderRadius = "8px";
+        mediaElement.style.height = `${mediaHeight}px`;
+        mediaElement.style.width = `${mediaWidth}px`;
+      } else {
+        Object.assign(mediaElement as HTMLImageElement | HTMLVideoElement, {
+          width: mediaWidth,
+          height: mediaHeight,
+        });
+      }
       mediaElement.classList.add("content__figure");
     }
 
-    mediaContainer.appendChild(mediaElement);
+    mediaContainerElement.appendChild(mediaElement);
 
     if (mediaCaption) {
       const captionElement: HTMLElement = documentContext.createElement("u");
       captionElement.classList.add("content__figure-caption");
-      // So the underline appears a bit to the left and right of the caption.
-      Object.assign(captionElement.style, { whiteSpace: "pre" });
+      Object.assign<HTMLElement["style"], Partial<CSSStyleDeclaration>>(captionElement.style, {
+        whiteSpace: "pre",
+      });
       captionElement.textContent = ` ${mediaCaption} `;
-      mediaContainer.appendChild(captionElement);
+      mediaContainerElement.appendChild(captionElement);
     }
-
-    return mediaContainer;
+    return mediaContainerElement;
   }
 
   // --- [FILE] - File loading and async reading

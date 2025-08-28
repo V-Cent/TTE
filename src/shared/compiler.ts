@@ -910,9 +910,15 @@ export class Compiler {
                                  data-tag="tech" 
                                  data-redirect="#${headingElementForAttributes.id}">
                                 <span class="nav-bar__search--results--games material-symbols-rounded">book_2</span>
-                                <b>${gameLabel}</b>
-                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${headingElementForAttributes.textContent ?? ""}
+                                <div>
+                                  <b>${gameLabel}</b>
+                                  <div class="nav-bar__search--results--subtext">
+                                      <span class="nav-bar__search--breadcrumb">${currentH2IdForSearch} › </span>
+                                      ${headingElementForAttributes.textContent ?? ""}
+                                  </div>
+                                </div>
                               </a>
+
                             `,
               type: "tech",
               primarySortKey: gameLabel,

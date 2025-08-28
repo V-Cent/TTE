@@ -328,86 +328,227 @@ class CacheBuilder {
 
   // --- Build the "Games" section for the homepage
   private async buildGamesSection(): Promise<string> {
-    // Get only base game articles (all have an initialRelease field)
-    const gameEntries: FileEntry[] = fileList.filter(
-      (entry: FileEntry): entry is FileEntry & { initialRelease: number } => !!entry.initialRelease,
+    // Filter to games that have a latestRelease
+    const gameEntries: (FileEntry & {
+      latestRelease: number;
+    })[] = fileList.filter(
+      (entry: FileEntry): entry is FileEntry & { latestRelease: number } => !!entry.latestRelease,
     );
 
-    // How many will initially appear in the homepage
-    const initialVisibleCount: number = 3;
-    let cardIndex: number = 0;
+    // Sort: newest release
+    const sortedByYear: (FileEntry & {
+      latestRelease: number;
+    })[] = [...gameEntries].sort(
+      (
+        a: FileEntry & {
+          latestRelease: number;
+        },
+        b: FileEntry & {
+          latestRelease: number;
+        },
+      ) => {
+        const byRelease: number = b.latestRelease - a.latestRelease;
+        return byRelease !== 0 ? byRelease : a.section.localeCompare(b.section);
+      },
+    );
 
-    let gamesHtml: string = '<h2 class="content__home__showcase-text">Games</h2>';
-    gamesHtml += '<div class="content__games-section-wrapper">';
-    gamesHtml += '<section class="content__games-section">';
-    gamesHtml += '<div class="content__games-grid">';
+    const createFitTextHtml = (text: string): string => {
+      // Based on https://kizu.dev/fit-to-width/
+      const sanitizedText: string = text.replace(/"/g, "&quot;");
+      return `
+      <span class="text-fit">
+        <span>
+          <span class="text-fit">
+            <span><span>${sanitizedText}</span></span>
+            <span aria-hidden="true">${sanitizedText}</span>
+          </span>
+        </span>
+        <span aria-hidden="true">${sanitizedText}</span>
+      </span>
+      `.trim();
+    };
 
-    for (const game of gameEntries) {
-      const isHidden: boolean = cardIndex >= initialVisibleCount;
-      // Platforms is various items that are displayed one on each line (on desktop view)
-      const platformHtml: string = (game.platform ?? [])
-        .map((p: string) => `<span class="content__games__game-card__">${p}</span>`)
+    const renderGame = (game: FileEntry & { latestRelease: number }, index: number): string => {
+      const platformsHtml: string = (game.platform ?? [])
+        .map((p: string) => `<span class="content__games__hero__platform-item">${p}</span>`)
         .join("");
+      const activeClass: string = index === 0 ? "active" : "";
+      const imageRender: string = index === 0 ? `src="media/home/${game.ref}_hero.webp"` : "";
+      const descriptionHtml: string = createFitTextHtml(
+        game.description ?? "No description available.",
+      );
 
-      gamesHtml += `
-            <div class="content__games__game-card${isHidden ? " hidden" : ""}">
-                <div class="content__games__game-card__duo">
-                    <img class="content__games__game-card__art" src="media/home/${game.ref}.webp" alt="${game.section} Art" ${isHidden ? ' loading="lazy"' : ""}>
-                    <div class="content__games__game-card__details">
-                        <div class="content__games__game-card__metadata">
-                            <div class="content__games__game-card__meta-item">
-                                <span class="material-symbols-rounded">event</span>
-                                <div class="content__games__game-card__meta-text">
-                                    <span class="content__games__game-card__meta-description">Release</span>
-                                    <span class="content__games__game-card__meta-value">${game.initialRelease}</span>
-                                </div>
-                            </div>
-                            <div class="content__games__game-card__meta-item">
-                                <span class="material-symbols-rounded">swords</span>
-                                <div class="content__games__game-card__meta-text">
-                                    <span class="content__games__game-card__meta-description">Combat</span>
-                                    <span class="content__games__game-card__meta-value">${game.dim}</span>
-                                </div>
-                            </div>
-                            <div class="content__games__game-card__meta-item">
-                                <span class="material-symbols-rounded">videogame_asset</span>
-                                <div class="content__games__game-card__meta-text">
-                                    <span class="content__games__game-card__meta-description">Platforms</span>
-                                    <div class="content__games__game-card__meta-value content__games__game-card__platform-list">${platformHtml}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="content__games__game-card__title">${game.section}</p>
-                <p class="content__games__game-card__description">${game.description}</p>
-                <div class="content__games__game-card__article-list">
-                    <div class="content__games__game-card__article-item" data-document="${game.document}" data-section="${game.section}">
-                      <span class="material-symbols-rounded">settings</span>
-                      <span class="content__games__game-card__article-item--label">Systems</span>
-                    </div>
-                    <div class="content__games__game-card__article-item" data-document="${game.document}-C" data-section="${game.section}">
-                      <span class="material-symbols-rounded">group</span>
-                      <span class="content__games__game-card__article-item--label">Characters</span>
-                    </div>
-                    <div class="content__games__game-card__article-item" data-document="${game.document}-B" data-section="${game.section}">
-                      <span class="material-symbols-rounded">swords</span>
-                      <span class="content__games__game-card__article-item--label">Bosses</span>
-                    </div>
-                </div> 
-            </div>`;
-      cardIndex++;
+      return `
+    <div class="content__games__hero-item ${activeClass}" data-document="${game.document}" data-section="${game.section}">
+      <div class="content__games__hero__duo">
+        <div class="content__games__hero__art-container">
+          <img class="content__games__hero__art" ${imageRender} data-src="media/home/${game.ref}_hero.webp" alt="${game.section} Art">
+          <div class="content__games__hero__art-overlay">
+            <span class="content__games__hero__art-overlay-brand" data-text="Tales of">Tales of</span>
+            <span class="content__games__hero__art-overlay-game" data-text="${game.section.replace("Tales of ", "")}">${game.section.replace("Tales of ", "")}</span>
+          </div>
+          <div class="content__games-controls__nav">
+            <div class="content__games-prev"><span class="material-symbols-rounded">arrow_back_ios</span></div>
+            <div class="content__games-next"><span class="material-symbols-rounded">arrow_forward_ios</span></div>
+          </div>
+          <div class="content__games-play"><span class="material-symbols-rounded content__games-play--videospan" data-video="media/home/bunny.mp4">play_arrow</span></div>
+        </div>
+        <div class="content__games__hero__details">
+          <div class="content__games__hero__description">${descriptionHtml}</div>
+          <div class="content__games__hero__article-list">
+            <div class="content__games__hero__article-item" data-document="${game.document}" data-section="${game.section}">
+              <span class="material-symbols-rounded">settings</span>
+              <span class="content__games__hero__article-item--label">Systems</span>
+            </div>
+            <div class="content__games__hero__article-item" data-document="${game.document}-C" data-section="${game.section}">
+              <span class="material-symbols-rounded">group</span>
+              <span class="content__games__hero__article-item--label">Characters</span>
+            </div>
+            <div class="content__games__hero__article-item" data-document="${game.document}-B" data-section="${game.section}">
+              <span class="material-symbols-rounded">swords</span>
+              <span class="content__games__hero__article-item--label">Bosses</span>
+            </div>
+          </div>
+          <div class="content__games__hero__metadata">
+            <div class="content__games__hero__meta-item">
+              <span class="material-symbols-rounded">event</span>
+              <div class="content__games__hero__meta-text">
+                <span class="content__games__hero__meta-description">Release</span>
+                <span class="content__games__hero__meta-value">${game.latestRelease}</span>
+              </div>
+            </div>
+            <div class="content__games__hero__meta-item">
+              <span class="material-symbols-rounded">swords</span>
+              <div class="content__games__hero__meta-text">
+                <span class="content__games__hero__meta-description">Combat</span>
+                <span class="content__games__hero__meta-value">${game.dim}</span>
+              </div>
+            </div>
+            <div class="content__games__hero__meta-item content__games__hero__meta-item--platforms">
+              <span class="material-symbols-rounded">videogame_asset</span>
+              <div class="content__games__hero__meta-text">
+                <span class="content__games__hero__meta-description">Platforms</span>
+                <div class="content__games__hero__meta-value content__games__hero__platform-list">${platformsHtml}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`.trim();
+    };
+
+    // Group by latestRelease year (in insertion order, already desc)
+    const groups: Map<
+      number,
+      (FileEntry & {
+        latestRelease: number;
+      })[]
+    > = new Map<number, (FileEntry & { latestRelease: number })[]>();
+    for (const g of sortedByYear) {
+      if (!groups.has(g.latestRelease)) groups.set(g.latestRelease, []);
+      groups.get(g.latestRelease)!.push(g);
     }
 
-    gamesHtml += "</div>"; // Close .content__games-grid
-    gamesHtml += "</section>"; // Close .content__games-section
-    gamesHtml += "</div>"; // Close .content__games-section-wrapper
-    if (gameEntries.length > initialVisibleCount) {
-      gamesHtml +=
-        '<button id="content__games-section__show-more" class="button">Show More</button>';
+    const activeGame: FileEntry & {
+      latestRelease: number;
+    } = sortedByYear[0];
+    // Create a flat list of all games sorted by latest release
+    const itemsHtml: string = sortedByYear
+      .map((game: FileEntry & { latestRelease: number }) => {
+        const isActive: boolean = game === activeGame;
+        return `
+        <div class="content__games-menu__item${isActive ? " active" : ""}"
+             data-document="${game.document}"
+             data-section="${game.section}"
+             data-dim="${game.dim}"
+             data-initial-release="${game.initialRelease}"
+             data-latest-release="${game.latestRelease}"
+             data-platforms="${game.platform ? game.platform.join(",") : ""}">
+          <span class="content__games-menu__item-title">${game.section}</span>
+          <div class="content__games-menu__item-meta">
+            <span class="content__games-menu__item-data content__games-menu__item-latest-release">${game.latestRelease}</span>
+            <span class="content__games-menu__item-data content__games-menu__item-initial-release">${game.initialRelease}</span>
+            <span class="content__games-menu__item-data content__games-menu__item-dim">${game.dim}</span>
+            <span class="content__games-menu__item-data content__games-menu__item-platforms">${game.platform ? game.platform.join(", ") : ""}</span>
+            <button type="button" class="content__games-menu__item-open content__games-menu__item-redirect" data-document="${game.document}" data-section="${game.section}">
+              <span class="material-symbols-rounded">arrow_outward</span>
+            </button>
+          </div>
+        </div>`.trim();
+      })
+      .join("");
+
+    // Create the complete menu HTML structure
+    const menuGroupsHtml: string = `
+      <div class="content__games-menu__header">
+        <span class="content__games-menu__grouping-label">Latest Release</span>
+        <div class="content__games-menu__header-actions">
+          <span class="material-symbols-rounded content__games-menu__icon content__games-menu__icon--close">close</span>
+        </div>
+      </div>
+      <div class="content__games-menu__body">
+        <div class="content__games-menu__items">
+          ${itemsHtml}
+        </div>
+      </div>
+    `;
+
+    // Prepare the first card for the compiled HTML and save others as cache
+    const firstGameHtml: string = renderGame(sortedByYear[0], 0);
+    const remainingGamesHtml: string = sortedByYear
+      .slice(1)
+      .map((game: FileEntry & { latestRelease: number }, i: number) => renderGame(game, i + 1))
+      .join("");
+
+    try {
+      const escapeTpl = (s: string): string =>
+        s.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");
+
+      const safeDesktopMenu: string = escapeTpl(menuGroupsHtml);
+      const safeStackRemainder: string = escapeTpl(remainingGamesHtml);
+
+      const compressedMenu: string = await this.helperObj.compress(safeDesktopMenu);
+      const compressedStack: string = await this.helperObj.compress(safeStackRemainder);
+
+      const outTs: string =
+        `// This file is auto-generated by the Compiler. Do not edit directly.\n` +
+        `export const cachedHomeGamesMenuHTML: string = \`${compressedMenu}\`;\n` +
+        `export const cachedHomeGamesStackHTML: string = \`${compressedStack}\`;\n`;
+
+      const outPath: string = path.join(this.cacheDirectoryPath, "homeGamesHTML.ts");
+      await fs.mkdir(this.cacheDirectoryPath, { recursive: true });
+      await fs.writeFile(outPath, outTs);
+      console.log(`${COLORS.GREEN}Generated home games cache${COLORS.RESET}`);
+    } catch (err: unknown) {
+      console.error(`${COLORS.RED}Error generating home games cache:${COLORS.RESET}`, err);
     }
 
-    return gamesHtml;
+    const cardsStackHtml: string = `<div class="content__games-desktop">
+        <div class="content__games-controls">
+          <div class="content__games-showall button"> List All </div>
+        </div>
+        <div class="content__games-stack">
+          ${firstGameHtml}
+        </div>
+      </div>`;
+
+    let html: string = "";
+    html += '<div class="content__games-section-wrapper">';
+    html += '<section class="content__games-section">';
+    html += '<div class="content__games-layout">';
+    html += cardsStackHtml;
+    html += "</div>";
+    html += `
+    <aside class="content__games-menu-popup content__games-menu-popup-desktop" style="display: none;">
+    </aside>
+    <div class="content__games-mobile">
+      <aside class="content__games-menu-popup">
+        ${menuGroupsHtml}
+      </aside>
+    </div>`.trim();
+    html += "</div></section></div>";
+
+    return html;
   }
 
   // --- Build the "Latest Changes" section from Git history
@@ -491,7 +632,7 @@ class CacheBuilder {
           pageRedirectHtml = `
             <span class="content__latest-changes__commit-changes-link" data-document="${fileEntry.document}" data-section="${fileEntry.section}">
               <span class="material-symbols-rounded">link</span>
-              <span class="content__latest-changes__commit-changes-link-text">See changes</span>
+              <span class="content__latest-changes__commit-changes-link-text">See Page</span>
             </span>`;
         }
 
@@ -614,7 +755,7 @@ class CacheBuilder {
     );
   }
 
-  // --- Display comprehensive build summary
+  // --- Display build summary
   private displayBuildSummary(summary: {
     totalFiles: number;
     processedCount: number;

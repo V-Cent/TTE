@@ -13,6 +13,7 @@ export interface FileEntry {
   platform?: string[];
   description?: string;
   initialRelease?: number;
+  latestRelease?: number;
 }
 
 const fileList: FileEntry[] = [
@@ -40,6 +41,7 @@ const fileList: FileEntry[] = [
     ref: "tog",
     platform: ["Wii", "PS3", "Switch", "PS4", "PS5", "XB1", "XBS", "PC"],
     initialRelease: 2009,
+    latestRelease: 2025,
     description: "Bonds Transcend Time",
   },
   { document: "TOG-B", section: "Tales of Graces", dim: "3D", ref: "tog-b" },
@@ -51,6 +53,7 @@ const fileList: FileEntry[] = [
     ref: "toa",
     platform: ["PS4", "PS5", "XB1", "XBS", "PC"],
     initialRelease: 2021,
+    latestRelease: 2023,
     description: "Challenge the Fate That Binds You",
   },
   { document: "TOA-B", section: "Tales of Arise", dim: "3D", ref: "toa-b" },
@@ -62,6 +65,7 @@ const fileList: FileEntry[] = [
     ref: "tov",
     platform: ["360", "PS3", "Switch", "PS4", "PS5", "XB1", "XBS", "PC"],
     initialRelease: 2008,
+    latestRelease: 2019,
     description: "To Each, Their Own Justice",
   },
   { document: "TOV-B", section: "Tales of Vesperia", dim: "3D", ref: "tov-b" },
@@ -73,6 +77,7 @@ const fileList: FileEntry[] = [
     ref: "todps2",
     platform: ["PS2"],
     initialRelease: 2006,
+    latestRelease: 2008,
     description: "Liberate Your Destiny",
   },
   { document: "TODPS2-B", section: "Tales of Destiny", dim: "2D", ref: "todps2-b" },
@@ -84,6 +89,7 @@ const fileList: FileEntry[] = [
     ref: "tol",
     platform: ["PS2"],
     initialRelease: 2005,
+    latestRelease: 2006,
     description: "Let Your Faith Give Birth to Power",
   },
   { document: "TOL-B", section: "Tales of Legendia", dim: "2D", ref: "tol-b" },
@@ -95,6 +101,7 @@ const fileList: FileEntry[] = [
     ref: "tos",
     platform: ["GCN", "PS2", "PS3", "PC", "Switch", "PS4", "XB1"],
     initialRelease: 2003,
+    latestRelease: 2023,
     description: "The Epic Battle for Survival",
   },
   { document: "TOS-B", section: "Tales of Symphonia", dim: "3D", ref: "tos-b" },
@@ -106,6 +113,7 @@ const fileList: FileEntry[] = [
     ref: "tota",
     platform: ["PS2", "3DS"],
     initialRelease: 2005,
+    latestRelease: 2012,
     description: "Learning Why One Exists",
   },
   { document: "TOTA-B", section: "Tales of the Abyss", dim: "3D", ref: "tota-b" },
@@ -117,6 +125,7 @@ const fileList: FileEntry[] = [
     ref: "tox",
     platform: ["PS3"],
     initialRelease: 2011,
+    latestRelease: 2013,
     description: "When Worlds Overlap, Belief Lights the Way",
   },
   { document: "TOX-B", section: "Tales of Xillia", dim: "3D", ref: "tox-b" },
@@ -128,6 +137,7 @@ const fileList: FileEntry[] = [
     ref: "tox2",
     platform: ["PS3"],
     initialRelease: 2012,
+    latestRelease: 2014,
     description: "The Power of Choice",
   },
   { document: "TOX2-B", section: "Tales of Xillia 2", dim: "3D", ref: "tox2-b" },
@@ -139,6 +149,7 @@ const fileList: FileEntry[] = [
     ref: "toz",
     platform: ["PS3", "PS4", "PC"],
     initialRelease: 2015,
+    latestRelease: 2016,
     description: "Legends Beget Hope",
   },
   { document: "TOZ-B", section: "Tales of Zestiria", dim: "3D", ref: "toz-b" },

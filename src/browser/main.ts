@@ -5,6 +5,13 @@
 //   controls page flow and state
 // To add games, change fileList on shared/globals !
 
+// VCent's notes:
+//   This is a mostly-pure typescript project.
+//   While I wouldn't do this nowadays (probably would do something with Astro and webcomponents), I both didn't have enough experience with frontend stuff AND tools didn't have support and/or a good workflow for those tools back then.
+//   What we have now is a fairly performant app which was unfortunately harmed a bit by feature-creep.
+//   However, the code under "shared" is the one responsible for treating MD pages. Any future implementation of a front-end code can use those without issues.
+//   It is called "shared" since it is used both in the browser and in our integration scripts. On the scripts, we compile MD to HTML. In the browser, it is used when a user edits a page in the browser and wants to render it to show changes.
+
 import { Search } from "./search";
 import { TOC } from "./toc";
 import { Headings } from "./headings";
@@ -40,6 +47,17 @@ interface PageConfiguration {
   readonly VIDEO_REMOVE_DELAY: number;
 }
 
+interface GameCarouselState {
+  gameItems: HTMLElement[];
+  menuItems: {
+    desktop: HTMLElement[];
+    mobile: HTMLElement[];
+  };
+  visibleItems: HTMLElement[];
+  activeIndex: number;
+  isTransitioning: boolean;
+}
+
 const SELECTORS: PageSelectors = {
   CONTENT: "#content",
   NAV_BAR: "#nav-bar",
@@ -52,16 +70,16 @@ const SELECTORS: PageSelectors = {
   SELECTOR_ITEM: ".content__selectorbox--item",
   CONTENT_COLLAPSE: ".content__collapse",
   CONTENT_REDIRECT: "span.content__redirect",
-  SHOWCASE_PLAY: ".content__home__showcase-item--play",
-  SHOWCASE_VIDEO: ".content__home__showcase-item--video",
+  SHOWCASE_PLAY: ".content__games-play--videospan",
+  SHOWCASE_VIDEO: ".content__games__hero__video",
   HOME_UPDATED: ".content__latest-changes__commit-changes-link",
-  HOME_GAMES: ".content__games__game-card__article-item",
+  HOME_GAMES: ".content__games__hero__article-item",
 } as const;
 
 const PAGE_CONFIG: PageConfiguration = {
   MIN_HEIGHT_STANDARD: "600px",
   MIN_HEIGHT_TECH: "100vh",
-  REDIRECT_DELAY: 250,
+  REDIRECT_DELAY: 100,
   VIDEO_FADE_DELAY: 50,
   VIDEO_REMOVE_DELAY: 500,
 } as const;
@@ -100,6 +118,8 @@ const appState: {
 };
 
 let editSubmissionLock: boolean = false;
+let gamesCarouselState: GameCarouselState | null = null;
+let homeGamesDesktopFilled: boolean = false;
 
 // --- ENTRY POINT
 
@@ -261,7 +281,7 @@ async function handlePageChange(request: PageRequest): Promise<void> {
     await ensureKatexLoaded();
   }
   await loadPage(request);
-  processPage(request);
+  await processPage(request);
 }
 
 // --- PAGE NAVIGATION
@@ -326,7 +346,7 @@ function getFilePath(request: PageRequest): string {
 // --- PAGE PROCESSING
 
 // --- Processes the page request, updates DOM, SEO, history, and sets up functionality
-function processPage(request: PageRequest): void {
+async function processPage(request: PageRequest): Promise<void> {
   // Check if same document BEFORE updating currentDocument
   const isSameDocument: boolean = appState.currentDocument === request.document;
   // Handle tech page redirects for same document
@@ -336,7 +356,7 @@ function processPage(request: PageRequest): void {
     request.redirect &&
     request.redirect !== "NONE"
   ) {
-    handleTechPageRedirect(request);
+    await handlePageNavigation(request);
     updateHistory(request);
     return;
   }
@@ -351,7 +371,7 @@ function processPage(request: PageRequest): void {
   updateSEO(request);
   updateHistory(request);
   setupPageFunctionality(request);
-  handlePageNavigation(request);
+  await handlePageNavigation(request);
 }
 
 // --- Updates the DOM based on the request
@@ -448,10 +468,10 @@ function setupPageFunctionality(request: PageRequest): void {
 }
 
 // --- Handles content scroll and navigation based on if the request has a redirect or not
-function handlePageNavigation(request: PageRequest): void {
+async function handlePageNavigation(request: PageRequest): Promise<void> {
   if (request.pageType === "tech" && request.redirect && request.redirect !== "NONE") {
-    setTimeout((): void => {
-      moduleObjects.search.revealElementById(request.redirect!.substring(1));
+    await moduleObjects.search.revealElementById(request.redirect!.substring(1));
+    setTimeout(async (): Promise<void> => {
       const targetElement: Element | null =
         document.querySelector(request.redirect!) ??
         document.querySelector(SELECTORS.CONTENT_SELECTOR);
@@ -476,19 +496,6 @@ function setupH2Collection(): void {
   }
 }
 
-// --- Simple scroll to nav-bar or reveal the target and scroll to it
-function handleTechPageRedirect(request: PageRequest): void {
-  if (request.redirect) {
-    moduleObjects.search.revealElementById(request.redirect.substring(1));
-    const targetElement: Element | null =
-      document.querySelector(request.redirect) ??
-      document.querySelector(SELECTORS.CONTENT_SELECTOR);
-    targetElement?.scrollIntoView({ behavior: "smooth" });
-  } else {
-    scrollToNavigation();
-  }
-}
-
 // --- Scrolls to the navigation bar
 function scrollToNavigation(): void {
   document.querySelector(SELECTORS.NAV_BAR)?.scrollIntoView({ behavior: "smooth" });
@@ -507,6 +514,429 @@ function setupHomeRedirectElements(): void {
 }
 
 // --- Adds click events to the showcase play buttons
+function handleShowcaseClick(event: Event): void {
+  const target: EventTarget | null = event.currentTarget;
+  if (!(target instanceof HTMLElement)) return;
+
+  if (target.textContent?.trim() === "play_arrow") {
+    createShowcaseVideo(target);
+  } else {
+    removeShowcaseVideo(target);
+  }
+}
+
+// --- Creates a video element on top of the hero image
+function createShowcaseVideo(target: HTMLElement): void {
+  target.textContent = "stop";
+
+  const video: HTMLVideoElement = document.createElement("video");
+  Object.assign(video, {
+    src: target.dataset.video || "",
+    className: "content__games__hero__video",
+    autoplay: true,
+    controls: false,
+    muted: true,
+    loop: true,
+  });
+
+  target.parentElement?.parentElement?.appendChild(video);
+
+  setTimeout((): void => {
+    video.style.opacity = "1";
+  }, PAGE_CONFIG.VIDEO_FADE_DELAY);
+}
+
+// --- Removes the video element from the hero element and resets the button
+function removeShowcaseVideo(target: HTMLElement): void {
+  const video: HTMLVideoElement | null | undefined =
+    target.parentElement?.parentElement?.querySelector<HTMLVideoElement>(
+      ".content__games__hero__video",
+    );
+
+  if (video) {
+    video.style.opacity = "0";
+    setTimeout((): void => {
+      video.remove();
+      target.textContent = "play_arrow";
+    }, PAGE_CONFIG.VIDEO_REMOVE_DELAY);
+  } else {
+    target.textContent = "play_arrow";
+  }
+}
+
+// --- Ensure the desktop games menu (HTML fragments) and cards are loaded once, then do events
+async function ensureHomeGamesDesktopLoaded(): Promise<void> {
+  if (homeGamesDesktopFilled) return;
+
+  // Dynamic import - only loads when needed
+  const {
+    cachedHomeGamesMenuHTML,
+    cachedHomeGamesStackHTML,
+  }: { cachedHomeGamesMenuHTML: string; cachedHomeGamesStackHTML: string } = await import(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore-start
+    "../../cache/homeGamesHTML.js"
+  );
+
+  // Decompress both strings
+  const [menuHTML, stackHTML]: [string, string] = await Promise.all([
+    moduleObjects.helper.decompress(cachedHomeGamesMenuHTML),
+    moduleObjects.helper.decompress(cachedHomeGamesStackHTML),
+  ]);
+
+  // Populate desktop popup
+  const desktopAsideElement: HTMLElement | null = document.querySelector(
+    ".content__games-menu-popup-desktop",
+  );
+  if (desktopAsideElement && desktopAsideElement.innerHTML.trim().length === 0) {
+    desktopAsideElement.innerHTML = menuHTML;
+  }
+
+  // Append remaining game cards (first already inline)
+  const stackElement: HTMLElement | null = document.querySelector(".content__games-stack");
+  if (stackElement && stackHTML.trim().length > 0) {
+    stackElement.insertAdjacentHTML("beforeend", stackHTML);
+  }
+
+  homeGamesDesktopFilled = true;
+
+  const desktopMenuPopupElement: HTMLElement | null = document.querySelector<HTMLElement>(
+    ".content__games-menu-popup:not(.content__games-mobile .content__games-menu-popup)",
+  );
+
+  // Menu item click handlers (desktop + mobile)
+  const menuItemElements: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
+    ".content__games-menu__item",
+  );
+
+  for (const menuItemElement of menuItemElements) {
+    menuItemElement.addEventListener("click", (event: MouseEvent): void => {
+      event.stopPropagation();
+
+      const state: GameCarouselState | null = getGamesCarouselState();
+      if (!state) return;
+
+      const targetSection: string | undefined = menuItemElement.dataset.section;
+      const targetIndex: number = state.gameItems.findIndex(
+        (gameItem: HTMLElement): boolean => gameItem.dataset.section === targetSection,
+      );
+      if (targetIndex === -1) return;
+
+      navigateCarousel(state, "direct", targetIndex);
+
+      // If originated from desktop popup (moved to body), hide it
+      if (
+        desktopMenuPopupElement &&
+        menuItemElement.closest(".content__games-menu-popup")?.parentElement === document.body
+      ) {
+        hideMenuPopup(desktopMenuPopupElement);
+      }
+    });
+  }
+
+  if (desktopMenuPopupElement) {
+    // Close button inside popup
+    const closeButtonElement: HTMLElement | null =
+      desktopMenuPopupElement.querySelector<HTMLElement>(".content__games-menu__icon--close");
+    closeButtonElement?.addEventListener("click", (event: MouseEvent): void => {
+      event.stopPropagation();
+      hideMenuPopup(desktopMenuPopupElement);
+    });
+  }
+
+  // Prev / Next navigation buttons
+  const prevButtonElements: NodeListOf<HTMLElement> =
+    document.querySelectorAll<HTMLElement>(".content__games-prev");
+  const nextButtonElements: NodeListOf<HTMLElement> =
+    document.querySelectorAll<HTMLElement>(".content__games-next");
+
+  for (const buttonElement of prevButtonElements) {
+    buttonElement.addEventListener("click", (): void => {
+      navigateCarousel(gamesCarouselState, "prev").then();
+    });
+  }
+  for (const buttonElement of nextButtonElements) {
+    buttonElement.addEventListener("click", (): void => {
+      navigateCarousel(gamesCarouselState, "next").then();
+    });
+  }
+
+  // Showcase play buttons
+  const showcasePlayElements: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
+    SELECTORS.SHOWCASE_PLAY,
+  );
+  for (const showcaseElement of showcasePlayElements) {
+    showcaseElement.addEventListener("click", handleShowcaseClick);
+  }
+
+  // Page change event for redirects
+  const redirectMenuItems: NodeListOf<Element> = document.querySelectorAll(
+    `.content__games-menu__item-redirect, ${SELECTORS.HOME_GAMES}`,
+  );
+  for (const redirectMenuItem of redirectMenuItems) {
+    if (redirectMenuItem instanceof HTMLElement) {
+      addPageChangeEvent(redirectMenuItem);
+    }
+  }
+}
+
+// --- Initialize and setup the games carousel functionality
+function setupGamesCarousel(): void {
+  // Reset carousel state
+  gamesCarouselState = null;
+  homeGamesDesktopFilled = false;
+
+  // Navigation buttons
+  const previousButtonElements: NodeListOf<HTMLElement> =
+    document.querySelectorAll<HTMLElement>(".content__games-prev");
+  const nextButtonElements: NodeListOf<HTMLElement> =
+    document.querySelectorAll<HTMLElement>(".content__games-next");
+
+  // Attach navigation handlers (this only applies to first hero in this scope)
+  for (const previousButtonElement of previousButtonElements) {
+    previousButtonElement.addEventListener("click", (): void => {
+      navigateCarousel(gamesCarouselState, "prev").then();
+    });
+  }
+  for (const nextButtonElement of nextButtonElements) {
+    nextButtonElement.addEventListener("click", (): void => {
+      navigateCarousel(gamesCarouselState, "next").then();
+    });
+  }
+
+  // Page change event for redirects
+  const redirectMenuItems: NodeListOf<Element> = document.querySelectorAll(
+    ".content__games-menu__item-redirect, .content__games-mobile .content__games-menu__item",
+  );
+  for (const redirectMenuItem of redirectMenuItems) {
+    if (redirectMenuItem instanceof HTMLElement) {
+      addPageChangeEvent(redirectMenuItem);
+    }
+  }
+
+  // Dropdown menu
+  setupGamesMenuDropdown();
+}
+
+// --- Setup the desktop games menu popup
+function setupGamesMenuDropdown(): void {
+  const controlButtonElements: NodeListOf<HTMLElement> =
+    document.querySelectorAll<HTMLElement>(".content__games-showall");
+
+  const desktopMenuPopupElement: HTMLElement | null = document.querySelector<HTMLElement>(
+    ".content__games-menu-popup:not(.content__games-mobile .content__games-menu-popup)",
+  );
+
+  if (!desktopMenuPopupElement || controlButtonElements.length === 0) return;
+
+  // Move popup into #content
+  if (desktopMenuPopupElement.parentElement) {
+    desktopMenuPopupElement.parentElement.removeChild(desktopMenuPopupElement);
+    const contentElement: HTMLElement | null = document.getElementById("content");
+    contentElement?.appendChild(desktopMenuPopupElement);
+  }
+
+  // Toggle handlers for each control button
+  for (const controlButtonElement of controlButtonElements) {
+    controlButtonElement.addEventListener("click", async (event: MouseEvent): Promise<void> => {
+      event.stopPropagation();
+      await ensureHomeGamesDesktopLoaded();
+      if (desktopMenuPopupElement.style.display === "block") {
+        hideMenuPopup(desktopMenuPopupElement);
+      } else {
+        positionMenuPopup(desktopMenuPopupElement);
+      }
+    });
+  }
+
+  // Outside click handler
+  if (!desktopMenuPopupElement.dataset.outsideListenerAttached) {
+    const controlButtonsArray: HTMLElement[] = [...controlButtonElements];
+    document.addEventListener("click", (event: MouseEvent): void => {
+      if (desktopMenuPopupElement.style.display !== "block") return;
+      const targetNode: EventTarget | null = event.target;
+      if (
+        targetNode instanceof Node &&
+        !desktopMenuPopupElement.contains(targetNode) &&
+        !controlButtonsArray.some((btn: HTMLElement): boolean => btn.contains(targetNode))
+      ) {
+        hideMenuPopup(desktopMenuPopupElement);
+      }
+    });
+    desktopMenuPopupElement.dataset.outsideListenerAttached = "true";
+  }
+}
+
+// --- Position the popup based on the button's position
+function positionMenuPopup(popup: HTMLElement): void {
+  const controlsElement: HTMLElement | null = document.querySelector<HTMLElement>(
+    ".content__games-controls",
+  );
+  const contentElement: HTMLElement | null = document.getElementById("content");
+
+  if (!controlsElement || !contentElement) return;
+
+  const controlsRect: DOMRect = controlsElement.getBoundingClientRect();
+  const contentRect: DOMRect = contentElement.getBoundingClientRect();
+
+  Object.assign(popup.style, {
+    top: `${controlsRect.top - contentRect.top - 6}px`,
+    right: `${contentRect.right - controlsRect.right - 6}px`,
+    left: "auto",
+    display: "block",
+    zIndex: "20",
+  });
+
+  requestAnimationFrame((): void => {
+    popup.classList.remove("fade-out");
+    popup.classList.add("fade-in");
+  });
+}
+
+// --- Hide popup menu
+function hideMenuPopup(menuPopup: HTMLElement): void {
+  menuPopup.classList.remove("fade-in");
+  menuPopup.classList.add("fade-out");
+
+  setTimeout((): void => {
+    menuPopup.style.display = "none";
+    menuPopup.classList.remove("fade-out");
+  }, 250);
+}
+
+// --- Function to get or create the carousel state
+function getGamesCarouselState(): GameCarouselState | null {
+  if (gamesCarouselState) return gamesCarouselState;
+
+  const heroItems: HTMLElement[] = Array.from(
+    document.querySelectorAll<HTMLElement>(".content__games__hero-item"),
+  );
+  if (heroItems.length === 0) return null;
+
+  const desktopMenuItems: HTMLElement[] = Array.from(
+    document.querySelectorAll<HTMLElement>(
+      ".content__games-menu-popup-desktop .content__games-menu__item",
+    ),
+  );
+  const mobileMenuItems: HTMLElement[] = Array.from(
+    document.querySelectorAll<HTMLElement>(".content__games-mobile .content__games-menu__item"),
+  );
+
+  const visibleItems: HTMLElement[] = [...desktopMenuItems];
+
+  const activeItemInMenu: HTMLElement | undefined = visibleItems.find(
+    (item: HTMLElement): boolean => item.classList.contains("active"),
+  );
+  const activeIndex: number = activeItemInMenu ? visibleItems.indexOf(activeItemInMenu) : 0;
+
+  gamesCarouselState = {
+    gameItems: heroItems,
+    menuItems: {
+      desktop: desktopMenuItems,
+      mobile: mobileMenuItems,
+    },
+    visibleItems,
+    activeIndex: activeIndex > -1 ? activeIndex : 0,
+    isTransitioning: false,
+  };
+
+  return gamesCarouselState;
+}
+
+// --- Navigate Carousel depending on direction or target
+async function navigateCarousel(
+  stateInput: GameCarouselState | null,
+  direction: "next" | "prev" | "direct",
+  targetIndex?: number,
+): Promise<void> {
+  await ensureHomeGamesDesktopLoaded();
+
+  const state: GameCarouselState | null = stateInput ?? getGamesCarouselState();
+  if (!state) return;
+
+  // Ensure global state is updated
+  if (!gamesCarouselState) gamesCarouselState = state;
+
+  if (state.isTransitioning || state.visibleItems.length <= 1) return;
+  state.isTransitioning = true;
+
+  const totalVisibleItems: number = state.visibleItems.length;
+  const currentIndexInVisible: number = state.activeIndex;
+  let newIndexInVisible: number;
+
+  if (direction === "direct" && targetIndex !== undefined) {
+    const targetGame: HTMLElement = state.gameItems[targetIndex];
+    if (!targetGame) {
+      state.isTransitioning = false;
+      return;
+    }
+    const targetMenuItem: HTMLElement | undefined = state.visibleItems.find(
+      (item: HTMLElement): boolean => item.dataset.section === targetGame.dataset.section,
+    );
+    if (!targetMenuItem) {
+      state.isTransitioning = false;
+      return;
+    }
+    newIndexInVisible = state.visibleItems.indexOf(targetMenuItem);
+  } else if (direction === "next") {
+    newIndexInVisible = (currentIndexInVisible + 1) % totalVisibleItems;
+  } else {
+    newIndexInVisible = (currentIndexInVisible - 1 + totalVisibleItems) % totalVisibleItems;
+  }
+
+  if (newIndexInVisible < 0) newIndexInVisible = 0;
+
+  const currentVisibleMenuItem: HTMLElement = state.visibleItems[currentIndexInVisible];
+  const nextVisibleMenuItem: HTMLElement = state.visibleItems[newIndexInVisible];
+
+  const currentHeroItem: HTMLElement | undefined = state.gameItems.find(
+    (item: HTMLElement): boolean => item.dataset.section === currentVisibleMenuItem.dataset.section,
+  );
+  const nextHeroItem: HTMLElement | undefined = state.gameItems.find(
+    (item: HTMLElement): boolean => item.dataset.section === nextVisibleMenuItem.dataset.section,
+  );
+
+  if (!currentHeroItem || !nextHeroItem) {
+    state.isTransitioning = false;
+    return;
+  }
+
+  currentHeroItem.classList.add("fade-out");
+
+  const nextImage: HTMLImageElement | null = nextHeroItem.querySelector<HTMLImageElement>(
+    ".content__games__hero__art",
+  );
+  if (nextImage && !nextImage.src && nextImage.dataset.src) {
+    nextImage.src = nextImage.dataset.src;
+  }
+
+  // Timeout timer has to match CSS
+  setTimeout((): void => {
+    const performTransition = (): void => {
+      currentHeroItem.classList.remove("active", "fade-out");
+      nextHeroItem.classList.add("active", "fade-in");
+
+      [...state.menuItems.desktop, ...state.menuItems.mobile].forEach((item: HTMLElement): void => {
+        item.classList.toggle("active", item.dataset.section === nextHeroItem.dataset.section);
+      });
+
+      setTimeout((): void => {
+        nextHeroItem.classList.remove("fade-in");
+        state.activeIndex = newIndexInVisible;
+        state.isTransitioning = false;
+      }, 250);
+    };
+
+    if (nextImage && !nextImage.complete) {
+      nextImage.onload = performTransition;
+      nextImage.onerror = performTransition;
+    } else {
+      performTransition();
+    }
+  }, 250);
+}
+
+// --- Setup home page functionality
 function setupHomeShowcaseElements(): void {
   const showcaseElements: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
     SELECTORS.SHOWCASE_PLAY,
@@ -514,100 +944,34 @@ function setupHomeShowcaseElements(): void {
   for (const element of showcaseElements) {
     element.addEventListener("click", handleShowcaseClick);
   }
-  // "Show More" buttons for homepage
+
   const seeMoreButton: HTMLElement | null = document.getElementById(
     "content__latest-changes__show-more",
   );
-  if (!seeMoreButton) return;
+  if (seeMoreButton) {
+    seeMoreButton.addEventListener("click", (): void => {
+      const hiddenItems: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
+        ".content__latest-changes__commit-item.hidden",
+      );
+      const itemsToShow: HTMLElement[] = Array.from(hiddenItems).slice(0, 10);
 
-  seeMoreButton.addEventListener("click", () => {
-    const hiddenItems: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
-      ".content__latest-changes__commit-item.hidden",
-    );
-    const itemsToShow: HTMLElement[] = Array.from(hiddenItems).slice(0, 10);
+      itemsToShow.forEach((item: HTMLElement): void => {
+        item.classList.remove("hidden");
+        const parentGroup: Element | null = item.closest(
+          ".content__latest-changes__timeline-group",
+        );
+        if (parentGroup && parentGroup.classList.contains("hidden")) {
+          parentGroup.classList.remove("hidden");
+        }
+      });
 
-    itemsToShow.forEach((item: HTMLElement) => {
-      item.classList.remove("hidden");
-
-      const parentGroup: Element | null = item.closest(".content__latest-changes__timeline-group");
-      if (parentGroup && parentGroup.classList.contains("hidden")) {
-        parentGroup.classList.remove("hidden");
+      if (document.querySelectorAll(".content__latest-changes__commit-item.hidden").length === 0) {
+        seeMoreButton.style.display = "none";
       }
     });
-
-    if (document.querySelectorAll(".content__latest-changes__commit-item.hidden").length === 0) {
-      seeMoreButton.style.display = "none";
-    }
-  });
-
-  const seeMoreGames: HTMLElement | null = document.getElementById(
-    "content__games-section__show-more",
-  );
-  if (!seeMoreGames) return;
-
-  seeMoreGames.addEventListener("click", () => {
-    const hiddenItems: NodeListOf<HTMLElement> = document.querySelectorAll<HTMLElement>(
-      ".content__games__game-card.hidden",
-    );
-    const itemsToShow: HTMLElement[] = Array.from(hiddenItems).slice(0, 3);
-
-    itemsToShow.forEach((item: HTMLElement) => {
-      item.classList.remove("hidden");
-    });
-
-    if (document.querySelectorAll(".content__games__game-card.hidden").length === 0) {
-      seeMoreGames.style.display = "none";
-    }
-  });
-}
-
-// --- Make video appear or not based on showcase click
-function handleShowcaseClick(event: Event): void {
-  const target: EventTarget | null = event.currentTarget;
-  if (!(target instanceof HTMLElement)) return;
-
-  if (target.innerHTML === "play_circle") {
-    createShowcaseVideo(target);
-  } else {
-    removeShowcaseVideo(target);
   }
-}
 
-// --- Creates a video element on top of the showcase image
-function createShowcaseVideo(target: HTMLElement): void {
-  target.innerHTML = "stop_circle";
-
-  const video: HTMLVideoElement = document.createElement("video");
-  Object.assign(video, {
-    src: target.dataset.video || "",
-    className: SELECTORS.SHOWCASE_VIDEO.substring(1),
-    autoplay: true,
-    controls: false,
-    muted: true,
-    loop: true,
-  });
-
-  target.parentElement?.appendChild(video);
-
-  setTimeout((): void => {
-    video.style.opacity = "1";
-  }, PAGE_CONFIG.VIDEO_FADE_DELAY);
-}
-
-// --- Removes the video element from the showcase and resets the button
-function removeShowcaseVideo(target: HTMLElement): void {
-  const video: HTMLVideoElement | null | undefined =
-    target.parentElement?.querySelector<HTMLVideoElement>(SELECTORS.SHOWCASE_VIDEO);
-
-  if (video) {
-    video.style.opacity = "0";
-    setTimeout((): void => {
-      video.remove();
-      target.innerHTML = "play_circle";
-    }, PAGE_CONFIG.VIDEO_REMOVE_DELAY);
-  } else {
-    target.innerHTML = "play_circle";
-  }
+  setupGamesCarousel();
 }
 
 // --- TECH PAGE FUNCTIONALITY

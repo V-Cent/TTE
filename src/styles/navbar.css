@@ -22,20 +22,24 @@
   text-align: center;
   white-space: nowrap;
   float: left;
-  max-height: 55px;
+  max-height: 40px;
   cursor: pointer;
   display: flex;
+  margin-left: 4%;
+  margin-right: auto;
 }
 
 #nav-bar__title__logo {
   display: inline-block;
   box-sizing: border-box;
   height: 40px;
-  width: 35px;
+  width: 40px;
   transform: rotate(0deg);
   vertical-align: middle;
   z-index: 2;
-  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(28deg) brightness(100%) contrast(87%);
+  opacity: 0.25;
+  filter: brightness(0) saturate(100%) invert(99%) sepia(0%) saturate(0%) hue-rotate(99deg)
+    brightness(114%) contrast(96%);
 }
 
 #nav-bar__title__text {
@@ -115,7 +119,6 @@
   overflow-y: scroll;
   overflow-x: hidden;
   text-overflow: ellipsis;
-  overflow: clip;
   display: flex;
   flex-direction: column;
   flex-flow: column nowrap;
@@ -142,19 +145,40 @@
   filter: drop-shadow(0 6px 6px var(--black-f1));
   -webkit-filter: drop-shadow(0 6px 6px var(--black-f1));
 
-  scrollbar-color: var(--gray-f2) var(--gray-bg);
   scrollbar-width: thin;
-  overflow-y: scroll;
   max-height: 420px;
 
   padding-top: 1px;
   padding-bottom: 1px;
 }
 
+#nav-bar__search-results-container {
+  overflow-y: scroll;
+  scrollbar-color: var(--gray-f2) var(--gray-f1);
+  scrollbar-width: thin;
+  max-height: 370px;
+  display: flex;
+  flex-direction: column;
+  overscroll-behavior: contain;
+}
+
+.nav-bar__search--results--subtext {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.nav-bar__search--breadcrumb {
+  color: var(--white-f2);
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
 .nav-bar__search--results--games {
   vertical-align: middle;
   padding-right: 10px;
   font-size: 22px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .nav-bar__search--results--tech {
@@ -177,9 +201,7 @@
   right: 8px;
   top: 8px;
   padding: 2px;
-  outline-color: var(--white-f2);
-  outline-style: solid;
-  outline-width: 1px;
+  outline: var(--white-f2) solid 1px;
   font-size: 26px;
   opacity: 70%;
   cursor: pointer;
@@ -281,9 +303,6 @@ input[type="submit"]::-moz-focus-inner {
 
 #nav-bar__search--hr {
   border: none;
-  border-top-width: medium;
-  border-top-style: none;
-  border-top-color: currentcolor;
   border-top: 1px double var(--white-text);
   color: var(--white-text);
   text-align: center;
@@ -306,15 +325,19 @@ input[type="submit"]::-moz-focus-inner {
   font-size: 14px;
   letter-spacing: 0.03em;
   background: var(--gray-f1);
-  padding-left: 20px;
   text-align: left;
-
   cursor: pointer;
   padding: 10px 20px;
   text-decoration: none;
   display: none;
-
-  /* the golden duo for text limitation */
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.2s ease;
   text-overflow: ellipsis;
   overflow: clip;
+}
+
+#nav-bar__search .button__redirect:hover,
+#nav-bar__search--results:hover {
+  background-color: var(--gray-f2);
 }

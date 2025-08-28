@@ -10,6 +10,7 @@
   --gray-f1: #161616;
   --gray-f2: #191919;
   --gray-ac: #161616cc;
+  --gray-a7: #16161677;
   --gray-a5: #16161655;
   --black-f1: #00000033;
   --white-text: #fafafa;
@@ -72,6 +73,7 @@
   src: url("../styles/fonts/gdosis.woff2") format("woff2");
 }
 
+/*
 @font-face {
   font-family: "Expletus Sans";
   font-style: normal;
@@ -79,6 +81,7 @@
   font-weight: normal;
   src: url("../styles/fonts/gexpletus.woff2") format("woff2");
 }
+*/
 
 @font-face {
   font-family: "Expletus Sans";
@@ -173,11 +176,8 @@ strong {
 video,
 p img {
   display: block;
-  margin-top: 25px;
-  margin-bottom: 14px;
   /* Can play around with margin to make text and videos centered differently */
-  margin-left: auto;
-  margin-right: auto;
+  margin: 25px auto 14px;
   -webkit-user-drag: none;
   user-drag: none;
   -moz-user-select: none;
@@ -292,6 +292,7 @@ p {
   letter-spacing: 0.03em;
   word-spacing: 0.03em;
   color: var(--white-text);
+  text-wrap: pretty;
 }
 
 a:link {
@@ -354,6 +355,7 @@ a:active {
   cursor: pointer;
   font-family: "Dosis", sans-serif;
   font-size: 16px;
+  user-select: none;
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease;

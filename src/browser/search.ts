@@ -237,7 +237,7 @@ export class Search {
         );
 
         if (isHardcodedFilter && linkElement.dataset.tag === "game") {
-          linkElement.style.display = "block";
+          linkElement.style.display = "flex";
           continue;
         } else if (isHardcodedFilter) {
           // If it's a hardcoded filter but not a game, we skip it
@@ -248,7 +248,7 @@ export class Search {
         // Tech entry -- Hard limit of 12 options on screen
         const shouldDisplay: boolean =
           visibleSearchResultsCount < Search.MAX_TECH_RESULTS || linkElement.dataset.tag === "game";
-        linkElement.style.display = shouldDisplay ? "block" : "none";
+        linkElement.style.display = shouldDisplay ? "flex" : "none";
 
         if (shouldDisplay) {
           visibleSearchResultsCount++;
@@ -346,7 +346,11 @@ export class Search {
 
       // Insert a hidden hr on the first slot of the search
       const horizontalRuleHtml: string = `<hr id="nav-bar__search--hr" tabindex="0" style="display: none;">`;
-      searchResultsContainer.insertAdjacentHTML("beforeend", horizontalRuleHtml + decompressedHTML);
+      const searchResultsHtml: string = `<div id="nav-bar__search-results-container">${decompressedHTML}</div>`;
+      searchResultsContainer.insertAdjacentHTML(
+        "beforeend",
+        horizontalRuleHtml + searchResultsHtml,
+      );
 
       // Add event listeners to all search result links
       const searchResultElements: NodeListOf<Element> = document.querySelectorAll(
@@ -365,7 +369,7 @@ export class Search {
   }
 
   // --- Show all headings for a specific ID
-  revealElementById(targetElementId: string): void {
+  async revealElementById(targetElementId: string): Promise<void> {
     // Gets the object of the provided ID
     let targetHeadingElement: HTMLElement | null = document.getElementById(targetElementId);
 
@@ -380,6 +384,15 @@ export class Search {
         ".content__selectorbox--item",
       );
       selectorItemElements[h2SectionIndex]?.click();
+
+      // Force two DOM updates
+      await new Promise<void>((resolve: () => void): void => {
+        requestAnimationFrame((): void => {
+          requestAnimationFrame((): void => {
+            resolve();
+          });
+        });
+      });
 
       // Try to get the element again after opening the section
       targetHeadingElement = document.getElementById(targetElementId);
@@ -396,7 +409,7 @@ export class Search {
     }
 
     for (const className of hiddenElementClasses) {
-      this.revealElementsByClassName(className);
+      await this.revealElementsByClassName(className);
     }
   }
 
@@ -441,7 +454,7 @@ export class Search {
   }
 
   // --- Helper method to reveal elements by class name
-  private revealElementsByClassName(className: string): void {
+  private async revealElementsByClassName(className: string): Promise<void> {
     const targetElementsByClass: HTMLCollectionOf<Element> =
       document.getElementsByClassName(className);
 
@@ -453,6 +466,15 @@ export class Search {
       targetElement.hidden = false;
       this.updateExpandIcon(targetElement);
     }
+
+    // Force two DOM updates
+    await new Promise<void>((resolve: () => void): void => {
+      requestAnimationFrame((): void => {
+        requestAnimationFrame((): void => {
+          resolve();
+        });
+      });
+    });
   }
 
   // --- Helper method to update expand icon state
