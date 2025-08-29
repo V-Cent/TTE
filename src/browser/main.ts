@@ -277,7 +277,10 @@ function determinePageType(document: string): PageType {
 
 // --- Unified function for any change request
 async function handlePageChange(request: PageRequest): Promise<void> {
-  if (request.pageType === "tech") {
+  if (
+    request.pageType === "tech" ||
+    (request.pageType === "generic" && request.document === "./STYLING")
+  ) {
     await ensureKatexLoaded();
   }
   await loadPage(request);

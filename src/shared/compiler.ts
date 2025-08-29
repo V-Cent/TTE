@@ -1356,7 +1356,6 @@ export class Compiler {
     this.editor = new EditorView({
       doc: content,
       parent: parent,
-      spellcheck: true,
 
       extensions: [
         basicSetup,
@@ -1381,10 +1380,9 @@ export class Compiler {
 
   async updateEditorContent(content: string): Promise<void> {
     if (this.editor) {
-      const transaction: IDBTransaction = this.editor.state.update({
+      this.editor.dispatch({
         changes: { from: 0, to: this.editor.state.doc.length, insert: content },
       });
-      this.editor.dispatch(transaction);
     }
   }
 

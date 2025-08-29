@@ -11,6 +11,7 @@ import { fileList, FileEntry } from "../shared/globals";
 import { minify as minifyHtml } from "@minify-html/node";
 import { Stats } from "fs";
 import { simpleGit, SimpleGit, DefaultLogFields, LogResult, ListLogLine } from "simple-git";
+import katex from "katex";
 
 interface CommitLog extends DefaultLogFields {
   diff?: {
@@ -45,15 +46,6 @@ const COLORS: {
   BLUE: "\x1b[34m",
   RED: "\x1b[31m",
 } as const;
-
-// Define a minimal type for the KaTeX module
-interface KatexRenderToString {
-  renderToString: (input: string, options?: Record<string, unknown>) => string;
-}
-
-interface KatexModule {
-  default: KatexRenderToString;
-}
 
 interface ProcessingResult {
   fileName: string;
@@ -111,8 +103,7 @@ class CacheBuilder {
   // --- Initialize KaTeX module for math rendering
   private async initializeKatex(): Promise<void> {
     try {
-      const katexModule: KatexModule = (await import("../katex.min.js")) as KatexModule;
-      this.compilerObj.setKatex(katexModule.default);
+      this.compilerObj.setKatex(katex);
     } catch (katexError: unknown) {
       console.error(`${COLORS.RED}Failed to load KaTeX module:${COLORS.RESET}`, katexError);
       throw katexError;

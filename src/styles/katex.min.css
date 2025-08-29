@@ -192,7 +192,7 @@
   border-color: currentColor;
 }
 .katex .katex-version:after {
-  content: "0.16.11";
+  content: "0.16.22";
 }
 .katex .katex-mathml {
   clip: rect(1px, 1px, 1px, 1px);
@@ -286,6 +286,7 @@
   font-weight: 700;
 }
 .katex .mathitsf,
+.katex .mathsfit,
 .katex .textitsf {
   font-family: KaTeX_SansSerif;
   font-style: italic;

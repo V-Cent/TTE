@@ -1,5 +1,4 @@
 import { defineConfig } from 'tsdown';
-import { minify as swcMinify } from 'rollup-plugin-swc3';
 import livereload from 'rollup-plugin-livereload';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -14,9 +13,9 @@ export default [
     platform: 'browser',
     outDir: 'docs/scripts',
     external: ['./markdown.mjs'],
+    minify: true,
     plugins: [
       createCustomBuildStepsPlugin(BUILD_CONFIG),
-      swcMinify({ module: true, mangle: {}, compress: {} }),
       serve({
         open: true,
         openPage: '/',
@@ -35,14 +34,8 @@ export default [
     entry: ['src/browser/markdown.ts'],
     platform: 'browser',
     outDir: 'docs/scripts',
-    noExternal: ['remarkable', 'codemirror', '@codemirror/lang-markdown', '@codemirror/autocomplete'],
+    noExternal: ['remarkable', 'codemirror', '@codemirror/lang-markdown', '@codemirror/autocomplete', 'katex'],
     external: ['node:path', 'node:fs', 'node:os', 'JSDOM', 'node:fs/promises'],
-    plugins: [
-      swcMinify({
-        module: true,
-        mangle: {},
-        compress: {},
-      }),
-    ],
+    minify: true,
   }),
 ];
